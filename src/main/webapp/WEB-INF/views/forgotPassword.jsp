@@ -23,19 +23,33 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.css"
 	rel="stylesheet">
 <!-- Flaticons -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/font/flaticon.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/font/flaticon.css"
+	rel="stylesheet">
 <!-- Swiper Slider -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/swiper.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/swiper.min.css"
+	rel="stylesheet">
 <!-- Range Slider -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/ion.rangeSlider.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/ion.rangeSlider.min.css"
+	rel="stylesheet">
 <!-- magnific popup -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/magnific-popup.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/magnific-popup.css"
+	rel="stylesheet">
 <!-- Nice Select -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/nice-select.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/nice-select.css"
+	rel="stylesheet">
 <!-- Custom Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel="stylesheet">
 <!-- Custom Responsive -->
-<link href="${pageContext.request.contextPath}/resources/assets/css/responsive.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/responsive.css"
+	rel="stylesheet">
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap"
@@ -49,12 +63,14 @@
 			<div class="row no-gutters overflow-auto">
 				<div class="col-md-6">
 					<div class="main-banner">
-						<img src="${pageContext.request.contextPath}/resources/assets/img/login_pic.jpg" alt=""
-							class="img-fluid full-width main-img" alt="banner">
+						<img
+							src="${pageContext.request.contextPath}/resources/assets/img/login_pic.jpg"
+							alt="" class="img-fluid full-width main-img" alt="banner">
 						<!-- https://via.placeholder.com/952x646-->
 
-						<img src="${pageContext.request.contextPath}/resources/assets/img/burger.png" alt="" class="footer-img"
-							alt="footer-img">
+						<img
+							src="${pageContext.request.contextPath}/resources/assets/img/burger.png"
+							alt="" class="footer-img" alt="footer-img">
 						<!--https://via.placeholder.com/340x220-->
 					</div>
 				</div>
@@ -65,7 +81,9 @@
 								<form>
 									<div class="form-group">
 										<center>
-											<img src="${pageContext.request.contextPath}/resources/assets/img/logo.png" class="logo_pic" alt="">
+											<img
+												src="${pageContext.request.contextPath}/resources/assets/img/logo.png"
+												class="logo_pic" alt="">
 										</center>
 									</div>
 
@@ -97,7 +115,9 @@
 											<div class="form-group">
 												<button type="submit"
 													class="btn-second btn-submit full-width">
-													<img src="${pageContext.request.contextPath}/resources/assets/img/M.png" alt="btn logo">Sign in
+													<img
+														src="${pageContext.request.contextPath}/resources/assets/img/M.png"
+														alt="btn logo">Sign in
 												</button>
 											</div>
 
@@ -116,27 +136,44 @@
 	</div>
 	<!-- Place all Scripts Here -->
 	<!-- jQuery -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 	<!-- Popper -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
 	<!-- Range Slider -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/ion.rangeSlider.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/ion.rangeSlider.min.js"></script>
 	<!-- Swiper Slider -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/swiper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/swiper.min.js"></script>
 	<!-- Nice Select -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.nice-select.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/jquery.nice-select.min.js"></script>
 	<!-- magnific popup -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script>
 	<!-- Maps -->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnd9JwZvXty-1gHZihMoFhJtCXmHfeRQg"></script>
 	<!-- sticky sidebar -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/sticksy.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/sticksy.js"></script>
 	<!-- Munch Box Js -->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/munchbox.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/munchbox.js"></script>
 	<!-- /Place all Scripts Here -->
+	<script type="text/javascript">
+		/* $(document).ready(function() {
+			setTimeout(function() {
+				$('.success-msg').remove();
+			}, 5000);
+		}); */
+	</script>
+
 </body>
 
 </html>
