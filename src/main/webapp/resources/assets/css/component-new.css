@@ -1,0 +1,37 @@
+.component1 {font-size:14px; line-height: 1.5em; margin: 0 auto; padding:0; width: 100%;
+	overflow: hidden;}
+.component1 .filler {color: #495057;}
+table.one {border-collapse: collapse; /*margin-bottom: 3em;*/ width: 100%; background: #fff; border: none; }
+.one td, th {white-space: nowrap; padding: 16px 1.3em; text-align: left; border: 0; color: #495057;}
+.one.booking td, th{padding: 10px 1.3em;}
+.one td strong{font-weight: 600;}
+.one td.err {background-color: #e992b9; color: #fff; font-size: 0.75em; text-align: center; line-height: 1;}
+.one th {background-color: #e3ebef; border-top: 1px solid #d8e0e4; border-bottom: 2px solid #d8e0e4;
+font-weight: bold; font-size: 14px; color: #495057; white-space: nowrap; border-left: none; border-right: none;}
+.one tbody th {background-color: #2ea879;}
+.one tbody tr{border-bottom: 1px solid #d8e0e4;}
+.one tbody tr:nth-child(2n-1) {background-color: #FFF; transition: all .125s ease-in-out;}
+.one tbody tr:hover {background-color: rgba(227,235,239,.3);}
+.sticky-thead th{padding:12px 1.3em; border: none;}
+
+/* For appearance */
+.sticky-wrap {overflow-x: hidden /*auto*/; overflow-y: auto; position: relative; width: 100%; height: 400px;}
+
+
+.sticky-wrap .sticky-thead,.sticky-wrap .sticky-col,.sticky-wrap .sticky-intersect {
+opacity: 0; position: absolute; top: 0; left: 0;
+	transition: all .125s ease-in-out; z-index: 50; width: auto; /* Prevent table from stretching to full size */}
+.sticky-wrap .sticky-thead {background-color: #e3ebef !important; color:#495057 !important;
+box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125); z-index:1 /*100*/; width: 100%; /* Force stretch */}
+.sticky-wrap .sticky-intersect {opacity: 1; z-index: 150;}
+.sticky-wrap .sticky-intersect th {background-color: #666; color: #eee;}
+.sticky-wrap td,.sticky-wrap th {box-sizing: border-box;}
+
+/* Not needed for sticky header/column functionality */
+td.user-name {text-transform: capitalize;}
+.sticky-wrap.overflow-y {overflow-y: auto; max-height: 50vh;}
+
+@media screen and (max-width: 1024px) {
+	.sticky-wrap{overflow: auto;}
+	.component1{overflow: auto;}
+}
