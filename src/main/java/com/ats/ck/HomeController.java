@@ -63,4 +63,22 @@ public class HomeController {
 		return "dashboard";
 	}
 
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "checkout";
+	}
+
+	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
+	public String addOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "addOrder";
+	}
+	
+	@RequestMapping(value = "/googleMap", method = RequestMethod.GET)
+	public String googleMap(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "googleMap";
+	}
+
 }

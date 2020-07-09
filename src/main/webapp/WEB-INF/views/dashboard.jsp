@@ -4,6 +4,7 @@
 
 </head>
 
+
 <body>
 	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
@@ -34,6 +35,11 @@
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
 							</div>
+						</div>
+						<div class="sec_title">
+							<a href="javascript:void(0)" data-toggle="modal"
+								data-target="#addCustomer" href="#" class="order_btn">Add
+								New Customer Registration</a>
 						</div>
 					</div>
 				</form>
@@ -125,7 +131,7 @@
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
 								<td class="user-name"><a href="javascript:void(0)"
-									data-toggle="modal" data-target="#order-signup"
+									data-toggle="modal" data-target="#orderstep1"
 									class="detail_btn">View Details</a></td>
 
 							</tr>
@@ -251,8 +257,9 @@
 				<div class="col-lg-8">
 					<div class="main-box padding-20">
 						<div class="sec_title">
-							previous orders History <a href="#" class="order_btn">New
-								Order Booking</a>
+							previous orders History <a href="javascript:void(0)"
+								data-toggle="modal" data-target="#orderstep1" href="#"
+								class="order_btn">New Order Booking</a>
 						</div>
 
 						<div class="component1">
@@ -360,9 +367,325 @@
 		</div>
 	</section>
 
+	<div class="modal fade kot-popup" id="addCustomer">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
 
+				<div class="pop_signup">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
+						alt=""> Customer Registration<a href="#"></a>
+				</div>
+
+
+				<form action="" method="get">
+					<div class="single_row">
+						<div class="single_row_l">
+							<div class="pop_frm_one">
+								<span>Your Name</span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+						<div class="single_row_r">
+							<div class="pop_frm_one">
+								<span>Mobile Number</span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+						<div class="clr"></div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Permanent Address</span>
+							<textarea name="" type="text" class="frm_inpt"></textarea>
+						</div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Delivery Address</span>
+							<textarea name="" type="text" class="frm_inpt"></textarea>
+						</div>
+					</div>
+					<div class="single_row">
+						<!-- <div class="single_row_l">
+
+							<div class="pop_frm_one">
+								<span>City</span> <input name="" type="text" class="frm_inpt" />
+							</div>
+						</div> -->
+						<div class="pop_frm_one">
+							<span>Email</span> <input name="" type="text" class="frm_inpt" />
+
+						</div>
+						<div class="clr"></div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select City</span> <select class="form-control">
+								<option value="">Select City</option>
+								<option value="Shop 1" data-name="">Mumbai</option>
+								<option value="Shop 2" data-name="" selected>Nashik</option>
+								<option value="Shop 3" data-name="">Pune</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Area</span> <select class="form-control">
+								<option value="">Select Area</option>
+								<option value="Shop 1" data-name="" selected>Nashik
+									Road</option>
+								<option value="Shop 2" data-name="">Canada Corner</option>
+							</select>
+						</div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Language</span> <select class="form-control">
+								<option value="" selected>Gujrati</option>
+							</select>
+						</div>
+					</div>
+					<div class="pop_btn_row">
+						<input name="" type="button" value="Register Customer"
+							class="next_btn" />
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
 	<!--steps popup up-->
 	<div class="modal fade kot-popup" id="order-signup">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
+						alt=""> New Order Signup <span>About our latest
+						restaurent and exclusive offers.</span> <a href="#"></a>
+				</div>
+
+				<!-- pop step 1 start here -->
+				<!--4 steps bar-->
+
+				<div id="step1">
+					<div class="progress_row">
+						<ul class="progressbar">
+							<li class="active">Step 1</li>
+							<li>Step 2</li>
+							<li>Step 3</li>
+							<li>Step 4</li>
+						</ul>
+					</div>
+
+					<div class="form_one">
+						<form action="" method="get">
+							<!-- <div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Pincode</span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+						<div class="pop_btn_row">
+							<input name="" type="button" value="Next Step" class="next_btn" />
+						</div> -->
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Select City</span> <select class="form-control">
+										<option value="">Select City</option>
+										<option value="Shop 1" data-name="">Mumbai</option>
+										<option value="Shop 2" data-name="" selected>Nashik</option>
+										<option value="Shop 3" data-name="">Pune</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Select Area</span> <select class="form-control">
+										<option value="">Select Area</option>
+										<option value="Shop 1" data-name="" selected>Nashik
+											Road</option>
+										<option value="Shop 2" data-name="">Canada Corner</option>
+									</select>
+								</div>
+							</div>
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Delivery Address</span>
+									<textarea name="" type="text" class="frm_inpt"></textarea>
+								</div>
+							</div>
+							<div class="pop_btn_row">
+								<input name="" type="button" value="Next Step" class="next_btn" />
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="step2" style="display: none;">
+					<!-- pop step 2 start here -->
+					<!--4 steps bar-->
+					<div class="progress_row">
+						<ul class="progressbar">
+							<li class="active">Step 1</li>
+							<li class="active">Step 2</li>
+							<li>Step 3</li>
+							<li>Step 4</li>
+						</ul>
+					</div>
+
+					<div class="form_one">
+						<form action="" method="get">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Select Shop</span> <select class="form-control">
+										<option value="">Select Shop</option>
+										<option value="Shop 1" data-name="">Shop 1</option>
+										<option value="Shop 2" data-name="">Shop 2</option>
+										<option value="Shop 3" data-name="">Shop 3</option>
+										<option value="Shop 4" data-name="">Shop 4</option>
+										<option value="Shop 5" data-name="">Shop 5</option>
+										<option value="Shop 6" data-name="">Shop 6</option>
+									</select>
+								</div>
+							</div>
+							<div class="pop_btn_row">
+								<input name="" type="button" value="Next Step" class="next_btn" />
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="step3" style="display: none;">
+					<!-- pop step 3 start here -->
+					<!--4 steps bar-->
+					<div class="progress_row">
+						<ul class="progressbar">
+							<li class="active">Step 1</li>
+							<li class="active">Step 2</li>
+							<li class="active">Step 3</li>
+							<li>Step 4</li>
+						</ul>
+					</div>
+
+					<div class="form_one">
+						<form action="" method="get">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Delivery Date</span> <input type="date" id="datepicker"
+										name="datepicker" class="frm_inpt">
+								</div>
+							</div>
+
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Delivery Time</span> <select class="form-control">
+										<option value="">Select Delivery Time</option>
+										<option value="Shop 1" data-name="">12:00 PM</option>
+										<option value="Shop 2" data-name="">12:15 PM</option>
+										<option value="Shop 3" data-name="">12:30 PM</option>
+										<option value="Shop 4" data-name="">12:45 PM</option>
+										<option value="Shop 5" data-name="">01:00 PM</option>
+										<option value="Shop 6" data-name="">01:15 PM</option>
+									</select>
+								</div>
+							</div>
+							<div class="pop_btn_row">
+								<input name="" type="button" value="Next Step" class="next_btn" />
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="step4" style="display: none;">
+					<!-- pop step 4 start here -->
+					<!--4 steps bar-->
+					<div class="progress_row">
+						<ul class="progressbar">
+							<li class="active">Step 1</li>
+							<li class="active">Step 2</li>
+							<li class="active">Step 3</li>
+							<li class="active">Step 4</li>
+						</ul>
+					</div>
+
+					<div class="form_one">
+						<form action="" method="get">
+							<div class="single_row">
+								<div class="single_row_l">
+									<div class="pop_frm_one">
+										<span>Your Name</span> <input name="" type="text"
+											class="frm_inpt" />
+									</div>
+								</div>
+								<div class="single_row_r">
+									<div class="pop_frm_one">
+										<span>Mobile Number</span> <input name="" type="text"
+											class="frm_inpt" />
+									</div>
+								</div>
+								<div class="clr"></div>
+							</div>
+
+							<div class="single_row">
+								<div class="single_row_l">
+
+									<div class="pop_frm_one">
+										<span>City</span> <input name="" type="text" class="frm_inpt" />
+									</div>
+								</div>
+								<div class="single_row_r">
+									<div class="pop_frm_one">
+										<span>Whatsapp Mobile Number</span> <input name="" type="text"
+											class="frm_inpt" />
+									</div>
+								</div>
+								<div class="clr"></div>
+							</div>
+
+
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Landmark</span> <input name="" type="text"
+										class="frm_inpt" />
+								</div>
+							</div>
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Language</span> <select class="form-control">
+										<option value="" selected>Gujrati</option>
+									</select>
+								</div>
+							</div>
+							<div class="pop_btn_row">
+								<input name="" type="button" value="Go For Order"
+									class="next_btn" />
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade kot-popup" id="orderstep1">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -392,7 +715,7 @@
 
 				<div class="form_one">
 					<form action="" method="get">
-						<div class="single_row">
+						<!-- <div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Pincode</span> <input name="" type="text"
 									class="frm_inpt" />
@@ -400,13 +723,76 @@
 						</div>
 						<div class="pop_btn_row">
 							<input name="" type="button" value="Next Step" class="next_btn" />
+						</div> -->
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select City</span> <select class="form-control">
+									<option value="">Select City</option>
+									<option value="Shop 1" data-name="">Mumbai</option>
+									<option value="Shop 2" data-name="" selected>Nashik</option>
+									<option value="Shop 3" data-name="">Pune</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Area</span> <select class="form-control">
+									<option value="">Select Area</option>
+									<option value="Shop 1" data-name="" selected>Nashik
+										Road</option>
+									<option value="Shop 2" data-name="">Canada Corner</option>
+								</select>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Address</span>
+								<textarea name="" type="text" class="frm_inpt"></textarea>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Landmark</span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Language</span> <select class="form-control">
+									<option value="" selected>Gujrati</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="pop_btn_row">
+							<input name="" type="button" value="Next Step" class="next_btn"
+								onclick="changeStep(2)" />
 						</div>
 					</form>
 				</div>
 
+			</div>
+		</div>
+	</div>
+	<div class="modal fade kot-popup" id="orderstep2">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
 
-				<!-- pop step 2 start here -->
-				<!--4 steps bar-->
+				<div class="pop_signup">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
+						alt=""> New Order Signup <span>About our latest
+						restaurent and exclusive offers.</span> <a href="#"></a>
+				</div>
+
+
 				<div class="progress_row">
 					<ul class="progressbar">
 						<li class="active">Step 1</li>
@@ -420,8 +806,7 @@
 					<form action="" method="get">
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select Shop</span> <select
-									class="form-control form-control-submit custom-select-2 full-width frm_inpt">
+								<span>Select Shop</span> <select class="form-control">
 									<option value="">Select Shop</option>
 									<option value="Shop 1" data-name="">Shop 1</option>
 									<option value="Shop 2" data-name="">Shop 2</option>
@@ -433,10 +818,33 @@
 							</div>
 						</div>
 						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn" />
+							<input name="" type="button" value="Next Step" class="next_btn"
+								onclick="changeStep(3)" />
 						</div>
 					</form>
 				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="orderstep3">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
+						alt=""> New Order Signup <span>About our latest
+						restaurent and exclusive offers.</span> <a href="#"></a>
+				</div>
+
 
 				<!-- pop step 3 start here -->
 				<!--4 steps bar-->
@@ -460,8 +868,7 @@
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Delivery Time</span> <select
-									class="form-control form-control-submit custom-select-2 full-width frm_inpt">
+								<span>Delivery Time</span> <select class="form-control">
 									<option value="">Select Delivery Time</option>
 									<option value="Shop 1" data-name="">12:00 PM</option>
 									<option value="Shop 2" data-name="">12:15 PM</option>
@@ -473,10 +880,38 @@
 							</div>
 						</div>
 						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn" />
+							<input name="" type="button" value="Next Step" class="next_btn"
+								onclick="changeStep(4)" />
 						</div>
 					</form>
 				</div>
+
+				<!-- pop step 4 start here -->
+				<!--4 steps bar-->
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="orderstep4">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
+						alt=""> New Order Signup <span>About our latest
+						restaurent and exclusive offers.</span> <a href="#"></a>
+				</div>
+
+				<!-- pop step 1 start here -->
+				<!--4 steps bar-->
 
 				<!-- pop step 4 start here -->
 				<!--4 steps bar-->
@@ -509,51 +944,70 @@
 
 						<div class="single_row">
 							<div class="single_row_l">
-								<div class="pop_frm_one">
-									<span>Delivery Pincode</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-							</div>
-							<div class="single_row_r">
+
 								<div class="pop_frm_one">
 									<span>City</span> <input name="" type="text" class="frm_inpt" />
 								</div>
 							</div>
+							<div class="single_row_r">
+								<div class="pop_frm_one">
+									<span>Whatsapp Mobile Number</span> <input name="" type="text"
+										class="frm_inpt" />
+								</div>
+							</div>
 							<div class="clr"></div>
 						</div>
-
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Delivery Address</span> <input name="" type="text"
-									class="frm_inpt" />
-							</div>
-						</div>
-
-
 						<div class="pop_btn_row">
 							<input name="" type="button" value="Go For Order"
-								class="next_btn" />
+								class="next_btn" onclick="changeStep(5)" />
 						</div>
 					</form>
 				</div>
 
 
-				<div class="pop_privacy">
-					By signing up, you agree to like <a href="#">Privacy Policy</a> and
-					<a href="#">Terms of use</a>
-				</div>
-
 
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-	 
-	
+	<script type="text/javascript">
+		function showHideDiv(id) {
+			if (id == 2) {
+
+				document.getElementById("orderstep1").style.display = "none";
+				document.getElementById("orderstep2").style.display = "block";
+				document.getElementById("orderstep3").style.display = "none";
+				document.getElementById("orderstep4").style.display = "none";
+			}
+		}
+		function changeStep(id) {
+
+			if (id == 2) {
+				$('#orderstep1').modal('hide');
+				$('#orderstep2').modal('show');
+				$('#orderstep3').modal('hide');
+				$('#orderstep4').modal('hide');
+			} else if (id == 3) {
+				$('#orderstep1').modal('hide');
+				$('#orderstep2').modal('hide');
+				$('#orderstep3').modal('show');
+				$('#orderstep4').modal('hide');
+			} else if (id == 4) {
+				$('#orderstep1').modal('hide');
+				$('#orderstep2').modal('hide');
+				$('#orderstep3').modal('hide');
+				$('#orderstep4').modal('show');
+			} else if (id == 5) {
+				$('#orderstep1').modal('hide');
+				$('#orderstep2').modal('hide');
+				$('#orderstep3').modal('hide');
+				$('#orderstep4').modal('hide');
+				var url = '${pageContext.request.contextPath}/addOrder';
+				window.location = url;
+			}
+			/* $('#modal_step1').modal('hide'); */
+		}
+	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
 		$(document).ready(function() {
