@@ -370,7 +370,7 @@
 							aria-hidden="true"></i> <span class="title">About Us</span> <span
 							class="arrow"></span>
 
-					</a>  
+					</a>
 						<ul>
 							<li><a href="#">Sub Item One</a></li>
 							<li><a href="#">Sub Item Two</a></li>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+
 	<!-- Navigation -->
 
 	<!--banner with search-->
@@ -21,9 +21,7 @@
 
 					<select class="country " tabindex="-1" style="width: 100%;">
 						<option value="">Select Shop</option>
-						<option value="1">Shop No. 1 Shop No. 1 Shop No. 1 Shop
-							No. 1 Shop No. 1 Shop No. 1 Shop No. 1 Shop No. 1 Shop No. 1 Shop
-							No. 1Shop No. 1Shop No. 1Shop No. 1</option>
+						<option value="1">Shop No. 1</option>
 					</select>
 
 				</div>

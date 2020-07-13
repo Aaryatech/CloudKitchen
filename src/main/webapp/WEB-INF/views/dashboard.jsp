@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"%>
 <!-- Bootstrap -->
 
-</head>
 
-
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+
 
 	<section class="final-order section-padding bg-light-grey">
 		<div class="container-fluid">
@@ -146,10 +145,12 @@
 									href="javascript:void(0)" data-toggle="modal"
 									data-target="#grievences" class="detail_btn">Grievences</a>&nbsp;
 									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn">Cancel</a> <a
+									data-target="#cancelOrder" class="detail_btn"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
-									class="table_icn" title="Edit"><i class="fa fa-pencil"
-										aria-hidden="true"></i></a></td>
+									class="detail_btn" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->

@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<head>
-
-</head>
-
+<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <body>
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+
 	<section class="final-order section-padding bg-light-grey">
 		<div class="container-fluid">
 
@@ -171,8 +168,9 @@
 												Option :&nbsp;</label> <label class="text-light-black fw-600 fs-16"><input
 												type="radio" id="homeDelivery" name="typeSelect"
 												class="option-input radio" checked>Home Delivery
-												&nbsp; <input type="radio" class="option-input radio"
-												id="takeaway" name="typeSelect">Take Away</label><br> <label
+												&nbsp; </label><label class="text-light-black fw-600 fs-16"><input
+												type="radio" class="option-input radio" id="takeaway"
+												name="typeSelect">Take Away</label><br> <label
 												class="text-light-black fw-600 fs-16">Select
 												Delivery Instruction</label><select class="form-control  ">
 												<option value="1">Predefined Options</option>
