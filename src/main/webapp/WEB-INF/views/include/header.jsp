@@ -350,9 +350,9 @@
 
 		<div class="main_menu">
 
-			<!-- Ace Responsive Menu -->
+
 			<nav>
-				<!-- Menu Toggle btn-->
+
 				<div class="menu-toggle">
 					<h3>Menu</h3>
 					<button type="button" id="menu-btn">
@@ -360,8 +360,7 @@
 							class="icon-bar"></span>
 					</button>
 				</div>
-				<!-- Responsive Menu Structure-->
-				<!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+
 				<ul id="respMenu" class="ace-responsive-menu"
 					data-menu-style="horizontal">
 					<li><a href="javascript:;"> <i class="fa fa-home"
@@ -371,7 +370,7 @@
 							aria-hidden="true"></i> <span class="title">About Us</span> <span
 							class="arrow"></span>
 
-					</a> <!-- Level Two-->
+					</a>  
 						<ul>
 							<li><a href="#">Sub Item One</a></li>
 							<li><a href="#">Sub Item Two</a></li>
@@ -403,7 +402,7 @@
 							aria-hidden="true"></i> <span class="title">About Us</span> <span
 							class="arrow"></span>
 
-					</a> <!-- Level Two-->
+					</a>
 						<ul>
 							<li><a href="#">Sub Item One</a></li>
 							<li><a href="#">Sub Item Two</a></li>
@@ -431,7 +430,7 @@
 					</a></li>
 				</ul>
 			</nav>
-			<!-- End of Responsive Menu -->
+
 
 		</div>
 

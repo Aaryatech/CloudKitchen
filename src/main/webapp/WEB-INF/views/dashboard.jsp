@@ -25,6 +25,7 @@
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
 							</div>
+							<span style="color: red;">* Mobile no. is not register.</span>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="input_one">
@@ -35,6 +36,7 @@
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
 							</div>
+							<span style="color: red;">* Order no. not found.</span>
 						</div>
 						<div class="sec_title">
 							<a href="javascript:void(0)" data-toggle="modal"
@@ -56,30 +58,28 @@
 							<i class="fa fa-phone" aria-hidden="true"></i>
 						</div>
 					</li>
-					<li>
-						<div class="dash_two dash_common">
-							<h3 class="dash_txt">
-								Today Live <span>12,345</span>
-							</h3>
-							<i class="fa fa-user" aria-hidden="true"></i>
-						</div>
-					</li>
-					<li>
-						<div class="dash_three dash_common">
-							<h3 class="dash_txt">
-								Today delivered <span>12,345</span>
-							</h3>
-							<i class="fa fa-check" aria-hidden="true"></i>
-						</div>
-					</li>
-					<li>
-						<div class="dash_four dash_common">
-							<h3 class="dash_txt">
-								Today Cancelled <span>12,345</span>
-							</h3>
-							<i class="fa fa-times" aria-hidden="true"></i>
-						</div>
-					</li>
+					<li><a href="#" onclick="changeHeadName(1)">
+							<div class="dash_two dash_common">
+								<h3 class="dash_txt">
+									Today Live <span>12,345</span>
+								</h3>
+								<i class="fa fa-user" aria-hidden="true"></i>
+							</div>
+					</a></li>
+					<li><a href="#" onclick="changeHeadName(2)"><div
+								class="dash_three dash_common">
+								<h3 class="dash_txt">
+									Today delivered <span>12,345</span>
+								</h3>
+								<i class="fa fa-check" aria-hidden="true"></i>
+							</div></a></li>
+					<li><a href="#" onclick="changeHeadName(3)"><div
+								class="dash_four dash_common">
+								<h3 class="dash_txt">
+									Today Cancelled <span>12,345</span>
+								</h3>
+								<i class="fa fa-times" aria-hidden="true"></i>
+							</div></a></li>
 					<li>
 						<div class="dash_five dash_common">
 							<h3 class="dash_txt">
@@ -101,21 +101,23 @@
 
 			<!--Live orderes table -->
 			<div class="main-box padding-20 margin_bottom">
-				<div class="sec_title">Live Orderes</div>
+				<div class="sec_title" id="tableHeaderName">Live Orders</div>
 
 				<div class="component1">
 					<table class="one" width="100%" id="demo2">
 						<thead>
 							<tr>
-
+								<th></th>
 								<th class="sorting_desc" style="text-align: center;">Order
-									ID</th>
+									NO.</th>
 								<th class="sorting_desc" style="text-align: center;">Customer
 									Name</th>
 								<th class="sorting_desc" style="text-align: center;">Shop
 									Name</th>
 								<th class="sorting_desc js-sort-date"
 									style="text-align: center;">Date</th>
+								<th class="sorting_desc js-sort-date"
+									style="text-align: center;">Type</th>
 								<th class="sorting_desc" style="text-align: center;">Total</th>
 								<th class="sorting_desc" style="text-align: center;">Payment
 									Status</th>
@@ -127,91 +129,106 @@
 						<tbody>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 1</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong><a
+										href="javascript:void(0)" data-toggle="modal"
+										data-target="#viewOrder">0001</a></strong></td>
 								<td class="user-name">Neal Matthews 1</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#viewOrder" class="detail_btn">View Details</a>&nbsp;
-									<a href="javascript:void(0)" data-toggle="modal"
 									data-target="#grievences" class="detail_btn">Grievences</a>&nbsp;
 									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn">Cancel</a></td>
+									data-target="#cancelOrder" class="detail_btn">Cancel</a> <a
+									href="${pageContext.request.contextPath}/checkout"
+									class="table_icn" title="Edit"><i class="fa fa-pencil"
+										aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 2</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong>0002</strong></td>
 								<td class="user-name">Neal Matthews 2</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 3</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong>0003</strong></td>
 								<td class="user-name">Neal Matthews 3</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 4</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong>0004</strong></td>
 								<td class="user-name">Neal Matthews 4</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 5</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong>0005</strong></td>
 								<td class="user-name">Neal Matthews 5</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Android App</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-
-								<td class="user-name"><strong>#SK2540 6</strong></td>
+								<td class="user-name"><img
+									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
+									alt=""></td>
+								<td class="user-name"><strong>0006</strong></td>
 								<td class="user-name">Neal Matthews 6</td>
 								<td class="user-name">Madhavi</td>
-								<td class="user-name">10-07-2020</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Android App</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name"><i class="fa fa-cc-mastercard"
-									aria-hidden="true"></i> MasterCard</td>
+								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="#" class="detail_btn">View Details</a></td>
 							</tr>
@@ -238,6 +255,8 @@
 							<div class="profile_title_l">Customer Profile</div>
 							<div class="profile_title_r">
 								<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+
 							</div>
 							<div class="clr"></div>
 						</div>
@@ -258,6 +277,17 @@
 							<div class="profile_one">
 								<span>Email Id</span> : test@gmail.com
 							</div>
+							<div class="profile_one">
+								<span>Delivery Address</span> : <a href="#"
+									title="Add New Address" class="detail_btn"
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#addAddress"><i class="fa fa-plus"
+									aria-hidden="true"></i></a>&nbsp;<a href="#" title="Address List"
+									class="detail_btn" data-target="#addressllist"
+									data-toggle="modal"><i class="fa fa-list"
+									aria-hidden="true"></i></a>
+
+							</div>
 						</div>
 
 					</div>
@@ -276,14 +306,21 @@
 							<table class="one booking" width="100%">
 								<thead>
 									<tr>
-										<th class="sorting_desc">&nbsp;</th>
-										<th class="sorting_desc">Order No</th>
-										<th class="sorting_desc">Date</th>
-										<th class="sorting_desc">Type</th>
-										<th class="sorting_desc">Amount</th>
-										<th class="sorting_desc">Status</th>
-										<th class="sorting_desc">Name</th>
-										<th class="sorting_desc">Action</th>
+
+										<th></th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											NO.</th>
+
+										<th class="sorting_desc" style="text-align: center;">Shop
+											Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Type</th>
+										<th class="sorting_desc" style="text-align: center;">Amount</th>
+										<th class="sorting_desc" style="text-align: center;">
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -293,11 +330,12 @@
 											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
 											alt=""></td>
 										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-										<td class="user-name">Akshay</td>
+
 										<td class="user-name"><a href="#" class="table_icn"><i
 												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
 											class="table_icn"><i class="fa fa-pencil"
@@ -310,11 +348,11 @@
 											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
 											alt=""></td>
 										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-										<td class="user-name">Akshay</td>
 										<td class="user-name"><a href="#" class="table_icn"><i
 												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
 											class="table_icn"><i class="fa fa-pencil"
@@ -327,11 +365,11 @@
 											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
 											alt=""></td>
 										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-										<td class="user-name">Akshay</td>
 										<td class="user-name"><a href="#" class="table_icn"><i
 												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
 											class="table_icn"><i class="fa fa-pencil"
@@ -344,11 +382,11 @@
 											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
 											alt=""></td>
 										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-										<td class="user-name">Akshay</td>
 										<td class="user-name"><a href="#" class="table_icn"><i
 												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
 											class="table_icn"><i class="fa fa-pencil"
@@ -377,7 +415,8 @@
 		</div>
 	</section>
 
-	<div class="modal fade kot-popup" id="addCustomer">
+	<div class="modal fade kot-popup" id="addCustomer"
+		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -388,9 +427,7 @@
 				</button>
 
 				<div class="pop_signup">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> Customer Registration<a href="#"></a>
+					Customer Registration<a href="#"></a>
 				</div>
 
 
@@ -398,46 +435,45 @@
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
-								<span>Your Name</span> <input name="" type="text"
+								<span>Your Name *</span> <input name="" type="text"
 									class="frm_inpt" />
 							</div>
 						</div>
 						<div class="single_row_r">
 							<div class="pop_frm_one">
-								<span>Mobile Number</span> <input name="" type="text"
+								<span>Mobile Number *</span> <input name="" type="text"
 									class="frm_inpt" />
 							</div>
+							<span style="color: red;">* This field required.</span>
 						</div>
 						<div class="clr"></div>
 					</div>
 					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Permanent Address</span>
-							<textarea name="" type="text" class="frm_inpt"></textarea>
+						<div class="single_row_l">
+							<div class="pop_frm_one">
+								<span>Email *</span> <input name="" type="text" class="frm_inpt" />
+
+							</div>
 						</div>
-					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Delivery Address</span>
-							<textarea name="" type="text" class="frm_inpt"></textarea>
-						</div>
-					</div>
-					<div class="single_row">
-						<!-- <div class="single_row_l">
+						<div class="single_row_r">
 
 							<div class="pop_frm_one">
-								<span>City</span> <input name="" type="text" class="frm_inpt" />
-							</div>
-						</div> -->
-						<div class="pop_frm_one">
-							<span>Email</span> <input name="" type="text" class="frm_inpt" />
+								<span>Whats App no.</span> <input name="" type="text"
+									class="frm_inpt" />
 
+							</div>
 						</div>
 						<div class="clr"></div>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select City</span>
+							<span>Permanent Address *</span>
+							<textarea name="" type="text" class="frm_inpt"></textarea>
+						</div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Delivery City *</span>
 							<div class="search_multiple">
 								<select class="country">
 									<option value="">Select City</option>
@@ -451,7 +487,7 @@
 
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select Area</span>
+							<span>Select Delivery Area *</span>
 							<div class="search_multiple">
 								<select class="country">
 									<option value="">Select Area</option>
@@ -464,7 +500,20 @@
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Language</span>
+							<span>Delivery Address *</span>
+							<textarea name="" type="text" class="frm_inpt"></textarea>
+						</div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Landmark *</span> <input name="" type="text"
+								class="frm_inpt" />
+						</div>
+					</div>
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Language *</span>
 							<div class="search_multiple">
 								<select class="country">
 									<option value="1" selected>Gujrati</option>
@@ -473,8 +522,8 @@
 						</div>
 					</div>
 					<div class="pop_btn_row">
-						<input name="" type="button" value="Register Customer"
-							class="next_btn" />
+						<input name="" type="button" value="Submit" class="next_btn"
+							onclick="sendOtp()" />
 					</div>
 				</form>
 			</div>
@@ -482,8 +531,9 @@
 
 		</div>
 	</div>
-	<!--steps popup up-->
-	<div class="modal fade kot-popup" id="order-signup">
+
+	<div class="modal fade kot-popup" id="otpModel" data-backdrop="static"
+		data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -493,215 +543,33 @@
 						alt="">
 				</button>
 
+
 				<div class="pop_signup">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order Signup <span>About our latest
-						restaurent and exclusive offers.</span> <a href="#"></a>
+					Enter OTP<a href="#"></a>
 				</div>
+				<form action="" method="get">
 
-				<!-- pop step 1 start here -->
-				<!--4 steps bar-->
 
-				<div id="step1">
-					<div class="progress_row">
-						<ul class="progressbar">
-							<li class="active">Step 1</li>
-							<li>Step 2</li>
-							<li>Step 3</li>
-							<li>Step 4</li>
-						</ul>
-					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>OTP *</span> <input name="" type="text" class="frm_inpt" />
 
-					<div class="form_one">
-						<form action="" method="get">
-							<!-- <div class="single_row">
-							<div class="pop_frm_one">
-								<span>Delivery Pincode</span> <input name="" type="text"
-									class="frm_inpt" />
-							</div>
 						</div>
-						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn" />
-						</div> -->
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Select City</span> <select class="form-control">
-										<option value="">Select City</option>
-										<option value="Shop 1" data-name="">Mumbai</option>
-										<option value="Shop 2" data-name="" selected>Nashik</option>
-										<option value="Shop 3" data-name="">Pune</option>
-									</select>
-								</div>
-							</div>
 
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Select Area</span> <select class="form-control">
-										<option value="">Select Area</option>
-										<option value="Shop 1" data-name="" selected>Nashik
-											Road</option>
-										<option value="Shop 2" data-name="">Canada Corner</option>
-									</select>
-								</div>
-							</div>
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Delivery Address</span>
-									<textarea name="" type="text" class="frm_inpt"></textarea>
-								</div>
-							</div>
-							<div class="pop_btn_row">
-								<input name="" type="button" value="Next Step" class="next_btn" />
-							</div>
-						</form>
-					</div>
-				</div>
-				<div id="step2" style="display: none;">
-					<!-- pop step 2 start here -->
-					<!--4 steps bar-->
-					<div class="progress_row">
-						<ul class="progressbar">
-							<li class="active">Step 1</li>
-							<li class="active">Step 2</li>
-							<li>Step 3</li>
-							<li>Step 4</li>
-						</ul>
+
+						<div class="clr"></div>
 					</div>
 
-					<div class="form_one">
-						<form action="" method="get">
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Select Shop</span> <select class="form-control">
-										<option value="">Select Shop</option>
-										<option value="Shop 1" data-name="">Shop 1</option>
-										<option value="Shop 2" data-name="">Shop 2</option>
-										<option value="Shop 3" data-name="">Shop 3</option>
-										<option value="Shop 4" data-name="">Shop 4</option>
-										<option value="Shop 5" data-name="">Shop 5</option>
-										<option value="Shop 6" data-name="">Shop 6</option>
-									</select>
-								</div>
-							</div>
-							<div class="pop_btn_row">
-								<input name="" type="button" value="Next Step" class="next_btn" />
-							</div>
-						</form>
+					<div class="pop_btn_row">
+						<input name="" type="button" value="Submit" class="next_btn" />
 					</div>
-				</div>
-				<div id="step3" style="display: none;">
-					<!-- pop step 3 start here -->
-					<!--4 steps bar-->
-					<div class="progress_row">
-						<ul class="progressbar">
-							<li class="active">Step 1</li>
-							<li class="active">Step 2</li>
-							<li class="active">Step 3</li>
-							<li>Step 4</li>
-						</ul>
-					</div>
-
-					<div class="form_one">
-						<form action="" method="get">
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Delivery Date</span> <input type="date" id="datepicker"
-										name="datepicker" class="frm_inpt">
-								</div>
-							</div>
-
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Delivery Time</span> <select class="form-control">
-										<option value="">Select Delivery Time</option>
-										<option value="Shop 1" data-name="">12:00 PM</option>
-										<option value="Shop 2" data-name="">12:15 PM</option>
-										<option value="Shop 3" data-name="">12:30 PM</option>
-										<option value="Shop 4" data-name="">12:45 PM</option>
-										<option value="Shop 5" data-name="">01:00 PM</option>
-										<option value="Shop 6" data-name="">01:15 PM</option>
-									</select>
-								</div>
-							</div>
-							<div class="pop_btn_row">
-								<input name="" type="button" value="Next Step" class="next_btn" />
-							</div>
-						</form>
-					</div>
-				</div>
-				<div id="step4" style="display: none;">
-					<!-- pop step 4 start here -->
-					<!--4 steps bar-->
-					<div class="progress_row">
-						<ul class="progressbar">
-							<li class="active">Step 1</li>
-							<li class="active">Step 2</li>
-							<li class="active">Step 3</li>
-							<li class="active">Step 4</li>
-						</ul>
-					</div>
-
-					<div class="form_one">
-						<form action="" method="get">
-							<div class="single_row">
-								<div class="single_row_l">
-									<div class="pop_frm_one">
-										<span>Your Name</span> <input name="" type="text"
-											class="frm_inpt" />
-									</div>
-								</div>
-								<div class="single_row_r">
-									<div class="pop_frm_one">
-										<span>Mobile Number</span> <input name="" type="text"
-											class="frm_inpt" />
-									</div>
-								</div>
-								<div class="clr"></div>
-							</div>
-
-							<div class="single_row">
-								<div class="single_row_l">
-
-									<div class="pop_frm_one">
-										<span>City</span> <input name="" type="text" class="frm_inpt" />
-									</div>
-								</div>
-								<div class="single_row_r">
-									<div class="pop_frm_one">
-										<span>Whatsapp Mobile Number</span> <input name="" type="text"
-											class="frm_inpt" />
-									</div>
-								</div>
-								<div class="clr"></div>
-							</div>
-
-
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Landmark</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-							</div>
-							<div class="single_row">
-								<div class="pop_frm_one">
-									<span>Language</span> <select class="form-control">
-										<option value="" selected>Gujrati</option>
-									</select>
-								</div>
-							</div>
-							<div class="pop_btn_row">
-								<input name="" type="button" value="Go For Order"
-									class="next_btn" />
-							</div>
-						</form>
-					</div>
-				</div>
-
-
+				</form>
 			</div>
+
+
 		</div>
 	</div>
+	<!--steps popup up-->
 
 
 	<div class="modal fade kot-popup" id="orderstep1">
@@ -717,95 +585,74 @@
 				<div class="pop_signup">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order Signup <span>About our latest
-						restaurent and exclusive offers.</span> <a href="#"></a>
+						alt=""> New Order <span>About our latest restaurent
+						and exclusive offers.</span> <a href="#"></a>
 				</div>
 
 				<!-- pop step 1 start here -->
 				<!--4 steps bar-->
-				<div class="progress_row">
+				<!-- <div class="progress_row">
 					<ul class="progressbar">
 						<li class="active">Step 1</li>
 						<li>Step 2</li>
 						<li>Step 3</li>
 						<li>Step 4</li>
 					</ul>
-				</div>
+				</div> -->
 
 				<div class="form_one">
 					<form action="" method="get">
-						<!-- <div class="single_row">
+
+						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Delivery Pincode</span> <input name="" type="text"
-									class="frm_inpt" />
+								<span>Select Address* <a href="#" style="float: right;"
+									class="detail_btn" title="Add New Address" data-toggle="modal"
+									data-target="#addAddress"><i class="fa fa-plus"
+										aria-hidden="true"></i></a></span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="" selected>Select Address</option>
+										<option value="Shop 1" data-name="">Home</option>
+										<option value="Shop 2" data-name="">Shop</option>
+
+									</select>
+								</div>
+
+
 							</div>
 						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Shop</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Shop</option>
+										<option value="Shop 1" data-name="">Shop 1</option>
+										<option value="Shop 2" data-name="">Shop 2</option>
+										<option value="Shop 3" data-name="">Shop 3</option>
+										<option value="Shop 4" data-name="">Shop 4</option>
+										<option value="Shop 5" data-name="">Shop 5</option>
+										<option value="Shop 6" data-name="">Shop 6</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Date</span> <input type="date" id="datepicker"
+									name="datepicker" class="frm_inpt">
+							</div>
+						</div>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<input name="" type="time" class="frm_inpt" />
+							</div>
+						</div>
+
 						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn" />
-						</div> -->
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Select City</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select City</option>
-										<option value="Shop 1" data-name="">Mumbai</option>
-										<option value="Shop 2" data-name="" selected>Nashik</option>
-										<option value="Shop 3" data-name="">Pune</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Select Area</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select Area</option>
-										<option value="Shop 1" data-name="" selected>Nashik
-											Road</option>
-										<option value="Shop 2" data-name="">Canada Corner</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Delivery Address</span>
-								<textarea name="" type="text" class="frm_inpt"></textarea>
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Landmark</span> <input name="" type="text"
-									class="frm_inpt" />
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Language</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="1">Gujrati</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="single_row_l">
-
-								<div class="pop_frm_one">
-									<span>Whatsapp Mobile Number</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-
-							</div>
-							<div class="clr"></div>
-						</div>
-						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn"
-								onclick="changeStep(2)" />
+							<input name="" type="button" value="Go for Order"
+								class="next_btn" onclick="changeStep(5)" />
 						</div>
 					</form>
 				</div>
@@ -1003,7 +850,8 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="grievences">
+	<div class="modal fade kot-popup" id="grievences"
+		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -1013,15 +861,16 @@
 						alt="">
 				</button>
 
-				<div class="pop_signup">Feedback Popup</div>
+				<div class="pop_signup">Customer feedback - against order</div>
 				<div class="grievences_tab">
 					<ul>
 						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" checked /> Feedback
+								class="option-input radio" name="example" checked /> Grievance
 						</label></li>
 						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" checked /> Grievences
+								class="option-input radio" name="example" /> Appreciation
 						</label></li>
+
 					</ul>
 				</div>
 
@@ -1041,7 +890,7 @@
 					<form action="" method="get">
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select </span>
+								<span>Select Grievance Type</span>
 								<div class="search_multiple">
 									<select class="country">
 										<option value="">Select Option</option>
@@ -1080,7 +929,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade kot-popup" id="cancelOrder">
+	<div class="modal fade kot-popup" id="cancelOrder"
+		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -1138,7 +988,8 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="viewOrder">
+	<div class="modal fade kot-popup" id="viewOrder" data-backdrop="static"
+		data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
@@ -1176,8 +1027,134 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade kot-popup" id="addAddress"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Add Address</div>
+
+
+
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get">
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Address Caption * <a href="#" style="float: right;"
+									class="detail_btn" title="Address List" data-toggle="modal"
+									data-target="#addressllist"><i class="fa fa-list"
+										aria-hidden="true"></i></a></span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Delivery City *</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select City</option>
+										<option value="Shop 1" data-name="">Mumbai</option>
+										<option value="Shop 2" data-name="" selected>Nashik</option>
+										<option value="Shop 3" data-name="">Pune</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Delivery Area *</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Area</option>
+										<option value="Shop 1" data-name="" selected>Nashik
+											Road</option>
+										<option value="Shop 2" data-name="">Canada Corner</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Address *</span>
+								<textarea name="" type="text" class="frm_inpt"></textarea>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Landmark *</span> <input name="" type="text"
+									class="frm_inpt" />
+							</div>
+						</div>
+
+						<div>
+							<input name="" type="button" value="Submit" class="next_btn" />
+						</div>
+						<!-- class="pop_btn_row"-->
+					</form>
+				</div>
+				<!--form close-->
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="addressllist">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Address List</div>
+
+
+
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get"></form>
+				</div>
+				<!--form close-->
+
+			</div>
+		</div>
+	</div>
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<script type="text/javascript">
+		function sendOtp() {
+			$('#addCustomer').modal('hide');
+			$('#otpModel').modal('show');
+		}
+		function changeHeadName(id) {
+			var msg = "Live Orders ";
+			if (id == 2) {
+				msg = "Deliverd Orders ";
+			} else if (id == 3) {
+				msg = "Cancelled Orders ";
+			}
+			document.getElementById("tableHeaderName").innerHTML = msg;
+		}
+		function addAddressfun() {
+			$('#orderstep1').modal('hide');
+			$('#orderstep2').modal('hide');
+			$('#orderstep3').modal('hide');
+			$('#orderstep4').modal('hide');
+			$('#addAddress').modal('show');
+		}
 		function showHideDiv(id) {
 			if (id == 2) {
 

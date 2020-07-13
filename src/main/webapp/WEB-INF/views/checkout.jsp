@@ -20,24 +20,28 @@
 							<table class="one booking" width="100%">
 								<thead>
 									<tr>
-										<th class="sorting_desc">Order Name</th>
-										<th class="sorting_desc">Quantity</th>
-										<th class="sorting_desc">Rate</th>
-										<th class="sorting_desc">Special Note</th>
-										<th class="sorting_desc">Total</th>
-										<th class="sorting_desc">Delete</th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											Name</th>
+										<th class="sorting_desc" style="text-align: center;">Quantity</th>
+										<th class="sorting_desc" style="text-align: center;">Rate</th>
+										<th class="sorting_desc" style="text-align: center;">Special
+											Note</th>
+										<th class="sorting_desc" style="text-align: center;">Total</th>
+										<th class="sorting_desc" style="text-align: center;">Delete</th>
 									</tr>
 								</thead>
 								<tbody>
 									<!--1 row-->
 									<tr>
-										<td class="user-name menu_nm">Bread Butter</td>
+										<td class="user-name menu_nm"><a href="#"
+											data-toggle="modal" data-target="#discription"> Bread
+												Butter</a></td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name">50.0</td>
+										<td class="user-name" style="text-align: right;">50.0</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name">Rs.250.00</td>
+										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
@@ -46,10 +50,10 @@
 										<td class="user-name menu_nm">Bread Butter</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name">50.0</td>
+										<td class="user-name" style="text-align: right;">50.0</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name">Rs.250.00</td>
+										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
@@ -58,10 +62,10 @@
 										<td class="user-name menu_nm">Bread Butter</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name">50.0</td>
+										<td class="user-name" style="text-align: right;">50.0</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name">Rs.250.00</td>
+										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
@@ -70,10 +74,10 @@
 										<td class="user-name menu_nm">Bread Butter</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name">50.0</td>
+										<td class="user-name" style="text-align: right;">50.0</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name">Rs.250.00</td>
+										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
@@ -82,10 +86,10 @@
 										<td class="user-name menu_nm">Bread Butter</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name">50.0</td>
+										<td class="user-name" style="text-align: right;">50.0</td>
 										<td class="user-name"><input name="" type="text"
 											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name">Rs.250.00</td>
+										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
@@ -100,23 +104,26 @@
 									<div class="total-row_r">1500.00</div>
 									<div class="clr"></div>
 								</div>
-
+								<div class="total-row">
+									<div class="total-row_l">Tax</div>
+									<div class="total-row_r">50.00</div>
+									<div class="clr"></div>
+								</div>
 								<div class="total-row free">
-									<div class="total-row_l">Delivery Free</div>
+									<div class="total-row_l">Delivery Charges</div>
 									<div class="total-row_r">
 										<input name="" type="text" class="table_inpt"
-											placeholder=" Delivery Free" value="0"
+											placeholder=" Delivery Free" value="50"
 											style="text-align: right;" />
 									</div>
 									<div class="clr"></div>
 
 								</div>
 								<div class="total-row">
-									<div class="total-row_l">Tax</div>
-									<div class="total-row_r">50.00</div>
+									<div class="total-row_l">Offer Disc AMT</div>
+									<div class="total-row_r">00.00</div>
 									<div class="clr"></div>
 								</div>
-
 								<div class="total_bx">
 									<div class="total-row_l">Total</div>
 									<div class="total-row_r">1600.00</div>
@@ -363,6 +370,49 @@
 		</div>
 	</section>
 
+	<div class="modal fade kot-popup" id="discription">
+		<div class="modal-dialog modal-lg">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Item Description</div>
+
+
+				<div class="disc_pop">
+					<div class="disc_pop_l">
+						<img src="https://via.placeholder.com/200" alt="">
+					</div>
+					<div class="disc_pop_r">
+						<h3 class="restro-nm">
+							<img
+								src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
+								alt=""> Curry Leaves Barbecuing and Grilling <span>Sharanpur
+								Road Nashik Casual Dining - North Indian</span>
+						</h3>
+
+						<div class="pop_disc">
+							<span>Sort Discription -</span> Lorem ipsum dolor sit amet,
+							consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+							labore et dolore magna aliqua.
+						</div>
+
+
+
+					</div>
+					<div class="clr"></div>
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
