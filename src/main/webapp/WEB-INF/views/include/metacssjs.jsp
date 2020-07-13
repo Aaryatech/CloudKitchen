@@ -53,3 +53,13 @@
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/ace-responsive-menu.js"
 	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/select2.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+<script>
+	$(".country").select2({
+		placeholder : "Select Option",
+		allowClear : false
+	});
+</script>

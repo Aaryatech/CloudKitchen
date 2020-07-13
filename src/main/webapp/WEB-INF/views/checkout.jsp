@@ -95,23 +95,33 @@
 
 							<!--checkout total box-->
 							<div class="check_total">
-								<div class="total_one">
-									<span>Items subtotal</span> Rs. 1500.00
+								<div class="total-row">
+									<div class="total-row_l">Items sub total</div>
+									<div class="total-row_r">1500.00</div>
+									<div class="clr"></div>
 								</div>
-								<div class="total_one free">
-									<span>Delivery Free </span>Free
+
+								<div class="total-row free">
+									<div class="total-row_l">Delivery Free</div>
+									<div class="total-row_r">
+										<input name="" type="text" class="table_inpt"
+											placeholder=" Delivery Free" value="0"
+											style="text-align: right;" />
+									</div>
+									<div class="clr"></div>
+
 								</div>
-								<div class="total_one">
-									<span>Sales tax </span>Rs. 50.00
+								<div class="total-row">
+									<div class="total-row_l">Tax</div>
+									<div class="total-row_r">50.00</div>
+									<div class="clr"></div>
 								</div>
-								<div class="total_one">
-									<span>Tip </span>Rs. 50.00
-								</div>
-								<div class="total_one">
-									<span>Total </span>Rs. 18.00
-								</div>
+
 								<div class="total_bx">
-									<span>Total</span> Rs. 1600.00
+									<div class="total-row_l">Total</div>
+									<div class="total-row_r">1600.00</div>
+									<div class="clr"></div>
+
 								</div>
 							</div>
 
@@ -124,6 +134,15 @@
 									<div class="instrac_nm">
 										<h2>John Doe</h2>
 										<h3>Home</h3>
+										<p>
+											314 79th Canada Corner<br> Near Arham Eye care Hospital<br>
+											Sharanpur Road, Nashik<br> (+91) 1234567890
+										</p>
+									</div>
+									<br>
+									<div class="instrac_nm">
+										<h2>Shop No. 1</h2>
+										<h3>8888888888</h3>
 										<p>
 											314 79th Canada Corner<br> Near Arham Eye care Hospital<br>
 											Sharanpur Road, Nashik<br> (+91) 1234567890

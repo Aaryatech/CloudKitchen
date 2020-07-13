@@ -38,8 +38,8 @@
 						</div>
 						<div class="sec_title">
 							<a href="javascript:void(0)" data-toggle="modal"
-								data-target="#addCustomer" href="#" class="order_btn">Add
-								New Customer Registration</a>
+								data-target="#addCustomer" href="#" class="order_btn"> New
+								Customer Registration</a>
 						</div>
 					</div>
 				</form>
@@ -107,103 +107,113 @@
 					<table class="one" width="100%" id="demo2">
 						<thead>
 							<tr>
-								<th class="sorting_desc"><input name="" type="checkbox"
-									value=""></th>
-								<th class="sorting_desc">Order ID</th>
-								<th class="sorting_desc">Billing Name</th>
-								<th class="sorting_desc js-sort-date">Date</th>
-								<th class="sorting_desc">Total</th>
-								<th class="sorting_desc">Payment Status</th>
-								<th class="sorting_desc">Payment Method</th>
-								<th class="sorting_desc">View Details</th>
+
+								<th class="sorting_desc" style="text-align: center;">Order
+									ID</th>
+								<th class="sorting_desc" style="text-align: center;">Customer
+									Name</th>
+								<th class="sorting_desc" style="text-align: center;">Shop
+									Name</th>
+								<th class="sorting_desc js-sort-date"
+									style="text-align: center;">Date</th>
+								<th class="sorting_desc" style="text-align: center;">Total</th>
+								<th class="sorting_desc" style="text-align: center;">Payment
+									Status</th>
+								<th class="sorting_desc" style="text-align: center;">Payment
+									Method</th>
+								<th class="sorting_desc" style="text-align: center;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 1</strong></td>
 								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">22 June 2020 1</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="javascript:void(0)"
-									data-toggle="modal" data-target="#orderstep1"
-									class="detail_btn">View Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#viewOrder" class="detail_btn">View Details</a>&nbsp;
+									<a href="javascript:void(0)" data-toggle="modal"
+									data-target="#grievences" class="detail_btn">Grievences</a>&nbsp;
+									<a href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn">Cancel</a></td>
 
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 2</strong></td>
 								<td class="user-name">Neal Matthews 2</td>
-								<td class="user-name">22 June 2020 2</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="#" class="detail_btn">View
-										Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 3</strong></td>
 								<td class="user-name">Neal Matthews 3</td>
-								<td class="user-name">22 June 2020 3</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="#" class="detail_btn">View
-										Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 4</strong></td>
 								<td class="user-name">Neal Matthews 4</td>
-								<td class="user-name">22 June 2020 4</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="#" class="detail_btn">View
-										Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 5</strong></td>
 								<td class="user-name">Neal Matthews 5</td>
-								<td class="user-name">22 June 2020 5</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="#" class="detail_btn">View
-										Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><input name="" type="checkbox"
-									value=""></td>
+
 								<td class="user-name"><strong>#SK2540 6</strong></td>
 								<td class="user-name">Neal Matthews 6</td>
-								<td class="user-name">22 June 2020 6</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name">10-07-2020</td>
 								<td class="user-name">400.00</td>
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name"><i class="fa fa-cc-mastercard"
 									aria-hidden="true"></i> MasterCard</td>
-								<td class="user-name"><a href="#" class="detail_btn">View
-										Details</a></td>
+								<td class="user-name" style="text-align: center;"><a
+									href="#" class="detail_btn">View Details</a></td>
 							</tr>
 
 
@@ -427,30 +437,39 @@
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select City</span> <select class="form-control">
-								<option value="">Select City</option>
-								<option value="Shop 1" data-name="">Mumbai</option>
-								<option value="Shop 2" data-name="" selected>Nashik</option>
-								<option value="Shop 3" data-name="">Pune</option>
-							</select>
+							<span>Select City</span>
+							<div class="search_multiple">
+								<select class="country">
+									<option value="">Select City</option>
+									<option value="Shop 1" data-name="">Mumbai</option>
+									<option value="Shop 2" data-name="" selected>Nashik</option>
+									<option value="Shop 3" data-name="">Pune</option>
+								</select>
+							</div>
 						</div>
 					</div>
 
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select Area</span> <select class="form-control">
-								<option value="">Select Area</option>
-								<option value="Shop 1" data-name="" selected>Nashik
-									Road</option>
-								<option value="Shop 2" data-name="">Canada Corner</option>
-							</select>
+							<span>Select Area</span>
+							<div class="search_multiple">
+								<select class="country">
+									<option value="">Select Area</option>
+									<option value="Shop 1" data-name="" selected>Nashik
+										Road</option>
+									<option value="Shop 2" data-name="">Canada Corner</option>
+								</select>
+							</div>
 						</div>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Language</span> <select class="form-control">
-								<option value="" selected>Gujrati</option>
-							</select>
+							<span>Language</span>
+							<div class="search_multiple">
+								<select class="country">
+									<option value="1" selected>Gujrati</option>
+								</select>
+							</div>
 						</div>
 					</div>
 					<div class="pop_btn_row">
@@ -726,23 +745,29 @@
 						</div> -->
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select City</span> <select class="form-control">
-									<option value="">Select City</option>
-									<option value="Shop 1" data-name="">Mumbai</option>
-									<option value="Shop 2" data-name="" selected>Nashik</option>
-									<option value="Shop 3" data-name="">Pune</option>
-								</select>
+								<span>Select City</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select City</option>
+										<option value="Shop 1" data-name="">Mumbai</option>
+										<option value="Shop 2" data-name="" selected>Nashik</option>
+										<option value="Shop 3" data-name="">Pune</option>
+									</select>
+								</div>
 							</div>
 						</div>
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select Area</span> <select class="form-control">
-									<option value="">Select Area</option>
-									<option value="Shop 1" data-name="" selected>Nashik
-										Road</option>
-									<option value="Shop 2" data-name="">Canada Corner</option>
-								</select>
+								<span>Select Area</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Area</option>
+										<option value="Shop 1" data-name="" selected>Nashik
+											Road</option>
+										<option value="Shop 2" data-name="">Canada Corner</option>
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="single_row">
@@ -759,12 +784,25 @@
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Language</span> <select class="form-control">
-									<option value="" selected>Gujrati</option>
-								</select>
+								<span>Language</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="1">Gujrati</option>
+									</select>
+								</div>
 							</div>
 						</div>
+						<div class="single_row">
+							<div class="single_row_l">
 
+								<div class="pop_frm_one">
+									<span>Whatsapp Mobile Number</span> <input name="" type="text"
+										class="frm_inpt" />
+								</div>
+
+							</div>
+							<div class="clr"></div>
+						</div>
 						<div class="pop_btn_row">
 							<input name="" type="button" value="Next Step" class="next_btn"
 								onclick="changeStep(2)" />
@@ -806,15 +844,18 @@
 					<form action="" method="get">
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select Shop</span> <select class="form-control">
-									<option value="">Select Shop</option>
-									<option value="Shop 1" data-name="">Shop 1</option>
-									<option value="Shop 2" data-name="">Shop 2</option>
-									<option value="Shop 3" data-name="">Shop 3</option>
-									<option value="Shop 4" data-name="">Shop 4</option>
-									<option value="Shop 5" data-name="">Shop 5</option>
-									<option value="Shop 6" data-name="">Shop 6</option>
-								</select>
+								<span>Select Shop</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Shop</option>
+										<option value="Shop 1" data-name="">Shop 1</option>
+										<option value="Shop 2" data-name="">Shop 2</option>
+										<option value="Shop 3" data-name="">Shop 3</option>
+										<option value="Shop 4" data-name="">Shop 4</option>
+										<option value="Shop 5" data-name="">Shop 5</option>
+										<option value="Shop 6" data-name="">Shop 6</option>
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="pop_btn_row">
@@ -868,20 +909,12 @@
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Delivery Time</span> <select class="form-control">
-									<option value="">Select Delivery Time</option>
-									<option value="Shop 1" data-name="">12:00 PM</option>
-									<option value="Shop 2" data-name="">12:15 PM</option>
-									<option value="Shop 3" data-name="">12:30 PM</option>
-									<option value="Shop 4" data-name="">12:45 PM</option>
-									<option value="Shop 5" data-name="">01:00 PM</option>
-									<option value="Shop 6" data-name="">01:15 PM</option>
-								</select>
+								<input name="" type="time" class="frm_inpt" />
 							</div>
 						</div>
 						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn"
-								onclick="changeStep(4)" />
+							<input name="" type="button" value="Go For Order"
+								class="next_btn" onclick="changeStep(5)" />
 						</div>
 					</form>
 				</div>
@@ -963,6 +996,180 @@
 						</div>
 					</form>
 				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="grievences">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Feedback Popup</div>
+				<div class="grievences_tab">
+					<ul>
+						<li><label class="radio_one"> <input type="radio"
+								class="option-input radio" name="example" checked /> Feedback
+						</label></li>
+						<li><label class="radio_one"> <input type="radio"
+								class="option-input radio" name="example" checked /> Grievences
+						</label></li>
+					</ul>
+				</div>
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li><span>Order ID</span> #SK2540 1</li>
+						<li><span>Billing Name</span> Neal Matthews 1</li>
+						<li><span>Shop Name</span> Madhavi</li>
+						<li><span>Total</span> 400.00</li>
+						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+					</ul>
+				</div>
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select </span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Option</option>
+										<option value="1">Packing Damage</option>
+										<option value="4">Other</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Remark</span>
+								<textarea name="" cols="" rows="" class="frm_inpt"
+									placeholder="Remark"></textarea>
+							</div>
+						</div>
+						<div>
+							<input name="" type="button" value="Submit" class="next_btn" />
+						</div>
+						<!-- class="pop_btn_row"-->
+					</form>
+				</div>
+				<!--form close-->
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li><span>Payment Status</span> Paid</li>
+						<li><span>Payment Method</span> Mastecard</li>
+					</ul>
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade kot-popup" id="cancelOrder">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Cancel Order</div>
+
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li><span>Order ID</span> #SK2540 1</li>
+						<li><span>Billing Name</span> Neal Matthews 1</li>
+						<li><span>Shop Name</span> Madhavi</li>
+						<li><span>Total</span> 400.00</li>
+						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+					</ul>
+				</div>
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select </span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Option</option>
+										<option value="1">Packing Damage</option>
+										<option value="4">Other</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Remark</span>
+								<textarea name="" cols="" rows="" class="frm_inpt"
+									placeholder="Remark"></textarea>
+							</div>
+						</div>
+						<div>
+							<input name="" type="button" value="Submit" class="next_btn" />
+						</div>
+						<!-- class="pop_btn_row"-->
+					</form>
+				</div>
+				<!--form close-->
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="viewOrder">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">View Order</div>
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li><span>Order ID</span> #SK2540 1</li>
+						<li><span>Customer Name</span> Neal Matthews 1</li>
+						<li><span>Shop Name</span> Madhavi</li>
+						<li><span>Total</span> 400.00</li>
+						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+
+					</ul>
+				</div>
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li><span>Payment Status</span> Paid</li>
+						<li><span>Payment Method</span> Mastecard</li>
+					</ul>
+				</div>
+
 
 
 

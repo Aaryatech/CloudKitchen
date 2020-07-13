@@ -14,6 +14,9 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
 <link rel="apple-touch-icon-precomposed" href="#">
 <link rel="shortcut icon" href="#">
+<link rel="icon"
+	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
+	type="images/png" sizes="32x32">
 <!-- Bootstrap -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css"
@@ -127,7 +130,7 @@
 													type="checkbox" name="#"> <span class="checkmark"></span>
 													Keep me signed in
 												</label> <a href="${pageContext.request.contextPath}/resetPassword">Reset
-													password</a>
+													Password</a>
 											</div>
 											<div class="form-group">
 												<button type="submit"
@@ -138,7 +141,7 @@
 												</button>
 
 												<div class="checkbox-reset forgot_pass">
-													<a href="${pageContext.request.contextPath}/forgotPassword">forgot
+													<a href="${pageContext.request.contextPath}/forgotPassword">Forgot
 														Password</a>
 												</div>
 											</div>

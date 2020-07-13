@@ -7,16 +7,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="#">
 <meta name="description" content="#">
-<title>Cloud Kitche</title>
+<title>Cloud Kitchen</title>
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="#">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="#">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
 <link rel="apple-touch-icon-precomposed" href="#">
 <link rel="shortcut icon" href="#">
+<link rel="icon"
+	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
+	type="images/png" sizes="32x32">
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css"
 	rel="stylesheet">
+
 <!-- Fontawesome -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/font-awesome.css"
@@ -60,7 +64,10 @@
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/ace-responsive-menu.css"
 	rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/select2.min.css" />
+<link rel="stylesheet"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css">
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap"
@@ -74,7 +81,7 @@
 				<div class="col-12 mainNavCol new">
 					<!-- logo -->
 					<div class="logo mainNavCol new">
-						<a href="index.html"> <img
+						<a href="${pageContext.request.contextPath}/dashboard"> <img
 							src="${pageContext.request.contextPath}/resources/assets/img/dashboard_logo.png"
 							class="img-fluid" alt="Logo">
 						</a>
@@ -106,26 +113,59 @@
 							</a>
 							<div class="notification-dropdown">
 								<div class="product-detail">
-									<a href="#">
-										<div class="img-box">
-											<img src="https://via.placeholder.com/50x50" class="rounded"
-												alt="image">
-										</div>
-										<div class="product-about">
-											<p class="text-light-black">Lil Johnny’s</p>
-											<p class="text-light-white">Spicy Maxican Grill</p>
-										</div>
-									</a>
+									<!--notification-->
+									<ul class="new_notif">
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Stephan Parker <span>marked
+														the task as done a day ago</span>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Steve O'Reilly <span>Answered
+														to your comment on the Cash Flow Forecast's graph</span>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Stephan Parker <span>marked
+														the task as done a day ago</span>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Steve O'Reilly <span>Answered
+														to your comment on the Cash Flow Forecast's graph</span>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Stephan Parker <span>marked
+														the task as done a day ago</span>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="not_one">
+												<a href="#"> <img src="https://via.placeholder.com/40"
+													class="rounded-circle" alt="image"> Steve O'Reilly <span>Answered
+														to your comment on the Cash Flow Forecast's graph</span>
+												</a>
+											</div>
+										</li>
+									</ul>
 								</div>
-								<div class="rating-box">
-									<p class="text-light-black">How was your last order ?.</p>
-									<span class="text-dark-white"><i class="fas fa-star"></i></span>
-									<span class="text-dark-white"><i class="fas fa-star"></i></span>
-									<span class="text-dark-white"><i class="fas fa-star"></i></span>
-									<span class="text-dark-white"><i class="fas fa-star"></i></span>
-									<span class="text-dark-white"><i class="fas fa-star"></i></span>
-									<cite class="text-light-white">Ordered 2 days ago</cite>
-								</div>
+
 							</div>
 						</div>
 						<!-- user notification -->
@@ -267,7 +307,7 @@
 										</div>
 									</div>
 									<div class="card-footer padding-15">
-										<a href="checkout.html"
+										<a href="${pageContext.request.contextPath}/checkout"
 											class="btn-first green-btn text-custom-white full-width fw-500">Proceed
 											to Checkout</a>
 									</div>
@@ -398,4 +438,5 @@
 	</header>
 </div>
 <div class="main-sec"></div>
+</head>
 <!-- Navigation -->
