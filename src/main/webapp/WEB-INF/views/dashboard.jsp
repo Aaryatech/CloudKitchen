@@ -113,8 +113,8 @@
 			<div class="main-box padding-20 margin_bottom">
 				<div class="sec_title" id="tableHeaderName">Live Orders</div>
 
-				<div class="component1">
-					<table class="one" width="100%" id="demo2">
+				<div class="component">
+					<table class="overflow-y">
 						<thead>
 							<tr>
 								<th></th>
@@ -146,7 +146,7 @@
 								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" data-toggle="modal"
-										data-target="#view">0001</a></strong></td>
+										data-target="#viewOrder">0001</a></strong></td>
 								<td class="user-name">Neal Matthews 1</td>
 								<td class="user-name">Madhavi</td>
 								<td class="user-name" style="text-align: center;">10-07-2020</td>
@@ -156,13 +156,134 @@
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn">Grievences</a>&nbsp;
+									data-target="#grievences" class="detail_btn_round"
+									title="Grievences"><i class="fa fa-exclamation-triangle"
+										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
+									data-toggle="modal" data-target="#cancelOrder"
+									class="detail_btn_round" title="Cancel Order"><i
+										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg">
+								</a></td>
+								<td class="user-name"><strong><a
+										href="javascript:void(0)" data-toggle="modal"
+										data-target="#viewOrder">0001</a></strong></td>
+								<td class="user-name">Neal Matthews 1</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
+								<td class="user-name">400.00</td>
+								<td class="user-name"><span class="paid">Paid</span></td>
+								<td class="user-name">Online</td>
+								<td class="user-name" style="text-align: center;"><a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
 									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn"
+									data-target="#cancelOrder" class="detail_btn_round"
 									title="Cancel Order"><i class="fa fa-times"
 										aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn" title="Edit Order"><i
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg">
+								</a></td>
+								<td class="user-name"><strong><a
+										href="javascript:void(0)" data-toggle="modal"
+										data-target="#viewOrder">0001</a></strong></td>
+								<td class="user-name">Neal Matthews 1</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
+								<td class="user-name">400.00</td>
+								<td class="user-name"><span class="paid">Paid</span></td>
+								<td class="user-name">Online</td>
+								<td class="user-name" style="text-align: center;"><a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
+									<a href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg">
+								</a></td>
+								<td class="user-name"><strong><a
+										href="javascript:void(0)" data-toggle="modal"
+										data-target="#viewOrder">0001</a></strong></td>
+								<td class="user-name">Neal Matthews 1</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
+								<td class="user-name">400.00</td>
+								<td class="user-name"><span class="paid">Paid</span></td>
+								<td class="user-name">Online</td>
+								<td class="user-name" style="text-align: center;"><a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
+									<a href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg">
+								</a></td>
+								<td class="user-name"><strong><a
+										href="javascript:void(0)" data-toggle="modal"
+										data-target="#viewOrder">0001</a></strong></td>
+								<td class="user-name">Neal Matthews 1</td>
+								<td class="user-name">Madhavi</td>
+								<td class="user-name" style="text-align: center;">10-07-2020</td>
+								<td class="user-name">Web</td>
+								<td class="user-name">400.00</td>
+								<td class="user-name"><span class="paid">Paid</span></td>
+								<td class="user-name">Online</td>
+								<td class="user-name" style="text-align: center;"><a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
+									<a href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
 										class="fa fa-pencil" aria-hidden="true"></i></a></td>
 
 							</tr>
@@ -326,8 +447,8 @@
 								class="order_btn">New Order Booking</a>
 						</div>
 
-						<div class="component1">
-							<table class="one booking" width="100%">
+						<div class="component">
+							<table class="overflow-y">
 								<thead>
 									<tr>
 
@@ -348,6 +469,126 @@
 									</tr>
 								</thead>
 								<tbody>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name">xco1234</td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Delivered</td>
+
+										<td class="user-name"><a href="#" class="table_icn"><i
+												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
+											class="table_icn"><i class="fa fa-pencil"
+												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
 									<!--1 row-->
 									<tr>
 										<td class="user-name"><a href="#"
@@ -697,200 +938,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade kot-popup" id="orderstep2">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
-
-				<div class="pop_signup">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order Signup <span>About our latest
-						restaurent and exclusive offers.</span> <a href="#"></a>
-				</div>
-
-
-				<div class="progress_row">
-					<ul class="progressbar">
-						<li class="active">Step 1</li>
-						<li class="active">Step 2</li>
-						<li>Step 3</li>
-						<li>Step 4</li>
-					</ul>
-				</div>
-
-				<div class="form_one">
-					<form action="" method="get">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Select Shop</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select Shop</option>
-										<option value="Shop 1" data-name="">Shop 1</option>
-										<option value="Shop 2" data-name="">Shop 2</option>
-										<option value="Shop 3" data-name="">Shop 3</option>
-										<option value="Shop 4" data-name="">Shop 4</option>
-										<option value="Shop 5" data-name="">Shop 5</option>
-										<option value="Shop 6" data-name="">Shop 6</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="pop_btn_row">
-							<input name="" type="button" value="Next Step" class="next_btn"
-								onclick="changeStep(3)" />
-						</div>
-					</form>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade kot-popup" id="orderstep3">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
-
-				<div class="pop_signup">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order Signup <span>About our latest
-						restaurent and exclusive offers.</span> <a href="#"></a>
-				</div>
-
-
-				<!-- pop step 3 start here -->
-				<!--4 steps bar-->
-				<div class="progress_row">
-					<ul class="progressbar">
-						<li class="active">Step 1</li>
-						<li class="active">Step 2</li>
-						<li class="active">Step 3</li>
-						<li>Step 4</li>
-					</ul>
-				</div>
-
-				<div class="form_one">
-					<form action="" method="get">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Delivery Date</span> <input type="date" id="datepicker"
-									name="datepicker" class="frm_inpt">
-							</div>
-						</div>
-
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<input name="" type="time" class="frm_inpt" />
-							</div>
-						</div>
-						<div class="pop_btn_row">
-							<input name="" type="button" value="Go For Order"
-								class="next_btn" onclick="changeStep(5)" />
-						</div>
-					</form>
-				</div>
-
-				<!-- pop step 4 start here -->
-				<!--4 steps bar-->
-
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade kot-popup" id="orderstep4">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
-
-				<div class="pop_signup">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order Signup <span>About our latest
-						restaurent and exclusive offers.</span> <a href="#"></a>
-				</div>
-
-				<!-- pop step 1 start here -->
-				<!--4 steps bar-->
-
-				<!-- pop step 4 start here -->
-				<!--4 steps bar-->
-				<div class="progress_row">
-					<ul class="progressbar">
-						<li class="active">Step 1</li>
-						<li class="active">Step 2</li>
-						<li class="active">Step 3</li>
-						<li class="active">Step 4</li>
-					</ul>
-				</div>
-
-				<div class="form_one">
-					<form action="" method="get">
-						<div class="single_row">
-							<div class="single_row_l">
-								<div class="pop_frm_one">
-									<span>Your Name</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-							</div>
-							<div class="single_row_r">
-								<div class="pop_frm_one">
-									<span>Mobile Number</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-							</div>
-							<div class="clr"></div>
-						</div>
-
-						<div class="single_row">
-							<div class="single_row_l">
-
-								<div class="pop_frm_one">
-									<span>City</span> <input name="" type="text" class="frm_inpt" />
-								</div>
-							</div>
-							<div class="single_row_r">
-								<div class="pop_frm_one">
-									<span>Whatsapp Mobile Number</span> <input name="" type="text"
-										class="frm_inpt" />
-								</div>
-							</div>
-							<div class="clr"></div>
-						</div>
-						<div class="pop_btn_row">
-							<input name="" type="button" value="Go For Order"
-								class="next_btn" onclick="changeStep(5)" />
-						</div>
-					</form>
-				</div>
 
 
 
-			</div>
-		</div>
-	</div>
+
 
 	<div class="modal fade kot-popup" id="grievences"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close" data-dismiss="modal">
 					<img
@@ -911,18 +967,132 @@
 					</ul>
 				</div>
 
+
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
-						<li><span>Order ID</span> #SK2540 1</li>
-						<li><span>Billing Name</span> Neal Matthews 1</li>
-						<li><span>Shop Name</span> Madhavi</li>
-						<li><span>Total</span> 400.00</li>
-						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+						<li>
+							<div class="pop_txt_l">Order No.</div>
+							<div class="pop_txt_r">: 0001</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Customer Name</div>
+							<div class="pop_txt_r">: Neal Matthews 1</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Shop Name</div>
+							<div class="pop_txt_r">: Madhavi</div>
+						</li>
+						<!-- <li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								<span class="paid">Paid</span>
+							</div>
+						</li> -->
+
+						<li>
+							<div class="pop_txt_l">Order Status</div>
+							<div class="pop_txt_r">Going To Delivered</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Date & Time</div>
+							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+						</li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">: 440 /-</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								: <span class="paid">Paid</span>
+							</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_r">: COD</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Order Type</div>
+							<div class="pop_txt_r">: Web</div>
+						</li>
+					</ul>
+				</div>
+				<br>
+
+
+				<div class="component1">
+					<table class="one" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Name</th>
+								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Rate</th>
+								<th class="sorting_desc js-sort-date">Quantity</th>
+								<th class="sorting_desc">Tax %</th>
+								<th class="sorting_desc">Total</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+							<!--1 row-->
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Item Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Tax</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Offer Disc AMT</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Delivery Charges</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">30.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
 					</ul>
 				</div>
 
-				<!--form-->
 				<div class="form_one extra_marg">
 					<form action="" method="get">
 						<div class="single_row">
@@ -950,26 +1120,14 @@
 						<!-- class="pop_btn_row"-->
 					</form>
 				</div>
-				<!--form close-->
-
-				<div class="view_order_list">
-					<!-- <h3 class="order_head">View Order Details</h3> -->
-					<ul>
-						<li><span>Payment Status</span> Paid</li>
-						<li><span>Payment Method</span> Mastecard</li>
-					</ul>
-				</div>
-
-
-
-
 			</div>
 		</div>
 	</div>
+
 	<div class="modal fade kot-popup" id="cancelOrder"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close" data-dismiss="modal">
 					<img
@@ -983,20 +1141,133 @@
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
-						<li><span>Order ID</span> #SK2540 1</li>
-						<li><span>Billing Name</span> Neal Matthews 1</li>
-						<li><span>Shop Name</span> Madhavi</li>
-						<li><span>Total</span> 400.00</li>
-						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+						<li>
+							<div class="pop_txt_l">Order No.</div>
+							<div class="pop_txt_r">: 0001</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Customer Name</div>
+							<div class="pop_txt_r">: Neal Matthews 1</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Shop Name</div>
+							<div class="pop_txt_r">: Madhavi</div>
+						</li>
+						<!-- <li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								<span class="paid">Paid</span>
+							</div>
+						</li> -->
+
+						<li>
+							<div class="pop_txt_l">Order Status</div>
+							<div class="pop_txt_r">Going To Delivered</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Date & Time</div>
+							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+						</li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">: 440 /-</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								: <span class="paid">Paid</span>
+							</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_r">: COD</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Order Type</div>
+							<div class="pop_txt_r">: Web</div>
+						</li>
+					</ul>
+				</div>
+				<br>
+
+
+				<div class="component1">
+					<table class="one" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Name</th>
+								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Rate</th>
+								<th class="sorting_desc js-sort-date">Quantity</th>
+								<th class="sorting_desc">Tax %</th>
+								<th class="sorting_desc">Total</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+							<!--1 row-->
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Item Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Tax</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Offer Disc AMT</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Delivery Charges</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">30.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
 					</ul>
 				</div>
 
-				<!--form-->
 				<div class="form_one extra_marg">
 					<form action="" method="get">
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select </span>
+								<span>Select Cancel Reason</span>
 								<div class="search_multiple">
 									<select class="country">
 										<option value="">Select Option</option>
@@ -1019,16 +1290,14 @@
 						<!-- class="pop_btn_row"-->
 					</form>
 				</div>
-				<!--form close-->
-
 			</div>
 		</div>
 	</div>
 
 	<div class="modal fade kot-popup" id="viewOrder" data-backdrop="static"
 		data-keyboard="false">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close" data-dismiss="modal">
 					<img
@@ -1038,27 +1307,131 @@
 
 				<div class="pop_signup">View Order</div>
 
+
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
-						<li><span>Order ID</span> #SK2540 1</li>
-						<li><span>Customer Name</span> Neal Matthews 1</li>
-						<li><span>Shop Name</span> Madhavi</li>
-						<li><span>Total</span> 400.00</li>
-						<li><span>Date & Time</span> 10-07-2020 11:00 AM</li>
+						<li>
+							<div class="pop_txt_l">Order No.</div>
+							<div class="pop_txt_r">: 0001</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Customer Name</div>
+							<div class="pop_txt_r">: Neal Matthews 1</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Shop Name</div>
+							<div class="pop_txt_r">: Madhavi</div>
+						</li>
+						<!-- <li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								<span class="paid">Paid</span>
+							</div>
+						</li> -->
 
+						<li>
+							<div class="pop_txt_l">Order Status</div>
+							<div class="pop_txt_r">Going To Delivered</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Date & Time</div>
+							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+						</li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">: 440 /-</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								: <span class="paid">Paid</span>
+							</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_r">: COD</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Order Type</div>
+							<div class="pop_txt_r">: Web</div>
+						</li>
 					</ul>
+				</div>
+				<br>
+
+
+				<div class="component1">
+					<table class="one" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Name</th>
+								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Rate</th>
+								<th class="sorting_desc js-sort-date">Quantity</th>
+								<th class="sorting_desc">Tax %</th>
+								<th class="sorting_desc">Total</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+							<!--1 row-->
+
+						</tbody>
+					</table>
+
+
 				</div>
 
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
-						<li><span>Payment Status</span> Paid</li>
-						<li><span>Payment Method</span> Mastecard</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Item Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Tax</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Offer Disc AMT</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
+							<div class="pop_txt_l">Delivery Charges</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">30.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;">440.00</span>
+							</div>
+						</li>
 					</ul>
 				</div>
-
-
 
 
 			</div>
@@ -1146,9 +1519,10 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="addressllist">
-		<div class="modal-dialog modal-md">
-			<!--modal-lg-->
+	<div class="modal fade kot-popup" id="addressllist"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close" data-dismiss="modal">
 					<img
@@ -1160,237 +1534,41 @@
 
 
 
-
-				<!--form-->
-				<div class="form_one extra_marg">
-					<form action="" method="get"></form>
-				</div>
-				<!--form close-->
-
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade kot-popup" id="view">
-		<div class="modal-dialog modal-lg">
-			<!--modal-md-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png" alt="">
-				</button>
-
-				<div class="pop_signup">Feedback Popup</div>
-
-
-				<div class="grievences_tab">
-					<ul>
-						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" checked /> Feedback
-						</label></li>
-						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" checked /> Grievences
-						</label></li>
-					</ul>
-				</div>
-
-
-				<div class="view_order_list">
-					<!-- <h3 class="order_head">View Order Details</h3> -->
-					<ul>
-						<li>
-							<div class="pop_txt_l">Order ID</div>
-							<div class="pop_txt_r">: #SK2540 1</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Billing Name</div>
-							<div class="pop_txt_r">: Neal Matthews 1</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Order Name</div>
-							<div class="pop_txt_r">: Veg Biryani</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								<span class="paid">Paid</span>
-							</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Payment Method</div>
-							<div class="pop_txt_r">: MasterCard</div>
-						</li>
-						<li class="total">
-							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">: 400.00</div>
-						</li>
-					</ul>
-				</div>
-
-				<!--form-->
-				<div class="form_one extra_marg">
-					<form action="" method="get">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Delivery Pincode</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select Country</option>
-										<option value="4">Afghanistan</option>
-										<option value="248">Aland Islands</option>
-										<option value="8">Albania</option>
-										<option value="12">Algeria</option>
-										<option value="16">American Samoa</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Textarea</span>
-								<textarea name="" cols="" rows="" class="frm_inpt"
-									placeholder="Textarea Placeholder"></textarea>
-							</div>
-						</div>
-						<div>
-							<input name="" type="button" value="Submit" class="next_btn" />
-						</div>
-						<!-- class="pop_btn_row"-->
-					</form>
-				</div>
-				<!--form close-->
-
-
 				<div class="component1">
-					<table class="one" width="100%">
+					<table class="one" width="100%" style="white-space: nowrap;">
 						<thead>
 							<tr>
-								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">UOM</th>
-								<th class="sorting_desc">Rate</th>
-								<th class="sorting_desc js-sort-date">Quantity</th>
-								<th class="sorting_desc">Tax %</th>
-								<th class="sorting_desc">Total</th>
-
+								<th class="sorting_desc">Caption</th>
+								<th class="sorting_desc">City</th>
+								<th class="sorting_desc">Area</th>
+								<th class="sorting_desc">Address</th>
+								<th class="sorting_desc">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!--1 row-->
 							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name"><span class="button_round"><a
-										href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></span> <span
-									class="button_round"><a href="#"><i
-											class="fa fa-times" aria-hidden="true"></i></a></span> <span
-									class="button_round"><a href="#"><i
-											class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></span></td>
+								<td class="user-name">Home</td>
+								<td class="user-name">Nashik</td>
+								<td class="user-name">Nashik</td>
+								<td class="user-name">Sharanpur Road, Nashik</td>
+								<td class="user-name"><a href="#" class="detail_btn"
+									title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;<a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn" title="Delete"><i
+										class="fa fa-times" aria-hidden="true"></i> </a></td>
 							</tr>
 							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Neal Matthews</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>20%</strong></td>
-								<td class="user-name">5.500</td>
-								<td class="user-name total_pop">400.00</td>
-							</tr>
+
 						</tbody>
 					</table>
 
 
 				</div>
 
-
-
-
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<%-- <script
 		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"

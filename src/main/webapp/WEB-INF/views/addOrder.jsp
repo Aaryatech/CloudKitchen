@@ -1056,11 +1056,16 @@
 														<th class="sorting_desc js-sort-date">Quantity</th>
 														<th class="sorting_desc">Tax %</th>
 														<th class="sorting_desc">Total</th>
+														<th class="sorting_desc">Total</th>
+														<th class="sorting_desc">Total</th>
+														<th class="sorting_desc">Total</th>
+														<th class="sorting_desc">Total</th>
+														<th class="sorting_desc">Total</th>
 
 													</tr>
 												</thead>
-												
-												
+
+
 												<tbody>
 													<!--1 row-->
 													<tr>
@@ -1076,97 +1081,14 @@
 															class="button_round"><a href="#"><i
 																	class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></span>
 														</td>
+														<td class="user-name">5.500</td>
+														<td class="user-name">5.500</td>
+														<td class="user-name">5.500</td>
+														<td class="user-name">5.500</td>
+														<td class="user-name">5.500</td>
 													</tr>
 													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
-													<!--1 row-->
-													<tr>
-														<td class="user-name">Neal Matthews</td>
-														<td class="user-name"><strong>KG</strong></td>
-														<td class="user-name"><span class="paid">400</span></td>
-														<td class="user-name"><strong>20%</strong></td>
-														<td class="user-name">5.500</td>
-														<td class="user-name total_pop">400.00</td>
-													</tr>
+
 												</tbody>
 											</table>
 
