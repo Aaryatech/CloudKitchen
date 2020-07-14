@@ -186,12 +186,12 @@
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
-									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a
+									data-target="#grievences" class="detail_btn_round"
+									title="Grievences"><i class="fa fa-exclamation-triangle"
+										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
+									data-toggle="modal" data-target="#cancelOrder"
+									class="detail_btn_round" title="Cancel Order"><i
+										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
 										class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -216,12 +216,12 @@
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
-									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a
+									data-target="#grievences" class="detail_btn_round"
+									title="Grievences"><i class="fa fa-exclamation-triangle"
+										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
+									data-toggle="modal" data-target="#cancelOrder"
+									class="detail_btn_round" title="Cancel Order"><i
+										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
 										class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -246,12 +246,12 @@
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
-									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a
+									data-target="#grievences" class="detail_btn_round"
+									title="Grievences"><i class="fa fa-exclamation-triangle"
+										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
+									data-toggle="modal" data-target="#cancelOrder"
+									class="detail_btn_round" title="Cancel Order"><i
+										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
 										class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -276,12 +276,12 @@
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
 									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;
-									<a href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a
+									data-target="#grievences" class="detail_btn_round"
+									title="Grievences"><i class="fa fa-exclamation-triangle"
+										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
+									data-toggle="modal" data-target="#cancelOrder"
+									class="detail_btn_round" title="Cancel Order"><i
+										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
 										class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -424,11 +424,11 @@
 							</div>
 							<div class="profile_one">
 								<span>Delivery Address</span> : <a href="#"
-									title="Add New Address" class="detail_btn"
+									title="Add New Address" class="detail_btn_round"
 									href="javascript:void(0)" data-toggle="modal"
 									data-target="#addAddress"><i class="fa fa-plus"
 									aria-hidden="true"></i></a>&nbsp;<a href="#" title="Address List"
-									class="detail_btn" data-target="#addressllist"
+									class="detail_btn_round" data-target="#addressllist"
 									data-toggle="modal"><i class="fa fa-list"
 									aria-hidden="true"></i></a>
 
@@ -884,9 +884,9 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Address* <a href="#" style="float: right;"
-									class="detail_btn" title="Add New Address" data-toggle="modal"
-									data-target="#addAddress"><i class="fa fa-plus"
-										aria-hidden="true"></i></a></span>
+									class="detail_btn_round" title="Add New Address"
+									data-toggle="modal" data-target="#addAddress"><i
+										class="fa fa-plus" aria-hidden="true"></i></a></span>
 								<div class="search_multiple">
 									<select class="country">
 										<option value="" selected>Select Address</option>
@@ -969,7 +969,7 @@
 
 
 				<div class="view_order_list">
-					<!-- <h3 class="order_head">View Order Details</h3> -->
+
 					<ul>
 						<li>
 							<div class="pop_txt_l">Order No.</div>
@@ -1021,8 +1021,8 @@
 				<br>
 
 
-				<div class="component1">
-					<table class="one" width="100%">
+				<div class="component">
+					<table class="overflow-y">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
@@ -1191,8 +1191,8 @@
 				<br>
 
 
-				<div class="component1">
-					<table class="one" width="100%">
+				<div class="component">
+					<table class="overflow-y">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
@@ -1361,8 +1361,8 @@
 				<br>
 
 
-				<div class="component1">
-					<table class="one" width="100%">
+				<div class="component">
+					<table class="overflow-y">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
@@ -1375,6 +1375,15 @@
 							</tr>
 						</thead>
 						<tbody>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
 							<!--1 row-->
 							<tr>
 								<td class="user-name">Biryani</td>
@@ -1461,10 +1470,10 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Address Caption * <a href="#" style="float: right;"
-									class="detail_btn" title="Address List" data-toggle="modal"
-									data-target="#addressllist"><i class="fa fa-list"
-										aria-hidden="true"></i></a></span> <input name="" type="text"
-									class="frm_inpt" />
+									class="detail_btn_round" title="Address List"
+									data-toggle="modal" data-target="#addressllist"><i
+										class="fa fa-list" aria-hidden="true"></i></a></span> <input name=""
+									type="text" class="frm_inpt" />
 							</div>
 						</div>
 						<div class="single_row">
@@ -1534,8 +1543,8 @@
 
 
 
-				<div class="component1">
-					<table class="one" width="100%" style="white-space: nowrap;">
+				<div class="component">
+					<table class="overflow-y">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Caption</th>
@@ -1552,10 +1561,9 @@
 								<td class="user-name">Nashik</td>
 								<td class="user-name">Nashik</td>
 								<td class="user-name">Sharanpur Road, Nashik</td>
-								<td class="user-name"><a href="#" class="detail_btn"
+								<td class="user-name"><a href="#" class="detail_btn_round"
 									title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;<a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn" title="Delete"><i
+									href="#" class="detail_btn_round" title="Delete"><i
 										class="fa fa-times" aria-hidden="true"></i> </a></td>
 							</tr>
 							<!--1 row-->

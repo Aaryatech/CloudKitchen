@@ -106,6 +106,12 @@
 									<div class="total-row_r">50.00</div>
 									<div class="clr"></div>
 								</div>
+
+								<div class="total-row">
+									<div class="total-row_l">Offer Disc AMT</div>
+									<div class="total-row_r">00.00</div>
+									<div class="clr"></div>
+								</div>
 								<div class="total-row free">
 									<div class="total-row_l">Delivery Charges</div>
 									<div class="total-row_r">
@@ -116,11 +122,6 @@
 									<div class="clr"></div>
 
 								</div>
-								<div class="total-row">
-									<div class="total-row_l">Offer Disc AMT</div>
-									<div class="total-row_r">00.00</div>
-									<div class="clr"></div>
-								</div>
 								<div class="total_bx">
 									<div class="total-row_l">Total</div>
 									<div class="total-row_r">1600.00</div>
@@ -128,26 +129,7 @@
 
 								</div>
 							</div>
-							<!-- <div class="check_total">
-								<div class="total_one">
-									<span>Items subtotal</span> Rs. 1500.00
-								</div>
-								<div class="total_one free">
-									<span>Delivery Free </span>Free
-								</div>
-								<div class="total_one">
-									<span>Sales tax </span>Rs. 50.00
-								</div>
-								<div class="total_one">
-									<span>Tip </span>Rs. 50.00
-								</div>
-								<div class="total_one">
-									<span>Total </span>Rs. 18.00
-								</div>
-								<div class="total_bx">
-									<span>Total</span> Rs. 1600.00
-								</div>
-							</div> -->
+
 						</div>
 						<div class="clr"></div>
 
@@ -224,162 +206,7 @@
 				</div>
 
 
-				<!--related item box-->
-				<%-- <div class="col-lg-3">
-					<div class="main-box ">
-						<div class="related_head">Related Item</div>
 
-						<div class="item_bx">
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-							<!--item 1-->
-							<div class="item_one">
-								<div class="item_pic">
-									<img
-										src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-										alt="">
-								</div>
-								<div class="item_cont">
-									<h3 class="item_nm">
-										Chilli Chicken Pizza <span>small, chilli chicken</span>
-									</h3>
-									<p class="itm_prc">
-										Rs.150.00 <a href="#">Add to Cart</a>
-									</p>
-								</div>
-							</div>
-
-						</div>
-
-
-					</div>
-				</div> --%>
 				<div class="col-lg-3">
 
 					<div class="sidebar backnone">
@@ -387,18 +214,18 @@
 						<div class="cart-detail-box">
 							<!--Related item-->
 							<div class="card marg_bottom">
-							
+
 								<div class="related_row">
 									<div class="related_row_l">
-										<div class="related_head">Related Item </div>
+										<div class="related_head">Related Item</div>
 									</div>
 									<div class="related_row_r">
-									<i class="fa fa-search" aria-hidden="true"></i>
-										<input name="" type="text" class="rel_search" placeholder="Search">
+										<i class="fa fa-search" aria-hidden="true"></i> <input name=""
+											type="text" class="rel_search" placeholder="Search">
 									</div>
 									<div class="clr"></div>
 								</div>
-								
+
 								<div class="card-body fix_height no-padding" id="scrollstyle-4">
 									<div class="item_bx">
 										<!--item 1-->
@@ -557,11 +384,11 @@
 							<div class="card marg_bottom">
 								<div class="related_row">
 									<div class="related_row_l">
-										<div class="related_head">Related Item </div>
+										<div class="related_head">Related Item</div>
 									</div>
 									<div class="related_row_r">
-									<i class="fa fa-search" aria-hidden="true"></i>
-										<input name="" type="text" class="rel_search" placeholder="Search">
+										<i class="fa fa-search" aria-hidden="true"></i> <input name=""
+											type="text" class="rel_search" placeholder="Search">
 									</div>
 									<div class="clr"></div>
 								</div>
