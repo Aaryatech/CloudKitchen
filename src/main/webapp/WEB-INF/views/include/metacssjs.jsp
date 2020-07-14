@@ -46,9 +46,9 @@
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.ba-throttle-debounce.min.js"
 	type="text/javascript"></script>
-<script
+<!-- <script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.stickyheader.js"
-	type="text/javascript"></script>
+	type="text/javascript"></script>-->
 <!-- new menu js-->
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/ace-responsive-menu.js"
@@ -57,6 +57,10 @@
 	src="${pageContext.request.contextPath}/resources/assets/js/select2.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+	
+	<script
+	src="${pageContext.request.contextPath}/resources/assets/js/jquery.stickyheader.js"></script>
+	 
 
 <script>
 	$(".country").select2({

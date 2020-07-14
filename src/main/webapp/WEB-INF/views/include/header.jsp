@@ -57,10 +57,18 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/responsive.css"
 	rel="stylesheet">
 <!-- sticky table css -->
-<link
+<!-- <link
 	href="${pageContext.request.contextPath}/resources/assets/css/component-new.css"
-	rel="stylesheet">
+	rel="stylesheet">-->
 <!-- menu menu css -->
+
+<!-- table-new cs -->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/component.css"
+	rel="stylesheet">
+
+	
+
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/ace-responsive-menu.css"
 	rel="stylesheet" type="text/css" />
