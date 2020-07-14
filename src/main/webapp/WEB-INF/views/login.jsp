@@ -129,8 +129,8 @@
 												<label class="custom-checkbox mb-0"> <input
 													type="checkbox" name="#"> <span class="checkmark"></span>
 													Keep me signed in
-												</label> <a href="${pageContext.request.contextPath}/resetPassword">Reset
-													Password</a>
+												</label> <%-- <a href="${pageContext.request.contextPath}/resetPassword">Reset
+													Password</a> --%>
 											</div>
 											<div class="form-group">
 												<button type="submit"

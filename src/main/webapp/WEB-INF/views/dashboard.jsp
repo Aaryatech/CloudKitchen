@@ -4,6 +4,9 @@
 
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<%-- <link
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
+	rel="stylesheet" type="text/css" /> --%>
 <body>
 
 
@@ -21,6 +24,7 @@
 					<div class="error-msg">
 						<i class="fa fa-times-circle"></i> Error message.
 					</div>
+
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="input_one">
@@ -138,7 +142,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" data-toggle="modal"
@@ -167,7 +171,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong>0002</strong></td>
 								<td class="user-name">Neal Matthews 2</td>
@@ -185,7 +189,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong>0003</strong></td>
 								<td class="user-name">Neal Matthews 3</td>
@@ -203,7 +207,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong>0004</strong></td>
 								<td class="user-name">Neal Matthews 4</td>
@@ -221,7 +225,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong>0005</strong></td>
 								<td class="user-name">Neal Matthews 5</td>
@@ -239,7 +243,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg"> <span> Kate</span>
+										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong>0006</strong></td>
 								<td class="user-name">Neal Matthews 6</td>
@@ -349,8 +353,7 @@
 										<td class="user-name"><a href="#"
 											class="text-custom-white fw-500"> <img
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg"> <span>
-													Kate</span>
+												class="rounded-circle" alt="userimg">
 										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
@@ -370,8 +373,7 @@
 										<td class="user-name"><a href="#"
 											class="text-custom-white fw-500"> <img
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg"> <span>
-													Kate</span>
+												class="rounded-circle" alt="userimg">
 										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
@@ -390,8 +392,7 @@
 										<td class="user-name"><a href="#"
 											class="text-custom-white fw-500"> <img
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg"> <span>
-													Kate</span>
+												class="rounded-circle" alt="userimg">
 										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
@@ -410,8 +411,7 @@
 										<td class="user-name"><a href="#"
 											class="text-custom-white fw-500"> <img
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg"> <span>
-													Kate</span>
+												class="rounded-circle" alt="userimg">
 										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
@@ -664,20 +664,20 @@
 								<div class="search_multiple">
 									<select class="country">
 										<option value="">Select Shop</option>
-										<option value="Shop 1" data-name="">Shop 1</option>
-										<option value="Shop 2" data-name="">Shop 2</option>
-										<option value="Shop 3" data-name="">Shop 3</option>
-										<option value="Shop 4" data-name="">Shop 4</option>
-										<option value="Shop 5" data-name="">Shop 5</option>
-										<option value="Shop 6" data-name="">Shop 6</option>
+										<option value="Shop 1" data-name="">Shop 1 - 5 KM</option>
+										<option value="Shop 2" data-name="">Shop 2 - 5 KM</option>
+										<option value="Shop 3" data-name="">Shop 3 - 5 KM</option>
+										<option value="Shop 4" data-name="">Shop 4 - 5 KM</option>
+										<option value="Shop 5" data-name="">Shop 5 - 5 KM</option>
+										<option value="Shop 6" data-name="">Shop 6 - 5 KM</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Delivery Date</span> <input type="date" id="datepicker"
-									name="datepicker" class="frm_inpt">
+								<span>Delivery Date</span> <input type="text" id="datepicker1"
+									name="datepicker1" class="frm_inpt datepicker">
 							</div>
 						</div>
 
@@ -1171,6 +1171,10 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+	<%-- <script
+		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"
+		type="text/javascript"></script> --%>
+
 	<script type="text/javascript">
 		function sendOtp() {
 			$('#addCustomer').modal('hide');
@@ -1231,14 +1235,14 @@
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
-		$(document).ready(function() {
+		/* $(document).ready(function() {
 			$("#respMenu").aceResponsiveMenu({
 				resizeWidth : '768', // Set the same in Media query
 				animationSpeed : 'fast', //slow, medium, fast
 				accoridonExpAll : false
 			//Expands all the accordion menu on click
 			});
-		});
+		}); */
 
 		/* $(document).ready(function() {
 			setTimeout(function() {
@@ -1246,7 +1250,11 @@
 			}, 5000);
 		}); */
 	</script>
-
+	<script>
+		$('.datepicker').datepicker({
+			dateFormat : 'dd-mm-yy'
+		}).val();
+	</script>
 </body>
 
 </html>
