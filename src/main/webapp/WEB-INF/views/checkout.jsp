@@ -149,6 +149,7 @@
 								</div>
 							</div> -->
 						</div>
+						<div class="clr"></div>
 
 						<!-- Delivery Instructions box-->
 						<div class="instruction_row">
@@ -386,7 +387,18 @@
 						<div class="cart-detail-box">
 							<!--Related item-->
 							<div class="card marg_bottom">
-								<div class="related_head">Related Item</div>
+							
+								<div class="related_row">
+									<div class="related_row_l">
+										<div class="related_head">Related Item </div>
+									</div>
+									<div class="related_row_r">
+									<i class="fa fa-search" aria-hidden="true"></i>
+										<input name="" type="text" class="rel_search" placeholder="Search">
+									</div>
+									<div class="clr"></div>
+								</div>
+								
 								<div class="card-body fix_height no-padding" id="scrollstyle-4">
 									<div class="item_bx">
 										<!--item 1-->
@@ -543,7 +555,16 @@
 								<div class="blnk_div"></div>
 							</div>
 							<div class="card marg_bottom">
-								<div class="related_head">Most Favorite</div>
+								<div class="related_row">
+									<div class="related_row_l">
+										<div class="related_head">Related Item </div>
+									</div>
+									<div class="related_row_r">
+									<i class="fa fa-search" aria-hidden="true"></i>
+										<input name="" type="text" class="rel_search" placeholder="Search">
+									</div>
+									<div class="clr"></div>
+								</div>
 								<div class="card-body fix_height no-padding" id="scrollstyle-4">
 									<div class="item_bx">
 										<!--item 1-->
