@@ -146,7 +146,7 @@
 								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
+										data-target="#view">0001</a></strong></td>
 								<td class="user-name">Neal Matthews 1</td>
 								<td class="user-name">Madhavi</td>
 								<td class="user-name" style="text-align: center;">10-07-2020</td>
@@ -1170,6 +1170,227 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade kot-popup" id="view">
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png" alt="">
+				</button>
+
+				<div class="pop_signup">Feedback Popup</div>
+
+
+				<div class="grievences_tab">
+					<ul>
+						<li><label class="radio_one"> <input type="radio"
+								class="option-input radio" name="example" checked /> Feedback
+						</label></li>
+						<li><label class="radio_one"> <input type="radio"
+								class="option-input radio" name="example" checked /> Grievences
+						</label></li>
+					</ul>
+				</div>
+
+
+				<div class="view_order_list">
+					<!-- <h3 class="order_head">View Order Details</h3> -->
+					<ul>
+						<li>
+							<div class="pop_txt_l">Order ID</div>
+							<div class="pop_txt_r">: #SK2540 1</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Billing Name</div>
+							<div class="pop_txt_r">: Neal Matthews 1</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Order Name</div>
+							<div class="pop_txt_r">: Veg Biryani</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Status</div>
+							<div class="pop_txt_r">
+								<span class="paid">Paid</span>
+							</div>
+						</li>
+						<li>
+							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_r">: MasterCard</div>
+						</li>
+						<li class="total">
+							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_r">: 400.00</div>
+						</li>
+					</ul>
+				</div>
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Pincode</span>
+								<div class="search_multiple">
+									<select class="country">
+										<option value="">Select Country</option>
+										<option value="4">Afghanistan</option>
+										<option value="248">Aland Islands</option>
+										<option value="8">Albania</option>
+										<option value="12">Algeria</option>
+										<option value="16">American Samoa</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Textarea</span>
+								<textarea name="" cols="" rows="" class="frm_inpt"
+									placeholder="Textarea Placeholder"></textarea>
+							</div>
+						</div>
+						<div>
+							<input name="" type="button" value="Submit" class="next_btn" />
+						</div>
+						<!-- class="pop_btn_row"-->
+					</form>
+				</div>
+				<!--form close-->
+
+
+				<div class="component1">
+					<table class="one" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Name</th>
+								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Rate</th>
+								<th class="sorting_desc js-sort-date">Quantity</th>
+								<th class="sorting_desc">Tax %</th>
+								<th class="sorting_desc">Total</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name"><span class="button_round"><a
+										href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></span> <span
+									class="button_round"><a href="#"><i
+											class="fa fa-times" aria-hidden="true"></i></a></span> <span
+									class="button_round"><a href="#"><i
+											class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></span></td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+							<!--1 row-->
+							<tr>
+								<td class="user-name">Neal Matthews</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>20%</strong></td>
+								<td class="user-name">5.500</td>
+								<td class="user-name total_pop">400.00</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+				</div>
+
+
+
+
+			</div>
+		</div>
+	</div>
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<%-- <script
 		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"

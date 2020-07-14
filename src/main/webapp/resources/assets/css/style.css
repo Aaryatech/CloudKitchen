@@ -772,7 +772,7 @@ span.circle-tag {
 span.square-tag>img,
 span.rectangle-tag>img,
 span.circle-tag>img{
-    padding: 8px; width: 100%;
+    padding:4px /*8px*/; width: 100%;
 }
 span.rectangle-tag {
     height: 30px;
@@ -791,8 +791,8 @@ span.rectangle-tag+span.rectangle-tag{
     margin: 0 2px;
 }
 span.square-tag {
-    height: 35px;
-    width: 40px;
+    height: 36px;
+    width: 55px /*40px*/;
     background: transparent;
     border-radius: 3px;
     font-size: 16px;
@@ -4288,13 +4288,14 @@ background: linear-gradient(to right,  #008dee 0%,#3ba6ff 100%); /* W3C, IE10+, 
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008dee', endColorstr='#3ba6ff',GradientType=1 ); /* IE6-9 */
 }
 .sec_title{color: #2a3042; font-size: 16px; text-transform: uppercase; font-weight: 600; margin: 0 0 15px 0;}
-.detail_btn{background: #e84d7c; color: #FFF; font-size: 12px; font-weight: 600; border-radius: 15px;
+a.detail_btn{background: #e84d7c; color: #FFF; font-size: 12px; font-weight: 600; border-radius: 15px;
 padding: 5px 20px;}
-.detail_btn:hover{background: #e84d7c; color: #FFF;}
+a.detail_btn:hover{background: #e84d7c; color: #FFF;}
 .paid{background: #d6f3e9; color: #02ab79; font-size: 12px; font-weight: 600; border-radius: 15px;
 padding: 5px 20px;}
-.order_btn{float: right; background: #e84d7c; color: #FFF; padding: 6px 13px; border-radius: 5px; font-size: 13px;
+a.order_btn{float: right; background: #e84d7c; color: #FFF; padding: 6px 13px; border-radius: 5px; font-size: 13px;
 font-weight: 500; text-transform: initial;}
+a.order_btn:hover{}
 
 .edit_prof{display: block; text-align: center; margin: 0 0 20px 0;}
 .edit_prof img{border-radius: 50%; width: 130px; height: 130px; object-fit: cover;}
@@ -4366,7 +4367,8 @@ padding: 10px 35px; border:none; cursor: pointer; border-radius: 5px; display: i
 
 
 /*KOT page css*/
-.file{color: #495057; font-size: 16px; margin: 0 10px 0 0;}
+a.file{color: #495057; font-size: 16px; margin: 0 10px 0 0;}
+a.file:hover{color: #f26a90;}
 .deliverd_round{background: #ffbaba; color: #ed1c24; font-size: 13px; font-weight: 600; width: 100px; height: 29px;
 line-height: 29px; text-align: center; border-radius: 15px; display: inline-block;}
 .deliverd_round.prepare_round{background: #bbeeff; color: #005599;}
@@ -4416,16 +4418,16 @@ border: none; padding: 0 30px;}
 .bBALuk {width: 100%; height: 100%; object-fit: cover; transform: none; opacity: 1; will-change: transform, opacity;
 border-radius: inherit; transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;}
 .eGlRiQ {position: absolute; top: 0px; left: 0px; border-radius: 0.6rem; width: 100%; height: 100%;
-background: rgba(0, 0, 0, 0) linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.05) 50%,
-rgba(0, 0, 0, 0.05) 85%) repeat scroll 0% 0%;}
+background: rgba(0, 0, 0, 0) linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.05) 60%,
+rgba(0, 0, 0, 0.05) 90%) repeat scroll 0% 0%;}
 .lMfoD {color: rgb(255, 255, 255); position: absolute; bottom: 0px; width: 100%;}
 .dMSPwE {position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0;
 will-change: transform, opacity; border-radius: inherit; transition: opacity 0.25s ease-in 0s;}
 .eUhPqE {line-height: 1.5; margin: 0 0 5px 0; color: #FFF; padding: 0px 20px; font-size:17px; width: 100%;
 overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500;}
 .gkgQzg {display: flex; -moz-box-align: center; align-items: center; margin: 0 0 20px 0; padding: 0px 20px;}
-.jRoqeo {line-height: 1.2; font-weight: 400; margin: 0px 0.7rem 0px 0px; text-decoration: none; color: #FFF;
-font-size: 14px;}
+.jRoqeo {line-height: 1.2; font-weight: 700; margin: 0px 0.7rem 0px 0px; text-decoration: none; color: #FFF;
+font-size: 13px; text-transform: uppercase; letter-spacing: 0.3px;}
 .MxLSp {display: flex; -moz-box-align: center; align-items: center; cursor: inherit;}
 .category_bx{background: #FFF; padding: 30px 0; margin: 30px 0 0 0;}
 
@@ -4521,7 +4523,7 @@ padding: 7px 8px; border-radius: 5px; -webkit-transition: all ease 0.5s;-moz-tra
 
 .progress_row{margin: 0 0 20px 0;}
 .progressbar {counter-reset: step;}
-.progressbar li {list-style: none; display: inline-block; width: 24%; position: relative; text-align: center; cursor: pointer;
+.progressbar li {list-style: none; display: inline-block; width: 32.333% /*24%*/; position: relative; text-align: center; cursor: pointer;
   font-size: 14px; text-transform: uppercase; font-weight: 600; color: #484f55;}
 .progressbar li:before {content: counter(step); counter-increment: step; width: 40px; height: 40px; line-height : 36px;
 border: 3px solid #FFF; border-radius: 100%; display: block; text-align: center; margin: 0 auto 5px auto;
@@ -4608,7 +4610,7 @@ font-size: 13px; text-transform: uppercase; font-weight: 600;-webkit-transition:
 .right_side ul li a:hover{background: #f26a90; color: #FFF; border: 1px solid #f26a90; -webkit-transition: all ease 0.5s;
 -moz-transition: all ease 0.5s; -o-transition: all ease 0.5s; -ms-transition: all ease 0.5s; transition: all ease 0.5s;}
 
-.grievences_tab{display: inline-block; width: 100%; margin: 0 0 15px 0; border-bottom: 1px solid #d8e0e4;}
+.grievences_tab{display: inline-block; width: 100%; margin: 0 0 15px 0; border-bottom: 1px solid #d8e0e4; text-align: center;}
 .grievences_tab ul{margin: 0px; padding: 0px;}
 .grievences_tab ul li{list-style-type: none; display: inline-block; margin: 0 20px 0 0; font-size: 13px;}
 .grievences_tab ul li a{color: #333; font-size: 13px; padding: 10px 20px; text-transform: uppercase; display: block;
@@ -4619,9 +4621,13 @@ font-weight: 600; letter-spacing: 0.5px; -webkit-transition: all ease 0.5s;-moz-
 .order_head{padding: 10px 0; border-bottom: 1px solid #d8e0e4; font-size: 16px; font-weight: 600; color: #333; margin: 0;}
 .view_order_list{display: block;}
 .view_order_list ul{margin: 0px; padding: 0px;}
-.view_order_list ul li{list-style-type: none; float: left; width: 50%; color: #495057; font-weight: 400; margin: 10px 0 0 0;}
-.view_order_list ul li span{font-weight: 600; display: block;}
+.view_order_list ul li{list-style-type: none; float: left; width: 50%; color: #495057; font-weight: 400; margin: 10px 0 3px 0;}
+/* .view_order_list ul li span{font-weight: 600; display: block; float: left; width: 35%;} */
+.pop_txt_l{font-weight: 600; display: block; float: left;; width: 35%;}
+.pop_txt_r{float: left; width:65%; font-weight: 400;}
+.view_order_list ul li.total{font-size: 16px; font-weight: 600; color: #f26a90;}
 .form_one.extra_marg{margin: 15px 0;}
+.marg_bottom{margin: 0 0 15px 0; display: inline-block; width: 100%; clear: both;}
 
 .curry_pop{color: #020202; text-decoration: none;}
 .curry_pop:hover{color: #F26A90;}
@@ -4639,13 +4645,48 @@ font-weight: 600; letter-spacing: 0.5px; -webkit-transition: all ease 0.5s;-moz-
 .review-box.pop{padding: 0 0 12px 0px}
 .order_now.pop_order{margin: 25px 0 10px 0;}
 
+td.user-name.total_pop{color: #f26a90; font-weight: 600; font-size: 15px;}
+.button_round a{background: #f26a90; color: #FFF; border-radius: 50%; width: 25px; display: inline-block;
+height: 25px; text-align: center; line-height: 25px; font-size: 12px; margin: 0 3px 0 0; -webkit-transition: all ease 0.5s;
+-moz-transition: all ease 0.5s;-o-transition: all ease 0.5s;-ms-transition: all ease 0.5s;transition: all ease 0.5s;}
+.button_round a:hover{background: #de577e; color: #FFF; -webkit-transition: all ease 0.5s;-moz-transition: all ease 0.5s;
+-o-transition: all ease 0.5s;-ms-transition: all ease 0.5s;transition: all ease 0.5s;}
 
-.total-row {color: #797979; font-size: 15px; font-weight: 500; margin: 0 0 15px 0; width: 100%;}
-.total-row.free{color:#f4467a;}
-.total-row.free .total-row_l{margin-top:5px;}
-.total-row_l{float:left; width:50%;}
-.total-row_r{float:right; width:20%; text-align:right;}
+.offer_txt{color: #FFF; font-weight: 800; text-transform: uppercase; font-size: 18px;}
+.offer_txt span{font-size: 24px;}
 
+/*popular tags checkboxes*/
+ul.rating_chk{margin: 0px; padding: 0;}
+ul.rating_chk li{list-style-type: none; float: left; margin: 0 10px 10px 0;}
+ul.ks-cboxtags {list-style: none;}
+ul.ks-cboxtags li{display: inline;}
+ul.ks-cboxtags li label{display: inline-block; /* background-color: rgba(255, 255, 255, .9); border-radius: 25px;
+border: 2px solid rgba(139, 139, 139, .3); */ color: #6b6b83; font-weight: 500; white-space: nowrap; margin: 3px 0px;
+-webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+-webkit-tap-highlight-color: transparent; transition: all .2s; font-size: 14px;}
+ul.ks-cboxtags li label {padding: 3px; cursor: pointer;}
+ul.ks-cboxtags li label::before {display:none /*inline-block*/; font-style: normal; font-variant: normal; text-rendering: auto;
+-webkit-font-smoothing: antialiased; font-family: "Font Awesome 5 Free"; font-weight: 900; font-size: 12px;
+padding: 2px 6px 2px 2px; content: "\f067"; transition: transform .3s ease-in-out;}
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+content: "\f00c"; transform: rotate(-360deg); transition: transform .3s ease-in-out;}
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+/*border: 2px solid #1bdbf8; background-color: #12bbd4;*/ color: #f26a90; transition: all .2s;}
+ul.ks-cboxtags li input[type="checkbox"] {display: absolute;}
+ul.ks-cboxtags li input[type="checkbox"] {position: absolute; opacity: 0;}
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {/* border: 2px solid #e9a1ff; */}
+
+.fix_height{height: 480px; margin: 0 0 15px 0; overflow: auto;}
+.sidebar.backnone .cart-detail-box{background: none; border: none; box-shadow: none;}
+.blnk_div{display: block; min-height: 20px;}
+.sidebar .cart-detail-box>.card .card-body.fix_height{height: 480px;}
+
+.top_search{display: inline-block; margin: 0 15px; position: relative; width: 60%;}
+.top_search i{position: absolute; left: 10px; top: 13px; z-index: 100;}
+.top_sear_place{background: #FFF; border-radius: 3px; padding: 10px 20px 10px 30px; width: 100%; color: #333;
+  border: none; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 400;}
+
+.top_drop{display: inline-block;}
 
 @media screen and (max-width: 1024px) {
   .dash_common i{font-size: 36px; right: 10px;}
