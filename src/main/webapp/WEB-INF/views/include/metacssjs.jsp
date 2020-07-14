@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8"%>
 
 <!-- jQuery -->
-<script
+
+ <script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"
-	type="text/javascript"></script>
+	type="text/javascript"></script> 
 <!-- Popper -->
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"
@@ -42,10 +43,7 @@
 	type="text/javascript"></script>
 <!-- /Place all Scripts Here -->
 
-<!--sticky table js -->
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/jquery.ba-throttle-debounce.min.js"
-	type="text/javascript"></script>
+
 <!-- <script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.stickyheader.js"
 	type="text/javascript"></script>-->
@@ -58,6 +56,10 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
 	
+	<!--sticky table js -->
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/jquery.ba-throttle-debounce.min.js"
+	type="text/javascript"></script>
 	<script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.stickyheader.js"></script>
 	 
