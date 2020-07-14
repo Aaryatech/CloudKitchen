@@ -1254,6 +1254,9 @@
 		$('.datepicker').datepicker({
 			dateFormat : 'dd-mm-yy'
 		}).val();
+
+		$(window).on('load', function() {
+		});
 	</script>
 </body>
 
