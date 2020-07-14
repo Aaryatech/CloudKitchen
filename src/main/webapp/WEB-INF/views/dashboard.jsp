@@ -14,6 +14,13 @@
 			<!--top-search-->
 			<div class="main-box padding-20  margin_bottom">
 				<form action="" method="get">
+
+					<div class="success-msg">
+						<i class="fa fa-check"></i> Success Message
+					</div>
+					<div class="error-msg">
+						<i class="fa fa-times-circle"></i> Error message.
+					</div>
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="input_one">
@@ -128,9 +135,11 @@
 						<tbody>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" data-toggle="modal"
 										data-target="#viewOrder">0001</a></strong></td>
@@ -155,9 +164,11 @@
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong>0002</strong></td>
 								<td class="user-name">Neal Matthews 2</td>
 								<td class="user-name">Madhavi</td>
@@ -171,9 +182,11 @@
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong>0003</strong></td>
 								<td class="user-name">Neal Matthews 3</td>
 								<td class="user-name">Madhavi</td>
@@ -187,9 +200,11 @@
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong>0004</strong></td>
 								<td class="user-name">Neal Matthews 4</td>
 								<td class="user-name">Madhavi</td>
@@ -203,9 +218,11 @@
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong>0005</strong></td>
 								<td class="user-name">Neal Matthews 5</td>
 								<td class="user-name">Madhavi</td>
@@ -219,9 +236,11 @@
 							</tr>
 							<!--1 row-->
 							<tr>
-								<td class="user-name"><img
-									src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-									alt=""></td>
+								<td class="user-name"><a href="#"
+									class="text-custom-white fw-500"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+										class="rounded-circle" alt="userimg"> <span> Kate</span>
+								</a></td>
 								<td class="user-name"><strong>0006</strong></td>
 								<td class="user-name">Neal Matthews 6</td>
 								<td class="user-name">Madhavi</td>
@@ -327,9 +346,12 @@
 								<tbody>
 									<!--1 row-->
 									<tr>
-										<td class="user-name"><img
-											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-											alt=""></td>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg"> <span>
+													Kate</span>
+										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
@@ -345,9 +367,12 @@
 									</tr>
 									<!--1 row-->
 									<tr>
-										<td class="user-name"><img
-											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-											alt=""></td>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg"> <span>
+													Kate</span>
+										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
@@ -362,9 +387,12 @@
 									</tr>
 									<!--1 row-->
 									<tr>
-										<td class="user-name"><img
-											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-											alt=""></td>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg"> <span>
+													Kate</span>
+										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
@@ -379,9 +407,12 @@
 									</tr>
 									<!--1 row-->
 									<tr>
-										<td class="user-name"><img
-											src="${pageContext.request.contextPath}/resources/assets/img/order_pic.jpg"
-											alt=""></td>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg"> <span>
+													Kate</span>
+										</a></td>
 										<td class="user-name">xco1234</td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
@@ -550,7 +581,12 @@
 				</div>
 				<form action="" method="get">
 
-
+					<div class="success-msg">
+						<i class="fa fa-check"></i> OTP send to your mobile no.
+					</div>
+					<!-- <div class="error-msg">
+						<i class="fa fa-times-circle"></i> This is a error message.
+					</div> -->
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>OTP *</span> <input name="" type="text" class="frm_inpt" />
@@ -1203,6 +1239,12 @@
 			//Expands all the accordion menu on click
 			});
 		});
+
+		/* $(document).ready(function() {
+			setTimeout(function() {
+				$('.success-msg').remove();
+			}, 5000);
+		}); */
 	</script>
 
 </body>
