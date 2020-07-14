@@ -117,10 +117,16 @@
 													class="btn-second btn-submit full-width">
 													<img
 														src="${pageContext.request.contextPath}/resources/assets/img/M.png"
-														alt="btn logo">Sign in
+														alt="btn logo">Submit
 												</button>
-											</div>
 
+											</div>
+											<div>
+												<a href="${pageContext.request.contextPath}/">
+													<button type="button"
+														class="btn-second btn-submit full-width">Back</button>
+												</a>
+											</div>
 
 
 
