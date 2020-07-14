@@ -4291,6 +4291,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008dee', end
 a.detail_btn{background: #e84d7c; color: #FFF; font-size: 12px; font-weight: 600; border-radius: 15px;
 padding: 5px 20px;}
 a.detail_btn:hover{background: #e84d7c; color: #FFF;}
+
+a.detail_btn_round{background: #e84d7c; color: #FFF; font-size: 12px; margin:0 3px;
+border-radius: 50%; width: 25px; height:25px; line-height:25px; display: inline-block;}
+a.detail_btn_round i{display: inline-block; vertical-align: middle; line-height: 25px;}
+
+
 .paid{background: #d6f3e9; color: #02ab79; font-size: 12px; font-weight: 600; border-radius: 15px;
 padding: 5px 20px;}
 a.order_btn{float: right; background: #e84d7c; color: #FFF; padding: 6px 13px; border-radius: 5px; font-size: 13px;
