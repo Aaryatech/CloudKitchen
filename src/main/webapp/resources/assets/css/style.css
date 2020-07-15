@@ -4721,6 +4721,10 @@ border-radius: 4px; width: 100%; font-family: 'Poppins', sans-serif; font-size: 
 
 .inner_scroll{height: 900px; overflow: auto;}
 .chk_txt{color: #797979; font-family: 'Poppins', sans-serif;}
+.button_row{display: inline-block; width: 100%;}
+.button_row_l{display: inline-block; width: 30%;}
+.button_row_r{display: inline-block; margin: 0 0 0 20px;}
+.table_inpt.quantity1{padding: 6px 12px;}
 
 @media screen and (max-width: 1024px) {
   .dash_common i{font-size: 36px; right: 10px;}

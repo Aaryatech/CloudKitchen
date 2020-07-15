@@ -593,10 +593,14 @@
 																</a></li>
 															</ul>
 													</div>
-
-													<div class="order_now pop_order">
+	
+													<div class="button_row">
+														<div class="button_row_l"><input name="" type="text" class="table_inpt quantity1" placeholder="Quantity"></div>
+														<div class="order_now pop_order button_row_r">													
 														<a href="#">Place Order</a>
 													</div>
+													</div>
+													
 
 													<!-- <div class="product-list-type hotel_nm">
                                     <span class="text-light-white new pop_ordered">New</span>
