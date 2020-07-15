@@ -150,8 +150,7 @@
 										class="rounded-circle" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong><a
-										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
+										href="javascript:void(0)" onclick="viewOrderFun()">0001</a></strong></td>
 								<td class="user-name">Neal Matthews 1</td>
 								<td class="user-name">Madhavi</td>
 								<td class="user-name" style="text-align: center;">10-07-2020</td>
@@ -1456,7 +1455,7 @@
 
 
 				<div class="component">
-					<table class="overflow-y">
+					<table class="overflow-y" id="printtable3">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
@@ -1469,7 +1468,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!--1 row-->
+
 							<tr>
 								<td class="user-name">Biryani</td>
 								<td class="user-name"><strong>KG</strong></td>
@@ -1478,7 +1477,7 @@
 								<td class="user-name">18%</td>
 								<td class="user-name">400</td>
 							</tr>
-							<!--1 row-->
+
 							<tr>
 								<td class="user-name">Biryani</td>
 								<td class="user-name"><strong>KG</strong></td>
@@ -1487,7 +1486,97 @@
 								<td class="user-name">18%</td>
 								<td class="user-name">400</td>
 							</tr>
-							<!--1 row-->
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
 
 						</tbody>
 					</table>
@@ -1732,6 +1821,71 @@
 				window.location = url;
 			}
 			/* $('#modal_step1').modal('hide'); */
+		}
+
+		function viewOrderFun() {
+
+			$('#viewOrder').modal('show');
+			$(".sticky-thead").css({
+				"width" : "100%"
+			});
+			/* $("#printtable3 tbody").empty();
+			 
+			var tr_data = '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			tr_data = tr_data
+					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
+					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+			$('#printtable3').append(tr_data); */
+
 		}
 	</script>
 	<!--Plugin Initialization-->
