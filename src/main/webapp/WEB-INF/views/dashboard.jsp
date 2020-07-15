@@ -48,7 +48,12 @@
 							</div>
 							<span style="color: red;">* Order no. not found.</span>
 						</div>
-						<div class="sec_title">
+
+						<div class="col-lg-3 col-md-6 col-sm-6">
+							<label class="prefered fs-14">Preferred Language - <Span>Gujarati</Span></label>
+						</div>
+
+						<div class="col-lg-3 sec_title right_btn">
 							<a href="javascript:void(0)" data-toggle="modal"
 								data-target="#addCustomer" href="#" class="order_btn"> New
 								Customer Registration</a>

@@ -4733,6 +4733,10 @@ border-radius: 4px; width: 100%; font-family: 'Poppins', sans-serif; font-size: 
 .rate_prc{display: inline-block}
 .button_row.bottom{margin: 0 0 30px 0}
 
+.right_btn{float: right;}
+.prefered{color: #2a3042; margin: 10px 0 0 0;}
+.prefered span{color: #e84d7c; font-weight: 600; font-size: 16px;}
+
 @media screen and (max-width: 1024px) {
   .dash_common i{font-size: 36px; right: 10px;}
   .dash_common{padding: 18px 15px 20px 15px;}
