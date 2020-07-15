@@ -4726,6 +4726,13 @@ border-radius: 4px; width: 100%; font-family: 'Poppins', sans-serif; font-size: 
 .button_row_r{display: inline-block; margin: 0 0 0 20px;}
 .table_inpt.quantity1{padding: 6px 12px;}
 
+.rating_row_one{display: inline-block; width: 100%; margin: 0 0 15px 0;}
+.strong_fnt{font-weight: 600; font-size: 13px; color: #6b6b83;}
+.rating_l{display: inline-block; margin: 0 20px 0 0;}
+.rate_ting{display: inline-block; margin: 0 20px 0 0;}
+.rate_prc{display: inline-block}
+.button_row.bottom{margin: 0 0 30px 0}
+
 @media screen and (max-width: 1024px) {
   .dash_common i{font-size: 36px; right: 10px;}
   .dash_common{padding: 18px 15px 20px 15px;}

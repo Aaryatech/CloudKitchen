@@ -5,136 +5,136 @@
 
 <body>
 
-	
-	
+
+
 
 	<!-- Navigation -->
 	<section
 		class="final-order section-padding-top section-padding-bottom  bg-light-grey">
 		<div class="container-fluid">
 			<!--restarurent offer-->
-			
+
 			<div class="row">
-				
-        
-          
-               
-                <div class="col-12">
-                    <div class="featured-partners-slider swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="bke1zw-1 feJJpQ">
-						<section class="sc-hzOKmB eTLmSe">
-							<a href="#" class="sc-fjNYmT cPRXMx">
-								<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
-									<img alt="Trending This Week"
-										src="${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg"
-										loading="lazy" class="s1isp7-4 bBALuk">
-								</div>
-								<section class="sc-cOoQYZ eGlRiQ">
-									<section class="sc-ddcOto lMfoD">
-										<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
-											Up to <span>40%</span> off
-										</p>
-										<div class="sc-jrOYZv gkgQzg">
-											<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food To
-												make your Mood</h6>
-											<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
-										</div>
+
+
+
+
+				<div class="col-12">
+					<div class="featured-partners-slider swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="bke1zw-1 feJJpQ">
+									<section class="sc-hzOKmB eTLmSe">
+										<a href="#" class="sc-fjNYmT cPRXMx">
+											<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
+												<img alt="Trending This Week"
+													src="${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg"
+													loading="lazy" class="s1isp7-4 bBALuk">
+											</div>
+											<section class="sc-cOoQYZ eGlRiQ">
+												<section class="sc-ddcOto lMfoD">
+													<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
+														Up to <span>40%</span> off
+													</p>
+													<div class="sc-jrOYZv gkgQzg">
+														<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food
+															To make your Mood</h6>
+														<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
+													</div>
+												</section>
+											</section>
+										</a>
 									</section>
-								</section>
-							</a>
-						</section>
-					</div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="bke1zw-1 feJJpQ">
-						<section class="sc-hzOKmB eTLmSe">
-							<a href="#" class="sc-fjNYmT cPRXMx">
-								<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
-									<img alt="Trending This Week"
-										src="${pageContext.request.contextPath}/resources/assets/img/trending_2.jpg"
-										loading="lazy" class="s1isp7-4 bBALuk">
 								</div>
-								<section class="sc-cOoQYZ eGlRiQ">
-									<section class="sc-ddcOto lMfoD">
-										<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
-											Up to <span>40%</span> off
-										</p>
-										<div class="sc-jrOYZv gkgQzg">
-											<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food To
-												make your Mood</h6>
-											<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
-										</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="bke1zw-1 feJJpQ">
+									<section class="sc-hzOKmB eTLmSe">
+										<a href="#" class="sc-fjNYmT cPRXMx">
+											<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
+												<img alt="Trending This Week"
+													src="${pageContext.request.contextPath}/resources/assets/img/trending_2.jpg"
+													loading="lazy" class="s1isp7-4 bBALuk">
+											</div>
+											<section class="sc-cOoQYZ eGlRiQ">
+												<section class="sc-ddcOto lMfoD">
+													<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
+														Up to <span>40%</span> off
+													</p>
+													<div class="sc-jrOYZv gkgQzg">
+														<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food
+															To make your Mood</h6>
+														<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
+													</div>
+												</section>
+											</section>
+										</a>
 									</section>
-								</section>
-							</a>
-						</section>
-					</div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="bke1zw-1 feJJpQ">
-						<section class="sc-hzOKmB eTLmSe">
-							<a href="#" class="sc-fjNYmT cPRXMx">
-								<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
-									<img alt="Trending This Week"
-										src="${pageContext.request.contextPath}/resources/assets/img/trending_3.jpg"
-										loading="lazy" class="s1isp7-4 bBALuk">
 								</div>
-								<section class="sc-cOoQYZ eGlRiQ">
-									<section class="sc-ddcOto lMfoD">
-										<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
-											Up to <span>40%</span> off
-										</p>
-										<div class="sc-jrOYZv gkgQzg">
-											<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food To
-												make your Mood</h6>
-											<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
-										</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="bke1zw-1 feJJpQ">
+									<section class="sc-hzOKmB eTLmSe">
+										<a href="#" class="sc-fjNYmT cPRXMx">
+											<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
+												<img alt="Trending This Week"
+													src="${pageContext.request.contextPath}/resources/assets/img/trending_3.jpg"
+													loading="lazy" class="s1isp7-4 bBALuk">
+											</div>
+											<section class="sc-cOoQYZ eGlRiQ">
+												<section class="sc-ddcOto lMfoD">
+													<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
+														Up to <span>40%</span> off
+													</p>
+													<div class="sc-jrOYZv gkgQzg">
+														<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food
+															To make your Mood</h6>
+														<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
+													</div>
+												</section>
+											</section>
+										</a>
 									</section>
-								</section>
-							</a>
-						</section>
-					</div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="bke1zw-1 feJJpQ">
-						<section class="sc-hzOKmB eTLmSe">
-							<a href="#" class="sc-fjNYmT cPRXMx">
-								<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
-									<img alt="Trending This Week"
-										src="${pageContext.request.contextPath}/resources/assets/img/trending_4.jpg"
-										loading="lazy" class="s1isp7-4 bBALuk">
 								</div>
-								<section class="sc-cOoQYZ eGlRiQ">
-									<section class="sc-ddcOto lMfoD">
-										<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
-											Up to <span>40%</span> off
-										</p>
-										<div class="sc-jrOYZv gkgQzg">
-											<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food To
-												make your Mood</h6>
-											<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
-										</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="bke1zw-1 feJJpQ">
+									<section class="sc-hzOKmB eTLmSe">
+										<a href="#" class="sc-fjNYmT cPRXMx">
+											<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
+												<img alt="Trending This Week"
+													src="${pageContext.request.contextPath}/resources/assets/img/trending_4.jpg"
+													loading="lazy" class="s1isp7-4 bBALuk">
+											</div>
+											<section class="sc-cOoQYZ eGlRiQ">
+												<section class="sc-ddcOto lMfoD">
+													<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
+														Up to <span>40%</span> off
+													</p>
+													<div class="sc-jrOYZv gkgQzg">
+														<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food
+															To make your Mood</h6>
+														<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
+													</div>
+												</section>
+											</section>
+										</a>
 									</section>
-								</section>
-							</a>
-						</section>
+								</div>
+							</div>
+						</div>
+						<!-- Add Arrows -->
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
 					</div>
-                            </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-           
-       
-    
+				</div>
+
+
+
 			</div>
-			
-			
-			
+
+
+
 		</div>
 
 		<!-- Browse by category -->
@@ -418,7 +418,7 @@
 					<!--right product boxes -->
 					<div class="col-lg-9">
 
-						
+
 
 						<div class="inner_scroll">
 							<!--1-->
@@ -512,7 +512,7 @@
 													alt="">
 											</button>
 
-											<div class="pop_signup">Discription Popup</div>
+											<div class="pop_signup">Item Discription</div>
 
 
 											<div class="disc_pop">
@@ -526,40 +526,60 @@
 															alt=""> Curry Leaves Barbecuing and Grilling <span>Sharanpur
 															Road Nashik Casual Dining - North Indian</span>
 													</h3>
-													<!--kathy order-->
-													<div class="review-box pop">
-														<span
-															class="text-light-white fs-12 food-order pop_ordered">Kathy
-															ordered</span>
-														<ul class="food">
-															<li>
-																<button class="add-pro bg-gradient-red">
-																	Coffee <span class="close">+</span>
-																</button>
-															</li>
-															<li>
-																<button class="add-pro bg-dark">
-																	Pizza <span class="close">+</span>
-																</button>
-															</li>
-															<li>
-																<button class="add-pro bg-gradient-green">
-																	Noodles <span class="close">+</span>
-																</button>
-															</li>
-															<li>
-																<button class="add-pro bg-gradient-orange">
-																	Burger <span class="close">+</span>
-																</button>
-															</li>
-														</ul>
+
+													<div class="pop_disc">
+														<span>Category -</span> Pizza
 													</div>
 
 													<div class="pop_disc">
-														<span>Sort Discription -</span> Lorem ipsum dolor sit
-														amet, consectetur adipiscing elit, sed do eiusmod tempor
+														<span>Discription -</span> Lorem ipsum dolor sit amet,
+														consectetur adipiscing elit, sed do eiusmod tempor
 														incididunt ut labore et dolore magna aliqua.
 													</div>
+
+													<div class="product-list-type hotel_nm pop_disc">
+														<span class="text-light-white new strong_fnt">New</span> <span
+															class="text-custom-white square-tag"><img
+															src="/ck/resources/assets/img/chilli_1.jpg" alt="tag"></span>
+														<span class="text-custom-white square-tag"><img
+															src="/ck/resources/assets/img/chilli_2.jpg" alt="tag"></span>
+														<span class="text-custom-white square-tag"><img
+															src="/ck/resources/assets/img/chilli_3.jpg" alt="tag"></span>
+														<span class="text-custom-white square-tag"><img
+															src="/ck/resources/assets/img/sweet_1.png" alt="tag"></span>
+													</div>
+	
+
+													<div class="rating_row_one">
+														<div class="ratings rating_l">
+														<span class="strong_fnt">Rating -</span>
+															<span class="text-yellow"><i class="fas fa-star"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"></i></span>
+															<span class="text-yellow"><i
+																class="fas fa-star-half-alt"></i></span>
+														</div>
+
+														<div class="rate_ting"><span class="strong_fnt">Time -</span> 30-40 mins</div>
+														<div class="rate_prc">
+															<div class="offer_price">
+																<span>Rs.250</span> Rs.180/-
+															</div>
+														</div>
+
+													</div>
+													
+													<div class="button_row bottom">
+														<div class="button_row_l">
+															<input name="" type="text" class="table_inpt quantity1"
+																placeholder="Quantity">
+														</div>
+														<div class="order_now button_row_r">
+															<a href="#">Place Order</a>
+														</div>
+													</div>
+
 
 													<!--related Causin-->
 													<div class="pop_cousin pop_disc">
@@ -593,14 +613,9 @@
 																</a></li>
 															</ul>
 													</div>
-	
-													<div class="button_row">
-														<div class="button_row_l"><input name="" type="text" class="table_inpt quantity1" placeholder="Quantity"></div>
-														<div class="order_now pop_order button_row_r">													
-														<a href="#">Place Order</a>
-													</div>
-													</div>
+
 													
+
 
 													<!-- <div class="product-list-type hotel_nm">
                                     <span class="text-light-white new pop_ordered">New</span>
