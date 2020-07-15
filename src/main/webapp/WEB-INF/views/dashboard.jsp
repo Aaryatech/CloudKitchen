@@ -1653,16 +1653,15 @@
 
 		/* $(document).ready(function() {
 			setTimeout(function() {
-				$('.success-msg').remove();
+				$('.success-msg').hide();
 			}, 5000);
 		}); */
 	</script>
 	<script>
-		$('.datepicker').datepicker({
-			dateFormat : 'dd-mm-yy'
-		}).val();
-
-		$(window).on('load', function() {
+		$(function() {
+			$('.datepicker').datepicker({
+				dateFormat : 'dd-mm-yy'
+			});
 		});
 	</script>
 </body>
