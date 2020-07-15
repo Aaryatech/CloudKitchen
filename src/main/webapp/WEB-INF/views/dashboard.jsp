@@ -731,9 +731,9 @@
 						<div class="single_row_r">
 
 							<div class="pop_frm_one">
-								<span>Whats App no.</span> <input name="" type="text"
-									class="frm_inpt" />
-
+								<span>Whats App no.</span><input name="" type="text"
+									class="frm_inpt" style="width: 70%" /><input name=""
+									type="checkbox" class="frm_inpt" style="width: 30%" />
 							</div>
 						</div>
 						<div class="clr"></div>
