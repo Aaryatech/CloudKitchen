@@ -158,26 +158,26 @@
 								<div class="col-lg-8">
 									<div class="a">
 										<div class="form-group">
-											<label class="text-light-black fw-600 fs-16">Payment
-												Option</label><select class="form-control  ">
+											<label class="text-light-black fw-500 fs-14">Payment
+												Option</label><select class="form-control">
 												<option value="1">COD</option>
 												<option value="2">Online Payment Link</option>
-											</select><br> <label class="text-light-black fw-600 fs-16">Delivery
+											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
 												Date & Time :&nbsp;</label> <label
-												class="text-light-black fw-600 fs-16">07-07-2020
+												class="chk_txt fw-500 fs-14">07-07-2020
 												12:03 PM, Order Time : 50 MIN</label><br> <label
-												class="text-light-black fw-600 fs-16">Delivery
-												Option :&nbsp;</label> <label class="text-light-black fw-600 fs-16"><input
+												class="text-light-black fw-500 fs-14">Delivery
+												Option :&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
 												type="radio" id="homeDelivery" name="typeSelect"
 												class="option-input radio" checked>Home Delivery
-												&nbsp; </label><label class="text-light-black fw-600 fs-16"><input
+												&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
 												type="radio" class="option-input radio" id="takeaway"
 												name="typeSelect">Take Away</label><br> <label
-												class="text-light-black fw-600 fs-16">Select
+												class="text-light-black fw-500 fs-14">Select
 												Delivery Instruction</label><select class="form-control  ">
 												<option value="1">Predefined Options</option>
 												<option value="2">Other Options</option>
-											</select><br> <label class="text-light-black fw-600 fs-16">Delivery
+											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
 												Instructions</label>
 											<textarea name="" cols="" rows="6"
 												class="form-control formcheck"
