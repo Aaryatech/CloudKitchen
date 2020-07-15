@@ -155,16 +155,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round"
-									title="Grievences"><i class="fa fa-exclamation-triangle"
-										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
-									data-toggle="modal" data-target="#cancelOrder"
-									class="detail_btn_round" title="Cancel Order"><i
-										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
@@ -185,16 +185,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round"
-									title="Grievences"><i class="fa fa-exclamation-triangle"
-										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
-									data-toggle="modal" data-target="#cancelOrder"
-									class="detail_btn_round" title="Cancel Order"><i
-										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
@@ -215,16 +215,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round"
-									title="Grievences"><i class="fa fa-exclamation-triangle"
-										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
-									data-toggle="modal" data-target="#cancelOrder"
-									class="detail_btn_round" title="Cancel Order"><i
-										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
@@ -245,16 +245,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round"
-									title="Grievences"><i class="fa fa-exclamation-triangle"
-										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
-									data-toggle="modal" data-target="#cancelOrder"
-									class="detail_btn_round" title="Cancel Order"><i
-										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
@@ -275,16 +275,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">Online</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#grievences" class="detail_btn_round"
-									title="Grievences"><i class="fa fa-exclamation-triangle"
-										aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"
-									data-toggle="modal" data-target="#cancelOrder"
-									class="detail_btn_round" title="Cancel Order"><i
-										class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a
 									href="${pageContext.request.contextPath}/checkout"
 									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a></td>
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
 							<!--1 row-->
@@ -303,7 +303,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="#" class="detail_btn">View Details</a></td>
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
@@ -321,7 +330,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="#" class="detail_btn">View Details</a></td>
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
@@ -339,7 +357,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="#" class="detail_btn">View Details</a></td>
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
@@ -357,7 +384,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="#" class="detail_btn">View Details</a></td>
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 							</tr>
 							<!--1 row-->
 							<tr>
@@ -375,7 +411,16 @@
 								<td class="user-name"><span class="paid">Paid</span></td>
 								<td class="user-name">COD</td>
 								<td class="user-name" style="text-align: center;"><a
-									href="#" class="detail_btn">View Details</a></td>
+									href="${pageContext.request.contextPath}/checkout"
+									class="detail_btn_round" title="Edit Order"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+									href="javascript:void(0)" data-toggle="modal"
+									data-target="#cancelOrder" class="detail_btn_round"
+									title="Cancel Order"><i class="fa fa-times"
+										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+									data-toggle="modal" data-target="#grievences"
+									class="detail_btn_round" title="Grievences"><i
+										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 							</tr>
 
 
@@ -476,17 +521,80 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Live</td>
+
+										<td class="user-name"><a
+											href="${pageContext.request.contextPath}/checkout"
+											class="detail_btn_round" title="Edit Order"><i
+												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+											href="javascript:void(0)" data-toggle="modal"
+											data-target="#cancelOrder" class="detail_btn_round"
+											title="Cancel Order"><i class="fa fa-times"
+												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Live</td>
+
+										<td class="user-name"><a
+											href="${pageContext.request.contextPath}/checkout"
+											class="detail_btn_round" title="Edit Order"><i
+												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+											href="javascript:void(0)" data-toggle="modal"
+											data-target="#cancelOrder" class="detail_btn_round"
+											title="Cancel Order"><i class="fa fa-times"
+												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr>
+									<!--1 row-->
+									<tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
 
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -496,17 +604,20 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
 
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -516,17 +627,20 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
 
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -536,17 +650,20 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
 
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -556,17 +673,20 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
 
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -576,17 +696,19 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -596,17 +718,19 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
@@ -616,54 +740,19 @@
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
 												class="rounded-circle" alt="userimg">
 										</a></td>
-										<td class="user-name">xco1234</td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
 										<td class="user-name">Shop No. 1</td>
 										<td class="user-name">22-06-20</td>
 										<td class="user-name">Online</td>
 										<td class="user-name">205.00</td>
 										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name">xco1234</td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name">xco1234</td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="#" class="table_icn"><i
-												class="fa fa-eye" aria-hidden="true"></i></a> <a href="#"
-											class="table_icn"><i class="fa fa-pencil"
-												aria-hidden="true"></i></a> <a href="#" class="table_icn"><i
+										<td class="user-name"><a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
 

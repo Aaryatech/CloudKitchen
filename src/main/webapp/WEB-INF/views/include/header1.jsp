@@ -67,7 +67,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/component.css"
 	rel="stylesheet">
 
-	
+
 
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/ace-responsive-menu.css"
@@ -99,21 +99,22 @@
 						<form class="main-search search-form full-width">
 							<div class="row">
 								<!-- location picker -->
-								<div class="col-lg-12 col-md-12"><!-- col-lg-6 col-md-5 -->
+								<div class="col-lg-12 col-md-12">
+									<!-- col-lg-6 col-md-5 -->
 									<div class="head_search">
 										<div class="head_search_l">
-											<i class="fa fa-search" aria-hidden="true"></i>
-											<input name="" type="text" class="top_place"
-						placeholder="Search for restaurant, cuisine or a dish" />
+											<i class="fa fa-search" aria-hidden="true"></i> <input
+												name="" type="text" class="top_place"
+												placeholder="Search for restaurant, cuisine or a dish" />
 										</div>
 										<div class="head_search_r">
 											<select class="country top_drop_ones">
-						<option value="4">Afghanistan</option>
-						<option value="4">India</option>
-					</select>
+												<option value="4">Shop No. 1 - 5 KM</option>
+												<option value="4">Shop No. 2 - 10 KM</option>
+											</select>
 										</div>
 									</div>
-									
+
 								</div>
 								<!-- location picker -->
 
@@ -371,7 +372,7 @@
 			</div>
 		</div>
 
-		
+
 
 	</header>
 </div>
