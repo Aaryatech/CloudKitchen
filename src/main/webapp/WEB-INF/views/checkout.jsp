@@ -163,8 +163,7 @@
 												<option value="1">COD</option>
 												<option value="2">Online Payment Link</option>
 											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
-												Date & Time :&nbsp;</label> <label
-												class="chk_txt fw-500 fs-14">07-07-2020
+												Date & Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">07-07-2020
 												12:03 PM, Order Time : 50 MIN</label><br> <label
 												class="text-light-black fw-500 fs-14">Delivery
 												Option :&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
@@ -384,7 +383,7 @@
 							<div class="card marg_bottom">
 								<div class="related_row">
 									<div class="related_row_l">
-										<div class="related_head">Related Item</div>
+										<div class="related_head">Favourite Item</div>
 									</div>
 									<div class="related_row_r">
 										<i class="fa fa-search" aria-hidden="true"></i> <input name=""
@@ -581,13 +580,92 @@
 						</h3>
 
 						<div class="pop_disc">
-							<span>Sort Discription -</span> Lorem ipsum dolor sit amet,
+							<span>Category -</span> Pizza
+						</div>
+
+						<div class="pop_disc">
+							<span>Discription -</span> Lorem ipsum dolor sit amet,
 							consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 							labore et dolore magna aliqua.
 						</div>
 
+						<div class="product-list-type hotel_nm pop_disc">
+							<span class="text-light-white new strong_fnt">New</span> <span
+								class="text-custom-white square-tag"><img
+								src="/ck/resources/assets/img/chilli_1.jpg" alt="tag"></span> <span
+								class="text-custom-white square-tag"><img
+								src="/ck/resources/assets/img/chilli_2.jpg" alt="tag"></span> <span
+								class="text-custom-white square-tag"><img
+								src="/ck/resources/assets/img/chilli_3.jpg" alt="tag"></span> <span
+								class="text-custom-white square-tag"><img
+								src="/ck/resources/assets/img/sweet_1.png" alt="tag"></span>
+						</div>
 
 
+						<div class="rating_row_one">
+							<div class="ratings rating_l">
+								<span class="strong_fnt">Rating -</span> <span
+									class="text-yellow"><i class="fas fa-star"></i></span> <span
+									class="text-yellow"><i class="fas fa-star"></i></span> <span
+									class="text-yellow"><i class="fas fa-star"></i></span> <span
+									class="text-yellow"><i class="fas fa-star"></i></span> <span
+									class="text-yellow"><i class="fas fa-star-half-alt"></i></span>
+							</div>
+
+							<div class="rate_ting">
+								<span class="strong_fnt">Time -</span> 30-40 mins
+							</div>
+							<div class="rate_prc">
+								<div class="offer_price">
+									<span>Rs.250</span> Rs.180/-
+								</div>
+							</div>
+
+						</div>
+
+
+						<!--related Causin-->
+						<div class="pop_cousin pop_disc">
+							<span class="pop_disc">Related Items </span>
+							<ul>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
+										class="rounded-circle" alt="categories"> Italian
+								</a></li>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
+										class="rounded-circle" alt="categories"> Thai
+								</a></li>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
+										class="rounded-circle" alt="categories"> Chinese
+								</a></li>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
+										class="rounded-circle" alt="categories"> Maxican
+								</a></li>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
+										class="rounded-circle" alt="categories"> Indian
+								</a></li>
+								<li><a href="#"> <img
+										src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
+										class="rounded-circle" alt="categories"> Lebanese
+								</a></li>
+							</ul>
+						</div>
+
+
+
+
+						<!-- <div class="product-list-type hotel_nm">
+                                    <span class="text-light-white new pop_ordered">New</span>
+                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/004-leaf.svg" alt="tag"></span>
+                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/006-chili.svg" alt="tag"></span>
+                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/005-chef.svg" alt="tag"></span>
+                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/008-protein.svg" alt="tag"></span>
+                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/009-lemon.svg" alt="tag"></span>
+                                  </div> -->
 					</div>
 					<div class="clr"></div>
 				</div>

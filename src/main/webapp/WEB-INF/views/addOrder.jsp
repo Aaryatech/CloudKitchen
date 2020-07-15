@@ -512,7 +512,7 @@
 													alt="">
 											</button>
 
-											<div class="pop_signup">Item Discription</div>
+											<div class="pop_signup">Item Description</div>
 
 
 											<div class="disc_pop">
@@ -548,20 +548,22 @@
 														<span class="text-custom-white square-tag"><img
 															src="/ck/resources/assets/img/sweet_1.png" alt="tag"></span>
 													</div>
-	
+
 
 													<div class="rating_row_one">
 														<div class="ratings rating_l">
-														<span class="strong_fnt">Rating -</span>
-															<span class="text-yellow"><i class="fas fa-star"></i></span>
-															<span class="text-yellow"><i class="fas fa-star"></i></span>
-															<span class="text-yellow"><i class="fas fa-star"></i></span>
-															<span class="text-yellow"><i class="fas fa-star"></i></span>
-															<span class="text-yellow"><i
+															<span class="strong_fnt">Rating -</span> <span
+																class="text-yellow"><i class="fas fa-star"></i></span> <span
+																class="text-yellow"><i class="fas fa-star"></i></span> <span
+																class="text-yellow"><i class="fas fa-star"></i></span> <span
+																class="text-yellow"><i class="fas fa-star"></i></span> <span
+																class="text-yellow"><i
 																class="fas fa-star-half-alt"></i></span>
 														</div>
 
-														<div class="rate_ting"><span class="strong_fnt">Time -</span> 30-40 mins</div>
+														<div class="rate_ting">
+															<span class="strong_fnt">Time -</span> 30-40 mins
+														</div>
 														<div class="rate_prc">
 															<div class="offer_price">
 																<span>Rs.250</span> Rs.180/-
@@ -569,7 +571,7 @@
 														</div>
 
 													</div>
-													
+
 													<div class="button_row bottom">
 														<div class="button_row_l">
 															<input name="" type="text" class="table_inpt quantity1"
@@ -583,38 +585,36 @@
 
 													<!--related Causin-->
 													<div class="pop_cousin pop_disc">
-														<span class="pop_disc">Related cuisine
-															</h3>
-															<ul>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
-																		class="rounded-circle" alt="categories"> Italian
-																</a></li>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
-																		class="rounded-circle" alt="categories"> Thai
-																</a></li>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
-																		class="rounded-circle" alt="categories"> Chinese
-																</a></li>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
-																		class="rounded-circle" alt="categories"> Maxican
-																</a></li>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
-																		class="rounded-circle" alt="categories"> Indian
-																</a></li>
-																<li><a href="#"> <img
-																		src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
-																		class="rounded-circle" alt="categories">
-																		Lebanese
-																</a></li>
-															</ul>
+														<span class="pop_disc">Related Items </span>
+														<ul>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
+																	class="rounded-circle" alt="categories"> Italian
+															</a></li>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
+																	class="rounded-circle" alt="categories"> Thai
+															</a></li>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
+																	class="rounded-circle" alt="categories"> Chinese
+															</a></li>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
+																	class="rounded-circle" alt="categories"> Maxican
+															</a></li>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
+																	class="rounded-circle" alt="categories"> Indian
+															</a></li>
+															<li><a href="#"> <img
+																	src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
+																	class="rounded-circle" alt="categories"> Lebanese
+															</a></li>
+														</ul>
 													</div>
 
-													
+
 
 
 													<!-- <div class="product-list-type hotel_nm">
