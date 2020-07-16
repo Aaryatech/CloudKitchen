@@ -643,26 +643,33 @@
 
 								<form action="" method="get">
 									<label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Barbecuing and Grilling
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Barbecuing and Grilling"><span
+										class="checkmark"></span> Barbecuing and Grilling
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Soup and Salads
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Soup and Salads"><span
+										class="checkmark"></span> Soup and Salads
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										chinese
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="chinese"><span
+										class="checkmark"></span> chinese
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Streetfood
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Soup and Salads"><span
+										class="checkmark"></span> Streetfood
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Fastfood
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Fastfood"><span
+										class="checkmark"></span> Fastfood
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Seafood
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Biryani"><span
+										class="checkmark"></span> Seafood
 									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="#"><span class="checkmark"></span>
-										Beverages
+										type="checkbox" name="subcat" class="checkboxclass"
+										onchange="myFunction1()" value="Beverages"><span
+										class="checkmark"></span> Beverages
 									</label>
 
 								</form>
@@ -704,7 +711,8 @@
 									<form action="" method="get">
 
 										<ul class="ks-cboxtags">
-											<li><input type="checkbox" id="checkboxOne"><label
+											<li><input type="checkbox" id="checkboxOne"
+												name="tagcheckbox" value="Pizza" onchange="myFunction1()"><label
 												for="checkboxOne">Pizza</label></li>
 											<li><input type="checkbox" id="checkboxTwo" checked><label
 												for="checkboxTwo">Sandwich</label></li>
@@ -1355,7 +1363,7 @@
 										<h3 class="restro-nm">
 											<img
 												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Veg Biryani Khada <span>Sharanpur Road
+												alt=""> Chikan Biryani <span>Sharanpur Road
 												Nashik <br> Casual Dining - North Indian
 											</span>
 										</h3>
@@ -1425,14 +1433,16 @@
 								</div>
 							</div>
 							<div class="order_row">
+
+								<div class=".hiddenvalue" style="display: none;">chinese</div>
 								<div class="one_order">
 									<!--left-->
 									<div class="one_order_l">
 										<h3 class="restro-nm">
 											<img
 												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Veg Biryani Khada <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
+												alt=""> Soyabean <span>Sharanpur Road Nashik <br>
+												Casual Dining - North Indian
 											</span>
 										</h3>
 										<div class="product-list-type hotel_nm">
@@ -1501,14 +1511,19 @@
 								</div>
 							</div>
 
-
+							<div id="norecordfound"
+								style="display: none; text-align: center; vertical-align: middle;">
+								<h4>No Record Found.</h4>
+							</div>
 						</div>
 						<div class="clr"></div>
 
 
 					</div>
+
 				</div>
 			</div>
+
 		</section>
 
 
@@ -1637,6 +1652,7 @@
 			</div>
 		</div>
 	</div>
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
 
@@ -1647,15 +1663,60 @@
 			$(".scrollbar-handle").css("top", "0"); */
 
 			document.getElementById("loaderimg").style.display = "block";
+			document.getElementById("norecordfound").style.display = "none";
+
+			var find = 0;
+
+			var list = [];
+
+			$("input:checkbox[name=subcat]:checked").each(function() {
+
+				list.push($(this).val());
+			});
+
+			$("input:checkbox[name=tagcheckbox]:checked").each(function() {
+
+				list.push($(this).val());
+			});
+
 			$('.order_row').hide();
 			var txt = $('#myInput1').val();
+
 			$('.order_row').each(
+					function(index) {
+
+						if ($(this).text().toUpperCase().indexOf(
+								txt.toUpperCase()) != -1) {
+							if (list.length > 0) {
+								for (var i = 0; i < list.length; i++) {
+
+									if ($(this).text().toUpperCase().indexOf(
+											list[i].toUpperCase()) != -1) {
+										$(this).show();
+										find = 1;
+									}
+
+								}
+							} else {
+								$(this).show();
+								find = 1;
+							}
+
+						}
+					});
+
+			if (find == 0) {
+
+				document.getElementById("norecordfound").style.display = "block";
+			}
+			/* $('.order_row').each(
 					function() {
 						if ($(this).text().toUpperCase().indexOf(
 								txt.toUpperCase()) != -1) {
 							$(this).show();
 						}
-					});
+					}); */
+
 			document.getElementById("loaderimg").style.display = "none";
 		}
 	</script>
