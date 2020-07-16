@@ -80,5 +80,12 @@ public class HomeController {
 
 		return "googleMap";
 	}
+	@RequestMapping(value = "/googleMap1", method = RequestMethod.GET)
+	public String googleMap1(HttpServletRequest request, HttpServletResponse response, Model model) {
 
+		return "googleMap1";
+	}
+
+	/*<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&callback=initMap">*/
 }

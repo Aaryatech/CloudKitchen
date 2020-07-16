@@ -10,9 +10,7 @@ body {
 </head>
 <body>
 
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places">
-		
+
 	</script>
 	<script type="text/javascript">
 		google.maps.event.addDomListener(window, 'load', function() {
@@ -27,13 +25,16 @@ body {
 				mesg += "\nLatitude: " + latitude;
 				mesg += "\nLongitude: " + longitude;
 
-				document.getElementById("display").innerHTML = mesg;
+				//document.getElementById("display").innerHTML = mesg;
 
-				distance(latitude, longitude, 20.0073753, 73.7673653, 'K');
+				//distance(latitude, longitude, 20.0073753, 73.7673653, 'K');
+
+				initMap(latitude, longitude, 20.0116769, 73.7968206,
+						20.0011423, 73.78327);
 			});
 		});
 
-		function distance(lat1, lon1, lat2, lon2, unit) {
+		function distance1(lat1, lon1, lat2, lon2, unit) {
 			if ((lat1 == lat2) && (lon1 == lon2)) {
 				return 0;
 			} else {
@@ -56,8 +57,59 @@ body {
 				if (unit == "N") {
 					dist = dist * 0.8684
 				}
-				document.getElementById("distance").innerHTML = dist.toFixed(2);
+				//document.getElementById("distance").innerHTML = dist.toFixed(2);
 			}
+		}
+	</script>
+	<script>
+		function initMap(lat1, lon1, lat2, lon2, lat3, lon3) {
+			var bounds = new google.maps.LatLngBounds;
+
+			var origin1 = {
+				lat : lat1,
+				lng : lon1
+			};
+			var destinationA = {
+				lat : lat2,
+				lng : lon2
+			};
+
+			var destinationB = {
+				lat : lat3,
+				lng : lon3
+			};
+
+			var geocoder = new google.maps.Geocoder;
+			var service = new google.maps.DistanceMatrixService;
+			service.getDistanceMatrix({
+				origins : [ origin1 ],
+				destinations : [ destinationA, destinationB ],
+				travelMode : 'DRIVING',
+				unitSystem : google.maps.UnitSystem.METRIC,
+				avoidHighways : false,
+				avoidTolls : false
+			}, function(response, status) {
+				if (status !== 'OK') {
+					alert('Error was: ' + status);
+				} else {
+					var originList = response.originAddresses;
+					var destinationList = response.destinationAddresses;
+					var outputDiv = document.getElementById('output');
+					outputDiv.innerHTML = '';
+
+					for (var i = 0; i < originList.length; i++) {
+						var results = response.rows[i].elements;
+
+						for (var j = 0; j < results.length; j++) {
+
+							outputDiv.innerHTML += originList[i] + ' to '
+									+ destinationList[j] + ': '
+									+ results[j].distance.text + ' in '
+									+ results[j].duration.text + '<br>';
+						}
+					}
+				}
+			});
 		}
 	</script>
 	<span>Location:</span>
@@ -65,6 +117,6 @@ body {
 		placeholder="Enter a location" />
 
 	<div id="display"></div>
-	<div id="distance"></div>
+	<div id="output"></div>
 </body>
 </html>
