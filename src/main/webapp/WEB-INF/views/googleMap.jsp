@@ -1,28 +1,70 @@
-
-<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<style type="text/css">
+body {
+	font-family: Arial;
+	font-size: 10pt;
+}
+</style>
+</head>
 <body>
 
-	<h1>My First Google Map</h1>
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places">
+		
+	</script>
+	<script type="text/javascript">
+		google.maps.event.addDomListener(window, 'load', function() {
+			var places = new google.maps.places.Autocomplete(document
+					.getElementById('txtPlaces'));
+			google.maps.event.addListener(places, 'place_changed', function() {
+				var place = places.getPlace();
+				var address = place.formatted_address;
+				var latitude = place.geometry.location.lat();
+				var longitude = place.geometry.location.lng();
+				var mesg = "Address: " + address;
+				mesg += "\nLatitude: " + latitude;
+				mesg += "\nLongitude: " + longitude;
 
-	<iframe
-		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4944.55328848016!2d72.81545531489864!3d18.914606687180793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1d2659eb285%3A0xc2c90000ec7ef672!2sSPD+RUSA+Maharashtra!5e1!3m2!1sen!2sin!4v1559551333875!5m2!1sen!2sin"
-		class="map" width="100%" height="540" frameborder="0"
-		style="border: 0" allowfullscreen></iframe>
+				document.getElementById("display").innerHTML = mesg;
 
-	<script>
-		function myMap() {
-			var mapProp = {
-				center : new google.maps.LatLng(51.508742, -0.120850),
-				zoom : 5,
-			};
-			var map = new google.maps.Map(document.getElementById("googleMap"),
-					mapProp);
+				distance(latitude, longitude, 20.0073753, 73.7673653, 'K');
+			});
+		});
+
+		function distance(lat1, lon1, lat2, lon2, unit) {
+			if ((lat1 == lat2) && (lon1 == lon2)) {
+				return 0;
+			} else {
+				var radlat1 = Math.PI * lat1 / 180;
+				var radlat2 = Math.PI * lat2 / 180;
+				var theta = lon1 - lon2;
+				var radtheta = Math.PI * theta / 180;
+				var dist = Math.sin(radlat1) * Math.sin(radlat2)
+						+ Math.cos(radlat1) * Math.cos(radlat2)
+						* Math.cos(radtheta);
+				if (dist > 1) {
+					dist = 1;
+				}
+				dist = Math.acos(dist);
+				dist = dist * 180 / Math.PI;
+				dist = dist * 60 * 1.1515;
+				if (unit == "K") {
+					dist = dist * 1.609344
+				}
+				if (unit == "N") {
+					dist = dist * 0.8684
+				}
+				document.getElementById("distance").innerHTML = dist.toFixed(2);
+			}
 		}
 	</script>
+	<span>Location:</span>
+	<input type="text" id="txtPlaces" style="width: 250px"
+		placeholder="Enter a location" />
 
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMnghBOYIGTz_a3pX4KFU81ChVkxQqKfU&callback=myMap"></script>
-
+	<div id="display"></div>
+	<div id="distance"></div>
 </body>
 </html>
