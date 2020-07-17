@@ -74,18 +74,27 @@ public class HomeController {
 
 		return "addOrder";
 	}
-	
+
 	@RequestMapping(value = "/googleMap", method = RequestMethod.GET)
 	public String googleMap(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		return "googleMap";
 	}
+
 	@RequestMapping(value = "/googleMap1", method = RequestMethod.GET)
 	public String googleMap1(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		return "googleMap1";
 	}
 
-	/*<script async defer
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&callback=initMap">*/
+	@RequestMapping(value = "/firebase", method = RequestMethod.GET)
+	public String firebase(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "firebase";
+	}
+
+	/*
+	 * <script async defer src=
+	 * "https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&callback=initMap">
+	 */
 }

@@ -1,178 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Distance Matrix Service</title>
-<style>
-#right-panel {
-	font-family: 'Roboto', 'sans-serif';
-	line-height: 30px;
-	padding-left: 10px;
-}
+<title>Directions Service (Complex)</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-#right-panel select, #right-panel input {
-	font-size: 15px;
-}
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A"></script>
 
-#right-panel select {
+<style type="text/css">
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+html, body, #map-canvas {
+	height: 100%;
 	width: 100%;
-}
-
-#right-panel i {
-	font-size: 12px;
-}
-
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-#map {
-	height: 100%;
-	width: 50%;
-}
-
-#right-panel {
-	float: right;
-	width: 48%;
-	padding-left: 2%;
-}
-
-#output {
-	font-size: 11px;
+	margin: 0px;
+	padding: 0px
 }
 </style>
-</head>
-<body>
-	<div id="right-panel">
-		<div id="inputs">
-			<pre>
-var origin1 = {lat: 55.930, lng: -3.118};
-var origin2 = 'Greenwich, England';
-var destinationA = 'Stockholm, Sweden';
-var destinationB = {lat: 50.087, lng: 14.421};
-        </pre>
-		</div>
-		<div>
-			<strong>Results</strong>
-		</div>
-		<div id="output"></div>
-	</div>
-	<div id="map"></div>
+<script>
+	function mapLocation() {
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var map;
 
-	<script type="text/javascript">
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(p) {
-				var LatLng = new google.maps.LatLng(p.coords.latitude,
-						p.coords.longitude);
-				initMap(p.coords.latitude, p.coords.longitude);
-			});
-		} else {
-			alert('Geo Location feature is not supported in this browser.');
+		function initialize() {
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(p) {
+					var LatLng = new google.maps.LatLng(p.coords.latitude,
+							p.coords.longitude);
+
+					var chicago = new google.maps.LatLng(p.coords.latitude,
+							p.coords.longitude);
+					var mapOptions = {
+						zoom : 7,
+						center : chicago
+					};
+					map = new google.maps.Map(document
+							.getElementById('map-canvas'), mapOptions);
+					directionsDisplay.setMap(map);
+					google.maps.event.addDomListener(document
+							.getElementById('routebtn'), 'click', calcRoute);
+				});
+			} else {
+				alert('Geo Location feature is not supported in this browser.');
+			}
 		}
-	</script>
-	<script>
-		function initMap(latc, logc) {
-			var bounds = new google.maps.LatLngBounds;
-			var markersArray = [];
 
-			var origin1 = {
-				lat : latc,
-				lng : logc
+		function calcRoute() {
+			var start = new google.maps.LatLng(20.0116769, 73.7968206);
+			//var end = new google.maps.LatLng(38.334818, -181.884886);
+			var end = new google.maps.LatLng(20.0011423, 73.78327);
+			var request = {
+				origin : start,
+				destination : end,
+				travelMode : google.maps.TravelMode.DRIVING
 			};
-			var destinationA = {
-				lat : 20.3271277,
-				lng : 74.2472779
-			};
-			var destinationB = {
-				lat : 19.9974533,
-				lng : 73.78980229999999
-			};
-
-			var destinationIcon = 'https://chart.googleapis.com/chart?'
-					+ 'chst=d_map_pin_letter&chld=D|FF0000|000000';
-			var originIcon = 'https://chart.googleapis.com/chart?'
-					+ 'chst=d_map_pin_letter&chld=O|FFFF00|000000';
-
-			var geocoder = new google.maps.Geocoder;
-
-			var service = new google.maps.DistanceMatrixService;
-			service
-					.getDistanceMatrix(
-							{
-								origins : [ origin1 ],
-								destinations : [ destinationA, destinationB ],
-								travelMode : 'DRIVING',
-								unitSystem : google.maps.UnitSystem.METRIC,
-								avoidHighways : false,
-								avoidTolls : false
-							},
+			directionsService
+					.route(request,
 							function(response, status) {
-								if (status !== 'OK') {
-									alert('Error was: ' + status);
+								if (status == google.maps.DirectionsStatus.OK) {
+									directionsDisplay.setDirections(response);
+									directionsDisplay.setMap(map);
 								} else {
-									var originList = response.originAddresses;
-									var destinationList = response.destinationAddresses;
-									var outputDiv = document
-											.getElementById('output');
-									outputDiv.innerHTML = '';
-									deleteMarkers(markersArray);
-
-									var showGeocodedAddressOnMap = function(
-											asDestination) {
-										var icon = asDestination ? destinationIcon
-												: originIcon;
-										return function(results, status) {
-											if (status === 'OK') {
-												map
-														.fitBounds(bounds
-																.extend(results[0].geometry.location));
-												markersArray
-														.push(new google.maps.Marker(
-																{
-																	map : map,
-																	position : results[0].geometry.location,
-																	icon : icon
-																}));
-											} else {
-												alert('Geocode was not successful due to: '
-														+ status);
-											}
-										};
-									};
-
-									for (var i = 0; i < originList.length; i++) {
-										var results = response.rows[i].elements;
-										geocoder.geocode({
-											'address' : originList[i]
-										}, showGeocodedAddressOnMap(false));
-										for (var j = 0; j < results.length; j++) {
-											geocoder.geocode({
-												'address' : destinationList[j]
-											}, showGeocodedAddressOnMap(true));
-											outputDiv.innerHTML += originList[i]
-													+ ' to '
-													+ destinationList[j]
-													+ ': '
-													+ results[j].distance.text
-													+ ' in '
-													+ results[j].duration.text
-													+ '<br>';
-										}
-									}
+									alert("Directions Request from "
+											+ start.toUrlValue(6) + " to "
+											+ end.toUrlValue(6) + " failed: "
+											+ status);
 								}
 							});
 		}
 
-		function deleteMarkers(markersArray) {
-			for (var i = 0; i < markersArray.length; i++) {
-				markersArray[i].setMap(null);
-			}
-			markersArray = [];
-		}
-	</script>
-	 
-		
-	</script>
+		google.maps.event.addDomListener(window, 'load', initialize);
+	}
+	mapLocation();
+</script>
+</head>
+<body>
+	<input type="button" id="routebtn" value="route" />
+	<div id="map-canvas"></div>
 </body>
 </html>

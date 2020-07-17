@@ -10,7 +10,9 @@ body {
 </head>
 <body>
 
-
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places">
+		
 	</script>
 	<script type="text/javascript">
 		google.maps.event.addDomListener(window, 'load', function() {
@@ -69,6 +71,15 @@ body {
 				lat : lat1,
 				lng : lon1
 			};
+
+			var waypts = [ {
+				lat : lat2,
+				lng : lon2
+			}, {
+				lat : lat3,
+				lng : lon3
+			} ];
+
 			var destinationA = {
 				lat : lat2,
 				lng : lon2
@@ -83,12 +94,15 @@ body {
 			var service = new google.maps.DistanceMatrixService;
 			service.getDistanceMatrix({
 				origins : [ origin1 ],
-				destinations : [ destinationA, destinationB ],
+				destinations : waypts,
 				travelMode : 'DRIVING',
 				unitSystem : google.maps.UnitSystem.METRIC,
 				avoidHighways : false,
 				avoidTolls : false
 			}, function(response, status) {
+
+				//alert(JSON.stringify(response))
+
 				if (status !== 'OK') {
 					alert('Error was: ' + status);
 				} else {
