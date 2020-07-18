@@ -11,6 +11,33 @@ body {
 <body>
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	<div class="single_row">
+		<div class="pop_frm_one">
+			<span>Delivery Address *</span>
+			<textarea name="myInput1" id="myInput1" type="text" class="frm_inpt"></textarea>
+		</div>
+	</div>
+	<a href="#" title="Delete" onclick="additem()"> add item</a>
+
+	<a href="#" title="Delete" onclick="updateitem()"> Update</a>
+	<div class="component">
+		<table class="overflow-y" id="printtable3">
+			<thead>
+				<tr>
+					<th class="sorting_desc">Msg</th>
+					<th class="sorting_desc">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+			</tbody>
+		</table>
+
+
+	</div>
+
 	<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
 	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
@@ -56,27 +83,48 @@ body {
 	<script type="text/javascript">
 		function additem() {
 
+			var txt = $('#myInput1').val();
+			/* var fd = new FormData();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/sendNotification',
+				type : 'post',
+				dataType : 'json',
+				data : fd,
+				contentType : false,
+				processData : false,
+				success : function(response) {
+
+					var data_add = {
+						"date_added" : "2020-07-20",
+						"from_id" : 1,
+						"from_user_name" : "akshay kasar",
+						"chat_message" : txt
+					}
+
+					var key = firebase.database().ref().child(today_date_temp)
+							.push(data_add).key;
+					console.log('key. ', key);
+				},
+			}); */
+
 			var data_add = {
 				"date_added" : "2020-07-20",
 				"from_id" : 1,
 				"from_user_name" : "akshay kasar",
-				"to_id" : '0',
-				"chat_message" : "hiiii",
-				"item" : "item_detail"
-
+				"chat_message" : txt
 			}
 
 			var key = firebase.database().ref().child(today_date_temp).push(
 					data_add).key;
 			console.log('key. ', key);
+
 		}
 
-		function deleteitem() {
+		function deleteitem(key) {
 
 			var fdb = firebase.database().ref();
 			if (confirm('Are you sure?')) {
-				firebase.database().ref(
-						't_order/' + '-MCYH5l1MxwUN6w7x_yR' + '/') // create a reference to the driver
+				firebase.database().ref('t_order/' + key + '/') // create a reference to the driver
 				.remove()
 			}
 
@@ -105,24 +153,29 @@ body {
 			console.log('child_removed	. ', snapshot.val());
 		}); */
 		// show all data on each event
-		dbrefObject.on('value', function(snapshot) {
-			//console.log('Message received. ', snapshot.val());
-			snapshot.forEach(function(childSnapshot) {
-				var childKey = childSnapshot.key;
-				var childData = childSnapshot.val();
-				console.log('childKey', childKey);
-				console.log('childData', childData.chat_message);
-			});
-		});
+		/* dbrefObject
+				.on(
+						'value',
+						function(snapshot) {
+							//console.log('Message received. ', snapshot.val());
+							$("#printtable3 tbody").empty();
+							snapshot
+									.forEach(function(childSnapshot) {
+										var childKey = childSnapshot.key;
+										var childData = childSnapshot.val();
+										console.log('childKey', childKey);
+										console.log('childData',
+												childData.chat_message);
+
+										var tr_data = '<tr  id="'+childKey+'"> <td class="user-name"  >'
+												+ childData.chat_message
+												+ '</td> <td class="user-name"><a href="#" title="Delete" onclick="deleteitem(\''
+												+ childKey
+												+ '\')"> Delete</a></td>  </tr>';
+										$('#printtable3').append(tr_data);
+									});
+						}); */
 	</script>
-	<a href="#" class="detail_btn_round" title="Delete" onclick="additem()"><i
-		class="fa fa-times" aria-hidden="true"></i> add item</a>
-	<a href="#" class="detail_btn_round" title="Delete"
-		onclick="deleteitem()"><i class="fa fa-times" aria-hidden="true"></i>
-		Delete</a>
-	<a href="#" class="detail_btn_round" title="Delete"
-		onclick="updateitem()"><i class="fa fa-times" aria-hidden="true"></i>
-		Update</a>
-	<div id="group_chat_history"></div>
+
 </body>
 </html>

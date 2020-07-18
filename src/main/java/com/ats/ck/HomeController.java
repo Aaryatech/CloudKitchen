@@ -117,6 +117,17 @@ public class HomeController {
 		return "chatbox";
 	}
 
+	@RequestMapping(value = "/sendNotification", method = RequestMethod.POST)
+	public String sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+			execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "chatbox";
+	}
+
 	private static final long serialVersionUID = -8022560668279505764L;
 
 	// Method to send Notifications from server to client end.
@@ -149,8 +160,8 @@ public class HomeController {
 			try {
 
 				json.put("to", DEVICE_ID);
-				info.put("title", "hiiiiiiiii");
-				info.put("body", "hiiiiiiiiii"); // Notification
+				info.put("title", "You have new message");
+				info.put("body", "You have new message"); // Notification
 				info.put("sound", "default");
 				info.put("vibrate", "true");
 				json.put("data", info);
@@ -158,7 +169,7 @@ public class HomeController {
 			} catch (JSONException e1) {
 				e1.printStackTrace();
 			}
-			   
+
 			try {
 				OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 				wr.write(json.toString());
