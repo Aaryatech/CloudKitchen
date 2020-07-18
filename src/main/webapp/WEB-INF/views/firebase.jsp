@@ -73,24 +73,25 @@ body {
 
 		function deleteitem() {
 
-			/* var data_add = {
-				"date_added" : "2020-07-20",
-				"from_id" : 1,
-				"from_user_name" : "Anmol",
-				"to_id" : '0',
-				"chat_message" : "hiiii",
-				"item" : "item_detail"
-
+			var fdb = firebase.database().ref();
+			if (confirm('Are you sure?')) {
+				firebase.database().ref(
+						't_order/' + '-MCYH5l1MxwUN6w7x_yR' + '/') // create a reference to the driver
+				.remove()
 			}
 
-			var updates = {};
-			updates["/t_order/" + "MCRzizxFLn1va4dbMJK"] = data_add;
-			firebase.database().ref().update(updates); */
-			firebase.database().ref().child(today_date_temp).remove();
+		}
+
+		function updateitem() {
+
+			var db = firebase.database();
+			db.ref("t_order/-MCYH5l1MxwUN6w7x_yR/chat_message").set(
+					"New trainer");
+
 		}
 
 		//add event
-		dbrefObject.on('child_added', function(snapshot) {
+		/* dbrefObject.on('child_added', function(snapshot) {
 			console.log('child_added. ', snapshot.val());
 
 		});
@@ -102,9 +103,9 @@ body {
 		//reove event
 		dbrefObject.on('child_removed', function(snapshot) {
 			console.log('child_removed	. ', snapshot.val());
-		});
+		}); */
 		// show all data on each event
-		/* dbrefObject.on('value', function(snapshot) {
+		dbrefObject.on('value', function(snapshot) {
 			//console.log('Message received. ', snapshot.val());
 			snapshot.forEach(function(childSnapshot) {
 				var childKey = childSnapshot.key;
@@ -112,13 +113,16 @@ body {
 				console.log('childKey', childKey);
 				console.log('childData', childData.chat_message);
 			});
-		}); */
+		});
 	</script>
 	<a href="#" class="detail_btn_round" title="Delete" onclick="additem()"><i
 		class="fa fa-times" aria-hidden="true"></i> add item</a>
 	<a href="#" class="detail_btn_round" title="Delete"
 		onclick="deleteitem()"><i class="fa fa-times" aria-hidden="true"></i>
 		Delete</a>
+	<a href="#" class="detail_btn_round" title="Delete"
+		onclick="updateitem()"><i class="fa fa-times" aria-hidden="true"></i>
+		Update</a>
 	<div id="group_chat_history"></div>
 </body>
 </html>

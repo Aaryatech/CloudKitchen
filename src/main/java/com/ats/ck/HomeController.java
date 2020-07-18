@@ -149,8 +149,8 @@ public class HomeController {
 			try {
 
 				json.put("to", DEVICE_ID);
-				info.put("title", "dsfsdf");
-				info.put("body", "sfasdfasd"); // Notification
+				info.put("title", "hiiiiiiiii");
+				info.put("body", "hiiiiiiiiii"); // Notification
 				info.put("sound", "default");
 				info.put("vibrate", "true");
 				json.put("data", info);
