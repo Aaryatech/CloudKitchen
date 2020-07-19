@@ -84,28 +84,6 @@ body {
 		function additem() {
 
 			var txt = $('#myInput1').val();
-			/* var fd = new FormData();
-			$.ajax({
-				url : '${pageContext.request.contextPath}/sendNotification',
-				type : 'post',
-				dataType : 'json',
-				data : fd,
-				contentType : false,
-				processData : false,
-				success : function(response) {
-
-					var data_add = {
-						"date_added" : "2020-07-20",
-						"from_id" : 1,
-						"from_user_name" : "akshay kasar",
-						"chat_message" : txt
-					}
-
-					var key = firebase.database().ref().child(today_date_temp)
-							.push(data_add).key;
-					console.log('key. ', key);
-				},
-			}); */
 
 			var data_add = {
 				"date_added" : "2020-07-20",
@@ -118,6 +96,8 @@ body {
 					data_add).key;
 			console.log('key. ', key);
 
+			sendNotification();
+
 		}
 
 		function deleteitem(key) {
@@ -127,17 +107,30 @@ body {
 				firebase.database().ref('t_order/' + key + '/') // create a reference to the driver
 				.remove()
 			}
-
+			sendNotification();
 		}
 
-		function updateitem() {
-
+		function updateitem(key) {
+			var txt = $('#myInput1').val();
 			var db = firebase.database();
-			db.ref("t_order/-MCYH5l1MxwUN6w7x_yR/chat_message").set(
-					"New trainer");
+			db.ref("t_order/" + key + "/chat_message").set(txt);
+			sendNotification();
+		}
+		function sendNotification() {
+			var fd = new FormData();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/sendNotification',
+				type : 'post',
+				dataType : 'json',
+				data : fd,
+				contentType : false,
+				processData : false,
+				success : function(response) {
+
+				},
+			});
 
 		}
-
 		//add event
 		/* dbrefObject.on('child_added', function(snapshot) {
 			console.log('child_added. ', snapshot.val());
@@ -153,7 +146,7 @@ body {
 			console.log('child_removed	. ', snapshot.val());
 		}); */
 		// show all data on each event
-		/* dbrefObject
+		dbrefObject
 				.on(
 						'value',
 						function(snapshot) {
@@ -171,10 +164,12 @@ body {
 												+ childData.chat_message
 												+ '</td> <td class="user-name"><a href="#" title="Delete" onclick="deleteitem(\''
 												+ childKey
-												+ '\')"> Delete</a></td>  </tr>';
+												+ '\')"> Delete</a><a href="#" title="Delete" onclick="updateitem(\''
+												+ childKey
+												+ '\')"> Update</a></td>   </tr>';
 										$('#printtable3').append(tr_data);
 									});
-						}); */
+						});
 	</script>
 
 </body>
