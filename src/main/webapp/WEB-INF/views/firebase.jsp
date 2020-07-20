@@ -75,8 +75,7 @@ body {
 		const messaging = firebase.messaging();
 		var today_date_temp = 't_order';
 		const dbrefObject = firebase.database().ref(today_date_temp);
-		const dbrefObject_adminsingle = firebase.database().ref(
-				today_date_temp + "-adminsingle");
+
 		/* messaging
 				.usePublicVapidKey('BCMRT4wtRInQjue7hAjVwcgdqcbfTF8cwYQk7qimWOBJqwNZNijKKj8Ev53TqiIX0yoDPGBFBk7ROkXQL_ti8z0'); */
 	</script>
@@ -105,9 +104,10 @@ body {
 			var fdb = firebase.database().ref();
 			if (confirm('Are you sure?')) {
 				firebase.database().ref('t_order/' + key + '/') // create a reference to the driver
-				.remove()
+				.remove();
+				sendNotification();
 			}
-			sendNotification();
+
 		}
 
 		function updateitem(key) {
@@ -168,6 +168,9 @@ body {
 												+ childKey
 												+ '\')"> Update</a></td>   </tr>';
 										$('#printtable3').append(tr_data);
+										/* var audio = new Audio(
+												'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
+										audio.play(); */
 									});
 						});
 	</script>

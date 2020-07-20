@@ -105,12 +105,18 @@ public class HomeController {
 
 		return "firebase";
 	}
+	
+	@RequestMapping(value = "/storagedfirebase", method = RequestMethod.GET)
+	public String storagedfirebase(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "storagedfirebase";
+	}
 
 	@RequestMapping(value = "/chatbox", method = RequestMethod.GET)
 	public String chatbox(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			execute();
+			//execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -121,7 +127,7 @@ public class HomeController {
 	public String sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			execute();
+			//execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
