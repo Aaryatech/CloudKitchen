@@ -26,6 +26,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
@@ -134,7 +135,7 @@ public class HomeController {
 			 * customToken = FirebaseAuth.getInstance().createCustomToken(uid);
 			 * System.out.println(customToken);
 			 */
-
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -157,7 +158,7 @@ public class HomeController {
 	// Method to send Notifications from server to client end.
 	public final static String AUTH_KEY_FCM = "AAAAK88z50I:APA91bEu1TLNO0aV6Z16KjdQ5htyR3ju7eCOMPxpTyWQGuU7PZ26HzyVN-ZuIK4j7vz_iXoJaFBEwzhhGNs5bwQ792GySSLZ9nXq8i9wwt9GWWrn2bovhwFOvDUPhzIOYIQjG1bJgmdA";
 	public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-	public final static String DEVICE_ID = "d6tjOUtPP-JK39rf1Isa5w:APA91bErwpAoK2UYcbd9klex01l3t_6fQQGqlcY03PeC5FBB6o-qV3fyBZ5InYW7Bh_t0-LnpHd0wm_fnR-H8V_-3dlI-eyGKSZDeuKqQQLOwZa5HoSWVx_rhHzXTCxt_Gm8vpICRJIR";
+	public final static String DEVICE_ID = "cvRilf_5Bi_2YXiJOxh_0l:APA91bHTLwFyUu3X-m5WNsxZ4psWFolcclWHo0CiQx-PP8Gyx8fPgLzXORh65GDav7nvN0PMZasq6ZJuNKlJyE4fj1VeT-ejJgukuqZGj4tPvaim8L2ECxdGJcCodGnG1ypH-qN9wjON";
 
 	public void execute() {
 		String DeviceIdKey = DEVICE_ID;
@@ -186,13 +187,12 @@ public class HomeController {
 				json.put("to", DEVICE_ID);
 				info.put("title", "You have new message");
 				info.put("body", "You have new messagesdfs"); // Notification
-				info.put("sound", "https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3");
+				info.put("sound", "/ck/resources/assets/sound/for-sure.mp3");
 				info.put("vibrate", "true");
 				info.put("click_action", "http://localhost:8081/ck/");
 				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
 				json.put("notification", info);
-				
-				
+
 			} catch (JSONException e1) {
 				e1.printStackTrace();
 			}
