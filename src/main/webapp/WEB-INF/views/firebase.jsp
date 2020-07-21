@@ -173,6 +173,31 @@ body {
 										audio.play(); */
 									});
 						});
+
+		messaging
+				.onMessage(function(payload) {
+
+					const notificationTitle = payload.data.title;
+					const notificationOptions = {
+						body : payload.data.body,
+						icon : payload.data.icon,
+					};
+
+					if (!("Notification" in window)) {
+						console
+								.log("This browser does not support system notifications.");
+					} else if (Notification.permission === "granted") {
+						// If it's okay let's create a notification
+						var notification = new Notification(notificationTitle,
+								notificationOptions);
+						notification.onclick = function(event) {
+							event.preventDefault();
+							window.open(payload.data.click_action, '_blank');
+							notification.close();
+						}
+					}
+
+				});
 	</script>
 
 </body>

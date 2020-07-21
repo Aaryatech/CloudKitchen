@@ -1,8 +1,8 @@
 // Give the service worker access to Firebase Messaging.
 // Note that you can only use Firebase Messaging here, other Firebase libraries
 // are not available in the service worker.
- importScripts('https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js');
- importScripts('https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js'); 
+importScripts('https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js');
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -20,19 +20,43 @@ firebase.initializeApp(firebaseConfig);
 // Retrieve Firebase Messaging object.
 const messaging = firebase.messaging();
 
-messaging.setBackgroundMessageHandler(function(payload) {
-	console.log('[firebase-messaging-sw.js] Received background message ',
-			payload);
+/*
+ * messaging.setBackgroundMessageHandler(function(payload) {
+ * console.log('[firebase-messaging-sw.js] Received background message ',
+ * payload);
+ * 
+ * var title = payload.data.title;
+ * 
+ * var options = { body : payload.data.body, icon : payload.data.icon, image :
+ * payload.data.image, click_action : payload.data.click_action, }; return
+ * self.registration.showNotification(title, options); });
+ */
 
-	var title = payload.data.title;
+messaging
+		.setBackgroundMessageHandler(function(payload) {
+			console.log('tomcatyy action', payload);
 
-	var options = {
-		body : payload.data.body,
-		icon : payload.data.icon,
-		image : payload.data.image,
-		click_action : payload.data.click_action,
-	};
-	return self.registration.showNotification(title, options);
+			const notificationTitle = payload.data.title;
+			const notificationOptions = {
+				body : payload.data.body,
+				icon : payload.data.icon,
+				sound : 'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3',
+				tag : payload.data.click_action
+			};
+
+			return self.registration.showNotification(notificationTitle,
+					notificationOptions);
+		});
+self.addEventListener('notificationclick', function(e) {
+	var notification = e.notification;
+	console.log('notification', notification);
+	var action = notification.tag;
+	if (action === 'close') {
+		notification.close();
+	} else {
+		clients.openWindow(action);
+		notification.close();
+	}
 });
 
 /*
