@@ -179,6 +179,10 @@ body {
 		messaging
 				.onMessage(function(payload) {
 
+					var audio = new Audio(
+							'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
+					audio.play();
+
 					const notificationTitle = payload.notification.title;
 					const notificationOptions = {
 						body : payload.notification.body,

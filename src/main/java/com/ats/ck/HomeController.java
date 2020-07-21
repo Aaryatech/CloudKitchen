@@ -158,7 +158,7 @@ public class HomeController {
 	// Method to send Notifications from server to client end.
 	public final static String AUTH_KEY_FCM = "AAAAK88z50I:APA91bEu1TLNO0aV6Z16KjdQ5htyR3ju7eCOMPxpTyWQGuU7PZ26HzyVN-ZuIK4j7vz_iXoJaFBEwzhhGNs5bwQ792GySSLZ9nXq8i9wwt9GWWrn2bovhwFOvDUPhzIOYIQjG1bJgmdA";
 	public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-	public final static String DEVICE_ID = "d6tjOUtPP-JK39rf1Isa5w:APA91bErwpAoK2UYcbd9klex01l3t_6fQQGqlcY03PeC5FBB6o-qV3fyBZ5InYW7Bh_t0-LnpHd0wm_fnR-H8V_-3dlI-eyGKSZDeuKqQQLOwZa5HoSWVx_rhHzXTCxt_Gm8vpICRJIR";
+	public final static String DEVICE_ID = "fNdTv6aawsw5tBR_Cs3g5f:APA91bHBjtCe0tIAMEYuogUGfqR6-s-MQiA52O26BoK355-JZYQKp60gnWooHRaKSCIwoJP5-rgjUx4fLJx9knhXRBd1jgJx6Vr5qZBRqD4UGGg2iDuwRb7T9FMYJZxQxm-3XsFtp_nD";
 
 	public void execute() {
 		String DeviceIdKey = DEVICE_ID;
@@ -191,6 +191,8 @@ public class HomeController {
 				info.put("vibrate", "true");
 				info.put("click_action", "http://localhost:8081/ck/");
 				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
+				info.put("image", "/ck/resources/assets/img/dashboard_logo.png");
+				
 				json.put("notification", info);
 
 			} catch (JSONException e1) {
