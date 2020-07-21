@@ -32,7 +32,7 @@ const messaging = firebase.messaging();
  * self.registration.showNotification(title, options); });
  */
 
-messaging
+/*messaging
 		.setBackgroundMessageHandler(function(payload) {
 			console.log('tomcatyy action', payload);
 
@@ -57,21 +57,24 @@ self.addEventListener('notificationclick', function(e) {
 		clients.openWindow(action);
 		notification.close();
 	}
-});
+});*/
 
-/*
- * messaging .setBackgroundMessageHandler(function(payload) {
- * console.log('[firebase-messaging-sw.js] Received background message ',
- * payload);
- * 
- * const notificationTitle = payload.notification.title; const
- * notificationOptions = { body : payload.notification.body, icon :
- * payload.notification.icon, sound : payload.notification.sound, click_action :
- * payload.notification.click_action, tag : payload.notification.click_action };
- * 
- * return self.registration.showNotification(notificationTitle,
- * notificationOptions); });
- */
+messaging.setBackgroundMessageHandler(function(payload) {
+	console.log('[firebase-messaging-sw.js] Received background message ',
+			payload);
+
+	const notificationTitle = payload.notification.title;
+	const notificationOptions = {
+		body : payload.notification.body,
+		icon : payload.notification.icon,
+		sound : payload.notification.sound,
+		click_action : payload.notification.click_action,
+		tag : payload.notification.click_action
+	};
+
+	return self.registration.showNotification(notificationTitle,
+			notificationOptions);
+});
 
 /*
  * 'use strict';
