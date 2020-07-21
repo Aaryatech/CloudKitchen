@@ -21,6 +21,8 @@ body {
 	<a href="#" title="Delete" onclick="additem()"> add item</a>
 
 	<a href="#" title="Delete" onclick="updateitem()"> Update</a>
+	<a href="#" title="Delete" onclick="sendNotification()">
+		Notification</a>
 	<div class="component">
 		<table class="overflow-y" id="printtable3">
 			<thead>
@@ -177,10 +179,10 @@ body {
 		messaging
 				.onMessage(function(payload) {
 
-					const notificationTitle = payload.data.title;
+					const notificationTitle = payload.notification.title;
 					const notificationOptions = {
-						body : payload.data.body,
-						icon : payload.data.icon,
+						body : payload.notification.body,
+						icon : payload.notification.icon,
 					};
 
 					if (!("Notification" in window)) {
@@ -192,7 +194,7 @@ body {
 								notificationOptions);
 						notification.onclick = function(event) {
 							event.preventDefault();
-							window.open(payload.data.click_action, '_blank');
+							window.open(payload.notification.click_action);
 							notification.close();
 						}
 					}

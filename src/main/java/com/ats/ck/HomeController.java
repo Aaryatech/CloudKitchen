@@ -186,11 +186,11 @@ public class HomeController {
 				json.put("to", DEVICE_ID);
 				info.put("title", "You have new message");
 				info.put("body", "You have new messagesdfs"); // Notification
-				info.put("sound", "default");
+				info.put("sound", "https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3");
 				info.put("vibrate", "true");
 				info.put("click_action", "http://localhost:8081/ck/");
-				info.put("icon", "http://107.180.88.121:8080/HrEasy/resources/global_assets/images/monginis1.png");
-				json.put("data", info);
+				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
+				json.put("notification", info);
 				
 				
 			} catch (JSONException e1) {

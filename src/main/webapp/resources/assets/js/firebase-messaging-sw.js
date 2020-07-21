@@ -60,6 +60,20 @@ self.addEventListener('notificationclick', function(e) {
 });
 
 /*
+ * messaging .setBackgroundMessageHandler(function(payload) {
+ * console.log('[firebase-messaging-sw.js] Received background message ',
+ * payload);
+ * 
+ * const notificationTitle = payload.notification.title; const
+ * notificationOptions = { body : payload.notification.body, icon :
+ * payload.notification.icon, sound : payload.notification.sound, click_action :
+ * payload.notification.click_action, tag : payload.notification.click_action };
+ * 
+ * return self.registration.showNotification(notificationTitle,
+ * notificationOptions); });
+ */
+
+/*
  * 'use strict';
  * 
  * self.addEventListener('push', function(event) { console.log('Received a push
