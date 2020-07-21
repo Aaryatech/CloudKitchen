@@ -1,6 +1,7 @@
 package com.ats.ck;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -21,6 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
@@ -105,7 +110,7 @@ public class HomeController {
 
 		return "firebase";
 	}
-	
+
 	@RequestMapping(value = "/storagedfirebase", method = RequestMethod.GET)
 	public String storagedfirebase(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -116,7 +121,20 @@ public class HomeController {
 	public String chatbox(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			//execute();
+			// execute();
+			/*
+			 * FileInputStream serviceAccount = new
+			 * FileInputStream("/home/lenovo/Downloads/firbase-753eb6984a31.json");
+			 * 
+			 * FirebaseOptions options = new FirebaseOptions.Builder()
+			 * .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+			 * .setDatabaseUrl("https://firbase-1fba8.firebaseio.com").build();
+			 * 
+			 * FirebaseApp.initializeApp(options); String uid = "some-uid"; String
+			 * customToken = FirebaseAuth.getInstance().createCustomToken(uid);
+			 * System.out.println(customToken);
+			 */
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -127,7 +145,7 @@ public class HomeController {
 	public String sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			//execute();
+			execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -170,6 +188,7 @@ public class HomeController {
 				info.put("body", "You have new message"); // Notification
 				info.put("sound", "default");
 				info.put("vibrate", "true");
+				info.put("click_action", "http://localhost:8080/ck/");
 				json.put("data", info);
 
 			} catch (JSONException e1) {
