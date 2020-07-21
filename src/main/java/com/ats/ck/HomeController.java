@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -143,6 +144,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/sendNotification", method = RequestMethod.POST)
+	@ResponseBody
 	public String sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
@@ -158,7 +160,7 @@ public class HomeController {
 	// Method to send Notifications from server to client end.
 	public final static String AUTH_KEY_FCM = "AAAAK88z50I:APA91bEu1TLNO0aV6Z16KjdQ5htyR3ju7eCOMPxpTyWQGuU7PZ26HzyVN-ZuIK4j7vz_iXoJaFBEwzhhGNs5bwQ792GySSLZ9nXq8i9wwt9GWWrn2bovhwFOvDUPhzIOYIQjG1bJgmdA";
 	public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-	public final static String DEVICE_ID = "fNdTv6aawsw5tBR_Cs3g5f:APA91bHBjtCe0tIAMEYuogUGfqR6-s-MQiA52O26BoK355-JZYQKp60gnWooHRaKSCIwoJP5-rgjUx4fLJx9knhXRBd1jgJx6Vr5qZBRqD4UGGg2iDuwRb7T9FMYJZxQxm-3XsFtp_nD";
+	public final static String DEVICE_ID = "cM1x3Xo1_5N05mhaIEQjSJ:APA91bFTLFjHAGswTUgfEZzHWiY0Jxc2TuoAaFPsdnqjBa2l-hsguHlL78smQ8WeP0iSoX1Htx58-1P2q-SKz78u_01UjQlMAuGJODMxmcMYdhLIG6MYf3YziRBdIv31k52dLj-YcuAy";
 
 	public void execute() {
 		String DeviceIdKey = DEVICE_ID;
@@ -193,7 +195,7 @@ public class HomeController {
 				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
 				info.put("image", "/ck/resources/assets/img/dashboard_logo.png");
 				
-				json.put("notification", info);
+				json.put("data", info);
 
 			} catch (JSONException e1) {
 				e1.printStackTrace();

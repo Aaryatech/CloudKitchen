@@ -153,6 +153,8 @@ body {
 						'value',
 						function(snapshot) {
 							//console.log('Message received. ', snapshot.val());
+							var audio = new Audio('https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
+							audio.play();
 							$("#printtable3 tbody").empty();
 							snapshot
 									.forEach(function(childSnapshot) {
@@ -170,6 +172,7 @@ body {
 												+ childKey
 												+ '\')"> Update</a></td>   </tr>';
 										$('#printtable3').append(tr_data);
+
 										/* var audio = new Audio(
 												'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
 										audio.play(); */
@@ -179,14 +182,14 @@ body {
 		messaging
 				.onMessage(function(payload) {
 
-					var audio = new Audio(
+					/* var audio = new Audio(
 							'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
-					audio.play();
-
-					const notificationTitle = payload.notification.title;
+					audio.play(); */
+					console.log('onMessage', payload);
+					const notificationTitle = payload.data.title;
 					const notificationOptions = {
-						body : payload.notification.body,
-						icon : payload.notification.icon,
+						body : payload.data.body,
+						icon : payload.data.icon,
 					};
 
 					if (!("Notification" in window)) {
@@ -198,7 +201,7 @@ body {
 								notificationOptions);
 						notification.onclick = function(event) {
 							event.preventDefault();
-							window.open(payload.notification.click_action);
+							window.open(payload.data.click_action, "_self");
 							notification.close();
 						}
 					}

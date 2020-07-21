@@ -32,21 +32,20 @@ const messaging = firebase.messaging();
  * self.registration.showNotification(title, options); });
  */
 
-/*messaging
-		.setBackgroundMessageHandler(function(payload) {
-			console.log('tomcatyy action', payload);
+messaging.setBackgroundMessageHandler(function(payload) {
+	console.log('tomcatyy action sss', payload);
 
-			const notificationTitle = payload.data.title;
-			const notificationOptions = {
-				body : payload.data.body,
-				icon : payload.data.icon,
-				sound : 'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3',
-				tag : payload.data.click_action
-			};
+	const notificationTitle = payload.data.title;
+	const notificationOptions = {
+		body : payload.data.body,
+		icon : payload.data.icon,
+		sound : payload.data.icon,
+		tag : payload.data.click_action
+	};
 
-			return self.registration.showNotification(notificationTitle,
-					notificationOptions);
-		});
+	return self.registration.showNotification(notificationTitle,
+			notificationOptions);
+});
 self.addEventListener('notificationclick', function(e) {
 	var notification = e.notification;
 	console.log('notification', notification);
@@ -57,24 +56,21 @@ self.addEventListener('notificationclick', function(e) {
 		clients.openWindow(action);
 		notification.close();
 	}
-});*/
-
-messaging.setBackgroundMessageHandler(function(payload) {
-	console.log('[firebase-messaging-sw.js] Received background message ',
-			payload);
-
-	const notificationTitle = payload.notification.title;
-	const notificationOptions = {
-		body : payload.notification.body,
-		icon : payload.notification.icon,
-		sound : payload.notification.sound,
-		click_action : payload.notification.click_action,
-		tag : payload.notification.click_action
-	};
-
-	return self.registration.showNotification(notificationTitle,
-			notificationOptions);
 });
+
+/*
+ * messaging.setBackgroundMessageHandler(function(payload) {
+ * console.log('[firebase-messaging-sw.js] Received background message ',
+ * payload);
+ * 
+ * const notificationTitle = payload.notification.title; const
+ * notificationOptions = { body : payload.notification.body, icon :
+ * payload.notification.icon, sound : payload.notification.sound, click_action :
+ * payload.notification.click_action, tag : payload.notification.click_action };
+ * 
+ * return self.registration.showNotification(notificationTitle,
+ * notificationOptions); });
+ */
 
 /*
  * 'use strict';
