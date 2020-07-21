@@ -157,7 +157,7 @@ public class HomeController {
 	// Method to send Notifications from server to client end.
 	public final static String AUTH_KEY_FCM = "AAAAK88z50I:APA91bEu1TLNO0aV6Z16KjdQ5htyR3ju7eCOMPxpTyWQGuU7PZ26HzyVN-ZuIK4j7vz_iXoJaFBEwzhhGNs5bwQ792GySSLZ9nXq8i9wwt9GWWrn2bovhwFOvDUPhzIOYIQjG1bJgmdA";
 	public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-	public final static String DEVICE_ID = "cvRilf_5Bi_2YXiJOxh_0l:APA91bHTLwFyUu3X-m5WNsxZ4psWFolcclWHo0CiQx-PP8Gyx8fPgLzXORh65GDav7nvN0PMZasq6ZJuNKlJyE4fj1VeT-ejJgukuqZGj4tPvaim8L2ECxdGJcCodGnG1ypH-qN9wjON";
+	public final static String DEVICE_ID = "d6tjOUtPP-JK39rf1Isa5w:APA91bErwpAoK2UYcbd9klex01l3t_6fQQGqlcY03PeC5FBB6o-qV3fyBZ5InYW7Bh_t0-LnpHd0wm_fnR-H8V_-3dlI-eyGKSZDeuKqQQLOwZa5HoSWVx_rhHzXTCxt_Gm8vpICRJIR";
 
 	public void execute() {
 		String DeviceIdKey = DEVICE_ID;
