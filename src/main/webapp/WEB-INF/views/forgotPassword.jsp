@@ -123,11 +123,7 @@
 
 											<div class="form-group">
 												<button type="submit"
-													class="btn-second btn-submit full-width">
-													<img
-														src="${pageContext.request.contextPath}/resources/assets/img/M.png"
-														alt="btn logo">Submit
-												</button>
+													class="btn-second btn-submit full-width">Submit</button>
 
 											</div>
 											<div>

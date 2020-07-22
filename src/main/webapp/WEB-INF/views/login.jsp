@@ -153,11 +153,7 @@
 											</div>
 											<div class="form-group">
 												<button type="submit"
-													class="btn-second btn-submit full-width">
-													<img
-														src="${pageContext.request.contextPath}/resources/assets/img/M.png"
-														alt="btn logo">Sign in
-												</button>
+													class="btn-second btn-submit full-width">Sign in</button>
 
 												<div class="checkbox-reset forgot_pass">
 													<a href="${pageContext.request.contextPath}/forgotPassword">Reset
