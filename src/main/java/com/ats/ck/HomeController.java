@@ -4,14 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,10 +25,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ats.ck.common.Constants;
+import com.ats.ck.common.EmailUtility;
+import com.ats.ck.common.RandomString;
+import com.ats.ck.model.ErrorMessage;
+import com.ats.ck.model.LoginResponse;
+import com.ats.ck.model.MnUser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -46,17 +61,75 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
-
+		HttpSession session = request.getSession();
 		model.addAttribute("serverTime", formattedDate);
 
 		return "login";
+	}
+
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+	public String loginProcess(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = new String();
+		HttpSession session = request.getSession();
+		try {
+
+			String sessiongeneratedkey = (String) session.getAttribute("tokenKey");
+			String token = request.getParameter("token").trim();
+
+			String name = request.getParameter("username");
+			String password = request.getParameter("password");
+
+			/* if (sessiongeneratedkey.trim().equals(token.trim())) { */
+
+			if (name.equalsIgnoreCase("") || password.equalsIgnoreCase("") || name == null || password == null) {
+
+				mav = "redirect:/";
+				session.setAttribute("errorMsg", "Login Failed");
+			} else {
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				byte[] messageDigest = md.digest(password.getBytes());
+				BigInteger number = new BigInteger(1, messageDigest);
+				String encryptPass = number.toString(16);
+
+				map.add("username", name);
+				map.add("password", encryptPass);
+				map.add("type", 1);
+				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "login", map,
+						LoginResponse.class);
+
+				if (userObj.getErrorMessage().isError() == false) {
+
+					mav = "redirect:/dashboard";
+					session.setAttribute("userInfo", userObj.getUser());
+
+				} else {
+					mav = "redirect:/";
+					session.setAttribute("errorMsg", "Login Failed");
+				}
+
+			}
+			/*
+			 * } else { mav = "redirect:/"; session.setAttribute("errorMsg",
+			 * "Login Failed"); }
+			 */
+		} catch (Exception e) {
+			mav = "redirect:/";
+			session.setAttribute("errorMsg", "Login Failed");
+			e.printStackTrace();
+		}
+
+		return mav;
 	}
 
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
@@ -65,20 +138,82 @@ public class HomeController {
 		return "forgotPassword";
 	}
 
+	@RequestMapping(value = "/submitResetPassword", method = RequestMethod.POST)
+	public String submitResetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String mav = new String();
+		HttpSession session = request.getSession();
+
+		try {
+
+			String name = request.getParameter("username");
+
+			if (name.equalsIgnoreCase("") || name == null) {
+
+				mav = "redirect:/";
+				session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+			} else {
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+				map.add("username", name);
+				map.add("type", 1);
+				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "forgotPassword", map,
+						LoginResponse.class);
+
+				if (userObj.getErrorMessage().isError() == false) {
+
+					RandomString randomString = new RandomString();
+					String password = randomString.nextString();
+					MessageDigest md = MessageDigest.getInstance("MD5");
+					byte[] messageDigest = md.digest(password.getBytes());
+					BigInteger number = new BigInteger(1, messageDigest);
+					String hashtext = number.toString(16);
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("username", hashtext);
+					map.add("userId", userObj.getUser().getUserId());
+					ErrorMessage updatepass = Constants.getRestTemplate()
+							.postForObject(Constants.url + "updatePassword", map, ErrorMessage.class);
+
+					String subject = "Reset Password";
+					String msg = "Hello, \n Your Credential, \n Username : " + userObj.getUser().getUserMobileNo()
+							+ "\n Password : " + password;
+
+					ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
+							userObj.getErrorMessage().getMessage());
+					mav = "redirect:/";
+					session.setAttribute("successMsg", "Password send to your register Email.");
+
+				} else {
+
+					mav = "redirect:/forgotPassword";
+					session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+				}
+
+			}
+
+		} catch (Exception e) {
+			mav = "redirect:/";
+			session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+			e.printStackTrace();
+		}
+
+		return mav;
+	}
+
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
 	public String resetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		return "resetPassword";
 	}
 
-	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public String loginProcess(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		return "redirect:/dashboard";
-	}
-
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		HttpSession session = request.getSession();
+
+		// MnUser userInfo = (MnUser) session.getAttribute("userInfo");
 
 		return "dashboard";
 	}
@@ -136,7 +271,7 @@ public class HomeController {
 			 * customToken = FirebaseAuth.getInstance().createCustomToken(uid);
 			 * System.out.println(customToken);
 			 */
-			 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -194,7 +329,7 @@ public class HomeController {
 				info.put("click_action", "http://localhost:8081/ck/");
 				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
 				info.put("image", "/ck/resources/assets/img/dashboard_logo.png");
-				
+
 				json.put("data", info);
 
 			} catch (JSONException e1) {
@@ -227,6 +362,12 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+		return "redirect:/";
+	}
 	/*
 	 * <script async defer src=
 	 * "https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&callback=initMap">

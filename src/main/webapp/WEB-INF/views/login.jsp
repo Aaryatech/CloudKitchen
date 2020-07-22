@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.UUID"%>
+<%@ page import="java.security.MessageDigest"%>
+<%@ page import="java.math.BigInteger"%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -95,31 +99,46 @@
 									<!--with your Cloud Kitchen account-->
 									<div class="row">
 										<div class="col-12">
-											<!-- <p class="text-light-black">Have a corporate username? <a href="add-restaurant.html">Click here</a>
-                      </p> -->
 
+											<div class="form-group"></div>
+											<%
+												UUID uuid = UUID.randomUUID();
+												MessageDigest md = MessageDigest.getInstance("MD5");
+												byte[] messageDigest = md.digest(String.valueOf(uuid).getBytes());
+												BigInteger number = new BigInteger(1, messageDigest);
+												String hashtext = number.toString(16);
+												session = request.getSession();
+												session.setAttribute("tokenKey", hashtext);
+											%>
+											<input type="hidden" value="<%out.println(hashtext);%>"
+												name="token" id="token">
 
-
-											<div class="form-group">
-												<!-- <div class="info-msg"><i class="fa fa-info-circle"></i> This is an info message.</div> -->
-												<!-- <div class="warning-msg"><i class="fa fa-warning"></i> This is a warning message.</div> -->
-												<div class="success-msg">
-													<i class="fa fa-check"></i> This is a success message.
-												</div>
+											<c:if test="${sessionScope.errorMsg!=null}">
 												<div class="error-msg">
-													<i class="fa fa-times-circle"></i> This is a error message.
+													<i class="fa fa-times-circle"></i> ${sessionScope.errorMsg}
 												</div>
-											</div>
 
+												<%
+													session.removeAttribute("errorMsg");
+												%>
+											</c:if>
+											<c:if test="${sessionScope.successMsg!=null}">
+												<div class="success-msg">
+													<i class="fa fa-check"></i> ${sessionScope.successMsg}
+												</div>
+												<%
+													session.removeAttribute("successMsg");
+												%>
+											</c:if>
 											<div class="form-group">
-												<label class="text-light-white fs-14">Email</label> <input
-													type="email" name="#"
+												<label class="text-light-white fs-14" for="username">Username</label>
+												<input type="text" name="username"
 													class="form-control form-control-submit"
-													placeholder="Username" required>
+													placeholder="Username" max="10" required>
 											</div>
 											<div class="form-group">
 												<label class="text-light-white fs-14">Password</label> <input
-													type="password" id="password-field" name="#"
+													type="password" id="password-field" name="password"
 													class="form-control form-control-submit" value="password"
 													placeholder="Password" required>
 												<div data-name="#password-field"
@@ -129,8 +148,8 @@
 												<label class="custom-checkbox mb-0"> <input
 													type="checkbox" name="#"> <span class="checkmark"></span>
 													Keep me signed in
-												</label> <%-- <a href="${pageContext.request.contextPath}/resetPassword">Reset
-													Password</a> --%>
+												</label>
+
 											</div>
 											<div class="form-group">
 												<button type="submit"
@@ -141,7 +160,7 @@
 												</button>
 
 												<div class="checkbox-reset forgot_pass">
-													<a href="${pageContext.request.contextPath}/forgotPassword">Forgot
+													<a href="${pageContext.request.contextPath}/forgotPassword">Reset
 														Password</a>
 												</div>
 											</div>
@@ -191,6 +210,14 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/munchbox.js"></script>
 	<!-- /Place all Scripts Here -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			setTimeout(function() {
+				$('.error-msg').hide();
+				$('.success-msg').hide();
+			}, 3000);
+		});
+	</script>
 </body>
 
 </html>

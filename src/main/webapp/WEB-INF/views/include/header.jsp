@@ -67,7 +67,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/component.css"
 	rel="stylesheet">
 
-	
+
 
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/ace-responsive-menu.css"
@@ -230,7 +230,7 @@
 								</ul>
 								<div class="user-footer">
 									<span class="text-light-black">Not Jhon?</span> <a
-										href="${pageContext.request.contextPath}/">Sign Out</a>
+										href="${pageContext.request.contextPath}/logout">Sign Out</a>
 								</div>
 							</div>
 						</div>
@@ -356,7 +356,7 @@
 			</div>
 		</div>
 
-		
+
 
 	</header>
 </div>

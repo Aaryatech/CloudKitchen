@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -14,6 +15,9 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="#">
 <link rel="apple-touch-icon-precomposed" href="#">
 <link rel="shortcut icon" href="#">
+<link rel="icon"
+	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
+	type="images/png" sizes="32x32">
 <!-- Bootstrap -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css"
@@ -78,7 +82,9 @@
 					<div class="section-2 user-page main-padding">
 						<div class="login-sec">
 							<div class="login-box">
-								<form>
+								<form
+									action="${pageContext.request.contextPath}/submitResetPassword"
+									method="post">
 									<div class="form-group">
 										<center>
 											<img
@@ -87,26 +93,29 @@
 										</center>
 									</div>
 
-									<h4 class="text-light-black fw-600">Forgot Password</h4>
+									<h4 class="text-light-black fw-600">Reset Password</h4>
 									<div class="row">
 										<div class="col-12">
-
-											<div class="form-froup">
-												<!-- <div class="info-msg"><i class="fa fa-info-circle"></i> This is an info message.</div> -->
-												<!-- <div class="warning-msg"><i class="fa fa-warning"></i> This is a warning message.</div> -->
-												<div class="success-msg">
-													<i class="fa fa-check"></i> This is a success message.
-												</div>
+											<c:if test="${sessionScope.errorMsg!=null}">
 												<div class="error-msg">
-													<i class="fa fa-times-circle"></i> This is a error message.
+													<i class="fa fa-times-circle"></i> ${sessionScope.errorMsg}
 												</div>
-											</div>
 
-
-
+												<%
+													session.removeAttribute("errorMsg");
+												%>
+											</c:if>
+											<c:if test="${sessionScope.successMsg!=null}">
+												<div class="success-msg">
+													<i class="fa fa-check"></i> ${sessionScope.successMsg}
+												</div>
+												<%
+													session.removeAttribute("successMsg");
+												%>
+											</c:if>
 											<div class="form-group">
 												<label class="text-light-white fs-14">Email Id or
-													Mobile Number</label> <input type="email" name="#"
+													Mobile Number</label> <input type="text" name="username"
 													class="form-control form-control-submit"
 													placeholder="Email Id or Mobile Number" required>
 											</div>
@@ -173,11 +182,12 @@
 		src="${pageContext.request.contextPath}/resources/assets/js/munchbox.js"></script>
 	<!-- /Place all Scripts Here -->
 	<script type="text/javascript">
-		/* $(document).ready(function() {
+		$(document).ready(function() {
 			setTimeout(function() {
-				$('.success-msg').remove();
-			}, 5000);
-		}); */
+				$('.error-msg').hide();
+				$('.success-msg').hide();
+			}, 3000);
+		});
 	</script>
 
 </body>
