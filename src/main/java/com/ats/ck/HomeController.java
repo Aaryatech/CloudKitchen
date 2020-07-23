@@ -185,6 +185,8 @@ public class HomeController {
 					mav = "redirect:/";
 					session.setAttribute("successMsg", "Password send to your register Email.");
 
+					model.addAttribute("imageUrl", Constants.imageShowUrl);
+
 				} else {
 
 					mav = "redirect:/forgotPassword";
@@ -223,7 +225,6 @@ public class HomeController {
 
 		return "checkout";
 	}
- 
 
 	@RequestMapping(value = "/googleMap", method = RequestMethod.GET)
 	public String googleMap(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -275,14 +276,29 @@ public class HomeController {
 
 	@RequestMapping(value = "/sendNotification", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public ErrorMessage sendNotification(HttpServletRequest request, HttpServletResponse response, Model model) {
 
+		ErrorMessage ErrorMessage = new ErrorMessage();
 		try {
 			execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "success";
+		return ErrorMessage;
+	}
+
+	@RequestMapping(value = "/sendOtpCustRegistration", method = RequestMethod.POST)
+	@ResponseBody
+	public ErrorMessage sendOtpCustRegistration(HttpServletRequest request, HttpServletResponse response) {
+		ErrorMessage ErrorMessage = new ErrorMessage();
+		try {
+			String name = request.getParameter("custname");
+			System.out.println(name);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ErrorMessage;
 	}
 
 	private static final long serialVersionUID = -8022560668279505764L;

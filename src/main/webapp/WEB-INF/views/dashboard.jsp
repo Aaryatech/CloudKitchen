@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Bootstrap -->
 
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<style>
+.pac-container {
+	z-index: 10000 !important;
+}
+</style>
 <%-- <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
 	rel="stylesheet" type="text/css" /> --%>
 <body>
-
+	<div class="loader" id="loaderimg" style="display: none;">
+		<img
+			src="${pageContext.request.contextPath}/resources/assets/img/svg/loader.svg"
+			alt="">
+	</div>
 
 	<section class="final-order section-padding bg-light-grey">
 		<div class="container-fluid">
@@ -801,95 +811,119 @@
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
-								<span>Your Name *</span> <input name="" type="text"
-									class="frm_inpt" />
+								<span>Your Name *</span> <input name="custname" type="text"
+									id="custname" class="frm_inpt" onchange="trim(this)"
+									maxlength="50" placeholder="Customer Full Name" />
 							</div>
+							<span style="color: red; display: none;" id="error_custname">*
+								This field required.</span>
 						</div>
 						<div class="single_row_r">
 							<div class="pop_frm_one">
-								<span>Mobile Number *</span> <input name="" type="text"
-									class="frm_inpt" />
+								<span>Mobile Number *</span> <input name="mobileNo" type="text"
+									class="frm_inpt numbersOnly" onchange="trim(this)"
+									id="mobileNo" maxlength="10" placeholder="Customer Mobile No." />
 							</div>
-							<span style="color: red;">* This field required.</span>
+							<span style="color: red; display: none;" id="error_mobileNo">*
+								This field required.</span>
 						</div>
 						<div class="clr"></div>
 					</div>
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
-								<span>Email *</span> <input name="" type="text" class="frm_inpt" />
-
+								<span>Email </span> <input name="email" type="text"
+									class="frm_inpt" onchange="trim(this)" id="email"
+									maxlength="50" placeholder="Email" />
 							</div>
+							<span style="color: red; display: none;" id="error_email">*
+								This field required.</span>
 						</div>
 						<div class="single_row_r">
 
 							<div class="pop_frm_one">
-								<span>Whats App no.</span><input name="" type="text"
-									class="frm_inpt" style="width: 70%" /><input name=""
-									type="checkbox" class="frm_inpt" style="width: 30%" />
+								<span>Whats App no.</span><input name="whatappno" type="text"
+									class="frm_inpt" style="width: 70%" onchange="trim(this)"
+									id="whatappno" maxlength="10" placeholder="Whats App no." /><input
+									name="" type="checkbox" class="frm_inpt" style="width: 30%" />
 							</div>
+							<span style="color: red; display: none;" id="error_whatappno">*
+								This field required.</span>
 						</div>
 						<div class="clr"></div>
 					</div>
-					<div class="single_row">
+					<!-- <div class="single_row">
 						<div class="pop_frm_one">
 							<span>Permanent Address *</span>
 							<textarea name="" type="text" class="frm_inpt"></textarea>
 						</div>
-					</div>
+					</div> -->
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Select Delivery City *</span>
 							<div class="search_multiple">
-								<select class="country">
+								<select class="country" id="addcity" name="addcity">
 									<option value="">Select City</option>
-									<option value="Shop 1" data-name="">Mumbai</option>
-									<option value="Shop 2" data-name="" selected>Nashik</option>
-									<option value="Shop 3" data-name="">Pune</option>
+									<option value="1" data-name="">Mumbai</option>
+									<option value="2" data-name="">Nashik</option>
+									<option value="3" data-name="">Pune</option>
 								</select>
 							</div>
 						</div>
+						<span style="color: red; display: none;" id="error_addcity">*
+							This field required.</span>
 					</div>
 
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Select Delivery Area *</span>
 							<div class="search_multiple">
-								<select class="country">
+								<select class="country" id="addarea" name="addarea">
 									<option value="">Select Area</option>
-									<option value="Shop 1" data-name="" selected>Nashik
-										Road</option>
-									<option value="Shop 2" data-name="">Canada Corner</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option>
 								</select>
 							</div>
 						</div>
+						<span style="color: red; display: none;" id="error_addarea">*
+							This field required.</span>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Landmark *</span> <input name="txtPlaces" type="text"
+								class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
+								name="addLatitude" type="hidden" class="frm_inpt"
+								id="addLatitude" /><input name="addLongitude" type="hidden"
+								class="frm_inpt" id="addLongitude" />
+						</div>
+						<span style="color: red; display: none;" id="error_txtPlaces">*
+							This field required.</span>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Delivery Address *</span>
-							<textarea name="" type="text" class="frm_inpt"></textarea>
+							<textarea name="address" id="address" type="text" maxlength="200"
+								class="frm_inpt" onchange="trim(this)"
+								placeholder="Delivery Address"></textarea>
 						</div>
+						<span style="color: red; display: none;" id="error_address">*
+							This field required.</span>
 					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Landmark *</span> <input name="" type="text"
-								class="frm_inpt" />
-						</div>
-					</div>
-
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Language *</span>
 							<div class="search_multiple">
-								<select class="country">
+								<select class="country" name="language" id="language">
 									<option value="1" selected>Gujrati</option>
 								</select>
 							</div>
 						</div>
+						<span style="color: red; display: none;" id="error_language">*
+							This field required.</span>
 					</div>
 					<div class="pop_btn_row">
-						<input name="" type="button" value="Submit" class="next_btn"
-							onclick="sendOtp()" />
+						<input id="addnewcustomer" type="button" value="Submit"
+							class="next_btn" onclick="sendOtpForCustomerRegistration()" />
 					</div>
 				</form>
 			</div>
@@ -1761,14 +1795,143 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-	<%-- <script
-		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"
-		type="text/javascript"></script> --%>
-
+	<!-- <script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
 	<script type="text/javascript">
-		function sendOtp() {
-			$('#addCustomer').modal('hide');
-			$('#otpModel').modal('show');
+		function sendOtpForCustomerRegistration() {
+
+			$("#error_addcity").hide();
+			$("#error_custname").hide();
+			$("#error_mobileNo").hide();
+			$("#error_email").hide();
+			$("#error_addarea").hide();
+			$("#error_txtPlaces").hide();
+			$("#error_address").hide();
+			$("#error_language").hide();
+			var isError = false;
+			if (!$("#custname").val()) {
+				isError = true;
+				$("#error_custname").show();
+			}
+			if (!$("#mobileNo").val() || !validateMobile($("#mobileNo").val())) {
+				isError = true;
+				if (!$("#mobileNo").val()) {
+					document.getElementById("error_mobileNo").innerHTML = "* This field is required.";
+				} else {
+					document.getElementById("error_mobileNo").innerHTML = "* Invalid mobile no.";
+				}
+
+				$("#error_mobileNo").show();
+
+			}
+			if (!$("#email").val() || !validateEmail($("#email").val())) {
+
+				if (!$("#email").val()) {
+
+				} else {
+					isError = true;
+					document.getElementById("error_email").innerHTML = "* Invalid email.";
+					$("#error_email").show();
+				}
+
+			}
+			if (!$("#whatappno").val() || !validateEmail($("#whatappno").val())) {
+
+				if (!$("#whatappno").val()) {
+
+				} else {
+					isError = true;
+					document.getElementById("error_whatappno").innerHTML = "* Invalid mobile no.";
+					$("#error_whatappno").show();
+				}
+
+			}
+			if (!$("#addcity").val()) {
+				isError = true;
+				$("#error_addcity").show();
+			}
+			if (!$("#addarea").val()) {
+				isError = true;
+				$("#error_addarea").show();
+			}
+			if (!$("#txtPlaces").val()) {
+				isError = true;
+				$("#error_txtPlaces").show();
+			}
+			if (!$("#address").val()) {
+				isError = true;
+				$("#error_address").show();
+			}
+			if (!$("#language").val()) {
+				isError = true;
+				$("#error_language").show();
+			}
+
+			if (!isError) {
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('custname', $("#custname").val());
+				fd.append('mobileNo', $("#mobileNo").val());
+				fd.append('email', $("#email").val());
+				fd.append('whatappno', $("#whatappno").val());
+				fd.append('addcity', $("#addcity").val());
+				fd.append('addarea', $("#addarea").val());
+				fd.append('txtPlaces', $("#txtPlaces").val());
+				fd.append('language', $("#language").val());
+				fd.append('addLatitude', $("#addLatitude").val());
+				fd.append('addLongitude', $("#addLongitude").val());
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/sendOtpCustRegistration',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								document.getElementById("loaderimg").style.display = "none";
+								$('#addCustomer').modal('hide');
+								$('#otpModel').modal('show');
+							},
+						});
+
+				//document.getElementById("submtbtn").disabled = true;
+				//end ajax send this to php page
+			}
+
+		}
+
+		function trim(el) {
+			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+			replace(/\n +/, "\n"); // Removes spaces after newlines
+
+			return;
+		}
+		function validateMobile(mobile) {
+			var mob = /^[1-9]{1}[0-9]{9}$/;
+
+			if (mob.test($.trim(mobile)) == false) {
+
+				return false;
+
+			}
+			return true;
+
+		}
+		function validateEmail(email) {
+
+			var eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+			if (eml.test($.trim(email)) == false) {
+
+				return false;
+
+			}
+
+			return true;
+
 		}
 		function changeHeadName(id) {
 			var msg = "Live Orders ";
@@ -1890,20 +2053,56 @@
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
-		/* $(document).ready(function() {
-			$("#respMenu").aceResponsiveMenu({
-				resizeWidth : '768', // Set the same in Media query
-				animationSpeed : 'fast', //slow, medium, fast
-				accoridonExpAll : false
-			//Expands all the accordion menu on click
-			});
-		}); */
+		google.maps.event
+				.addDomListener(
+						window,
+						'load',
+						function() {
+							var places = new google.maps.places.Autocomplete(
+									document.getElementById('txtPlaces'),
+									{
+										fields : [ "name", "geometry.location",
+												"place_id", "formatted_address" ]
+									});
+							places.setFields([ "name", "geometry.location",
+									"place_id", "formatted_address" ]);
+							google.maps.event
+									.addListener(
+											places,
+											'place_changed',
+											function() {
+												document
+														.getElementById("error_txtPlaces").style.display = "none";
+												var place = places.getPlace();
 
-		/* $(document).ready(function() {
-			setTimeout(function() {
-				$('.success-msg').hide();
-			}, 5000);
-		}); */
+												try {
+													var address = place.formatted_address;
+													var latitude = place.geometry.location
+															.lat();
+													var longitude = place.geometry.location
+															.lng();
+													document
+															.getElementById("addLatitude").value = latitude;
+													document
+															.getElementById("addLongitude").value = longitude;
+												} catch (err) {
+
+													document
+															.getElementById("txtPlaces").value = "";
+													document
+															.getElementById("addLatitude").value = 0;
+													document
+															.getElementById("addLongitude").value = 0;
+													document
+															.getElementById("error_txtPlaces").innerHTML = "* Invalid Address.";
+													document
+															.getElementById("error_txtPlaces").style.display = "block";
+
+												}
+
+											});
+
+						});
 	</script>
 	<script>
 		$(function() {
