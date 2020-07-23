@@ -2,6 +2,8 @@ package com.ats.ck.controller;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,10 @@ import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetSubCategoryData;
 import com.ats.ck.model.LoginResponse;
+import com.ats.ck.model.SubCategoryData;
+import com.ats.ck.model.Tags;
 
 @Controller
 public class OrderController {
@@ -44,6 +49,18 @@ public class OrderController {
 					map, GetCategoryData.class);
 			List<CategoryData> catList = catogory.getCategory();
 			model.addAttribute("catList", catList);
+			model.addAttribute("catImageUrl", Constants.imageShowUrl);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frId);
+			GetSubCategoryData subcategory = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getSubCategoryListByFr", map, GetSubCategoryData.class);
+			List<SubCategoryData> subcatList = subcategory.getSubCategory();
+			model.addAttribute("subcatList", subcatList);
+
+			Tags[] tag = Constants.getRestTemplate().getForObject(Constants.url + "getAllActiveTags", Tags[].class);
+			List<Tags> tagList = new ArrayList<>(Arrays.asList(tag));
+			model.addAttribute("tagList", tagList);
 
 		} catch (Exception e) {
 

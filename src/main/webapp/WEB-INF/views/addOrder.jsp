@@ -525,7 +525,7 @@
 					<div class="col-12">
 						<div class="section-header-left">
 							<h3 class="text-light-black header-title title">Browse by
-								cuisine</h3>
+								Category</h3>
 						</div>
 					</div>
 					<div class="col-12">
@@ -539,93 +539,13 @@
 										<a href="#" class="categories">
 											<div
 												class="icon icon-parent text-custom-white bg-light-green">
-												<img
-													src="${pageContext.request.contextPath}/media/catimage/${catList.catName}"
-													class="rounded-circle" alt="categories">
+												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
+													class="rounded-circle" alt="categories"
+													onerror="imgError(this);">
 											</div> <span class="text-light-black cat-name fw-500">${catList.catName}</span>
 										</a>
 									</div>
 								</c:forEach>
-
-								<%-- <div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Italian
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Thai </span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Chinese
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Mexican
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Indian
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Lebanese
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/japanese.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">Japanese
-									</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon text-custom-white bg-light-green ">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/american.jpg"
-												class="rounded-circle" alt="categories">
-										</div> <span class="text-light-black cat-name fw-500">American
-									</span>
-									</a>
-								</div> --%>
 							</div>
 							<!-- Add Arrows -->
 							<div class="swiper-button-next"></div>
@@ -648,62 +568,24 @@
 							<div class="filter_cont">
 								<div class="search_filt">
 									<input name="" type="text" class="filter_inpt"
-										placeholder="Search your favorite food" /> <i
-										class="fa fa-search" aria-hidden="true"></i>
+										placeholder="Search Sub Category" id="subcatinput"
+										onkeyup="sortCategory()" /> <i class="fa fa-search"
+										aria-hidden="true"></i>
 								</div>
 
-
-								<form action="" method="get">
-									<label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Barbecuing and Grilling"><span
-										class="checkmark"></span> Barbecuing and Grilling
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Soup and Salads"><span
-										class="checkmark"></span> Soup and Salads
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="chinese"><span
-										class="checkmark"></span> chinese
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Soup and Salads"><span
-										class="checkmark"></span> Streetfood
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Fastfood"><span
-										class="checkmark"></span> Fastfood
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Biryani"><span
-										class="checkmark"></span> Seafood
-									</label> <label class="custom-checkbox radio_one"> <input
-										type="checkbox" name="subcat" class="checkboxclass"
-										onchange="myFunction1()" value="Beverages"><span
-										class="checkmark"></span> Beverages
-									</label>
-
-								</form>
-
+								<c:forEach items="${subcatList}" var="subcatList">
+									<div class="subcatclass">
+										<label class="custom-checkbox radio_one"> <input
+											type="checkbox" name="subcat" class="checkboxclass"
+											onchange="myFunction1()" value="${subcatList.subCatName}"><span
+											class="checkmark"></span> ${subcatList.subCatName}
+										</label>
+									</div>
+								</c:forEach>
 
 							</div>
 
-							<!--delivery radio-->
-							<!-- <div class="delivery_radio">
-								<ul>
-									<li><label class="radio_one"> <input type="radio"
-											class="option-input radio" name="example" checked />
-											Delivery
-									</label></li>
-									<li><label class="radio_one"> <input type="radio"
-											class="option-input radio" name="example" checked /> Takeout
-									</label></li>
-								</ul>
-								<div class="clr"></div>
-							</div> -->
-
-							<div class="tags_bx">
+							<!-- <div class="tags_bx">
 								<h3 class="tags_title">Price Range</h3>
 								<div class="filter_cont">
 
@@ -714,7 +596,7 @@
 									</div>
 
 								</div>
-							</div>
+							</div> -->
 
 							<!--popular tags-->
 							<div class="tags_bx">
@@ -723,70 +605,23 @@
 									<form action="" method="get">
 
 										<ul class="ks-cboxtags">
-											<li><input type="checkbox" id="checkboxOne"
-												name="tagcheckbox" value="Pizza" onchange="myFunction1()"><label
-												for="checkboxOne">Pizza</label></li>
-											<li><input type="checkbox" id="checkboxTwo" checked><label
-												for="checkboxTwo">Sandwich</label></li>
-											<li><input type="checkbox" id="checkboxThree"><label
-												for="checkboxThree">Fish</label></li>
-											<li><input type="checkbox" id="checkboxFour"><label
-												for="checkboxFour">Desert</label></li>
-											<li><input type="checkbox" id="checkboxFive"><label
-												for="checkboxFive">Salad</label></li>
-											<li><input type="checkbox" id="checkboxSix"><label
-												for="checkboxSix">Italian</label></li>
-											<li><input type="checkbox" id="checkboxSeven"><label
-												for="checkboxSeven">Indian</label></li>
-											<li><input type="checkbox" id="checkboxEight"><label
-												for="checkboxEight">Derpy Hooves</label></li>
-											<li><input type="checkbox" id="checkboxNine"><label
-												for="checkboxNine">Princess Celestia</label></li>
-											<li><input type="checkbox" id="checkboxTen"><label
-												for="checkboxTen">Gusty</label></li>
-											<li><input type="checkbox" id="checkboxEleven"><label
-												for="checkboxEleven">Discord</label></li>
-											<li><input type="checkbox" id="checkboxTwelve"><label
-												for="checkboxTwelve">Clover</label></li>
-											<li><input type="checkbox" id="checkboxThirteen"><label
-												for="checkboxThirteen">Baby Moondancer</label></li>
-											<li><input type="checkbox" id="checkboxFourteen"><label
-												for="checkboxFourteen">Medley</label></li>
-											<li><input type="checkbox" id="checkboxFifteen"><label
-												for="checkboxFifteen">Firefly</label></li>
+
+											<c:forEach items="${tagList}" var="tagList">
+												<li><input type="checkbox"
+													id="checkboxOne${tagList.tagId}" name="tagcheckbox"
+													value="${tagList.tagName}" onchange="myFunction1()"><label
+													for="checkboxOne${tagList.tagId}">${tagList.tagName}</label></li>
+											</c:forEach>
 										</ul>
-
-
-
-
 									</form>
 									<div class="clr"></div>
 								</div>
 
-								<!-- <div class="filter_cont">
-                    <div class="tags_list">
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#">  </a>
-                      <a href="#"> Fish </a>
-                      <a href="#"> Pizza </a>
-                      <a href="#"> Sandwich </a>
-                      <a href="#"> Fish </a>
-                      <a href="#"> Desert </a>
-                      <a href="#"> Salad </a>
-                      <a href="#"> Italian </a>
-                      <a href="#"> Indian </a>
-                      <a href="#"> Fish </a>
-                    </div>
-                  </div> -->
+
 							</div>
 
 							<!--user rating-->
-							<div class="tags_bx">
+							<%-- <div class="tags_bx">
 								<h3 class="tags_title">User Rating</h3>
 								<div class="filter_cont">
 									<form action="" method="get">
@@ -809,7 +644,7 @@
 										</label>
 									</form>
 								</div>
-							</div>
+							</div> --%>
 
 						</div>
 					</div>
@@ -1222,8 +1057,8 @@
 										<h3 class="restro-nm">
 											<img
 												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Veg Biryani Khada <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
+												alt=""> Lassi<span>Sharanpur Road Nashik <br>
+												Casual Dining - North Indian
 											</span>
 										</h3>
 										<div class="product-list-type hotel_nm">
@@ -1669,6 +1504,11 @@
 	<!--Plugin Initialization-->
 
 	<script>
+		function imgError(image) {
+			image.onerror = "";
+			image.src = "${pageContext.request.contextPath}/resources/assets/img/chinese.jpg";
+			return true;
+		}
 		function myFunction1() {
 
 			/* $(".scrollbar-content").css("top", "0");
@@ -1731,6 +1571,22 @@
 
 			document.getElementById("loaderimg").style.display = "none";
 		}
+
+		function sortCategory() {
+
+			$('.subcatclass').hide();
+			var txt = $('#subcatinput').val();
+
+			$('.subcatclass').each(
+					function(index) {
+
+						if ($(this).text().toUpperCase().indexOf(
+								txt.toUpperCase()) != -1) {
+							$(this).show();
+						}
+					});
+
+		}
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -1758,8 +1614,6 @@
 
 		}).call(this);
 	</script>
-
-	<!--select box with search js & css here-->
 
 
 </body>

@@ -14,7 +14,7 @@ public class Constants {
 	public static final String attsDocSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 	public static final String docSaveUrl = "/home/lenovo/Downloads/old/apache-tomcat-8.5.37/webapps/media/";
 
-	public static final String imageShowUrl = "http://localhost:8080/hrdocument/templatedoc/";
+	public static final String imageShowUrl = "http://107.180.91.43:8080/uploads/ckuploads/";
 	public static final String templateShowUrl = "http://localhost:8080/hrdocument/templatedoc/";
 
 	public static RestTemplate rest = new RestTemplate();
