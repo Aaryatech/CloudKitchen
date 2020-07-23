@@ -17,8 +17,14 @@ body {
 	<script type="text/javascript">
 		google.maps.event.addDomListener(window, 'load', function() {
 			var places = new google.maps.places.Autocomplete(document
-					.getElementById('txtPlaces'));
+					.getElementById('txtPlaces'), {
+				fields : [ "name", "geometry.location", "place_id",
+						"formatted_address" ]
+			});
+			places.setFields([ "name", "geometry.location", "place_id",
+					"formatted_address" ]);
 			google.maps.event.addListener(places, 'place_changed', function() {
+				console.log('place', places.getPlace());
 				var place = places.getPlace();
 				var address = place.formatted_address;
 				var latitude = place.geometry.location.lat();
@@ -34,6 +40,7 @@ body {
 				initMap(latitude, longitude, 20.0116769, 73.7968206,
 						20.0011423, 73.78327);
 			});
+
 		});
 
 		function distance1(lat1, lon1, lat2, lon2, unit) {

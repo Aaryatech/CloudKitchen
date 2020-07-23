@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -110,8 +111,10 @@
 										</div>
 										<div class="head_search_r">
 											<select class="country top_drop_ones">
-												<option value="4">Shop No. 1 - 5 KM</option>
-												<option value="4">Shop No. 2 - 10 KM</option>
+												<c:forEach items="${franchiseList}" var="franchiseList">
+													<option value="${franchiseList.frId}">${franchiseList.frName}</option>
+												</c:forEach>
+
 											</select>
 										</div>
 									</div>
@@ -528,14 +531,23 @@
 					<div class="col-12">
 						<div class="category-slider swiper-container">
 							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<a href="#" class="categories">
-										<div class="icon icon-parent text-custom-white bg-light-green">
-											<i class="fas fa-map-marker-alt"></i>
-										</div> <span class="text-light-black cat-name fw-500">Brooklyn</span>
-									</a>
-								</div>
-								<div class="swiper-slide">
+
+
+								<c:forEach items="${catList}" var="catList">
+
+									<div class="swiper-slide">
+										<a href="#" class="categories">
+											<div
+												class="icon icon-parent text-custom-white bg-light-green">
+												<img
+													src="${pageContext.request.contextPath}/media/catimage/${catList.catName}"
+													class="rounded-circle" alt="categories">
+											</div> <span class="text-light-black cat-name fw-500">${catList.catName}</span>
+										</a>
+									</div>
+								</c:forEach>
+
+								<%-- <div class="swiper-slide">
 									<a href="#" class="categories">
 										<div class="icon text-custom-white bg-light-green ">
 											<img
@@ -613,7 +625,7 @@
 										</div> <span class="text-light-black cat-name fw-500">American
 									</span>
 									</a>
-								</div>
+								</div> --%>
 							</div>
 							<!-- Add Arrows -->
 							<div class="swiper-button-next"></div>
