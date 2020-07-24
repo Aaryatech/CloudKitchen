@@ -39,6 +39,8 @@ import com.ats.ck.model.Area;
 import com.ats.ck.model.City;
 import com.ats.ck.model.Customer;
 import com.ats.ck.model.CustomerAddress;
+import com.ats.ck.model.CustomerAddressDisplay;
+import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.ErrorMessage;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.Language;
@@ -237,6 +239,14 @@ public class HomeController {
 			List<Language> languageList = new ArrayList<>(Arrays.asList(language));
 			model.addAttribute("languageList", languageList);
 
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", 3);
+			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
+					CustomerDisplay.class);
+			model.addAttribute("customer", customer);
+
+			session.setAttribute("liveCustomer", customer);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -421,7 +431,12 @@ public class HomeController {
 				addList.add(customerAddress);
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList",
 						addList, Info.class);
-				session.setAttribute("liveCustomer", res);
+
+				LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", res.getCustId());
+				CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
+						map, CustomerDisplay.class);
+				session.setAttribute("liveCustomer", customer);
 			}
 
 		} catch (Exception e) {
@@ -430,6 +445,70 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return res;
+	}
+
+	@RequestMapping(value = "/submitAddNewAddress", method = RequestMethod.POST)
+	@ResponseBody
+	public Info submitAddNewAddress(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+
+			HttpSession session = request.getSession();
+			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			String addressCation = request.getParameter("addressCation");
+			String addAddressCity = request.getParameter("addAddressCity");
+			String addAddressArea = request.getParameter("addAddressArea");
+			String addAddressLandmark = request.getParameter("addAddressLandmark");
+			String addAddressDeliveryAdd = request.getParameter("addAddressDeliveryAdd");
+			String addAddressLatitude = request.getParameter("addAddressLatitude");
+			String addAddressLongitude = request.getParameter("addAddressLongitude");
+
+			List<CustomerAddress> addList = new ArrayList<CustomerAddress>();
+			CustomerAddress customerAddress = new CustomerAddress();
+			customerAddress.setCustId(liveCustomer.getCustId());
+			customerAddress.setAddressCaption(addressCation);
+			customerAddress.setCityId(Integer.parseInt(addAddressCity));
+			customerAddress.setAreaId(Integer.parseInt(addAddressArea));
+			customerAddress.setLandmark(addAddressLandmark);
+			customerAddress.setAddress(addAddressDeliveryAdd);
+			customerAddress.setLatitude(addAddressLatitude);
+			customerAddress.setLongitude(addAddressLongitude);
+
+			addList.add(customerAddress);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList", addList,
+					Info.class);
+
+		} catch (Exception e) {
+
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
+	}
+
+	@RequestMapping(value = "/getAddressListOfCustomer", method = RequestMethod.POST)
+	@ResponseBody
+	public List<CustomerAddressDisplay> getAddressListOfCustomer(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<CustomerAddressDisplay> addressList = new ArrayList<CustomerAddressDisplay>();
+		try {
+
+			HttpSession session = request.getSession();
+			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", liveCustomer.getCustId());
+			CustomerAddressDisplay[] info = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressList", map, CustomerAddressDisplay[].class);
+			addressList = new ArrayList<>(Arrays.asList(info));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return addressList;
 	}
 
 	private static final long serialVersionUID = -8022560668279505764L;

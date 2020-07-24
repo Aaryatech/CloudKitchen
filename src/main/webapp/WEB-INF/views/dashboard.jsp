@@ -64,7 +64,7 @@
 
 						<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
 							<label class="prefered fs-14">Preferred Language : <Span
-								id="showPreferredLang">-</Span></label>
+								id="showPreferredLang">${customer.langName}</Span></label>
 						</div>
 
 						<div class="col-lg-3 sec_title right_btn">
@@ -245,202 +245,6 @@
 										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
 							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong><a
-										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
-								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">Online</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong><a
-										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
-								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">Online</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong>0002</strong></td>
-								<td class="user-name">Neal Matthews 2</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">COD</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong>0003</strong></td>
-								<td class="user-name">Neal Matthews 3</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">COD</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong>0004</strong></td>
-								<td class="user-name">Neal Matthews 4</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">COD</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong>0005</strong></td>
-								<td class="user-name">Neal Matthews 5</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Android App</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">COD</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong>0006</strong></td>
-								<td class="user-name">Neal Matthews 6</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Android App</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">COD</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-							</tr>
-
 
 						</tbody>
 					</table>
@@ -471,31 +275,31 @@
 
 						<div class="profile_bx">
 							<div class="profile_one">
-								<span>Name</span> : <span id="profileCustName">-</span>
+								<span>Name</span> : <span id="profileCustName">${customer.custName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Mobile No.</span> : <span id="profileMobileNo">-</span>
+								<span>Mobile No.</span> : <span id="profileMobileNo">${customer.phoneNumber}</span>
 							</div>
 							<div class="profile_one">
-								<span>Whats App No.</span> : <span id="profilewhatappNo">-</span>
+								<span>Whats App No.</span> : <span id="profilewhatappNo">${customer.whatsappNo}</span>
 							</div>
 							<div class="profile_one">
-								<span>Email Id</span> : <span id="profileemail">-</span>
+								<span>Email Id</span> : <span id="profileemail">${customer.emailId}</span>
 							</div>
 
 							<div class="profile_one">
 								<span>Preferred Language</span> : <span
-									id="profilepreferredLang">-</span>
+									id="profilepreferredLang">${customer.langName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Delivery Address</span> : <span id="profileDeliveryAdd">-<a
-									href="#" title="Add New Address" class="detail_btn_round"
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#addAddress"><i class="fa fa-plus"
-										aria-hidden="true"></i></a>&nbsp;<a href="#" title="Address List"
-									class="detail_btn_round" data-target="#addressllist"
-									data-toggle="modal"><i class="fa fa-list"
-										aria-hidden="true"></i></a></span>
+								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
+									<a title="Add New Address" class="detail_btn_round"
+									href="javascript:void(0)" onclick="addCustomerAdd()"><i
+										class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a
+									href="javascript:void(0)" title="Address List"
+									class="detail_btn_round" onclick="customerAddList()"><i
+										class="fa fa-list" aria-hidden="true"></i></a>
+								</span>
 
 							</div>
 						</div>
@@ -594,188 +398,6 @@
 											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
 									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Delivered</td>
-										<td class="user-name"><a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-
 
 
 
@@ -869,7 +491,7 @@
 							<span>Select Delivery City *</span>
 							<div class="search_multiple">
 								<select class="country" id="addcity" name="addcity"
-									onchange="getAreaListByCity(this.value)">
+									onchange="getAreaListByCity(this.value,1)">
 									<option value="">Select City</option>
 									<c:forEach items="${cityList}" var="cityList">
 										<option value="${cityList.cityId}">${cityList.cityName}</option>
@@ -1025,10 +647,10 @@
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select Address* <a href="#" style="float: right;"
-									class="detail_btn_round" title="Add New Address"
-									data-toggle="modal" data-target="#addAddress"><i
-										class="fa fa-plus" aria-hidden="true"></i></a></span>
+								<span>Select Address* <a href="javascript:void(0)"
+									style="float: right;" class="detail_btn_round"
+									title="Add New Address"><i class="fa fa-plus"
+										aria-hidden="true"></i></a></span>
 								<div class="search_multiple">
 									<select class="country">
 										<option value="" selected>Select Address</option>
@@ -1536,95 +1158,7 @@
 								<td class="user-name">400</td>
 							</tr>
 
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
 
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
 
 
 						</tbody>
@@ -1679,7 +1213,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="addAddress"
+	<div class="modal fade kot-popup fetch_results" id="addAddress"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
@@ -1692,64 +1226,79 @@
 
 				<div class="pop_signup">Add Address</div>
 
-
-
-
 				<!--form-->
 				<div class="form_one extra_marg">
 					<form action="" method="get">
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Address Caption * <a href="#" style="float: right;"
-									class="detail_btn_round" title="Address List"
-									data-toggle="modal" data-target="#addressllist"><i
-										class="fa fa-list" aria-hidden="true"></i></a></span> <input name=""
-									type="text" class="frm_inpt" />
+								<span>Address Caption * <a href="javascript:void(0)"
+									style="float: right;" class="detail_btn_round"
+									title="Address List" onclick="customerAddList()"><i
+										class="fa fa-list" aria-hidden="true"></i></a></span> <input
+									name="addressCation" id="addressCation"
+									placeholder="Address Caption" type="text" class="frm_inpt" />
 							</div>
+							<span style="color: red; display: none;"
+								id="error_addressCaption">* This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Delivery City *</span>
 								<div class="search_multiple">
-									<select class="country">
+									<select class="country" name="addAddressCity"
+										id="addAddressCity" onchange="getAreaListByCity(this.value,2)">
 										<option value="">Select City</option>
-										<option value="Shop 1" data-name="">Mumbai</option>
-										<option value="Shop 2" data-name="" selected>Nashik</option>
-										<option value="Shop 3" data-name="">Pune</option>
+										<c:forEach items="${cityList}" var="cityList">
+											<option value="${cityList.cityId}">${cityList.cityName}</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
+							<span style="color: red; display: none;"
+								id="error_addAddressCity">* This field required.</span>
 						</div>
 
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Delivery Area *</span>
 								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select Area</option>
-										<option value="Shop 1" data-name="" selected>Nashik
-											Road</option>
-										<option value="Shop 2" data-name="">Canada Corner</option>
+									<select class="country" name="addAddressArea"
+										id="addAddressArea">
+
 									</select>
 								</div>
 							</div>
+							<span style="color: red; display: none;"
+								id="error_addAddressArea">* This field required.</span>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Landmark *</span> <input name="addAddressLandmark"
+									id="addAddressLandmark" placeholder="Landmark" type="text"
+									class="frm_inpt" /><input name="addAddressLatitude"
+									type="hidden" class="frm_inpt" id="addAddressLatitude" /><input
+									name="addAddressLongitude" type="hidden" class="frm_inpt"
+									id="addAddressLongitude" />
+							</div>
+							<span style="color: red; display: none;"
+								id="error_addAddressLandmark">* This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Address *</span>
-								<textarea name="" type="text" class="frm_inpt"></textarea>
+								<textarea name="addAddressDeliveryAdd"
+									id="addAddressDeliveryAdd" class="frm_inpt"
+									placeholder="Delivery Address"></textarea>
 							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Landmark *</span> <input name="" type="text"
-									class="frm_inpt" />
-							</div>
+							<span style="color: red; display: none;"
+								id="error_addAddressDeliveryAdd">* This field required.</span>
 						</div>
 
+
 						<div>
-							<input name="" type="button" value="Submit" class="next_btn" />
+							<input id="addAddressSubmit" onclick="submitAddNewAddress()"
+								type="button" value="Submit" class="next_btn" />
 						</div>
 						<!-- class="pop_btn_row"-->
 					</form>
@@ -1772,23 +1321,21 @@
 				</button>
 
 				<div class="pop_signup">Address List</div>
-
-
-
 				<div class="component">
-					<table class="overflow-y">
+					<table class="overflow-y" id="addressListtbl">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Caption</th>
 								<th class="sorting_desc">City</th>
 								<th class="sorting_desc">Area</th>
+								<th class="sorting_desc">Landmark</th>
 								<th class="sorting_desc">Address</th>
 								<th class="sorting_desc">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!--1 row-->
-							<tr>
+							<!-- <tr>
 								<td class="user-name">Home</td>
 								<td class="user-name">Nashik</td>
 								<td class="user-name">Nashik</td>
@@ -1797,7 +1344,7 @@
 									title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;<a
 									href="#" class="detail_btn_round" title="Delete"><i
 										class="fa fa-times" aria-hidden="true"></i> </a></td>
-							</tr>
+							</tr> -->
 							<!--1 row-->
 
 						</tbody>
@@ -1813,6 +1360,133 @@
 	<!-- <script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
 	<script type="text/javascript">
+		function addCustomerAdd() {
+			$('#addAddress').modal('show');
+		}
+		function customerAddList() {
+			$('#addressllist').modal('show');
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getAddressListOfCustomer',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							$("#addressListtbl tbody").empty();
+							
+							for (var i = 0; i < response.length; i++) {
+								 
+								var tr_data = '<tr> <td class="user-name">'
+										+ response[i].addressCaption
+										+ '</td> <td class="user-name">'
+										+ response[i].cityName
+										+ '</td>'
+										+ '<td class="user-name">'
+										+ response[i].areaName
+										+ '</td><td class="user-name">'
+										+ response[i].landmark
+										+ '</td>'
+										+ '<td class="user-name">'
+										+ response[i].address
+										+ '</td> <td class="user-name">400</td> </tr>';
+								$('#addressListtbl').append(tr_data);
+							}
+
+						},
+					});
+
+		}
+
+		function submitAddNewAddress() {
+
+			$("#error_addressCaption").hide();
+			$("#error_addAddressCity").hide();
+			$("#error_addAddressArea").hide();
+			$("#error_addAddressLandmark").hide();
+			$("#error_addAddressDeliveryAdd").hide();
+
+			var isError = false;
+			if (!$("#addressCation").val()) {
+				isError = true;
+				$("#error_addressCaption").show();
+			}
+
+			if (!$("#addAddressCity").val()) {
+				isError = true;
+				$("#error_addAddressCity").show();
+			}
+			if (!$("#addAddressArea").val() || $("#addAddressArea").val() == 0) {
+				isError = true;
+				$("#error_addAddressArea").show();
+			}
+			if (!$("#addAddressLandmark").val()) {
+				isError = true;
+				$("#error_addAddressLandmark").show();
+			}
+			if (!$("#addAddressDeliveryAdd").val()) {
+				isError = true;
+				$("#error_addAddressDeliveryAdd").show();
+			}
+
+			if (!isError) {
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('addressCation', $("#addressCation").val());
+				fd.append('addAddressCity', $("#addAddressCity").val());
+				fd.append('addAddressArea', $("#addAddressArea").val());
+				fd.append('addAddressLandmark', $("#addAddressLandmark").val());
+				fd.append('addAddressDeliveryAdd', $("#addAddressDeliveryAdd")
+						.val());
+				fd.append('addAddressLatitude', $("#addAddressLatitude").val());
+				fd.append('addAddressLongitude', $("#addAddressLongitude")
+						.val());
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/submitAddNewAddress',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								document.getElementById("loaderimg").style.display = "none";
+								$('#addAddress').modal('hide');
+
+								$('#finalFailedMsg').hide();
+								$('#finalSuccessMsg').hide();
+
+								if (response.error == true) {
+									document
+											.getElementById("finalerrormsgcontent").innerHTML = "Error while add new address";
+
+									$('#finalFailedMsg').show();
+								} else {
+									document
+											.getElementById("finalsuccessmsgcontent").innerHTML = "New address successfully added";
+									$('#finalSuccessMsg').show();
+
+								}
+								$("#addAddressDeliveryAdd").val('');
+								$('.fetch_results').find('input:text').val('');
+								setTimeout(function() {
+									$('#finalFailedMsg').hide();
+									$('#finalSuccessMsg').hide();
+								}, 5000);
+							},
+						});
+
+				//document.getElementById("submtbtn").disabled = true;
+				//end ajax send this to php page
+			}
+
+		}
+
 		function sendOtpForCustomerRegistration() {
 
 			$("#error_addcity").hide();
@@ -1850,7 +1524,8 @@
 				}
 
 			}
-			if (!$("#whatappno").val() || !validateMobile($("#whatappno").val())) {
+			if (!$("#whatappno").val()
+					|| !validateMobile($("#whatappno").val())) {
 
 				if (!$("#whatappno").val()) {
 
@@ -2016,7 +1691,7 @@
 						},
 					});
 		}
-		function getAreaListByCity(cityId) {
+		function getAreaListByCity(cityId, id) {
 			document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
 			fd.append('cityId', cityId);
@@ -2040,8 +1715,14 @@
 										+ response[i].areaName + '</option>';
 
 							}
-							$('#addarea').html(html);
-							$("#addarea").trigger("country:updated");
+
+							if (id == 1) {
+								$('#addarea').html(html);
+								$("#addarea").trigger("country:updated");
+							} else if (id == 2) {
+								$('#addAddressArea').html(html);
+								$("#addAddressArea").trigger("country:updated");
+							}
 
 						},
 					});
@@ -2242,6 +1923,51 @@
 															.getElementById("error_txtPlaces").innerHTML = "* Invalid Address.";
 													document
 															.getElementById("error_txtPlaces").style.display = "block";
+
+												}
+
+											});
+
+							var landmark = new google.maps.places.Autocomplete(
+									document
+											.getElementById('addAddressLandmark'),
+									{
+										fields : [ "name", "geometry.location",
+												"place_id", "formatted_address" ]
+									});
+							landmark.setFields([ "name", "geometry.location",
+									"place_id", "formatted_address" ]);
+							google.maps.event
+									.addListener(
+											landmark,
+											'place_changed',
+											function() {
+												document
+														.getElementById("error_addAddressLandmark").style.display = "none";
+												var pls = landmark.getPlace();
+
+												try {
+													var address = pls.formatted_address;
+													var latitude = pls.geometry.location
+															.lat();
+													var longitude = pls.geometry.location
+															.lng();
+													document
+															.getElementById("addAddressLatitude").value = latitude;
+													document
+															.getElementById("addAddressLongitude").value = longitude;
+												} catch (err) {
+
+													document
+															.getElementById("addAddressLandmark").value = "";
+													document
+															.getElementById("addAddressLatitude").value = 0;
+													document
+															.getElementById("addAddressLongitude").value = 0;
+													document
+															.getElementById("error_addAddressLandmark").innerHTML = "* Invalid Address.";
+													document
+															.getElementById("error_addAddressLandmark").style.display = "block";
 
 												}
 
