@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -34,7 +35,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.RandomString;
+import com.ats.ck.model.Area;
+import com.ats.ck.model.City;
+import com.ats.ck.model.Customer;
+import com.ats.ck.model.CustomerAddress;
 import com.ats.ck.model.ErrorMessage;
+import com.ats.ck.model.Info;
+import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -217,7 +224,45 @@ public class HomeController {
 
 		// MnUser userInfo = (MnUser) session.getAttribute("userInfo");
 
+		try {
+
+			City[] city = Constants.getRestTemplate().getForObject(Constants.url + "getAllCities", City[].class);
+			List<City> cityList = new ArrayList<>(Arrays.asList(city));
+			model.addAttribute("cityList", cityList);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("compId", 1);
+			Language[] language = Constants.getRestTemplate().postForObject(Constants.url + "getAllLanguages", map,
+					Language[].class);
+			List<Language> languageList = new ArrayList<>(Arrays.asList(language));
+			model.addAttribute("languageList", languageList);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "dashboard";
+	}
+
+	@RequestMapping(value = "/getAreaListByCity", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Area> getAreaListByCity(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		List<Area> areaList = new ArrayList<>();
+		try {
+
+			int cityId = Integer.parseInt(request.getParameter("cityId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("cityId", cityId);
+
+			Area[] area = Constants.getRestTemplate().postForObject(Constants.url + "getAreaListByCity", map,
+					Area[].class);
+			areaList = new ArrayList<>(Arrays.asList(area));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return areaList;
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
@@ -287,18 +332,104 @@ public class HomeController {
 		return ErrorMessage;
 	}
 
+	Customer newcust = new Customer();
+	CustomerAddress customerAddress = new CustomerAddress();
+
 	@RequestMapping(value = "/sendOtpCustRegistration", method = RequestMethod.POST)
 	@ResponseBody
 	public ErrorMessage sendOtpCustRegistration(HttpServletRequest request, HttpServletResponse response) {
-		ErrorMessage ErrorMessage = new ErrorMessage();
+		ErrorMessage errorMessage = new ErrorMessage();
 		try {
-			String name = request.getParameter("custname");
-			System.out.println(name);
+
+			String custname = request.getParameter("custname");
+			String mobileNo = request.getParameter("mobileNo");
+			String email = request.getParameter("email");
+			String whatappno = request.getParameter("whatappno");
+			String language = request.getParameter("language");
+			String address = request.getParameter("address");
+
+			String addcity = request.getParameter("addcity");
+			String addarea = request.getParameter("addarea");
+			String txtPlaces = request.getParameter("txtPlaces");
+			String addLatitude = request.getParameter("addLatitude");
+			String addLongitude = request.getParameter("addLongitude");
+
+			newcust = new Customer();
+			newcust.setCustName(custname);
+			newcust.setEmailId(email);
+			newcust.setPhoneNumber(mobileNo);
+			newcust.setWhatsappNo(whatappno);
+			newcust.setLangId(Integer.parseInt(language));
+			newcust.setAddress(address);
+
+			customerAddress = new CustomerAddress();
+			customerAddress.setAddress(address);
+			customerAddress.setCityId(Integer.parseInt(addcity));
+			customerAddress.setAreaId(Integer.parseInt(addarea));
+			customerAddress.setLandmark(txtPlaces);
+			customerAddress.setLatitude(addLatitude);
+			customerAddress.setLongitude(addLongitude);
+			customerAddress.setAddressCaption("HOME");
+
+			errorMessage.setError(false);
+			errorMessage.setMessage("OTP send");
 
 		} catch (Exception e) {
+			errorMessage.setError(true);
+			errorMessage.setMessage("failed to send");
 			e.printStackTrace();
 		}
-		return ErrorMessage;
+		return errorMessage;
+	}
+
+	@RequestMapping(value = "/resendOTPregistration", method = RequestMethod.POST)
+	@ResponseBody
+	public ErrorMessage resendOTPregistration(HttpServletRequest request, HttpServletResponse response) {
+		ErrorMessage errorMessage = new ErrorMessage();
+		try {
+
+			errorMessage.setError(false);
+			errorMessage.setMessage("OTP send");
+
+		} catch (Exception e) {
+			errorMessage.setError(true);
+			errorMessage.setMessage("failed to send");
+			e.printStackTrace();
+		}
+		return errorMessage;
+	}
+
+	@RequestMapping(value = "/submitCustomerRegistration", method = RequestMethod.POST)
+	@ResponseBody
+	public Customer submitCustomerRegistration(HttpServletRequest request, HttpServletResponse response) {
+		Customer res = new Customer();
+		try {
+
+			HttpSession session = request.getSession();
+			MnUser userInfo = (MnUser) session.getAttribute("userInfo");
+			Date dt = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			newcust.setAddedFormType(2);
+			newcust.setCustAddDatetime(sf.format(dt));
+			newcust.setUserId(userInfo.getUserId());
+			newcust.setCompId(1);
+			res = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomer", newcust, Customer.class);
+
+			if (res.isError() == false) {
+				List<CustomerAddress> addList = new ArrayList<CustomerAddress>();
+				customerAddress.setCustId(res.getCustId());
+				addList.add(customerAddress);
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList",
+						addList, Info.class);
+				session.setAttribute("liveCustomer", res);
+			}
+
+		} catch (Exception e) {
+
+			res.setError(true);
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	private static final long serialVersionUID = -8022560668279505764L;

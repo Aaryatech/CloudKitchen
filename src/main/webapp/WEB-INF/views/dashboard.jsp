@@ -28,11 +28,14 @@
 			<div class="main-box padding-20  margin_bottom">
 				<form action="" method="get">
 
-					<div class="success-msg">
-						<i class="fa fa-check"></i> Success Message
+					<div class="success-msg" style="display: none;"
+						id="finalSuccessMsg">
+						<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
+							Success Message</span>
 					</div>
-					<div class="error-msg">
-						<i class="fa fa-times-circle"></i> Error message.
+					<div class="error-msg" style="display: none;" id="finalFailedMsg">
+						<i class="fa fa-times-circle"></i> <span id="finalerrormsgcontent">Error
+							message.</span>
 					</div>
 
 					<div class="row">
@@ -59,8 +62,9 @@
 							<span style="color: red;">* Order no. not found.</span>
 						</div>
 
-						<div class="col-lg-3 col-md-6 col-sm-6">
-							<label class="prefered fs-14">Preferred Language - <Span>Gujarati</Span></label>
+						<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
+							<label class="prefered fs-14">Preferred Language : <Span
+								id="showPreferredLang">-</Span></label>
 						</div>
 
 						<div class="col-lg-3 sec_title right_btn">
@@ -467,29 +471,31 @@
 
 						<div class="profile_bx">
 							<div class="profile_one">
-								<span>Name</span> : Swapnil Mashalkar
+								<span>Name</span> : <span id="profileCustName">-</span>
 							</div>
 							<div class="profile_one">
-								<span>Delivery location</span> : New Nashik
+								<span>Mobile No.</span> : <span id="profileMobileNo">-</span>
 							</div>
 							<div class="profile_one">
-								<span>Address</span> : Ashoka Marg Nashik
+								<span>Whats App No.</span> : <span id="profilewhatappNo">-</span>
 							</div>
 							<div class="profile_one">
-								<span>Mobile No.</span> : +91 9011877864
+								<span>Email Id</span> : <span id="profileemail">-</span>
+							</div>
+
+							<div class="profile_one">
+								<span>Preferred Language</span> : <span
+									id="profilepreferredLang">-</span>
 							</div>
 							<div class="profile_one">
-								<span>Email Id</span> : test@gmail.com
-							</div>
-							<div class="profile_one">
-								<span>Delivery Address</span> : <a href="#"
-									title="Add New Address" class="detail_btn_round"
+								<span>Delivery Address</span> : <span id="profileDeliveryAdd">-<a
+									href="#" title="Add New Address" class="detail_btn_round"
 									href="javascript:void(0)" data-toggle="modal"
 									data-target="#addAddress"><i class="fa fa-plus"
-									aria-hidden="true"></i></a>&nbsp;<a href="#" title="Address List"
+										aria-hidden="true"></i></a>&nbsp;<a href="#" title="Address List"
 									class="detail_btn_round" data-target="#addressllist"
 									data-toggle="modal"><i class="fa fa-list"
-									aria-hidden="true"></i></a>
+										aria-hidden="true"></i></a></span>
 
 							</div>
 						</div>
@@ -791,7 +797,7 @@
 		</div>
 	</section>
 
-	<div class="modal fade kot-popup" id="addCustomer"
+	<div class="modal fade kot-popup fetch_results" id="addCustomer"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
@@ -862,11 +868,13 @@
 						<div class="pop_frm_one">
 							<span>Select Delivery City *</span>
 							<div class="search_multiple">
-								<select class="country" id="addcity" name="addcity">
+								<select class="country" id="addcity" name="addcity"
+									onchange="getAreaListByCity(this.value)">
 									<option value="">Select City</option>
-									<option value="1" data-name="">Mumbai</option>
-									<option value="2" data-name="">Nashik</option>
-									<option value="3" data-name="">Pune</option>
+									<c:forEach items="${cityList}" var="cityList">
+										<option value="${cityList.cityId}">${cityList.cityName}</option>
+									</c:forEach>
+
 								</select>
 							</div>
 						</div>
@@ -879,9 +887,9 @@
 							<span>Select Delivery Area *</span>
 							<div class="search_multiple">
 								<select class="country" id="addarea" name="addarea">
-									<option value="">Select Area</option>
+									<!-- <option value="">Select Area</option>
 									<option value="1" data-name="">Nashik Road</option>
-									<option value="2" data-name="">Canada Corner</option>
+									<option value="2" data-name="">Canada Corner</option> -->
 								</select>
 							</div>
 						</div>
@@ -914,7 +922,10 @@
 							<span>Language *</span>
 							<div class="search_multiple">
 								<select class="country" name="language" id="language">
-									<option value="1" selected>Gujrati</option>
+									<option value="">Select Language</option>
+									<c:forEach items="${languageList}" var="languageList">
+										<option value="${languageList.langId}">${languageList.langName}</option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>
@@ -944,17 +955,16 @@
 				</button>
 
 
-				<div class="pop_signup">
-					Enter OTP<a href="#"></a>
-				</div>
+				<div class="pop_signup">Enter OTP For Registration</div>
 				<form action="" method="get">
 
-					<div class="success-msg">
+					<div class="success-msg" style="display: none;" id="otpSuccessMsg">
 						<i class="fa fa-check"></i> OTP send to your mobile no.
 					</div>
-					<!-- <div class="error-msg">
-						<i class="fa fa-times-circle"></i> This is a error message.
-					</div> -->
+					<div class="error-msg" style="display: none;" id="otpFailedMsg">
+						<i class="fa fa-times-circle"></i> Error to send OTP your mobile
+						no.
+					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>OTP *</span> <input name="" type="text" class="frm_inpt" />
@@ -966,8 +976,13 @@
 					</div>
 
 					<div class="pop_btn_row">
-						<input name="" type="button" value="Submit" class="next_btn" />
+						<input name="" type="button"
+							onclick="submitCustomerRegistration()" value="Submit"
+							class="next_btn" /> <input name="" type="button"
+							value="Resend OTP" onclick="resendOTPregistration()"
+							class="next_btn" />
 					</div>
+
 				</form>
 			</div>
 
@@ -1835,7 +1850,7 @@
 				}
 
 			}
-			if (!$("#whatappno").val() || !validateEmail($("#whatappno").val())) {
+			if (!$("#whatappno").val() || !validateMobile($("#whatappno").val())) {
 
 				if (!$("#whatappno").val()) {
 
@@ -1850,7 +1865,7 @@
 				isError = true;
 				$("#error_addcity").show();
 			}
-			if (!$("#addarea").val()) {
+			if (!$("#addarea").val() || $("#addarea").val() == 0) {
 				isError = true;
 				$("#error_addarea").show();
 			}
@@ -1878,6 +1893,7 @@
 				fd.append('addarea', $("#addarea").val());
 				fd.append('txtPlaces', $("#txtPlaces").val());
 				fd.append('language', $("#language").val());
+				fd.append('address', $("#address").val());
 				fd.append('addLatitude', $("#addLatitude").val());
 				fd.append('addLongitude', $("#addLongitude").val());
 
@@ -1893,6 +1909,20 @@
 								document.getElementById("loaderimg").style.display = "none";
 								$('#addCustomer').modal('hide');
 								$('#otpModel').modal('show');
+
+								$('#otpFailedMsg').hide();
+								$('#otpSuccessMsg').hide();
+
+								if (response.error == true) {
+									$('#otpFailedMsg').show();
+								} else {
+									$('#otpSuccessMsg').show();
+								}
+
+								setTimeout(function() {
+									$('#otpFailedMsg').hide();
+									$('#otpSuccessMsg').hide();
+								}, 5000);
 							},
 						});
 
@@ -1900,6 +1930,121 @@
 				//end ajax send this to php page
 			}
 
+		}
+
+		function submitCustomerRegistration() {
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/submitCustomerRegistration',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							$('#otpModel').modal('hide');
+
+							$('#finalFailedMsg').hide();
+							$('#finalSuccessMsg').hide();
+
+							if (response.error == true) {
+								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
+								document.getElementById("profileCustName").innerHTML = "-";
+								document.getElementById("profileMobileNo").innerHTML = "-";
+								document.getElementById("profilewhatappNo").innerHTML = "-";
+								document.getElementById("profileemail").innerHTML = "-";
+								document.getElementById("profilepreferredLang").innerHTML = "-";
+								document.getElementById("profileDeliveryAdd").innerHTML = "-";
+								document.getElementById("showPreferredLang").innerHTML = "-";
+
+								$('#finalFailedMsg').show();
+							} else {
+								document
+										.getElementById("finalsuccessmsgcontent").innerHTML = "Customer Registration Successfully Completed";
+								$('#finalSuccessMsg').show();
+								document.getElementById("profileCustName").innerHTML = response.custName;
+								document.getElementById("profileMobileNo").innerHTML = response.phoneNumber;
+								document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
+								document.getElementById("profileemail").innerHTML = response.emailId;
+								document.getElementById("profilepreferredLang").innerHTML = response.langName;
+								document.getElementById("profileDeliveryAdd").innerHTML = '<a href="#" title="Add New Address" class="detail_btn_round"'
+										+ 'href="javascript:void(0)" data-toggle="modal" data-target="#addAddress"><i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="#" '
+										+ 'title="Address List" class="detail_btn_round" data-target="#addressllist" data-toggle="modal">'
+										+ '<i class="fa fa-list" aria-hidden="true"></i></a>';
+								document.getElementById("showPreferredLang").innerHTML = response.langName;
+
+							}
+							$('.fetch_results').find('input:text').val('');
+							setTimeout(function() {
+								$('#finalFailedMsg').hide();
+								$('#finalSuccessMsg').hide();
+							}, 5000);
+						},
+					});
+		}
+		function resendOTPregistration() {
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/resendOTPregistration',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							$('#otpModel').modal('show');
+
+							$('#otpFailedMsg').hide();
+							$('#otpSuccessMsg').hide();
+
+							if (response.error == true) {
+								$('#otpFailedMsg').show();
+							} else {
+								$('#otpSuccessMsg').show();
+							}
+
+							setTimeout(function() {
+								$('#otpFailedMsg').hide();
+								$('#otpSuccessMsg').hide();
+							}, 5000);
+						},
+					});
+		}
+		function getAreaListByCity(cityId) {
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append('cityId', cityId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getAreaListByCity',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+
+							var html = '<option value="0">Select Area</option>';
+
+							for (var i = 0; i < response.length; i++) {
+
+								html += '<option value="' + response[i].areaId + '">'
+										+ response[i].areaName + '</option>';
+
+							}
+							$('#addarea').html(html);
+							$("#addarea").trigger("country:updated");
+
+						},
+					});
 		}
 
 		function trim(el) {
