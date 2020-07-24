@@ -1448,29 +1448,33 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							document.getElementById("loaderimg").style.display = "none";
+
 							$('#addressllist').modal('hide');
 							$('.fetch_results').find('input:text').val('');
 							$('#addAddress').modal('show');
 
 							$("#addressCation").val(response.addressCaption);
 							$("#addAddressCity").val(response.cityId).trigger(
-									'change');
+									'change', function(e, data) {
+										alert("sdf");
+									});
 							$("#addAddressLandmark").val(response.landmark);
 							$("#addAddressDeliveryAdd").val(response.address);
 							$("#addAddressLatitude").val(response.latitude);
 							$("#addAddressLongitude").val(response.longitude);
 							$("#addAddressDetailId")
 									.val(response.custAddressId);
-							//alert(response.areaId)
-							/* $("#addAddressArea").val(response.areaId).trigger(
+							/* $("#addAddressArea").val(response.areaId);
+							$("#addAddressArea").val(response.areaId).trigger(
 									'change'); */
-
+							document.getElementById("loaderimg").style.display = "none";
 						},
 					});
 
 		}
-
+		/* $('#addAddressArea').on('change', function(e, data) {
+			alert(JSON.stringify(data.somedata));
+		}); */
 		function submitAddNewAddress() {
 
 			$("#error_addressCaption").hide();
