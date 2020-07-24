@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class OrderController {
 	public String addOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-
+			HttpSession session = request.getSession();
 			int frId = 79;
 
 			model.addAttribute("frId", frId);

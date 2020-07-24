@@ -1719,10 +1719,11 @@
 								document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
 								document.getElementById("profileemail").innerHTML = response.emailId;
 								document.getElementById("profilepreferredLang").innerHTML = response.langName;
-								document.getElementById("profileDeliveryAdd").innerHTML = '<a href="#" title="Add New Address" class="detail_btn_round"'
-										+ 'href="javascript:void(0)" data-toggle="modal" data-target="#addAddress"><i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="#" '
-										+ 'title="Address List" class="detail_btn_round" data-target="#addressllist" data-toggle="modal">'
-										+ '<i class="fa fa-list" aria-hidden="true"></i></a>';
+								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'+
+								'<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'+
+								'<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'+
+								'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'+
+								'</span>';
 								document.getElementById("showPreferredLang").innerHTML = response.langName;
 
 							}

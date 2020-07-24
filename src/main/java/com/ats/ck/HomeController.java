@@ -121,6 +121,7 @@ public class HomeController {
 
 					mav = "redirect:/dashboard";
 					session.setAttribute("userInfo", userObj.getUser());
+					session.setAttribute("profilePicUrl", Constants.imageShowUrl);
 
 				} else {
 					mav = "redirect:/";
@@ -193,8 +194,6 @@ public class HomeController {
 							userObj.getErrorMessage().getMessage());
 					mav = "redirect:/";
 					session.setAttribute("successMsg", "Password send to your register Email.");
-
-					model.addAttribute("imageUrl", Constants.imageShowUrl);
 
 				} else {
 

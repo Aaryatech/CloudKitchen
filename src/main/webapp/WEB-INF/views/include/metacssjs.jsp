@@ -3,9 +3,9 @@
 
 <!-- jQuery -->
 
- <script
+<script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"
-	type="text/javascript"></script> 
+	type="text/javascript"></script>
 <!-- Popper -->
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/popper.min.js"
@@ -31,7 +31,7 @@
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.magnific-popup.min.js"
 	type="text/javascript"></script>
 <!-- Maps -->
- 
+
 <!-- sticky sidebar -->
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/sticksy.js"
@@ -54,15 +54,22 @@
 	src="${pageContext.request.contextPath}/resources/assets/js/select2.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-	
-	<!--sticky table js -->
+
+<!--sticky table js -->
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.ba-throttle-debounce.min.js"
 	type="text/javascript"></script>
-	<script
+<script
 	src="${pageContext.request.contextPath}/resources/assets/js/jquery.stickyheader.js"></script>
-	 
 
+<script>
+	function imgError(image, imagepath) {
+		//alert(imagepath)
+		image.onerror = "";
+		image.src = imagepath;
+		return true;
+	}
+</script>
 <script>
 	$(".country").select2({
 		placeholder : "Select Option",

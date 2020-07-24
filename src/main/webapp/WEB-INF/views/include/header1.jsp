@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,13 +104,16 @@
 									<div class="head_search">
 										<div class="head_search_l">
 											<i class="fa fa-search" aria-hidden="true"></i> <input
-												name="" type="text" class="top_place"
+												type="text" onkeyup="myFunction1()" name="myInput1"
+												id="myInput1" class="top_place"
 												placeholder="Search for restaurant, cuisine or a dish" />
 										</div>
 										<div class="head_search_r">
 											<select class="country top_drop_ones">
-												<option value="4">Shop No. 1 - 5 KM</option>
-												<option value="4">Shop No. 2 - 10 KM</option>
+												<c:forEach items="${franchiseList}" var="franchiseList">
+													<option value="${franchiseList.frId}">${franchiseList.frName}</option>
+												</c:forEach>
+
 											</select>
 										</div>
 									</div>
@@ -197,9 +200,11 @@
 						<!-- user account -->
 						<div class="user-details p-relative">
 							<a href="#" class="text-custom-white fw-500"> <img
-								src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-								class="rounded-circle" alt="userimg"> <span>Hi,
-									Kate</span>
+								src="${sessionScope.profilePicUrl}${sessionScope.userInfo.profilePic}"
+								class="rounded-circle" alt="userimg"
+								onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/default-user.jpg');"
+								style="width: 30px; height: 30px;"> <span>Hi,
+									${sessionScope.userInfo.userName}</span>
 							</a>
 							<div class="user-dropdown">
 								<ul>
@@ -376,6 +381,6 @@
 
 	</header>
 </div>
-<div class="main-sec"></div>
+<div class="main-sec"></div> 
 </head>
 <!-- Navigation -->
