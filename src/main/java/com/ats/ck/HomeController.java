@@ -464,6 +464,7 @@ public class HomeController {
 			String addAddressDeliveryAdd = request.getParameter("addAddressDeliveryAdd");
 			String addAddressLatitude = request.getParameter("addAddressLatitude");
 			String addAddressLongitude = request.getParameter("addAddressLongitude");
+			int addAddressDetailId = Integer.parseInt(request.getParameter("addAddressDetailId"));
 
 			List<CustomerAddress> addList = new ArrayList<CustomerAddress>();
 			CustomerAddress customerAddress = new CustomerAddress();
@@ -475,7 +476,7 @@ public class HomeController {
 			customerAddress.setAddress(addAddressDeliveryAdd);
 			customerAddress.setLatitude(addAddressLatitude);
 			customerAddress.setLongitude(addAddressLongitude);
-
+			customerAddress.setCustAddressId(addAddressDetailId);
 			addList.add(customerAddress);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList", addList,
 					Info.class);
@@ -509,6 +510,48 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return addressList;
+	}
+
+	@RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
+	@ResponseBody
+	public Info deleteAddress(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+
+			int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custAddressId", addDetailId);
+			map.add("status", 1);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "deleteCustAddress", map, Info.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return info;
+	}
+
+	@RequestMapping(value = "/editAddress", method = RequestMethod.POST)
+	@ResponseBody
+	public CustomerAddressDisplay editAddress(HttpServletRequest request, HttpServletResponse response) {
+
+		CustomerAddressDisplay info = new CustomerAddressDisplay();
+		try {
+
+			int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custAddressId", addDetailId);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerAddressListById", map,
+					CustomerAddressDisplay.class);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	private static final long serialVersionUID = -8022560668279505764L;

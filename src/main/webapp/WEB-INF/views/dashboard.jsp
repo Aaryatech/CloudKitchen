@@ -1279,7 +1279,9 @@
 									class="frm_inpt" /><input name="addAddressLatitude"
 									type="hidden" class="frm_inpt" id="addAddressLatitude" /><input
 									name="addAddressLongitude" type="hidden" class="frm_inpt"
-									id="addAddressLongitude" />
+									id="addAddressLongitude" /><input name="addAddressDetailId"
+									type="hidden" class="frm_inpt" id="addAddressDetailId"
+									value="0" />
 							</div>
 							<span style="color: red; display: none;"
 								id="error_addAddressLandmark">* This field required.</span>
@@ -1361,10 +1363,13 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
 	<script type="text/javascript">
 		function addCustomerAdd() {
+			$('.fetch_results').find('input:text').val('');
+			$("#addAddressDeliveryAdd").val('');
+			$("#addAddressDetailId").val(0);
 			$('#addAddress').modal('show');
+
 		}
 		function customerAddList() {
-			$('#addressllist').modal('show');
 
 			document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
@@ -1378,25 +1383,88 @@
 						processData : false,
 						success : function(response) {
 							document.getElementById("loaderimg").style.display = "none";
+							$('#addressllist').modal('show');
 							$("#addressListtbl tbody").empty();
-							
+
 							for (var i = 0; i < response.length; i++) {
-								 
+
+								var action = '<a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
+										+ response[i].custAddressId
+										+ ')"><i class="fa fa-pencil" aria-hidden="true">'
+										+ '</i></a>&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Delete" onclick="deleteAddress('
+										+ response[i].custAddressId
+										+ ')"><i class="fa fa-times" aria-hidden="true"></i> </a>'
 								var tr_data = '<tr> <td class="user-name">'
 										+ response[i].addressCaption
 										+ '</td> <td class="user-name">'
-										+ response[i].cityName
-										+ '</td>'
+										+ response[i].cityName + '</td>'
 										+ '<td class="user-name">'
 										+ response[i].areaName
 										+ '</td><td class="user-name">'
-										+ response[i].landmark
-										+ '</td>'
+										+ response[i].landmark + '</td>'
 										+ '<td class="user-name">'
 										+ response[i].address
-										+ '</td> <td class="user-name">400</td> </tr>';
+										+ '</td> <td class="user-name">'
+										+ action + '</td> </tr>';
 								$('#addressListtbl').append(tr_data);
 							}
+
+						},
+					});
+
+		}
+
+		function deleteAddress(id) {
+			if (confirm('Are you sure to delete address?')) {
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('id', id);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/deleteAddress',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								document.getElementById("loaderimg").style.display = "none";
+								customerAddList();
+							},
+						});
+			}
+		}
+		function editAddress(id) {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append('id', id);
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/editAddress',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							$('#addressllist').modal('hide');
+							$('.fetch_results').find('input:text').val('');
+							$('#addAddress').modal('show');
+
+							$("#addressCation").val(response.addressCaption);
+							$("#addAddressCity").val(response.cityId).trigger(
+									'change');
+							$("#addAddressLandmark").val(response.landmark);
+							$("#addAddressDeliveryAdd").val(response.address);
+							$("#addAddressLatitude").val(response.latitude);
+							$("#addAddressLongitude").val(response.longitude);
+							$("#addAddressDetailId")
+									.val(response.custAddressId);
+							//alert(response.areaId)
+							/* $("#addAddressArea").val(response.areaId).trigger(
+									'change'); */
 
 						},
 					});
@@ -1446,6 +1514,8 @@
 				fd.append('addAddressLatitude', $("#addAddressLatitude").val());
 				fd.append('addAddressLongitude', $("#addAddressLongitude")
 						.val());
+				fd.append('addAddressDetailId', $("#addAddressDetailId").val());
+
 				$
 						.ajax({
 							url : '${pageContext.request.contextPath}/submitAddNewAddress',
