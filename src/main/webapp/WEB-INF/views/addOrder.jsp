@@ -204,7 +204,7 @@
 
 							</div>
 
-							<!-- <div class="tags_bx">
+							<div class="tags_bx">
 								<h3 class="tags_title">Price Range</h3>
 								<div class="filter_cont">
 
@@ -215,7 +215,7 @@
 									</div>
 
 								</div>
-							</div> -->
+							</div>
 
 							<!--popular tags-->
 							<div class="tags_bx">
@@ -1123,12 +1123,10 @@
 	<!--Plugin Initialization-->
 
 	<script>
-		/* function imgError(image, imagepath) {
-			alert(imagepath)
-			image.onerror = "";
-			image.src = imagepath;
-			return true;
-		} */
+		$('#range').click(function(e) {
+			myFunction1();
+		});
+
 		function myFunction1() {
 
 			/* $(".scrollbar-content").css("top", "0");
@@ -1153,29 +1151,40 @@
 
 			$('.order_row').hide();
 			var txt = $('#myInput1').val();
+			//offer_price
+			$('.order_row')
+					.each(
+							function(index) {
+ 
+								var id = document
+										.getElementsByClassName("offer_price")[index].innerHTML;
+								 
+								var text = $(this).text();
 
-			$('.order_row').each(
-					function(index) {
+								if ($(this).text().toUpperCase().indexOf(
+										txt.toUpperCase()) != -1) {
+									if (list.length > 0) {
+										for (var i = 0; i < list.length; i++) {
 
-						if ($(this).text().toUpperCase().indexOf(
-								txt.toUpperCase()) != -1) {
-							if (list.length > 0) {
-								for (var i = 0; i < list.length; i++) {
+											if ($(this)
+													.text()
+													.toUpperCase()
+													.indexOf(
+															list[i]
+																	.toUpperCase()) != -1) {
+												$(this).show();
+												find = 1;
+											}
 
-									if ($(this).text().toUpperCase().indexOf(
-											list[i].toUpperCase()) != -1) {
+										}
+									} else {
+
 										$(this).show();
 										find = 1;
 									}
 
 								}
-							} else {
-								$(this).show();
-								find = 1;
-							}
-
-						}
-					});
+							});
 
 			if (find == 0) {
 
