@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -62,6 +63,7 @@ import com.google.firebase.messaging.WebpushNotification;
  * Handles requests for the application home page.
  */
 @Controller
+@Scope("session")
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -218,6 +220,8 @@ public class HomeController {
 		return "resetPassword";
 	}
 
+	List<City> cityList = new ArrayList<>();
+
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -228,7 +232,7 @@ public class HomeController {
 		try {
 
 			City[] city = Constants.getRestTemplate().getForObject(Constants.url + "getAllCities", City[].class);
-			List<City> cityList = new ArrayList<>(Arrays.asList(city));
+			cityList = new ArrayList<>(Arrays.asList(city));
 			model.addAttribute("cityList", cityList);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -272,6 +276,18 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return areaList;
+	}
+
+	@RequestMapping(value = "/getCityList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<City> getCityList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cityList;
 	}
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
