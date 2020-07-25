@@ -151,11 +151,45 @@
 						<div class="category-slider swiper-container">
 							<div class="swiper-wrapper">
 
+								<!-- <div class="swiper-slide swiper-slide-active">
+									<a href="#" class="categories active_round">
+										<div class="icon icon-parent text-custom-white bg-light-green">
+											<img src="/ck/resources/assets/img/chinese.jpg"
+												class="rounded-circle" alt="categories"
+												onerror="imgError(this,'/ck/resources/assets/img/chinese.jpg');">
+										</div> <span class="text-light-black cat-name fw-500">Lassi</span>
+									</a>
+								</div> -->
+
+								<!-- <div class="swiper-slide swiper-slide-active">
+									<a href="#" class="categories">
+										<div class="icon icon-parent text-custom-white bg-light-green">
+											<img src="/ck/resources/assets/img/chinese.jpg"
+												class="rounded-circle" alt="categories"
+												onerror="imgError(this,'/ck/resources/assets/img/chinese.jpg');">
+										</div> <span class="text-light-black cat-name fw-500">Lassi</span>
+									</a>
+								</div> -->
+
+
+								<div class="swiper-slide">
+									<a href="javascript:void(0)" class="categories active_round"
+										id="category0" onclick="changeCategory(0)">
+										<div class="icon icon-parent text-custom-white bg-light-green">
+											<img
+												src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
+												class="rounded-circle" alt="categories"
+												onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/chinese.jpg');">
+										</div> <span class="text-light-black cat-name fw-500">All</span>
+									</a>
+								</div>
 
 								<c:forEach items="${catList}" var="catList">
 
 									<div class="swiper-slide">
-										<a href="#" class="categories">
+										<a href="javascript:void(0)" class="categories"
+											id="category${catList.catId}"
+											onclick="changeCategory(${catList.catId})">
 											<div
 												class="icon icon-parent text-custom-white bg-light-green">
 												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
@@ -197,7 +231,9 @@
 										<label class="custom-checkbox radio_one"> <input
 											type="checkbox" name="subcat" class="checkboxclass"
 											onchange="myFunction1()" value="${subcatList.subCatName}"><span
-											class="checkmark"></span> ${subcatList.subCatName}
+											class="checkmark"></span> <span class="subcatdummyclass"
+											style="display: none;"> ${subcatList.catName}</span> <span
+											class="subcatdummyclass1">${subcatList.subCatName}</span>
 										</label>
 									</div>
 								</c:forEach>
@@ -1136,19 +1172,26 @@
 			myFunction1();
 		}); */
 
-		function myFunction11() {
+		function myFunction1() {
 
 			/* $(".scrollbar-content").css("top", "0");
 			$(".scrollbar-handle").css("top", "0"); */
+			
+			var list = [];
+			
+			var catName = $('.active_round').text().trim();
+			
+			if(catName!="All"){
+				list.push(catName);
+			}
+			 
 			var currentVal = parseFloat(document.getElementById('currentVal').innerHTML);
-			//alert(currentVal);
+			 //alert(catName);
 			document.getElementById("loaderimg").style.display = "block";
 			document.getElementById("norecordfound").style.display = "none";
 
-			var find = 0;
-
-			var list = [];
-
+			var find = 0; 
+			
 			$("input:checkbox[name=subcat]:checked").each(function() {
 
 				list.push($(this).val());
@@ -1168,9 +1211,7 @@
 
 								var price = parseFloat(document
 										.getElementsByClassName("hiddenvalue")[index].innerHTML);
-
-								var text = $(this).text();
-
+ 
 								if ($(this).text().toUpperCase().indexOf(
 										txt.toUpperCase()) != -1) {
 									if (list.length > 0) {
@@ -1217,18 +1258,38 @@
 
 		function sortCategory() {
 
+			var catName = $('.active_round').text().trim();
+			if(catName=="All"){
+				catName="";
+			}
+			//alert(catName)
 			$('.subcatclass').hide();
 			var txt = $('#subcatinput').val();
 
 			$('.subcatclass').each(
 					function(index) {
 
-						if ($(this).text().toUpperCase().indexOf(
-								txt.toUpperCase()) != -1) {
-							$(this).show();
+						var catnamehidn =  document
+								.getElementsByClassName("subcatdummyclass")[index].innerHTML;
+						var subcatnamehidn =  document
+						.getElementsByClassName("subcatdummyclass1")[index].innerHTML; 
+						if (catnamehidn.toUpperCase().indexOf(
+								catName.toUpperCase()) != -1 && subcatnamehidn.toUpperCase().indexOf(
+										txt.toUpperCase()) != -1) {
+							$(this).show(); 
 						}
 					});
 
+		}
+
+		function changeCategory(id) {
+			
+			var active = document.querySelector(".active_round"); 
+			active.classList.remove("active_round");   
+			$('#category'+id).addClass("active_round");
+			$("input[name='subcat']:checkbox").prop('checked',false); 
+			sortCategory(); 
+			myFunction1();
 		}
 	</script>
 	<script type="text/javascript">

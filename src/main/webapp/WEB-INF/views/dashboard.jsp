@@ -617,7 +617,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup fetch_results" id="editCustomer"
+	<div class="modal fade kot-popup fetch_results" id="editCustomerModel"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
@@ -630,7 +630,7 @@
 				</button>
 
 				<div class="pop_signup">
-					Customer Registration<a href="#"></a>
+					Edit Customer Profile<a href="#"></a>
 				</div>
 
 
@@ -638,22 +638,23 @@
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
-								<span>Your Name *</span> <input name="custname" type="text"
-									id="custname" class="frm_inpt" onchange="trim(this)"
+								<span>Your Name *</span> <input name="edit_custname" type="text"
+									id="edit_custname" class="frm_inpt" onchange="trim(this)"
 									maxlength="50" placeholder="Customer Full Name" />
 							</div>
 							<span class="model_error_class"
-								style="color: red; display: none;" id="error_custname">*
+								style="color: red; display: none;" id="error_edit_custname">*
 								This field required.</span>
 						</div>
 						<div class="single_row_r">
 							<div class="pop_frm_one">
-								<span>Mobile Number *</span> <input name="mobileNo" type="text"
-									class="frm_inpt numbersOnly" onchange="trim(this)"
-									id="mobileNo" maxlength="10" placeholder="Customer Mobile No." />
+								<span>Mobile Number *</span> <input name="edit_mobileNo"
+									type="text" class="frm_inpt numbersOnly" onchange="trim(this)"
+									id="edit_mobileNo" maxlength="10"
+									placeholder="Customer Mobile No." readonly />
 							</div>
 							<span class="model_error_class"
-								style="color: red; display: none;" id="error_mobileNo">*
+								style="color: red; display: none;" id="error_edit_mobileNo">*
 								This field required.</span>
 						</div>
 						<div class="clr"></div>
@@ -661,92 +662,35 @@
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
-								<span>Email </span> <input name="email" type="text"
-									class="frm_inpt" onchange="trim(this)" id="email"
+								<span>Email </span> <input name="edit_email" type="text"
+									class="frm_inpt" onchange="trim(this)" id="edit_email"
 									maxlength="50" placeholder="Email" />
 							</div>
 							<span class="model_error_class"
-								style="color: red; display: none;" id="error_email">*
+								style="color: red; display: none;" id="error_edit_email">*
 								This field required.</span>
 						</div>
 						<div class="single_row_r">
 
 							<div class="pop_frm_one">
-								<span>Whats App no.</span><input name="whatappno" type="text"
-									class="frm_inpt" style="width: 70%" onchange="trim(this)"
-									id="whatappno" maxlength="10" placeholder="Whats App no." /><input
-									name="" type="checkbox" class="frm_inpt" style="width: 30%" />
+								<span>Whats App no.</span><input name="edit_whatappno"
+									type="text" class="frm_inpt" style="width: 70%"
+									onchange="trim(this)" id="edit_whatappno" maxlength="10"
+									placeholder="Whats App no." /><input name="" type="checkbox"
+									class="frm_inpt" style="width: 30%" />
 							</div>
 							<span style="color: red; display: none;"
-								class="model_error_class" id="error_whatappno">* This
-								field required.</span>
+								class="model_error_class" id="error_edit_whatappno">*
+								This field required.</span>
 						</div>
 						<div class="clr"></div>
 					</div>
-					<!-- <div class="single_row">
-						<div class="pop_frm_one">
-							<span>Permanent Address *</span>
-							<textarea name="" type="text" class="frm_inpt"></textarea>
-						</div>
-					</div> -->
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Select Delivery City *</span>
-							<div class="search_multiple">
-								<select class="country" id="addcity" name="addcity"
-									onchange="getAreaListByCity(this.value,1)">
-									<option value="">Select City</option>
-									<c:forEach items="${cityList}" var="cityList">
-										<option value="${cityList.cityId}">${cityList.cityName}</option>
-									</c:forEach>
 
-								</select>
-							</div>
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_addcity">* This field required.</span>
-					</div>
-
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Select Delivery Area *</span>
-							<div class="search_multiple">
-								<select class="country" id="addarea" name="addarea">
-									<!-- <option value="">Select Area</option>
-									<option value="1" data-name="">Nashik Road</option>
-									<option value="2" data-name="">Canada Corner</option> -->
-								</select>
-							</div>
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_addarea">* This field required.</span>
-					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Landmark *</span> <input name="txtPlaces" type="text"
-								class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
-								name="addLatitude" type="hidden" class="frm_inpt"
-								id="addLatitude" /><input name="addLongitude" type="hidden"
-								class="frm_inpt" id="addLongitude" />
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_txtPlaces">* This field required.</span>
-					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Delivery Address *</span>
-							<textarea name="address" id="address" type="text" maxlength="200"
-								class="frm_inpt" onchange="trim(this)"
-								placeholder="Delivery Address"></textarea>
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_address">* This field required.</span>
-					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Language *</span>
 							<div class="search_multiple">
-								<select class="country" name="language" id="language">
+								<select class="country" name="edit_language" id="edit_language">
 									<option value="">Select Language</option>
 									<c:forEach items="${languageList}" var="languageList">
 										<option value="${languageList.langId}">${languageList.langName}</option>
@@ -755,11 +699,11 @@
 							</div>
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
-							id="error_language">* This field required.</span>
+							id="error_edit_language">* This field required.</span>
 					</div>
 					<div class="pop_btn_row">
-						<input id="addnewcustomer" type="button" value="Submit"
-							class="next_btn" onclick="sendOtpForCustomerRegistration()" />
+						<input id="sumbiteditcustprofilebtn" type="button" value="Submit"
+							class="next_btn" onclick="sumbitEditCust()" />
 					</div>
 				</form>
 			</div>
@@ -1524,6 +1468,160 @@
 	<!-- <script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
 	<script type="text/javascript">
+		function editCustomer() {
+			$('.fetch_results').find('input:text').val('');
+			$('.fetch_results').find('textarea').val('');
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/editCustomer',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							//alert(JSON.stringify(response))
+							$('#editCustomerModel').modal('show');
+
+							$("#edit_custname").val(response.custName);
+							$("#edit_mobileNo").val(response.phoneNumber);
+							$("#edit_whatappno").val(response.whatsappNo);
+							$("#edit_email").val(response.emailId);
+							$("#edit_language").val(response.langId).trigger(
+									'change');
+
+						},
+					});
+
+		}
+
+		function sumbitEditCust() {
+
+			$("#error_edit_custname").hide();
+			$("#error_edit_mobileNo").hide();
+			$("#error_edit_whatappno").hide();
+			$("#error_edit_email").hide();
+			$("#error_edit_language").hide();
+
+			var isError = false;
+			if (!$("#edit_custname").val()) {
+				isError = true;
+				$("#error_edit_custname").show();
+			}
+
+			if (!$("#edit_language").val()) {
+				isError = true;
+				$("#error_edit_language").show();
+			}
+			if (!$("#edit_whatappno").val()
+					|| !validateMobile($("#edit_whatappno").val())) {
+
+				if (!$("#edit_whatappno").val()) {
+
+				} else {
+					isError = true;
+					document.getElementById("error_whatappno").innerHTML = "* Invalid mobile no.";
+					$("#error_edit_whatappno").show();
+				}
+
+			}
+			if (!$("#edit_email").val()
+					|| !validateEmail($("#edit_email").val())) {
+
+				if (!$("#edit_email").val()) {
+
+				} else {
+					isError = true;
+					document.getElementById("error_edit_email").innerHTML = "* Invalid email.";
+					$("#error_edit_email").show();
+				}
+
+			}
+			if (!isError) {
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('edit_custname', $("#edit_custname").val());
+				fd.append('edit_whatappno', $("#edit_whatappno").val());
+				fd.append('edit_email', $("#edit_email").val());
+				fd.append('edit_language', $("#edit_language").val());
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/sumbitEditCust',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								$('#editCustomerModel').modal('hide');
+
+								$('#finalFailedMsg').hide();
+								$('#finalSuccessMsg').hide();
+
+								if (response.error == true) {
+									document
+											.getElementById("finalerrormsgcontent").innerHTML = "Error while update customer profile.";
+
+									$('#finalFailedMsg').show();
+								} else {
+									document
+											.getElementById("finalsuccessmsgcontent").innerHTML = "Profile updated Successfully.";
+									$('#finalSuccessMsg').show();
+
+								}
+								document.getElementById("loaderimg").style.display = "none";
+								displayCustomerInfo();
+								$('.fetch_results').find('textarea').val('');
+								$('.fetch_results').find('input:text').val('');
+								setTimeout(function() {
+									$('#finalFailedMsg').hide();
+									$('#finalSuccessMsg').hide();
+								}, 5000);
+							},
+						});
+
+			}
+
+		}
+
+		function displayCustomerInfo() {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/editCustomer',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+
+							document.getElementById("profileCustName").innerHTML = response.custName;
+							document.getElementById("profileMobileNo").innerHTML = response.phoneNumber;
+							document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
+							document.getElementById("profileemail").innerHTML = response.emailId;
+							document.getElementById("profilepreferredLang").innerHTML = response.langName;
+							document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
+									+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
+									+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
+									+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
+									+ '</span>';
+							document.getElementById("showPreferredLang").innerHTML = response.langName;
+
+						},
+					});
+
+		}
+
 		function addCustomerAdd() {
 			$('.fetch_results').find('input:text').val('');
 			$('.fetch_results').find('textarea').val('');
@@ -1725,9 +1823,7 @@
 					});
 
 		}
-		/* $('#addAddressArea').on('change', function(e, data) {
-			alert(JSON.stringify(data.somedata));
-		}); */
+
 		function submitAddNewAddress() {
 
 			$("#error_addressCaption").hide();
@@ -1968,18 +2064,7 @@
 								document
 										.getElementById("finalsuccessmsgcontent").innerHTML = "Customer Registration Successfully Completed";
 								$('#finalSuccessMsg').show();
-								document.getElementById("profileCustName").innerHTML = response.custName;
-								document.getElementById("profileMobileNo").innerHTML = response.phoneNumber;
-								document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
-								document.getElementById("profileemail").innerHTML = response.emailId;
-								document.getElementById("profilepreferredLang").innerHTML = response.langName;
-								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
-										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
-										+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
-										+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
-										+ '</span>';
-								document.getElementById("showPreferredLang").innerHTML = response.langName;
-
+								displayCustomerInfo();
 							}
 							$('.fetch_results').find('textarea').val('');
 							$('.fetch_results').find('input:text').val('');
