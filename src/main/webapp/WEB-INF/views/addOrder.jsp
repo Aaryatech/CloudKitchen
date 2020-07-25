@@ -344,6 +344,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">180</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -355,6 +356,7 @@
 								<!--discription popup up-->
 
 							</div>
+							<!-- 2 -->
 							<div class="order_row">
 								<div class="one_order">
 									<!--left-->
@@ -425,6 +427,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.340/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">340</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -436,7 +439,7 @@
 								<!--discription popup up-->
 
 							</div>
-							<!--2-->
+							<!--3-->
 							<div class="order_row">
 								<div class="one_order">
 									<!--left-->
@@ -505,6 +508,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -513,7 +517,7 @@
 									<div class="clr"></div>
 								</div>
 							</div>
-							<!--3-->
+							<!--4-->
 							<div class="order_row">
 								<div class="one_order">
 									<!--left-->
@@ -583,6 +587,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">500</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -660,6 +665,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -737,6 +743,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -814,6 +821,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -890,6 +898,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -900,7 +909,6 @@
 							</div>
 							<div class="order_row">
 
-								<div class=".hiddenvalue" style="display: none;">chinese</div>
 								<div class="one_order">
 									<!--left-->
 									<div class="one_order_l">
@@ -968,6 +976,7 @@
 										<div class="offer_price">
 											<span>Rs.250</span> Rs.180/-
 										</div>
+										<div class="hiddenvalue" style="display: none;">400</div>
 										<div class="order_now">
 											<a href="#">Order Now</a>
 										</div>
@@ -1131,7 +1140,8 @@
 
 			/* $(".scrollbar-content").css("top", "0");
 			$(".scrollbar-handle").css("top", "0"); */
-
+			var currentVal = parseFloat(document.getElementById('currentVal').innerHTML);
+			//alert(currentVal);
 			document.getElementById("loaderimg").style.display = "block";
 			document.getElementById("norecordfound").style.display = "none";
 
@@ -1155,10 +1165,10 @@
 			$('.order_row')
 					.each(
 							function(index) {
- 
-								var id = document
-										.getElementsByClassName("offer_price")[index].innerHTML;
-								 
+
+								var price = parseFloat(document
+										.getElementsByClassName("hiddenvalue")[index].innerHTML);
+
 								var text = $(this).text();
 
 								if ($(this).text().toUpperCase().indexOf(
@@ -1172,15 +1182,19 @@
 													.indexOf(
 															list[i]
 																	.toUpperCase()) != -1) {
-												$(this).show();
-												find = 1;
+												if (price <= currentVal) {
+													$(this).show();
+													find = 1;
+												}
+
 											}
 
 										}
 									} else {
-
-										$(this).show();
-										find = 1;
+										if (price <= currentVal) {
+											$(this).show();
+											find = 1;
+										}
 									}
 
 								}
@@ -1234,8 +1248,8 @@
 		(function() {
 			$("#range").slider({
 				range : "min",
-				max : 1000,
-				value : 100,
+				max : 500,
+				value : 500,
 				slide : function(e, ui) {
 					$("#currentVal").html(ui.value);
 				}
