@@ -424,7 +424,8 @@
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 						alt="">
@@ -443,7 +444,8 @@
 									id="custname" class="frm_inpt" onchange="trim(this)"
 									maxlength="50" placeholder="Customer Full Name" />
 							</div>
-							<span style="color: red; display: none;" id="error_custname">*
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_custname">*
 								This field required.</span>
 						</div>
 						<div class="single_row_r">
@@ -452,7 +454,8 @@
 									class="frm_inpt numbersOnly" onchange="trim(this)"
 									id="mobileNo" maxlength="10" placeholder="Customer Mobile No." />
 							</div>
-							<span style="color: red; display: none;" id="error_mobileNo">*
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_mobileNo">*
 								This field required.</span>
 						</div>
 						<div class="clr"></div>
@@ -464,7 +467,8 @@
 									class="frm_inpt" onchange="trim(this)" id="email"
 									maxlength="50" placeholder="Email" />
 							</div>
-							<span style="color: red; display: none;" id="error_email">*
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_email">*
 								This field required.</span>
 						</div>
 						<div class="single_row_r">
@@ -475,8 +479,9 @@
 									id="whatappno" maxlength="10" placeholder="Whats App no." /><input
 									name="" type="checkbox" class="frm_inpt" style="width: 30%" />
 							</div>
-							<span style="color: red; display: none;" id="error_whatappno">*
-								This field required.</span>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_whatappno">* This
+								field required.</span>
 						</div>
 						<div class="clr"></div>
 					</div>
@@ -500,8 +505,8 @@
 								</select>
 							</div>
 						</div>
-						<span style="color: red; display: none;" id="error_addcity">*
-							This field required.</span>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addcity">* This field required.</span>
 					</div>
 
 					<div class="single_row">
@@ -515,8 +520,8 @@
 								</select>
 							</div>
 						</div>
-						<span style="color: red; display: none;" id="error_addarea">*
-							This field required.</span>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addarea">* This field required.</span>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
@@ -526,8 +531,8 @@
 								id="addLatitude" /><input name="addLongitude" type="hidden"
 								class="frm_inpt" id="addLongitude" />
 						</div>
-						<span style="color: red; display: none;" id="error_txtPlaces">*
-							This field required.</span>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_txtPlaces">* This field required.</span>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
@@ -536,8 +541,8 @@
 								class="frm_inpt" onchange="trim(this)"
 								placeholder="Delivery Address"></textarea>
 						</div>
-						<span style="color: red; display: none;" id="error_address">*
-							This field required.</span>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_address">* This field required.</span>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
@@ -551,8 +556,8 @@
 								</select>
 							</div>
 						</div>
-						<span style="color: red; display: none;" id="error_language">*
-							This field required.</span>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_language">* This field required.</span>
 					</div>
 					<div class="pop_btn_row">
 						<input id="addnewcustomer" type="button" value="Submit"
@@ -1218,13 +1223,16 @@
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 						alt="">
 				</button>
 
-				<div class="pop_signup">Add Address</div>
+				<div class="pop_signup">
+					<span id="add_address_lable">Add Address</span>
+				</div>
 
 				<!--form-->
 				<div class="form_one extra_marg">
@@ -1240,7 +1248,8 @@
 									placeholder="Address Caption" type="text" class="frm_inpt" />
 							</div>
 							<span style="color: red; display: none;"
-								id="error_addressCaption">* This field required.</span>
+								class="model_error_class" id="error_addressCaption">*
+								This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
@@ -1256,7 +1265,8 @@
 								</div>
 							</div>
 							<span style="color: red; display: none;"
-								id="error_addAddressCity">* This field required.</span>
+								class="model_error_class" id="error_addAddressCity">*
+								This field required.</span>
 						</div>
 
 						<div class="single_row">
@@ -1270,7 +1280,8 @@
 								</div>
 							</div>
 							<span style="color: red; display: none;"
-								id="error_addAddressArea">* This field required.</span>
+								class="model_error_class" id="error_addAddressArea">*
+								This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
@@ -1284,7 +1295,8 @@
 									value="0" />
 							</div>
 							<span style="color: red; display: none;"
-								id="error_addAddressLandmark">* This field required.</span>
+								class="model_error_class" id="error_addAddressLandmark">*
+								This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
@@ -1294,7 +1306,8 @@
 									placeholder="Delivery Address"></textarea>
 							</div>
 							<span style="color: red; display: none;"
-								id="error_addAddressDeliveryAdd">* This field required.</span>
+								class="model_error_class" id="error_addAddressDeliveryAdd">*
+								This field required.</span>
 						</div>
 
 
@@ -1364,7 +1377,8 @@
 	<script type="text/javascript">
 		function addCustomerAdd() {
 			$('.fetch_results').find('input:text').val('');
-			$("#addAddressDeliveryAdd").val('');
+			$('.fetch_results').find('textarea').val('');
+			$("#add_address_lable").html("Add Address");
 			$("#addAddressDetailId").val(0);
 			$('#addAddress').modal('show');
 
@@ -1449,25 +1463,115 @@
 						processData : false,
 						success : function(response) {
 
-							$('#addressllist').modal('hide');
+							$('.model_error_class').hide();
 							$('.fetch_results').find('input:text').val('');
+							$("#add_address_lable").html("Edit Address");
+							$('#addressllist').modal('hide');
 							$('#addAddress').modal('show');
 
-							$("#addressCation").val(response.addressCaption);
-							$("#addAddressCity").val(response.cityId).trigger(
-									'change', function(e, data) {
-										alert("sdf");
+							fd = new FormData();
+							$
+									.ajax({
+										url : '${pageContext.request.contextPath}/getCityList',
+										type : 'post',
+										dataType : 'json',
+										data : fd,
+										contentType : false,
+										processData : false,
+										success : function(cityList) {
+
+											var html = '';
+
+											for (var i = 0; i < cityList.length; i++) {
+
+												if (cityList[i].cityId == response.cityId) {
+													html += '<option value="' + cityList[i].cityId + '" selected>'
+															+ cityList[i].cityName
+															+ '</option>';
+												} else {
+													html += '<option value="' + cityList[i].cityId + '">'
+															+ cityList[i].cityName
+															+ '</option>';
+												}
+
+											}
+											$("#addAddressCity").val(
+													response.cityId).trigger(
+													'change');
+											var fd = new FormData();
+											fd
+													.append('cityId',
+															response.cityId);
+
+											$
+													.ajax({
+														url : '${pageContext.request.contextPath}/getAreaListByCity',
+														type : 'post',
+														dataType : 'json',
+														data : fd,
+														contentType : false,
+														processData : false,
+														success : function(
+																areaList) {
+															document
+																	.getElementById("loaderimg").style.display = "none";
+
+															html = '<option value="0">Select Area</option>';
+
+															for (var i = 0; i < areaList.length; i++) {
+
+																if (areaList[i].areaId == response.areaId) {
+																	html += '<option value="' + areaList[i].areaId + '" selected>'
+																			+ areaList[i].areaName
+																			+ '</option>';
+																} else {
+																	html += '<option value="' + areaList[i].areaId + '">'
+																			+ areaList[i].areaName
+																			+ '</option>';
+																}
+
+															}
+
+															$('#addAddressArea')
+																	.html(html);
+															$("#addAddressArea")
+																	.val(
+																			response.areaId)
+																	.trigger(
+																			'change');
+
+															$("#addressCation")
+																	.val(
+																			response.addressCaption);
+															$(
+																	"#addAddressLandmark")
+																	.val(
+																			response.landmark);
+															$(
+																	"#addAddressDeliveryAdd")
+																	.val(
+																			response.address);
+															$(
+																	"#addAddressLatitude")
+																	.val(
+																			response.latitude);
+															$(
+																	"#addAddressLongitude")
+																	.val(
+																			response.longitude);
+															$(
+																	"#addAddressDetailId")
+																	.val(
+																			response.custAddressId);
+
+															document
+																	.getElementById("loaderimg").style.display = "none";
+														},
+													});
+
+										},
 									});
-							$("#addAddressLandmark").val(response.landmark);
-							$("#addAddressDeliveryAdd").val(response.address);
-							$("#addAddressLatitude").val(response.latitude);
-							$("#addAddressLongitude").val(response.longitude);
-							$("#addAddressDetailId")
-									.val(response.custAddressId);
-							/* $("#addAddressArea").val(response.areaId);
-							$("#addAddressArea").val(response.areaId).trigger(
-									'change'); */
-							document.getElementById("loaderimg").style.display = "none";
+
 						},
 					});
 
@@ -1546,7 +1650,8 @@
 									$('#finalSuccessMsg').show();
 
 								}
-								$("#addAddressDeliveryAdd").val('');
+								//$("#addAddressDeliveryAdd").val('');
+								$('.fetch_results').find('textarea').val('');
 								$('.fetch_results').find('input:text').val('');
 								setTimeout(function() {
 									$('#finalFailedMsg').hide();
@@ -1719,14 +1824,15 @@
 								document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
 								document.getElementById("profileemail").innerHTML = response.emailId;
 								document.getElementById("profilepreferredLang").innerHTML = response.langName;
-								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'+
-								'<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'+
-								'<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'+
-								'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'+
-								'</span>';
+								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
+										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
+										+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
+										+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
+										+ '</span>';
 								document.getElementById("showPreferredLang").innerHTML = response.langName;
 
 							}
+							$('.fetch_results').find('textarea').val('');
 							$('.fetch_results').find('input:text').val('');
 							setTimeout(function() {
 								$('#finalFailedMsg').hide();
@@ -2055,6 +2161,11 @@
 			$('.datepicker').datepicker({
 				dateFormat : 'dd-mm-yy'
 			});
+		});
+		$('.cleardiv').click(function(e) {
+			$('.model_error_class').hide();
+			$('.fetch_results').find('input:text').val('');
+			$('.fetch_results').find('textarea').val('');
 		});
 	</script>
 </body>
