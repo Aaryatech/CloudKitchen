@@ -182,9 +182,9 @@
 						<div class="user-details p-relative">
 							<a href="#" class="text-custom-white fw-500"> <img
 								src="${sessionScope.profilePicUrl}${sessionScope.userInfo.profilePic}"
-								class="rounded-circle" alt="userimg"
+								class="rounded-circle user_pic_round" alt="userimg"
 								onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/default-user.jpg');"
-								style="width: 30px; height: 30px;"> <span>Hi,
+								> <span>Hi,
 									${sessionScope.userInfo.userName}</span>
 							</a>
 							<div class="user-dropdown">

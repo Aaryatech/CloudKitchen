@@ -3,7 +3,6 @@
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Bootstrap -->
 
-
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <style>
 .pac-container {
@@ -161,7 +160,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
+										class="rounded-circle user_pic_round" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" onclick="viewOrderFun()">0001</a></strong></td>
@@ -220,7 +219,7 @@
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
+										class="rounded-circle user_pic_round" alt="userimg">
 								</a></td>
 								<td class="user-name"><strong><a
 										href="javascript:void(0)" data-toggle="modal"
@@ -266,7 +265,8 @@
 						<div class="profile_title">
 							<div class="profile_title_l">Customer Profile</div>
 							<div class="profile_title_r">
-								<a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+								<a href="javascript:void(0)" onclick="editCustomer()"><i
+									class="fa fa-pencil" aria-hidden="true"></i></a>
 
 
 							</div>
@@ -616,8 +616,157 @@
 
 		</div>
 	</div>
-	<!--steps popup up-->
 
+	<div class="modal fade kot-popup fetch_results" id="editCustomer"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					Customer Registration<a href="#"></a>
+				</div>
+
+
+				<form action="" method="get">
+					<div class="single_row">
+						<div class="single_row_l">
+							<div class="pop_frm_one">
+								<span>Your Name *</span> <input name="custname" type="text"
+									id="custname" class="frm_inpt" onchange="trim(this)"
+									maxlength="50" placeholder="Customer Full Name" />
+							</div>
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_custname">*
+								This field required.</span>
+						</div>
+						<div class="single_row_r">
+							<div class="pop_frm_one">
+								<span>Mobile Number *</span> <input name="mobileNo" type="text"
+									class="frm_inpt numbersOnly" onchange="trim(this)"
+									id="mobileNo" maxlength="10" placeholder="Customer Mobile No." />
+							</div>
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_mobileNo">*
+								This field required.</span>
+						</div>
+						<div class="clr"></div>
+					</div>
+					<div class="single_row">
+						<div class="single_row_l">
+							<div class="pop_frm_one">
+								<span>Email </span> <input name="email" type="text"
+									class="frm_inpt" onchange="trim(this)" id="email"
+									maxlength="50" placeholder="Email" />
+							</div>
+							<span class="model_error_class"
+								style="color: red; display: none;" id="error_email">*
+								This field required.</span>
+						</div>
+						<div class="single_row_r">
+
+							<div class="pop_frm_one">
+								<span>Whats App no.</span><input name="whatappno" type="text"
+									class="frm_inpt" style="width: 70%" onchange="trim(this)"
+									id="whatappno" maxlength="10" placeholder="Whats App no." /><input
+									name="" type="checkbox" class="frm_inpt" style="width: 30%" />
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_whatappno">* This
+								field required.</span>
+						</div>
+						<div class="clr"></div>
+					</div>
+					<!-- <div class="single_row">
+						<div class="pop_frm_one">
+							<span>Permanent Address *</span>
+							<textarea name="" type="text" class="frm_inpt"></textarea>
+						</div>
+					</div> -->
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Delivery City *</span>
+							<div class="search_multiple">
+								<select class="country" id="addcity" name="addcity"
+									onchange="getAreaListByCity(this.value,1)">
+									<option value="">Select City</option>
+									<c:forEach items="${cityList}" var="cityList">
+										<option value="${cityList.cityId}">${cityList.cityName}</option>
+									</c:forEach>
+
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addcity">* This field required.</span>
+					</div>
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Delivery Area *</span>
+							<div class="search_multiple">
+								<select class="country" id="addarea" name="addarea">
+									<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addarea">* This field required.</span>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Landmark *</span> <input name="txtPlaces" type="text"
+								class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
+								name="addLatitude" type="hidden" class="frm_inpt"
+								id="addLatitude" /><input name="addLongitude" type="hidden"
+								class="frm_inpt" id="addLongitude" />
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_txtPlaces">* This field required.</span>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Delivery Address *</span>
+							<textarea name="address" id="address" type="text" maxlength="200"
+								class="frm_inpt" onchange="trim(this)"
+								placeholder="Delivery Address"></textarea>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_address">* This field required.</span>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Language *</span>
+							<div class="search_multiple">
+								<select class="country" name="language" id="language">
+									<option value="">Select Language</option>
+									<c:forEach items="${languageList}" var="languageList">
+										<option value="${languageList.langId}">${languageList.langName}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_language">* This field required.</span>
+					</div>
+					<div class="pop_btn_row">
+						<input id="addnewcustomer" type="button" value="Submit"
+							class="next_btn" onclick="sendOtpForCustomerRegistration()" />
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
 
 	<div class="modal fade kot-popup" id="orderstep1">
 		<div class="modal-dialog modal-md">

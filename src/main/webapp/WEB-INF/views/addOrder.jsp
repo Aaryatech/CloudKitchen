@@ -240,7 +240,7 @@
 							</div>
 
 							<!--user rating-->
-							<%-- <div class="tags_bx">
+							<div class="tags_bx">
 								<h3 class="tags_title">User Rating</h3>
 								<div class="filter_cont">
 									<form action="" method="get">
@@ -263,7 +263,7 @@
 										</label>
 									</form>
 								</div>
-							</div> --%>
+							</div>
 
 						</div>
 					</div>
@@ -1132,11 +1132,11 @@
 	<!--Plugin Initialization-->
 
 	<script>
-		$('#range').click(function(e) {
+		/* $('#range').click(function(e) {
 			myFunction1();
-		});
+		}); */
 
-		function myFunction1() {
+		function myFunction11() {
 
 			/* $(".scrollbar-content").css("top", "0");
 			$(".scrollbar-handle").css("top", "0"); */
@@ -1239,6 +1239,7 @@
 				accoridonExpAll : false
 			//Expands all the accordion menu on click
 			});
+			$("#currentVal").html(500);
 		});
 	</script>
 
@@ -1251,7 +1252,9 @@
 				max : 500,
 				value : 500,
 				slide : function(e, ui) {
+
 					$("#currentVal").html(ui.value);
+					myFunction1();
 				}
 			});
 
