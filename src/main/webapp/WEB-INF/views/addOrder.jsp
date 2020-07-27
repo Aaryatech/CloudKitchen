@@ -318,717 +318,186 @@
 
 						<div class="inner_scroll">
 							<!--1-->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> <a href="javascript:void(0)"
-												data-toggle="modal" data-target="#discription"
-												class="curry_pop">Curry Leaves Barbecuing and Grilling</a> <span>Sharanpur
-												Road Nashik <br> Casual Dining - North Mumbai
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
+
+							<c:forEach items="${itemList}" var="itemList">
+
+								<div class="order_row">
+									<div class="one_order">
+										<!--left-->
+										<div class="one_order_l">
+											<h3 class="restro-nm">
+												<c:choose>
+													<c:when test="${itemList.productCategory==2}">
+														<img
+															src="${pageContext.request.contextPath}/resources/assets/img/non_veg_symbol.png"
+															alt="">
+													</c:when>
+													<c:otherwise>
+														<img
+															src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
+															alt="">
+													</c:otherwise>
+												</c:choose>
+												<!-- data-toggle="modal"
+													data-target="#discription" -->
+												<a href="javascript:void(0)"
+													onclick="itemDetailDesc(
+													${itemList.itemId})"
+													data-id='${itemList.jsonStr}' id="detail${itemList.itemId}"
+													class="curry_pop">${itemList.itemName}</a> <span>${itemList.itemDesc}</span>
+											</h3>
+											<div class="product-list-type hotel_nm">
+												<span class="text-light-white new">New</span>
+												<c:forEach items="${itemList.tasteList}" var="tasteList">
+													<span class="text-custom-white square-tag"><img
+														title="${tasteList.ingrediantName}"
+														src="${catImageUrl}/${tasteList.ingrediantImage}"
+														alt="tag"
+														onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg');"></span>
+												</c:forEach>
+
 											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">180</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
 										</div>
 
+										<div class="one_order_m">
+
+											<div class="product-list-rating text-center">
+												<div class="ratings">
+													<c:choose>
+														<c:when test="${itemList.rating==1}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==1.5}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i
+																class="fas fa-star-half-alt" title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==2}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==2.5}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i
+																class="fas fa-star-half-alt" title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==3}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==3.5}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow" title="${itemList.rating}"><i
+																class="fas fa-star-half-alt"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==4}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==4.5}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i
+																class="fas fa-star-half-alt" title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:when test="${itemList.rating==5}">
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+															<span class="text-yellow"><i class="fas fa-star"
+																title="${itemList.rating}"></i></span>
+														</c:when>
+														<c:otherwise>
+															<span class="text-yellow"><i
+																class="fas fa-star-half-alt"></i></span>
+														</c:otherwise>
+													</c:choose>
+
+
+												</div>
+												<div class="rating-text">
+													<p class="text-light-white fs-12">
+														<%-- ${itemList.rating} --%>
+													</p>
+												</div>
+											</div>
+
+											<div class="product-list-tags text-center">
+
+												<span
+													class="rectangle-tag inline bg-gradient-green text-custom-white">${itemList.productStatus}</span>
+											</div>
+											<!--distance-->
+											<div class="product-list-time text-center">
+
+												<ul class="inline-r">
+													<li class="text-light-white">${itemList.preperationTime}</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="one_order_r">
+
+											<div class="product-list-label text-center">
+												<span
+													class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
+												<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
+											</div>
+											<!--price-->
+											<div class="offer_price">
+												<span>Rs.${itemList.mrpAmt}</span>
+												Rs.${itemList.spRateAmt}/-
+											</div>
+											<div class="hiddenvalue" style="display: none;">${itemList.spRateAmt}</div>
+											<div class="hiddencategoryvalue" style="display: none;">${itemList.catName}</div>
+											<div class="hiddensubcategoryvalue" style="display: none;">${itemList.subCatName}</div>
+											<div class="hiddenItemNamevalue" style="display: none;">${itemList.itemName}</div>
+											<div class="hiddenItemTagvalue" style="display: none;">${itemList.tagName}</div>
+											<div class="order_now">
+												<a href="#">Order Now</a>
+											</div>
+
+										</div>
+										<div class="clr"></div>
 									</div>
-									<div class="clr"></div>
+
+
+
 								</div>
-
-								<!--discription popup up-->
-
-							</div>
-							<!-- 2 -->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> <a href="javascript:void(0)"
-												data-toggle="modal" data-target="#discription"
-												class="curry_pop">Veg Pizza</a> <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.340/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">340</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-
-								<!--discription popup up-->
-
-							</div>
-							<!--3-->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/non_veg_symbol.png"
-												alt=""> Pav Bhaji <span>Sharanpur Road Nashik <br>
-												Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings Tcs</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-							<!--4-->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Veg Biryani <span>Sharanpur Road Nashik
-												<br> Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">500</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-							<!--4-->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/non_veg_symbol.png"
-												alt=""> Veg Biryani Masala <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-							<!--5-->
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Lassi<span>Sharanpur Road Nashik <br>
-												Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Veg Biryani Khada <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-							<div class="order_row">
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Chikan Biryani <span>Sharanpur Road
-												Nashik <br> Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
-							<div class="order_row">
-
-								<div class="one_order">
-									<!--left-->
-									<div class="one_order_l">
-										<h3 class="restro-nm">
-											<img
-												src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
-												alt=""> Soyabean <span>Sharanpur Road Nashik <br>
-												Casual Dining - North Indian
-											</span>
-										</h3>
-										<div class="product-list-type hotel_nm">
-											<span class="text-light-white new">New</span> <span
-												class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/chilli_3.jpg"
-												alt="tag"></span> <span class="text-custom-white square-tag"><img
-												src="${pageContext.request.contextPath}/resources/assets/img/sweet_1.png"
-												alt="tag"></span>
-										</div>
-									</div>
-									<!--center-->
-									<div class="one_order_m">
-										<!--rating-->
-										<div class="product-list-rating text-center">
-											<div class="ratings">
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i class="fas fa-star"></i></span>
-												<span class="text-yellow"><i
-													class="fas fa-star-half-alt"></i></span>
-											</div>
-											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
-											</div>
-										</div>
-										<!--offer percentage -->
-										<div class="product-list-tags text-center">
-											<span
-												class="text-custom-white rectangle-tag inline bg-gradient-red">10%</span>
-											<span
-												class="rectangle-tag inline bg-gradient-green text-custom-white">Trending</span>
-										</div>
-										<!--distance-->
-										<div class="product-list-time inline">
-											<!-- <span class="circle-tag inline"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/013-heart-1.svg" alt="tag"></span> -->
-											<ul class="inline-r">
-												<!-- <li class="text-light-white">1.18 mi</li> -->
-												<li class="text-light-white">30-40 mins</li>
-											</ul>
-										</div>
-									</div>
-									<!--right-->
-									<div class="one_order_r">
-										<!--combo-->
-										<div class="product-list-label text-center">
-											<span
-												class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
-											<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-										</div>
-										<!--price-->
-										<div class="offer_price">
-											<span>Rs.250</span> Rs.180/-
-										</div>
-										<div class="hiddenvalue" style="display: none;">400</div>
-										<div class="order_now">
-											<a href="#">Order Now</a>
-										</div>
-
-									</div>
-									<div class="clr"></div>
-								</div>
-							</div>
+							</c:forEach>
 
 							<div id="norecordfound"
 								style="display: none; text-align: center; vertical-align: middle;">
@@ -1068,7 +537,7 @@
 						<img src="https://via.placeholder.com/200" alt="">
 					</div>
 					<div class="disc_pop_r">
-						<h3 class="restro-nm">
+						<h3 class="restro-nm" id="discriptionHeading">
 							<img
 								src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
 								alt=""> Curry Leaves Barbecuing and Grilling <span>Sharanpur
@@ -1076,16 +545,17 @@
 						</h3>
 
 						<div class="pop_disc">
-							<span>Category -</span> Pizza
+							<span>Category :</span> <span id="discriptionCatName">Pizza</span>
 						</div>
 
 						<div class="pop_disc">
-							<span>Discription -</span> Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua.
+							<span>Discription :</span> <span id="discriptionItemShow">Lorem
+								ipsum dolor sit amet, consectetur adipiscing elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 						</div>
 
-						<div class="product-list-type hotel_nm pop_disc">
+						<div class="product-list-type hotel_nm pop_disc"
+							id="discriptionTaste">
 							<span class="text-light-white new strong_fnt">New</span> <span
 								class="text-custom-white square-tag"><img
 								src="/ck/resources/assets/img/chilli_1.jpg" alt="tag"></span> <span
@@ -1099,8 +569,8 @@
 
 
 						<div class="rating_row_one">
-							<div class="ratings rating_l">
-								<span class="strong_fnt">Rating -</span> <span
+							<div class="ratings rating_l" id="discriptionRating">
+								<span class="strong_fnt">Rating : </span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
@@ -1109,10 +579,11 @@
 							</div>
 
 							<div class="rate_ting">
-								<span class="strong_fnt">Time -</span> 30-40 mins
+								<span class="strong_fnt">Time :</span> <span id="discriptionMin">
+									30-40 mins</span>
 							</div>
 							<div class="rate_prc">
-								<div class="offer_price">
+								<div class="offer_price" id="discriptionPrice">
 									<span>Rs.250</span> Rs.180/-
 								</div>
 							</div>
@@ -1133,7 +604,7 @@
 						<!--related Causin-->
 						<div class="pop_cousin pop_disc">
 							<span class="pop_disc">Related Items </span>
-							<ul>
+							<ul id="discriptionRelatedItem">
 								<li><a href="#"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
 										class="rounded-circle" alt="categories"> Italian
@@ -1174,15 +645,94 @@
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
-
+	<script>
+	function imgErrorJavascript(image,type) {
+		//alert(imagepath)
+		image.onerror = "";
+		if(type==1){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';
+		}else if(type==2){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';
+		}
+		
+		return true;
+	}
+</script>
 	<script>
 		/* $('#range').click(function(e) {
 			myFunction1();
 		}); */
 
+ 
+		function itemDetailDesc(item) {
+	 
+			document.getElementById("loaderimg").style.display = "block";
+			 var id = $("#detail"+item).attr("data-id");
+			 var obj = $.parseJSON(id); 
+			console.log(obj); 
+			$('#discription').modal('show'); 
+			
+			if(obj.productCategory==2){
+				 
+				$("#discriptionHeading").html('<img src="${pageContext.request.contextPath}/resources/assets/img/non_veg_symbol.png" '+
+						'alt=""> '+obj.itemName+'<span></span>');
+			}else{
+				/* $("#discriptionHeading").append('<img src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png" '+
+						'alt=""> '+obj.itemName+'<span></span>'); */
+				$("#discriptionHeading").html('<img src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png" '+
+						'alt=""> '+obj.itemName+'<span></span>');
+			}
+			$("#discriptionCatName").html(obj.catName);
+			$("#discriptionItemShow").html(obj.itemDesc);
+			
+			var testIngradiant='<span class="text-light-white new strong_fnt">New</span>'; 
+			for(var i=0 ; i<obj.tasteList.length;i++){
+				testIngradiant += '<span class="text-custom-white square-tag"><img title="'+obj.tasteList[i].ingrediantName+'" '+
+				'src="${catImageUrl}'+obj.tasteList[i].ingrediantImage+'" alt="tag" onerror="imgErrorJavascript(this,1);"></span>';
+			} 
+			$("#discriptionTaste").html(testIngradiant);
+			$("#discriptionRating").html('<span class="strong_fnt">Rating :</span>');
+			
+			if(obj.rating==1){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span>');
+			}else if(obj.rating==1.5){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+			}else if(obj.rating==2){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+			}else if(obj.rating==2.5){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+			}else if(obj.rating==3){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+			}else if(obj.rating==3.5){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+			}else if(obj.rating==4){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+			}else if(obj.rating==4.5){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+			}else if(obj.rating==5){
+				$("#discriptionRating").append('<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>'+
+						'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+			}
+			$("#discriptionMin").html(obj.preperationTime);
+			$("#discriptionRelatedItem").html('');
+			var findRelated=0;
+			for(var i=0 ; i<obj.relItemList.length;i++){
+				$("#discriptionRelatedItem").append('<li><a href="javascript:void(0)" onclick="itemDetailDesc('+obj.relItemList[i].itemId+')" title="'+obj.relItemList[i].itemName+'"> <img src="${catImageUrl}'+obj.relItemList[i].itemName+'"'+
+						'class="rounded-circle" alt="categories" onerror="imgErrorJavascript(this,2);"> '+obj.relItemList[i].itemName+' </a></li>'); 
+				findRelated=1;
+			} 
+			if(findRelated==0){
+				$("#discriptionRelatedItem").append('-'); 
+			}
+			$("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.spRateAmt+'/-'); 
+			
+			document.getElementById("loaderimg").style.display = "none";
+		}
+		
 		function onchangeSearchBy() {
 			$('#subcatinput').val('');
 			sortCategory();
+			myFunction1();
 		}
 		function allItemSearch() {
 		   
@@ -1224,8 +774,8 @@
 			
 			var catName = $('.active_round').text().trim();
 			
-			if(catName!="All"){
-				list.push(catName);
+			if(catName=="All"){
+				catName='';
 			}
 			 
 			var currentVal = parseFloat(document.getElementById('currentVal').innerHTML);
@@ -1254,15 +804,22 @@
 
 								var price = parseFloat(document
 										.getElementsByClassName("hiddenvalue")[index].innerHTML);
- 
-								if ($(this).text().toUpperCase().indexOf(
+								var hiddencategoryvalue = document
+										.getElementsByClassName("hiddencategoryvalue")[index].innerHTML ;
+								var hiddenItemNamevalue = document.getElementsByClassName("hiddenItemNamevalue")[index].innerHTML ;
+								var hiddensubcategoryvalue = document.getElementsByClassName("hiddensubcategoryvalue")[index].innerHTML ;
+								var hiddenItemTagvalue = document.getElementsByClassName("hiddenItemTagvalue")[index].innerHTML ;
+								
+								var combineString = hiddenItemNamevalue+' '+hiddensubcategoryvalue+' '+ hiddenItemTagvalue;
+								
+								if (hiddencategoryvalue.toUpperCase().indexOf(
+										catName.toUpperCase()) != -1) { 
+								if (hiddenItemNamevalue.toUpperCase().indexOf(
 										txt.toUpperCase()) != -1) {
 									if (list.length > 0) {
 										for (var i = 0; i < list.length; i++) {
 
-											if ($(this)
-													.text()
-													.toUpperCase()
+											if (combineString.toUpperCase()
 													.indexOf(
 															list[i]
 																	.toUpperCase()) != -1) {
@@ -1281,6 +838,7 @@
 										}
 									}
 
+								}
 								}
 							});
 

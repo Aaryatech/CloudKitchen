@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ats.ck.common.Constants;
 import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.FranchiseData;
+import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetSubCategoryData;
+import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
@@ -48,22 +50,22 @@ public class OrderController {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
-			GetCategoryData catogory = Constants.getRestTemplate().postForObject(Constants.url + "getCategoryListByFr",
-					map, GetCategoryData.class);
-			List<CategoryData> catList = catogory.getCategory();
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
+					map, GetAllDataByFr.class);
+			List<CategoryData> catList = getAllDataByFr.getCategoryData();
 			model.addAttribute("catList", catList);
 			model.addAttribute("catImageUrl", Constants.imageShowUrl);
 
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("frId", frId);
-			GetSubCategoryData subcategory = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getSubCategoryListByFr", map, GetSubCategoryData.class);
-			List<SubCategoryData> subcatList = subcategory.getSubCategory();
+			List<SubCategoryData> subcatList = getAllDataByFr.getSubCategoryData();
 			model.addAttribute("subcatList", subcatList);
 
-			Tags[] tag = Constants.getRestTemplate().getForObject(Constants.url + "getAllActiveTags", Tags[].class);
-			List<Tags> tagList = new ArrayList<>(Arrays.asList(tag));
+			List<Tags> tagList = getAllDataByFr.getTagsData();
 			model.addAttribute("tagList", tagList);
+
+			List<ItemDisplay> itemList = getAllDataByFr.getItemData();
+			model.addAttribute("itemList", itemList);
 
 		} catch (Exception e) {
 
