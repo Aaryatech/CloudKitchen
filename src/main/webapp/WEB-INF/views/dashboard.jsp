@@ -312,8 +312,8 @@
 					<div class="main-box padding-20">
 						<div class="sec_title">
 							previous orders History <a href="javascript:void(0)"
-								data-toggle="modal" data-target="#orderstep1" href="#"
-								class="order_btn">New Order Booking</a>
+								onclick="placeOrderProcess()" class="order_btn">New Order
+								Booking</a>
 						</div>
 
 						<div class="component">
@@ -725,7 +725,7 @@
 				<div class="pop_signup">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/restro_icn.png"
-						alt=""> New Order <span>About our latest restaurent
+						alt=""> New Order <span>About our latest restaurant
 						and exclusive offers.</span> <a href="#"></a>
 				</div>
 
@@ -747,13 +747,13 @@
 							<div class="pop_frm_one">
 								<span>Select Address* <a href="javascript:void(0)"
 									style="float: right;" class="detail_btn_round"
-									title="Add New Address"><i class="fa fa-plus"
-										aria-hidden="true"></i></a></span>
+									title="Add New Address" onclick="addCustomerAdd()"><i
+										class="fa fa-plus" aria-hidden="true"></i></a>
+								</span>
 								<div class="search_multiple">
-									<select class="country">
-										<option value="" selected>Select Address</option>
-										<option value="Shop 1" data-name="">Home</option>
-										<option value="Shop 2" data-name="">Shop</option>
+									<select class="country" id="addressListForOrder"
+										name="addressListForOrder">
+
 
 									</select>
 								</div>
@@ -766,13 +766,9 @@
 								<span>Select Shop</span>
 								<div class="search_multiple">
 									<select class="country">
-										<option value="">Select Shop</option>
-										<option value="Shop 1" data-name="">Shop 1 - 5 KM</option>
-										<option value="Shop 2" data-name="">Shop 2 - 5 KM</option>
-										<option value="Shop 3" data-name="">Shop 3 - 5 KM</option>
-										<option value="Shop 4" data-name="">Shop 4 - 5 KM</option>
-										<option value="Shop 5" data-name="">Shop 5 - 5 KM</option>
-										<option value="Shop 6" data-name="">Shop 6 - 5 KM</option>
+										<c:forEach items="${franchiseList}" var="franchiseList">
+											<option value="${franchiseList.frId}">${franchiseList.frName}</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>
@@ -1468,6 +1464,42 @@
 	<!-- <script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
 	<script type="text/javascript">
+		function placeOrderProcess() {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getAddressListOfCustomer',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							//alert(JSON.stringify(response))
+							$('#orderstep1').modal('show');
+
+							var html = '<option value="0">Select Address</option>';
+
+							for (var i = 0; i < response.length; i++) {
+
+								html += '<option value="' + response[i].custAddressId + '">'
+										+ response[i].addressCaption
+										+ '</option>';
+
+							}
+
+							$('#addressListForOrder').html(html);
+							$("#addressListForOrder").val(response.areaId)
+									.trigger('change');
+							document.getElementById("loaderimg").style.display = "none";
+						},
+					});
+
+		}
+
 		function editCustomer() {
 			$('.fetch_results').find('input:text').val('');
 			$('.fetch_results').find('textarea').val('');
@@ -1714,6 +1746,7 @@
 							$('.fetch_results').find('input:text').val('');
 							$("#add_address_lable").html("Edit Address");
 							$('#addressllist').modal('hide');
+							$('#orderstep1').modal('hide');
 							$('#addAddress').modal('show');
 
 							fd = new FormData();
@@ -1742,9 +1775,12 @@
 												}
 
 											}
-											$("#addAddressCity").val(
+											/* $("#addAddressCity").val(
 													response.cityId).trigger(
-													'change');
+													'change'); */
+											$('#addAddressCity').html(html);
+											$("#addAddressCity").trigger(
+													"country:updated");
 											var fd = new FormData();
 											fd
 													.append('cityId',
@@ -1779,6 +1815,7 @@
 
 															}
 
+															//alert(html)
 															$('#addAddressArea')
 																	.html(html);
 															$("#addAddressArea")
@@ -1786,7 +1823,9 @@
 																			response.areaId)
 																	.trigger(
 																			'change');
-
+															$("#addAddressArea")
+																	.trigger(
+																			"country:updated");
 															$("#addressCation")
 																	.val(
 																			response.addressCaption);

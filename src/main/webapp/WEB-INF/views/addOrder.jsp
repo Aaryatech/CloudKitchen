@@ -218,10 +218,18 @@
 						<div class="filter_bx">
 							<h3 class="search_title">Search Filters</h3>
 							<!--filter radio -->
+
 							<div class="filter_cont">
+								<label class="chk_txt fw-500 fs-14"><input type="radio"
+									id="searchByItem" name="searchType" class="option-input radio"
+									checked onchange="onchangeSearchBy()">Search By Item
+									&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
+									type="radio" class="option-input radio" id="searchBySubCat"
+									onchange="onchangeSearchBy()" name="searchType">Search
+									By Sub Cat</label>
 								<div class="search_filt">
 									<input name="" type="text" class="filter_inpt"
-										placeholder="Search Sub Category" id="subcatinput"
+										placeholder="Search Sub Category Or Item" id="subcatinput"
 										onkeyup="sortCategory()" /> <i class="fa fa-search"
 										aria-hidden="true"></i>
 								</div>
@@ -276,7 +284,7 @@
 							</div>
 
 							<!--user rating-->
-							<div class="tags_bx">
+							<%-- <div class="tags_bx">
 								<h3 class="tags_title">User Rating</h3>
 								<div class="filter_cont">
 									<form action="" method="get">
@@ -299,7 +307,7 @@
 										</label>
 									</form>
 								</div>
-							</div>
+							</div> --%>
 
 						</div>
 					</div>
@@ -1172,8 +1180,46 @@
 			myFunction1();
 		}); */
 
+		function onchangeSearchBy() {
+			$('#subcatinput').val('');
+			sortCategory();
+		}
+		function allItemSearch() {
+		   
+			$("input[name='subcat']:checkbox").prop('checked',false); 
+			$("input[name='tagcheckbox']:checkbox").prop('checked',false); 
+			$('#subcatinput').val('');
+			
+			document.getElementById("loaderimg").style.display = "block";
+			document.getElementById("norecordfound").style.display = "none";
+
+			var find = 0; 
+		 
+			$('.order_row').hide();
+			var txt = $('#myInput1').val();
+			//offer_price
+			$('.order_row')
+					.each(
+							function(index) {
+ 
+								if ($(this).text().toUpperCase().indexOf(
+										txt.toUpperCase()) != -1) {
+									$(this).show(); 
+									find=1;
+								}
+							});
+
+			if (find == 0) {
+
+				document.getElementById("norecordfound").style.display = "block";
+			}
+			 
+			document.getElementById("loaderimg").style.display = "none";
+		}
+		
 		function myFunction1() {
  
+			$('#myInput1').val('');
 			var list = [];
 			
 			var catName = $('.active_round').text().trim();
@@ -1200,7 +1246,7 @@
 			});
 
 			$('.order_row').hide();
-			var txt = $('#myInput1').val();
+			var txt = $('#subcatinput').val();
 			//offer_price
 			$('.order_row')
 					.each(
@@ -1248,32 +1294,54 @@
 
 		function sortCategory() {
 
-			var catName = $('.active_round').text().trim();
-			if(catName=="All"){
-				catName="";
+			if(document.getElementById("searchByItem").checked==true){
+				var catName = $('.active_round').text().trim();
+				if(catName=="All"){
+					catName="";
+				} 
+				$('.subcatclass').hide();
+				var txt = $('#subcatinput').val();
+
+				$('.subcatclass').each(
+						function(index) {
+
+							var catnamehidn =  document
+									.getElementsByClassName("subcatdummyclass")[index].innerHTML; 
+							if (catnamehidn.toUpperCase().indexOf(
+									catName.toUpperCase()) != -1 ) {
+								$(this).show(); 
+							}
+						});
+				myFunction1();
+			}else{
+				var catName = $('.active_round').text().trim();
+				if(catName=="All"){
+					catName="";
+				}
+			 
+				$('.subcatclass').hide();
+				var txt = $('#subcatinput').val();
+
+				$('.subcatclass').each(
+						function(index) {
+
+							var catnamehidn =  document
+									.getElementsByClassName("subcatdummyclass")[index].innerHTML;
+							var subcatnamehidn =  document
+							.getElementsByClassName("subcatdummyclass1")[index].innerHTML; 
+							if (catnamehidn.toUpperCase().indexOf(
+									catName.toUpperCase()) != -1 && subcatnamehidn.toUpperCase().indexOf(
+											txt.toUpperCase()) != -1) {
+								$(this).show(); 
+							}
+						});
 			}
-			//alert(catName)
-			$('.subcatclass').hide();
-			var txt = $('#subcatinput').val();
-
-			$('.subcatclass').each(
-					function(index) {
-
-						var catnamehidn =  document
-								.getElementsByClassName("subcatdummyclass")[index].innerHTML;
-						var subcatnamehidn =  document
-						.getElementsByClassName("subcatdummyclass1")[index].innerHTML; 
-						if (catnamehidn.toUpperCase().indexOf(
-								catName.toUpperCase()) != -1 && subcatnamehidn.toUpperCase().indexOf(
-										txt.toUpperCase()) != -1) {
-							$(this).show(); 
-						}
-					});
+			
 
 		}
 
 		function changeCategory(id) {
-			
+			$('#subcatinput').val('');
 			var active = document.querySelector(".active_round"); 
 			active.classList.remove("active_round");   
 			$('#category'+id).addClass("active_round");

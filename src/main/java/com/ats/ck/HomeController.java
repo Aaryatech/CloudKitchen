@@ -43,6 +43,8 @@ import com.ats.ck.model.CustomerAddress;
 import com.ats.ck.model.CustomerAddressDisplay;
 import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.ErrorMessage;
+import com.ats.ck.model.FranchiseData;
+import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
@@ -250,6 +252,12 @@ public class HomeController {
 
 			session.setAttribute("liveCustomer", customer);
 
+
+			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+					GetFranchiseData.class);
+			List<FranchiseData> franchiseList = frData.getFranchise();
+			model.addAttribute("franchiseList", franchiseList);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

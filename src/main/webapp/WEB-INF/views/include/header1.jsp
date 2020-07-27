@@ -104,7 +104,7 @@
 									<div class="head_search">
 										<div class="head_search_l">
 											<i class="fa fa-search" aria-hidden="true"></i> <input
-												type="text" onkeyup="myFunction1()" name="myInput1"
+												type="text" onkeyup="allItemSearch()" name="myInput1"
 												id="myInput1" class="top_place"
 												placeholder="Search for restaurant, cuisine or a dish" />
 										</div>
@@ -381,6 +381,6 @@
 
 	</header>
 </div>
-<div class="main-sec"></div> 
+<div class="main-sec"></div>
 </head>
 <!-- Navigation -->
