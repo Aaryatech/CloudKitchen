@@ -513,7 +513,7 @@
 													class="fas fa-star-half-alt"></i></span>
 											</div>
 											<div class="rating-text">
-												<p class="text-light-white fs-12">3845 ratings</p>
+												<p class="text-light-white fs-12">3845 ratings Tcs</p>
 											</div>
 										</div>
 										<!--offer percentage -->
@@ -1173,10 +1173,7 @@
 		}); */
 
 		function myFunction1() {
-
-			/* $(".scrollbar-content").css("top", "0");
-			$(".scrollbar-handle").css("top", "0"); */
-			
+ 
 			var list = [];
 			
 			var catName = $('.active_round').text().trim();
@@ -1245,14 +1242,7 @@
 
 				document.getElementById("norecordfound").style.display = "block";
 			}
-			/* $('.order_row').each(
-					function() {
-						if ($(this).text().toUpperCase().indexOf(
-								txt.toUpperCase()) != -1) {
-							$(this).show();
-						}
-					}); */
-
+			 
 			document.getElementById("loaderimg").style.display = "none";
 		}
 

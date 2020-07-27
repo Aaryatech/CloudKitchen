@@ -569,6 +569,61 @@ public class HomeController {
 		return info;
 	}
 
+	CustomerDisplay editcust = new CustomerDisplay();
+
+	@RequestMapping(value = "/editCustomer", method = RequestMethod.POST)
+	@ResponseBody
+	public CustomerDisplay editCustomer(HttpServletRequest request, HttpServletResponse response) {
+
+		editcust = new CustomerDisplay();
+		try {
+
+			HttpSession session = request.getSession();
+			editcust = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return editcust;
+	}
+
+	@RequestMapping(value = "/sumbitEditCust", method = RequestMethod.POST)
+	@ResponseBody
+	public Info sumbitEditCust(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+
+			String edit_custname = request.getParameter("edit_custname");
+			String edit_whatappno = request.getParameter("edit_whatappno");
+			String edit_email = request.getParameter("edit_email");
+			String edit_language = request.getParameter("edit_language");
+
+			editcust.setCustName(edit_custname);
+			editcust.setWhatsappNo(edit_whatappno);
+			editcust.setEmailId(edit_email);
+			editcust.setLangId(Integer.parseInt(edit_language));
+
+			Customer res = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomer", editcust,
+					Customer.class);
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", res.getCustId());
+			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
+					CustomerDisplay.class);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("liveCustomer", customer);
+			info.setError(false);
+		} catch (Exception e) {
+
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
+	}
+
 	private static final long serialVersionUID = -8022560668279505764L;
 
 	// Method to send Notifications from server to client end.
