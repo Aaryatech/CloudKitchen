@@ -23,32 +23,38 @@
 				<div class="col-12">
 					<div class="featured-partners-slider swiper-container">
 						<div class="swiper-wrapper">
-							<div class="swiper-slide">
-								<div class="bke1zw-1 feJJpQ">
-									<section class="sc-hzOKmB eTLmSe">
-										<a href="#" class="sc-fjNYmT cPRXMx">
-											<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
-												<img alt="Trending This Week"
-													src="${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg"
-													loading="lazy" class="s1isp7-4 bBALuk">
-											</div>
-											<section class="sc-cOoQYZ eGlRiQ">
-												<section class="sc-ddcOto lMfoD">
-													<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
-														Up to <span>40%</span> off
-													</p>
-													<div class="sc-jrOYZv gkgQzg">
-														<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">Good Food
-															To make your Mood</h6>
-														<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
-													</div>
+
+							<c:forEach items="${offerList}" var="offerList">
+								<div class="swiper-slide">
+									<div class="bke1zw-1 feJJpQ">
+										<section class="sc-hzOKmB eTLmSe">
+											<a href="#" class="sc-fjNYmT cPRXMx">
+												<div class="s1isp7-0 gsidZp sc-fQfKYo kjRoqZ">
+													<img alt="Trending This Week"
+														src="${catImageUrl}${offerList.imageList[0].imageName}"
+														loading="lazy" class="s1isp7-4 bBALuk"
+														onerror="imgErrorJavascript(this,3);">
+												</div>
+												<section class="sc-cOoQYZ eGlRiQ">
+													<section class="sc-ddcOto lMfoD">
+														<p class="sc-1hez2tp-0 sc-dzVpKk eUhPqE offer_txt">
+															${offerList.offerName}</p>
+														<div class="sc-jrOYZv gkgQzg">
+															<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">
+																Date : ${offerList.fromDate} to ${offerList.toDate}<%-- <br>Time
+																: ${offerList.fromTime} to ${offerList.toTime} --%>
+															</h6>
+															<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
+														</div>
+													</section>
 												</section>
-											</section>
-										</a>
-									</section>
+											</a>
+										</section>
+									</div>
 								</div>
-							</div>
-							<div class="swiper-slide">
+							</c:forEach>
+
+							<%-- <div class="swiper-slide">
 								<div class="bke1zw-1 feJJpQ">
 									<section class="sc-hzOKmB eTLmSe">
 										<a href="#" class="sc-fjNYmT cPRXMx">
@@ -72,8 +78,8 @@
 										</a>
 									</section>
 								</div>
-							</div>
-							<div class="swiper-slide">
+							</div> --%>
+							<%-- <div class="swiper-slide">
 								<div class="bke1zw-1 feJJpQ">
 									<section class="sc-hzOKmB eTLmSe">
 										<a href="#" class="sc-fjNYmT cPRXMx">
@@ -97,8 +103,8 @@
 										</a>
 									</section>
 								</div>
-							</div>
-							<div class="swiper-slide">
+							</div> --%>
+							<%-- <div class="swiper-slide">
 								<div class="bke1zw-1 feJJpQ">
 									<section class="sc-hzOKmB eTLmSe">
 										<a href="#" class="sc-fjNYmT cPRXMx">
@@ -122,7 +128,7 @@
 										</a>
 									</section>
 								</div>
-							</div>
+							</div> --%>
 						</div>
 						<!-- Add Arrows -->
 						<div class="swiper-button-next"></div>
@@ -656,9 +662,11 @@
 		//alert(imagepath)
 		image.onerror = "";
 		if(type==1){
-			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';//taste
 		}else if(type==2){
-			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';//related item
+		}else if(type==3){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';//offer
 		}
 		
 		return true;

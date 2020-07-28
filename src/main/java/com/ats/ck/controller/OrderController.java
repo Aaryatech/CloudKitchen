@@ -28,6 +28,7 @@ import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetSubCategoryData;
 import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.LoginResponse;
+import com.ats.ck.model.OfferHeader;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,6 +70,9 @@ public class OrderController {
 			List<ItemDisplay> itemList = getAllDataByFr.getItemData();
 			model.addAttribute("itemList", itemList);
 
+			List<OfferHeader> offerList = getAllDataByFr.getOfferData();
+			model.addAttribute("offerList", offerList);
+
 			ObjectMapper Obj = new ObjectMapper();
 
 			try {
@@ -77,8 +81,6 @@ public class OrderController {
 				model.addAttribute("jsonList", jsonStr);
 			} catch (IOException e) {
 			}
-
-			System.out.println(session.getAttribute("jsonList"));
 
 		} catch (Exception e) {
 
