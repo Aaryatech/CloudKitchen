@@ -488,7 +488,8 @@
 											<div class="hiddenItemNamevalue" style="display: none;">${itemList.itemName}</div>
 											<div class="hiddenItemTagvalue" style="display: none;">${itemList.tagName}</div>
 											<div class="order_now">
-												<a href="#">Order Now</a>
+												<a href="javascript:void(0)"
+													onclick="addTocart(1,${itemList.itemId})">Order Now</a>
 											</div>
 
 										</div>
@@ -676,7 +677,12 @@
 		
 		function addTocart(type,itemId) {
 			
-			var qty = $('#itemQty').val();
+			var qty = 1;
+			
+			if(type==0){
+				qty = $('#itemQty').val();
+			}
+			 
 			var isError = false;
 			
 			$("#qty_error").hide();
@@ -720,8 +726,9 @@
 			
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue); 
-			console.log(table);
+			//console.log(table);
 			
+			//alert(JSON.stringify(table))
 				 $("#item_cart_list").html('');
 				 
 				 var subtotal = 0;
@@ -737,15 +744,16 @@
 				 $("#item_cart_list").append('<div class="item-total"> <div class="total-price border-0">'+
 						 '<span class="text-dark-white fw-700">Items subtotal:</span> <span class="text-dark-white fw-700">'+(subtotal).toFixed(2)+'</span>'+
 						 ' </div> <div class="empty-bag padding-15"> <a href="javascript:void(0)" onclick="clearCartList()">Empty bag</a> </div> </div>');
-				 
 				
+				 $("#cart_item_count").html(table.length);
+				 
 		}
 		
 		function deleteItemFromCart(elem) {
 			 
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue); 
-			console.log(table);
+			//console.log(table);
 			 
 			table.splice(elem, 1); 
 			sessionStorage.setItem("cartValue", JSON.stringify(table)); 
@@ -825,6 +833,7 @@
 			}
 			$("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.spRateAmt+'/-'); 
 			$("#descriptionPlaceOrder").html('<a href="javascript:void(0)" onclick="addTocart(0,'+obj.itemId+')">Place Order</a>'); 
+			$("#itemQty").val(1); 
 			document.getElementById("loaderimg").style.display = "none";
 			 
 		}
