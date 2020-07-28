@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class OrderController {
 
 	List<ItemDisplay> itemList = new ArrayList<>();
-	
+
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -92,11 +92,16 @@ public class OrderController {
 
 		return "addOrder";
 	}
-	
-	
+
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
 
+		try {
+			ObjectMapper Obj = new ObjectMapper();
+			String jsonStr = Obj.writeValueAsString(itemList);
+			model.addAttribute("jsonList", jsonStr);
+		} catch (IOException e) {
+		}
 		return "checkout";
 	}
 }

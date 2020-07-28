@@ -2,8 +2,12 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-<body onload="appendTableList()">
-
+<body onload="appendTableList()" data-customvalueone='${jsonList}'>
+	<div class="loader" id="loaderimg" style="display: none;">
+		<img
+			src="${pageContext.request.contextPath}/resources/assets/img/svg/loader.svg"
+			alt="">
+	</div>
 	<section class="final-order section-padding bg-light-grey">
 		<div class="container-fluid">
 
@@ -527,7 +531,7 @@
 						<img src="https://via.placeholder.com/200" alt="">
 					</div>
 					<div class="disc_pop_r">
-						<h3 class="restro-nm">
+						<h3 class="restro-nm" id="discriptionHeading">
 							<img
 								src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png"
 								alt=""> Curry Leaves Barbecuing and Grilling <span>Sharanpur
@@ -535,16 +539,17 @@
 						</h3>
 
 						<div class="pop_disc">
-							<span>Category -</span> Pizza
+							<span>Category :</span> <span id="discriptionCatName">Pizza</span>
 						</div>
 
 						<div class="pop_disc">
-							<span>Discription -</span> Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-							labore et dolore magna aliqua.
+							<span>Discription :</span> <span id="discriptionItemShow">Lorem
+								ipsum dolor sit amet, consectetur adipiscing elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 						</div>
 
-						<div class="product-list-type hotel_nm pop_disc">
+						<div class="product-list-type hotel_nm pop_disc"
+							id="discriptionTaste">
 							<span class="text-light-white new strong_fnt">New</span> <span
 								class="text-custom-white square-tag"><img
 								src="/ck/resources/assets/img/chilli_1.jpg" alt="tag"></span> <span
@@ -558,8 +563,8 @@
 
 
 						<div class="rating_row_one">
-							<div class="ratings rating_l">
-								<span class="strong_fnt">Rating -</span> <span
+							<div class="ratings rating_l" id="discriptionRating">
+								<span class="strong_fnt">Rating : </span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
 									class="text-yellow"><i class="fas fa-star"></i></span> <span
@@ -568,49 +573,16 @@
 							</div>
 
 							<div class="rate_ting">
-								<span class="strong_fnt">Time -</span> 30-40 mins
+								<span class="strong_fnt">Time :</span> <span id="discriptionMin">
+									30-40 mins</span>
 							</div>
 							<div class="rate_prc">
-								<div class="offer_price">
+								<div class="offer_price" id="discriptionPrice">
 									<span>Rs.250</span> Rs.180/-
 								</div>
 							</div>
 
 						</div>
-
-
-						<!--related Causin-->
-						<%-- <div class="pop_cousin pop_disc">
-							<span class="pop_disc">Related Items </span>
-							<ul>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
-										class="rounded-circle" alt="categories"> Italian
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
-										class="rounded-circle" alt="categories"> Thai
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
-										class="rounded-circle" alt="categories"> Chinese
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
-										class="rounded-circle" alt="categories"> Maxican
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
-										class="rounded-circle" alt="categories"> Indian
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
-										class="rounded-circle" alt="categories"> Lebanese
-								</a></li>
-							</ul>
-						</div> --%>
-
-
 
 					</div>
 					<div class="clr"></div>
@@ -642,7 +614,9 @@
 
 			for (var i = 0; i < table.length; i++) {
 
-				var tr_data = '<tr> <td class="user-name menu_nm"><a href="#" data-toggle="modal" data-target="#discription">'
+				var tr_data = '<tr> <td class="user-name menu_nm"><a href="javascript:void(0)"  onclick="itemDetailDesc('
+						+ table[i].itemId
+						+ ')">'
 						+ table[i].itemName
 						+ '<td class="user-name"><input name="item_qty_table'
 						+ i
@@ -706,6 +680,105 @@
 
 			sessionStorage.setItem("cartValue", JSON.stringify(table));
 			appendTableList();
+		}
+
+		function itemDetailDesc(item) {
+			var valuePassedFromJSP = $("body").attr("data-customvalueone");
+			var objson = $.parseJSON(valuePassedFromJSP);
+			//console.log(objson);
+			document.getElementById("loaderimg").style.display = "block";
+			for (var i = 0; i < objson.length; i++) {
+
+				if (item == objson[i].itemId) {
+					var obj = objson[i];
+
+					$('#discription').modal('show');
+
+					if (obj.productCategory == 2) {
+
+						$("#discriptionHeading")
+								.html(
+										'<img src="${pageContext.request.contextPath}/resources/assets/img/non_veg_symbol.png" '+
+								'alt=""> '
+												+ obj.itemName
+												+ '<span></span>');
+					} else {
+						/* $("#discriptionHeading").append('<img src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png" '+
+								'alt=""> '+obj.itemName+'<span></span>'); */
+						$("#discriptionHeading")
+								.html(
+										'<img src="${pageContext.request.contextPath}/resources/assets/img/veg_symbol.png" '+
+								'alt=""> '
+												+ obj.itemName
+												+ '<span></span>');
+					}
+					$("#discriptionCatName").html(obj.catName);
+					$("#discriptionItemShow").html(obj.itemDesc);
+
+					var testIngradiant = '<span class="text-light-white new strong_fnt">New</span>';
+					for (var i = 0; i < obj.tasteList.length; i++) {
+						testIngradiant += '<span class="text-custom-white square-tag"><img title="'
+								+ obj.tasteList[i].ingrediantName
+								+ '" '
+								+ 'src="${catImageUrl}'
+								+ obj.tasteList[i].ingrediantImage
+								+ '" alt="tag" onerror="imgErrorJavascript(this,1);"></span>';
+					}
+					$("#discriptionTaste").html(testIngradiant);
+					$("#discriptionRating").html(
+							'<span class="strong_fnt">Rating :</span>');
+
+					if (obj.rating == 1) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span>');
+					} else if (obj.rating == 1.5) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+					} else if (obj.rating == 2) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+					} else if (obj.rating == 2.5) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+					} else if (obj.rating == 3) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+					} else if (obj.rating == 3.5) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+					} else if (obj.rating == 4) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+					} else if (obj.rating == 4.5) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star-half-alt"></i></span>');
+					} else if (obj.rating == 5) {
+						$("#discriptionRating")
+								.append(
+										'<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>'
+												+ '<span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span><span class="text-yellow"><i class="fas fa-star"></i></span>');
+					}
+					$("#discriptionMin").html(obj.preperationTime);
+
+					$("#discriptionPrice").html(
+							'<span>Rs.' + obj.mrpAmt + '</span> Rs.'
+									+ obj.spRateAmt + '/-');
+
+					break;
+				}
+
+			}
+
+			document.getElementById("loaderimg").style.display = "none";
+
 		}
 	</script>
 

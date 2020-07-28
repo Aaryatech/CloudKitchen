@@ -71,6 +71,21 @@
 	}
 </script>
 <script>
+	function imgErrorJavascript(image, type) {
+		//alert(imagepath)
+		image.onerror = "";
+		if (type == 1) {
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';//taste
+		} else if (type == 2) {
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';//related item
+		} else if (type == 3) {
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';//offer
+		}
+
+		return true;
+	}
+</script>
+<script>
 	$(".country").select2({
 		placeholder : "Select Option",
 		allowClear : false
