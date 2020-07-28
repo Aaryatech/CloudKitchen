@@ -263,9 +263,11 @@
 							</a>
 							<div class="cart-detail-box">
 								<div class="card">
-									<div class="card-header padding-15">Your Order</div>
-									<div class="card-body no-padding">
-										<div class="cat-product-box">
+									<div class="card-header padding-15">${sessionScope.liveCustomer.custName},${sessionScope.liveCustomer.phoneNumber}<br>
+										Your Order
+									</div>
+									<div class="card-body no-padding" id="item_cart_list">
+										<!-- <div class="cat-product-box">
 											<div class="cat-product">
 												<div class="cat-name">
 													<a href="#">
@@ -324,11 +326,11 @@
 													<a href="#" class="text-dark-white fw-500"> $2.25 </a>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<div class="item-total">
 											<div class="total-price border-0">
 												<span class="text-dark-white fw-700">Items subtotal:</span>
-												<span class="text-dark-white fw-700">$9.99</span>
+												<span class="text-dark-white fw-700">00.00</span>
 											</div>
 											<div class="empty-bag padding-15">
 												<a href="#">Empty bag</a>

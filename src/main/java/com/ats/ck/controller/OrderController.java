@@ -1,5 +1,6 @@
 package com.ats.ck.controller;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @Scope("session")
@@ -66,6 +68,17 @@ public class OrderController {
 
 			List<ItemDisplay> itemList = getAllDataByFr.getItemData();
 			model.addAttribute("itemList", itemList);
+
+			ObjectMapper Obj = new ObjectMapper();
+
+			try {
+
+				String jsonStr = Obj.writeValueAsString(itemList);
+				model.addAttribute("jsonList", jsonStr);
+			} catch (IOException e) {
+			}
+
+			System.out.println(session.getAttribute("jsonList"));
 
 		} catch (Exception e) {
 

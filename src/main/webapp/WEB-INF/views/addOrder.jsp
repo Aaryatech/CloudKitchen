@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header1.jsp"></jsp:include>
-<body>
+<body onload="appendCartList()">
+	<%-- data-customvalueone='${jsonList}' --%>
 
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
@@ -592,12 +593,16 @@
 
 						<div class="button_row bottom">
 							<div class="button_row_l">
-								<input name="" type="text" class="table_inpt quantity1"
-									placeholder="Quantity">
+								<input name="itemQty" type="text"
+									class="table_inpt quantity1 numbersOnly" placeholder="Quantity"
+									id="itemQty">
 							</div>
-							<div class="order_now button_row_r">
-								<a href="#">Place Order</a>
+							<span style="color: red; display: none;" id="qty_error">*
+								Enter valid QTY</span>
+							<div class="order_now button_row_r" id="descriptionPlaceOrder">
+								<a href="#" onclick="addTocart(0)">Place Order</a>
 							</div>
+
 						</div>
 
 
@@ -663,13 +668,107 @@
 			myFunction1();
 		}); */
 
- 
+		jQuery('.numbersOnly').keyup(function() {
+			this.value = this.value.replace(/[^0-9\.]/g, '');
+		});
+		
+		 
+		
+		function addTocart(type,itemId) {
+			
+			var qty = $('#itemQty').val();
+			var isError = false;
+			
+			$("#qty_error").hide();
+			
+			if(qty<1){
+				isError = true;
+				$("#qty_error").show();
+			}
+			
+			if (!isError) {
+				
+				$('#discription').modal('hide'); 
+				
+				var cartValue = sessionStorage.getItem("cartValue");
+				 var table = $.parseJSON(cartValue);
+				 
+				var data = $("#detail"+itemId).attr("data-id");
+				var obj = $.parseJSON(data); 
+				var total = obj.spRateAmt*qty;
+				 table.push({
+					  itemId: obj.itemId,
+					  price: obj.spRateAmt,
+					  itemName: obj.itemName,
+					  qty: qty,
+					  total: total
+				});
+				 sessionStorage.setItem("cartValue", JSON.stringify(table)); 
+				 appendCartList();
+			}
+			 
+				
+		}
+		
+		function appendCartList() {
+			 
+			if(sessionStorage.getItem("cartValue") == null)
+			{
+				var table =[];
+				sessionStorage.setItem("cartValue", JSON.stringify(table));
+			}
+			
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue); 
+			console.log(table);
+			
+				 $("#item_cart_list").html('');
+				 
+				 var subtotal = 0;
+				 for(var i = 0 ; i<table.length ; i++){
+					 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
+							 '<a href="javascript:void(0)" title="'+table[i].itemName+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
+							 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
+							 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
+							 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
+					 subtotal=parseFloat(subtotal)+parseFloat((table[i].total).toFixed(2));
+				 }
+				 
+				 $("#item_cart_list").append('<div class="item-total"> <div class="total-price border-0">'+
+						 '<span class="text-dark-white fw-700">Items subtotal:</span> <span class="text-dark-white fw-700">'+(subtotal).toFixed(2)+'</span>'+
+						 ' </div> <div class="empty-bag padding-15"> <a href="javascript:void(0)" onclick="clearCartList()">Empty bag</a> </div> </div>');
+				 
+				
+		}
+		
+		function deleteItemFromCart(elem) {
+			 
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue); 
+			console.log(table);
+			 
+			table.splice(elem, 1); 
+			sessionStorage.setItem("cartValue", JSON.stringify(table)); 
+			appendCartList();
+				
+		}
+		function clearCartList() {
+			 
+			var table =[];
+			sessionStorage.setItem("cartValue", JSON.stringify(table));
+			appendCartList();
+				
+		}
+		
 		function itemDetailDesc(item) {
-	 
+			/* var valuePassedFromJSP = $("body").attr("data-customvalueone");
+			 var objson = $.parseJSON(valuePassedFromJSP); 
+			console.log(objson);   */
+			
 			document.getElementById("loaderimg").style.display = "block";
 			 var id = $("#detail"+item).attr("data-id");
 			 var obj = $.parseJSON(id); 
-			console.log(obj); 
+			
 			$('#discription').modal('show'); 
 			
 			if(obj.productCategory==2){
@@ -725,8 +824,9 @@
 				$("#discriptionRelatedItem").append('-'); 
 			}
 			$("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.spRateAmt+'/-'); 
-			
+			$("#descriptionPlaceOrder").html('<a href="javascript:void(0)" onclick="addTocart(0,'+obj.itemId+')">Place Order</a>'); 
 			document.getElementById("loaderimg").style.display = "none";
+			 
 		}
 		
 		function onchangeSearchBy() {
