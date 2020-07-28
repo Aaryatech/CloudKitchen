@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-<body>
+<body onload="appendTableList()">
 
 	<section class="final-order section-padding bg-light-grey">
 		<div class="container-fluid">
@@ -14,7 +14,7 @@
 					<div class="main-box padding-20">
 						<div class="component1">
 							<!-- order history table-->
-							<table class="one booking" width="100%">
+							<table class="one booking" width="100%" id="printtable1">
 								<thead>
 									<tr>
 										<th class="sorting_desc" style="text-align: center;">Order
@@ -43,54 +43,6 @@
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 									</tr>
 									<!--1 row-->
-									<tr>
-										<td class="user-name menu_nm">Bread Butter</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name" style="text-align: right;">50.0</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name" style="text-align: right;">250.00</td>
-										<td class="user-name"><a href="#" class="trash"><i
-												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name menu_nm">Bread Butter</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name" style="text-align: right;">50.0</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name" style="text-align: right;">250.00</td>
-										<td class="user-name"><a href="#" class="trash"><i
-												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name menu_nm">Bread Butter</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name" style="text-align: right;">50.0</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name" style="text-align: right;">250.00</td>
-										<td class="user-name"><a href="#" class="trash"><i
-												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-									</tr>
-									<!--1 row-->
-									<tr>
-										<td class="user-name menu_nm">Bread Butter</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt quantity" placeholder="5" /></td>
-										<td class="user-name" style="text-align: right;">50.0</td>
-										<td class="user-name"><input name="" type="text"
-											class="table_inpt" placeholder="Extra Butter Souce" /></td>
-										<td class="user-name" style="text-align: right;">250.00</td>
-										<td class="user-name"><a href="#" class="trash"><i
-												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-									</tr>
-
 								</tbody>
 							</table>
 
@@ -98,33 +50,33 @@
 							<div class="check_total">
 								<div class="total-row">
 									<div class="total-row_l">Items sub total</div>
-									<div class="total-row_r">1500.00</div>
+									<div class="total-row_r" id="item_sub_total">00.00</div>
 									<div class="clr"></div>
 								</div>
 								<div class="total-row">
 									<div class="total-row_l">Tax</div>
-									<div class="total-row_r">50.00</div>
+									<div class="total-row_r" id="taxAmt">00.00</div>
 									<div class="clr"></div>
 								</div>
 
 								<div class="total-row">
-									<div class="total-row_l">Offer Disc AMT</div>
+									<div class="total-row_l" id="discAmt">Offer Disc AMT</div>
 									<div class="total-row_r">00.00</div>
 									<div class="clr"></div>
 								</div>
 								<div class="total-row free">
 									<div class="total-row_l">Delivery Charges</div>
 									<div class="total-row_r">
-										<input name="" type="text" class="table_inpt"
-											placeholder=" Delivery Free" value="50"
-											style="text-align: right;" />
+										<input name="deliveryCharges" id="deliveryCharges" type="text"
+											class="table_inpt" placeholder=" Delivery Free" value="50"
+											onchange="appendTableList()" style="text-align: right;" />
 									</div>
 									<div class="clr"></div>
 
 								</div>
 								<div class="total_bx">
 									<div class="total-row_l">Total</div>
-									<div class="total-row_r">1600.00</div>
+									<div class="total-row_r" id="bill_total">50.00</div>
 									<div class="clr"></div>
 
 								</div>
@@ -625,7 +577,7 @@
 
 
 						<!--related Causin-->
-						<div class="pop_cousin pop_disc">
+						<%-- <div class="pop_cousin pop_disc">
 							<span class="pop_disc">Related Items </span>
 							<ul>
 								<li><a href="#"> <img
@@ -653,19 +605,10 @@
 										class="rounded-circle" alt="categories"> Lebanese
 								</a></li>
 							</ul>
-						</div>
+						</div> --%>
 
 
 
-
-						<!-- <div class="product-list-type hotel_nm">
-                                    <span class="text-light-white new pop_ordered">New</span>
-                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/004-leaf.svg" alt="tag"></span>
-                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/006-chili.svg" alt="tag"></span>
-                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/005-chef.svg" alt="tag"></span>
-                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/008-protein.svg" alt="tag"></span>
-                                    <span class="text-custom-white square-tag"><img src="${pageContext.request.contextPath}/resources/assets/img/svg/009-lemon.svg" alt="tag"></span>
-                                  </div> -->
 					</div>
 					<div class="clr"></div>
 				</div>
@@ -679,15 +622,84 @@
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
+
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#respMenu").aceResponsiveMenu({
-				resizeWidth : '768', // Set the same in Media query
-				animationSpeed : 'fast', //slow, medium, fast
-				accoridonExpAll : false
-			//Expands all the accordion menu on click
-			});
-		});
+		function appendTableList() {
+
+			if (sessionStorage.getItem("cartValue") == null) {
+				var table = [];
+				sessionStorage.setItem("cartValue", JSON.stringify(table));
+			}
+
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue);
+
+			$("#printtable1 tbody").empty();
+			var subtotal = 0;
+
+			for (var i = 0; i < table.length; i++) {
+
+				var tr_data = '<tr> <td class="user-name menu_nm"><a href="#" data-toggle="modal" data-target="#discription">'
+						+ table[i].itemName
+						+ '<td class="user-name"><input name="item_qty_table'
+						+ i
+						+ '" type="text" class="table_inpt quantity numbersOnly" placeholder="0" value="'
+						+ table[i].qty
+						+ '" onchange="changeQty('
+						+ i
+						+ ')" id="item_qty_table'
+						+ i
+						+ '"/></td>'
+						+ '<td class="user-name" style="text-align: right;">'
+						+ table[i].price
+						+ '</td>'
+						+ '<td class="user-name"><input name="" type="text" class="table_inpt" placeholder="Special Note" /></td>'
+						+ '<td class="user-name" style="text-align: right;">'
+						+ (table[i].total).toFixed(2)
+						+ '</td>'
+						+ '<td class="user-name"><a   class="trash" href="javascript:void(0)" onclick="deleteItemFromTable('
+						+ i
+						+ ')"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td> </tr>'
+				$('#printtable1').append(tr_data);
+				subtotal = parseFloat(subtotal)
+						+ parseFloat((table[i].total).toFixed(2));
+			}
+
+			$("#item_sub_total").html(subtotal.toFixed(2));
+			var deliveryCharges = parseFloat($("#deliveryCharges").val());
+			$("#bill_total").html((subtotal + deliveryCharges).toFixed(2));
+		}
+
+		function deleteItemFromTable(elem) {
+
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue);
+			//console.log(table);
+
+			table.splice(elem, 1);
+			sessionStorage.setItem("cartValue", JSON.stringify(table));
+			appendTableList();
+
+		}
+
+		function changeQty(index) {
+
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue);
+			//console.log(table);
+			for (var i = 0; i < table.length; i++) {
+
+				if (index == i) {
+
+					var qty = parseFloat($("#item_qty_table" + i).val());
+					table[i].qty = parseFloat(qty);
+					table[i].total = table[i].qty * table[i].price;
+				}
+			}
+
+			sessionStorage.setItem("cartValue", JSON.stringify(table));
+			appendTableList();
+		}
 	</script>
 
 </body>

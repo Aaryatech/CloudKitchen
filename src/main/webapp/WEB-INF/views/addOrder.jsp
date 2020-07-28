@@ -33,7 +33,7 @@
 													<img alt="Trending This Week"
 														src="${catImageUrl}${offerList.imageList[0].imageName}"
 														loading="lazy" class="s1isp7-4 bBALuk"
-														onerror="imgErrorJavascript(this,3);">
+														onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';">
 												</div>
 												<section class="sc-cOoQYZ eGlRiQ">
 													<section class="sc-ddcOto lMfoD">
@@ -41,7 +41,8 @@
 															${offerList.offerName}</p>
 														<div class="sc-jrOYZv gkgQzg">
 															<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">
-																Date : ${offerList.fromDate} to ${offerList.toDate}<%-- <br>Time
+																Date : ${offerList.fromDate} to ${offerList.toDate}
+																<%-- <br>Time
 																: ${offerList.fromTime} to ${offerList.toTime} --%>
 															</h6>
 															<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
@@ -186,7 +187,7 @@
 											<img
 												src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
 												class="rounded-circle" alt="categories"
-												onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/chinese.jpg');">
+												onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
 										</div> <span class="text-light-black cat-name fw-500">All</span>
 									</a>
 								</div>
@@ -201,7 +202,7 @@
 												class="icon icon-parent text-custom-white bg-light-green">
 												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
 													class="rounded-circle" alt="categories"
-													onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/chinese.jpg');">
+													onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
 											</div> <span class="text-light-black cat-name fw-500">${catList.catName}</span>
 										</a>
 									</div>
@@ -360,7 +361,7 @@
 														title="${tasteList.ingrediantName}"
 														src="${catImageUrl}/${tasteList.ingrediantImage}"
 														alt="tag"
-														onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg');"></span>
+														onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_1.jpg';"></span>
 												</c:forEach>
 
 											</div>
@@ -657,21 +658,7 @@
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
-	<script>
-	function imgErrorJavascript(image,type) {
-		//alert(imagepath)
-		image.onerror = "";
-		if(type==1){
-			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';//taste
-		}else if(type==2){
-			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';//related item
-		}else if(type==3){
-			image.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';//offer
-		}
-		
-		return true;
-	}
-</script>
+
 	<script>
 		/* $('#range').click(function(e) {
 			myFunction1();
@@ -680,9 +667,7 @@
 		jQuery('.numbersOnly').keyup(function() {
 			this.value = this.value.replace(/[^0-9\.]/g, '');
 		});
-		
 		 
-		
 		function addTocart(type,itemId) {
 			
 			var qty = 1;
@@ -757,14 +742,21 @@
 				 $("#item_cart_list").html('');
 				 
 				 var subtotal = 0;
-				 for(var i = 0 ; i<table.length ; i++){
-					 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
-							 '<a href="javascript:void(0)" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
-							 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
-							 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
-							 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
-					 subtotal=parseFloat(subtotal)+parseFloat((table[i].total).toFixed(2));
-				 }
+				 
+				 try {
+					 for(var i = 0 ; i<table.length ; i++){
+						 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
+								 '<a href="javascript:void(0)" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
+								 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
+								 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
+								 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
+						 subtotal=parseFloat(subtotal)+parseFloat((table[i].total).toFixed(2));
+					 }
+					}
+					catch(err) {
+						
+					}
+				 
 				 
 				 $("#item_cart_list").append('<div class="item-total"> <div class="total-price border-0">'+
 						 '<span class="text-dark-white fw-700">Items subtotal:</span> <span class="text-dark-white fw-700">'+(subtotal).toFixed(2)+'</span>'+
@@ -1071,7 +1063,21 @@
 
 		}).call(this);
 	</script>
-
+	<script>
+	function imgErrorJavascript(image,type) {
+		//alert(imagepath)
+		image.onerror = "";
+		if(type==1){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/chilli_2.jpg';//taste
+		}else if(type==2){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/italian.jpg';//related item
+		}else if(type==3){
+			image.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';//offer
+		}
+		
+		return true;
+	}
+</script>
 
 </body>
 

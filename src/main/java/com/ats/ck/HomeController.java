@@ -297,13 +297,7 @@ public class HomeController {
 		}
 		return cityList;
 	}
-
-	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		return "checkout";
-	}
-
+ 
 	@RequestMapping(value = "/googleMap", method = RequestMethod.GET)
 	public String googleMap(HttpServletRequest request, HttpServletResponse response, Model model) {
 

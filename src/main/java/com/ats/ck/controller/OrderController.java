@@ -90,4 +90,11 @@ public class OrderController {
 
 		return "addOrder";
 	}
+	
+	
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		return "checkout";
+	}
 }

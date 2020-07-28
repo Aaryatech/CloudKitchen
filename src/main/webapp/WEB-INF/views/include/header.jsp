@@ -183,9 +183,8 @@
 							<a href="#" class="text-custom-white fw-500"> <img
 								src="${sessionScope.profilePicUrl}${sessionScope.userInfo.profilePic}"
 								class="rounded-circle user_pic_round" alt="userimg"
-								onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/default-user.jpg');"
-								> <span>Hi,
-									${sessionScope.userInfo.userName}</span>
+								onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg';">
+								<span>Hi, ${sessionScope.userInfo.userName}</span>
 							</a>
 							<div class="user-dropdown">
 								<ul>
@@ -238,7 +237,7 @@
 						</div>
 
 						<!-- user cart -->
-						<div class="cart-btn cart-dropdown">
+						<%-- <div class="cart-btn cart-dropdown">
 							<a href="#" class="text-custom-white fw-700"> <i
 								class="fas fa-shopping-bag"></i> <span class="user-alert-cart">3</span>
 							</a>
@@ -323,7 +322,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> --%>
 						<!-- user cart -->
 
 

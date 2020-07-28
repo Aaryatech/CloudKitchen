@@ -202,7 +202,7 @@
 							<a href="#" class="text-custom-white fw-500"> <img
 								src="${sessionScope.profilePicUrl}${sessionScope.userInfo.profilePic}"
 								class="rounded-circle" alt="userimg"
-								onerror="imgError(this,'${pageContext.request.contextPath}/resources/assets/img/default-user.jpg');"
+								onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg';"
 								style="width: 30px; height: 30px;"> <span>Hi,
 									${sessionScope.userInfo.userName}</span>
 							</a>
