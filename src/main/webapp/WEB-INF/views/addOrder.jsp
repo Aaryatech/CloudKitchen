@@ -687,7 +687,7 @@
 			
 			$("#qty_error").hide();
 			
-			if(qty<1){
+			if(qty<=0){
 				isError = true;
 				$("#qty_error").show();
 			}
@@ -697,18 +697,35 @@
 				$('#discription').modal('hide'); 
 				
 				var cartValue = sessionStorage.getItem("cartValue");
-				 var table = $.parseJSON(cartValue);
+				var table = $.parseJSON(cartValue);
+				var findItem=0;
 				 
 				var data = $("#detail"+itemId).attr("data-id");
 				var obj = $.parseJSON(data); 
-				var total = obj.spRateAmt*qty;
-				 table.push({
-					  itemId: obj.itemId,
-					  price: obj.spRateAmt,
-					  itemName: obj.itemName,
-					  qty: qty,
-					  total: total
-				});
+				
+				for(var i = 0 ; i<table.length ; i++){
+					
+					if(table[i].itemId==itemId){
+						table[i].itemName=obj.itemName;
+						table[i].price=obj.spRateAmt;
+						table[i].qty=parseFloat(table[i].qty)+parseFloat(qty);
+						table[i].total=table[i].qty*table[i].price;
+						findItem=1;
+						break;
+					}
+				}
+				
+				if(findItem==0){
+					var total = obj.spRateAmt*qty;
+					 table.push({
+						  itemId: obj.itemId,
+						  price: obj.spRateAmt,
+						  itemName: obj.itemName,
+						  qty: qty,
+						  total: total
+					});
+				}
+				
 				 sessionStorage.setItem("cartValue", JSON.stringify(table)); 
 				 appendCartList();
 			}
@@ -734,7 +751,7 @@
 				 var subtotal = 0;
 				 for(var i = 0 ; i<table.length ; i++){
 					 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
-							 '<a href="javascript:void(0)" title="'+table[i].itemName+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
+							 '<a href="javascript:void(0)" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
 							 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
 							 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
 							 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
