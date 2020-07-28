@@ -12,9 +12,10 @@
 
 				<div class="col-lg-9">
 					<div class="main-box padding-20">
+
 						<div class="component1">
 							<!-- order history table-->
-							<table class="one booking" width="100%" id="printtable1">
+							<table class="overflow-y" id="printtable1">
 								<thead>
 									<tr>
 										<th class="sorting_desc" style="text-align: center;">Order
@@ -504,6 +505,8 @@
 
 
 				</div>
+			</div>
+		</div>
 	</section>
 
 	<div class="modal fade kot-popup" id="discription">
@@ -687,11 +690,15 @@
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue);
 			//console.log(table);
+			var qty = parseFloat($("#item_qty_table" + index).val());
+			if (isNaN(qty) == true || qty <= 0) {
+				qty = 1;
+			}
+
 			for (var i = 0; i < table.length; i++) {
 
 				if (index == i) {
 
-					var qty = parseFloat($("#item_qty_table" + i).val());
 					table[i].qty = parseFloat(qty);
 					table[i].total = table[i].qty * table[i].price;
 				}

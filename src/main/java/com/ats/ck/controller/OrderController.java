@@ -37,6 +37,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Scope("session")
 public class OrderController {
 
+	List<ItemDisplay> itemList = new ArrayList<>();
+	
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -67,7 +69,7 @@ public class OrderController {
 			List<Tags> tagList = getAllDataByFr.getTagsData();
 			model.addAttribute("tagList", tagList);
 
-			List<ItemDisplay> itemList = getAllDataByFr.getItemData();
+			itemList = getAllDataByFr.getItemData();
 			model.addAttribute("itemList", itemList);
 
 			List<OfferHeader> offerList = getAllDataByFr.getOfferData();
