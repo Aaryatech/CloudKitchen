@@ -757,33 +757,44 @@
 
 									</select>
 								</div>
-
-
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addressListForOrder">*
+								This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Shop</span>
 								<div class="search_multiple">
-									<select class="country">
+									<select class="country" id="frIdForOrder" name="frIdForOrder">
 										<c:forEach items="${franchiseList}" var="franchiseList">
 											<option value="${franchiseList.frId}">${franchiseList.frName}</option>
 										</c:forEach>
 									</select>
 								</div>
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_frIdForOrder">* This
+								field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Delivery Date</span> <input type="text" id="datepicker1"
-									name="datepicker1" class="frm_inpt datepicker">
+								<span>Delivery Date</span> <input type="text" id="orderDate"
+									name="orderDate" class="frm_inpt datepicker">
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_orderDate">* This
+								field required.</span>
 						</div>
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<input name="" type="time" class="frm_inpt" />
+								<input name="orderTime" id="orderTime" type="time"
+									class="frm_inpt" />
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_orderTime">* This
+								field required.</span>
 						</div>
 
 						<div class="pop_btn_row">
@@ -2240,28 +2251,52 @@
 		}
 		function changeStep(id) {
 
-			if (id == 2) {
-				$('#orderstep1').modal('hide');
-				$('#orderstep2').modal('show');
-				$('#orderstep3').modal('hide');
-				$('#orderstep4').modal('hide');
-			} else if (id == 3) {
-				$('#orderstep1').modal('hide');
-				$('#orderstep2').modal('hide');
-				$('#orderstep3').modal('show');
-				$('#orderstep4').modal('hide');
-			} else if (id == 4) {
-				$('#orderstep1').modal('hide');
-				$('#orderstep2').modal('hide');
-				$('#orderstep3').modal('hide');
-				$('#orderstep4').modal('show');
-			} else if (id == 5) {
-				$('#orderstep1').modal('hide');
-				$('#orderstep2').modal('hide');
-				$('#orderstep3').modal('hide');
-				$('#orderstep4').modal('hide');
-				var url = '${pageContext.request.contextPath}/addOrder';
-				window.location = url;
+			var isError = false;
+
+			$("#error_addressListForOrder").hide();
+			$("#error_frIdForOrder").hide();
+			$("#error_orderTime").hide();
+			$("#error_orderDate").hide();
+
+			if (!$("#addressListForOrder").val()
+					|| $("#addressListForOrder").val() == 0) {
+				isError = true;
+				$("#error_addressListForOrder").show();
+			}
+			if (!$("#frIdForOrder").val() || $("#frIdForOrder").val() == 0) {
+				isError = true;
+				$("#error_frIdForOrder").show();
+			}
+			if (!$("#orderTime").val()) {
+				isError = true;
+				$("#error_orderTime").show();
+			}
+			if (!$("#orderDate").val()) {
+				isError = true;
+				$("#error_orderDate").show();
+			}
+			if (!isError) {
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('addressId', $("#addressListForOrder").val());
+				fd.append('frIdForOrder', $("#frIdForOrder").val());
+				fd.append('orderTime', $("#orderTime").val());
+				fd.append('orderDate', $("#orderDate").val());
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/orderProcess',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								document.getElementById("loaderimg").style.display = "none";
+								var url = '${pageContext.request.contextPath}/addOrder';
+								window.location = url;
+							},
+						});
 			}
 			/* $('#modal_step1').modal('hide'); */
 		}
@@ -2276,57 +2311,7 @@
 			 
 			var tr_data = '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
 					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
-			tr_data = tr_data
-					+ '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>';
+					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>'; 
 			$('#printtable3').append(tr_data); */
 
 		}

@@ -111,7 +111,16 @@
 										<div class="head_search_r">
 											<select class="country top_drop_ones">
 												<c:forEach items="${franchiseList}" var="franchiseList">
-													<option value="${franchiseList.frId}">${franchiseList.frName}</option>
+													<c:choose>
+														<c:when
+															test="${sessionScope.frIdForOrder==franchiseList.frId}">
+															<option value="${franchiseList.frId}" selected>${franchiseList.frName}</option>
+														</c:when>
+														<c:otherwise>
+															<option value="${franchiseList.frId}">${franchiseList.frName}</option>
+														</c:otherwise>
+													</c:choose>
+
 												</c:forEach>
 
 											</select>

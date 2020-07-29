@@ -18,6 +18,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.model.CategoryData;
@@ -26,6 +27,7 @@ import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetSubCategoryData;
+import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.OfferHeader;
@@ -44,7 +46,7 @@ public class OrderController {
 
 		try {
 			HttpSession session = request.getSession();
-			int frId = 79;
+			int frId = (int) session.getAttribute("frIdForOrder");
 
 			model.addAttribute("frId", frId);
 
@@ -84,6 +86,9 @@ public class OrderController {
 			} catch (IOException e) {
 			}
 
+			System.out.println("sdf" + session.getAttribute("frIdForOrder"));
+			// model.addAttribute("frIdForOrder", session.getAttribute("frIdForOrder"));
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -93,15 +98,55 @@ public class OrderController {
 		return "addOrder";
 	}
 
+	@RequestMapping(value = "/orderProcess", method = RequestMethod.POST)
+	@ResponseBody
+	public Info orderProcess(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+
+			int addressId = Integer.parseInt(request.getParameter("addressId"));
+			int frIdForOrder = Integer.parseInt(request.getParameter("frIdForOrder"));
+			String orderTime = request.getParameter("orderTime");
+			String orderDate = request.getParameter("orderDate");
+ 
+			session.setAttribute("addressId", addressId);
+			session.setAttribute("frIdForOrder", frIdForOrder);
+			session.setAttribute("orderTime", orderTime);
+			session.setAttribute("orderDate", orderDate);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
+
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			ObjectMapper Obj = new ObjectMapper();
-			String jsonStr = Obj.writeValueAsString(itemList);
-			model.addAttribute("jsonList", jsonStr);
-		} catch (IOException e) {
+			/*
+			 * ObjectMapper Obj = new ObjectMapper(); String jsonStr =
+			 * Obj.writeValueAsString(itemList); model.addAttribute("jsonList", jsonStr);
+			 */
+		} catch (Exception e) {
 		}
 		return "checkout";
+	}
+
+	@RequestMapping(value = "/getItemList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ItemDisplay> getItemList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+			/*
+			 * ObjectMapper Obj = new ObjectMapper(); String jsonStr =
+			 * Obj.writeValueAsString(itemList); model.addAttribute("jsonList", jsonStr);
+			 */
+		} catch (Exception e) {
+		}
+		return itemList;
 	}
 }

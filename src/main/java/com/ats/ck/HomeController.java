@@ -46,6 +46,7 @@ import com.ats.ck.model.ErrorMessage;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.Info;
+import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
@@ -252,18 +253,18 @@ public class HomeController {
 
 			session.setAttribute("liveCustomer", customer);
 
-
 			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
 					GetFranchiseData.class);
 			List<FranchiseData> franchiseList = frData.getFranchise();
 			model.addAttribute("franchiseList", franchiseList);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "dashboard";
 	}
 
+	 
 	@RequestMapping(value = "/getAreaListByCity", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Area> getAreaListByCity(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -297,7 +298,7 @@ public class HomeController {
 		}
 		return cityList;
 	}
- 
+
 	@RequestMapping(value = "/googleMap", method = RequestMethod.GET)
 	public String googleMap(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -705,6 +706,15 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
+
+	@RequestMapping(value = "/sessionTimeOut", method = RequestMethod.GET)
+	public String sessionTimeOut(HttpSession session) {
+		System.out.println("User Logout");
+
+		session.invalidate();
+		return "redirect:/";
+	}
+
 	/*
 	 * <script async defer src=
 	 * "https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&callback=initMap">

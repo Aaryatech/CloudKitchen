@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-<body onload="appendTableList()" data-customvalueone='${jsonList}'>
+<body onload="appendTableList();getItemList();"
+	data-customvalueone='${jsonList}'>
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
 			src="${pageContext.request.contextPath}/resources/assets/img/svg/loader.svg"
@@ -599,6 +600,28 @@
 	<!--Plugin Initialization-->
 
 	<script type="text/javascript">
+		function getItemList() {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getItemList',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							//alert(JSON.stringify(response))
+							sessionStorage.setItem("allItemList", JSON
+									.stringify(response));
+						},
+					});
+
+		}
+
 		function appendTableList() {
 
 			if (sessionStorage.getItem("cartValue") == null) {
@@ -683,8 +706,10 @@
 		}
 
 		function itemDetailDesc(item) {
-			var valuePassedFromJSP = $("body").attr("data-customvalueone");
-			var objson = $.parseJSON(valuePassedFromJSP);
+			
+			var allItemList = sessionStorage.getItem("allItemList");
+			var objson = $.parseJSON(allItemList);
+			 
 			//console.log(objson);
 			document.getElementById("loaderimg").style.display = "block";
 			for (var i = 0; i < objson.length; i++) {
@@ -781,6 +806,7 @@
 
 		}
 	</script>
+
 
 </body>
 
