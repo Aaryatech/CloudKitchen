@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 <body onload="appendTableList();getItemList();"
 	data-customvalueone='${jsonList}'>
@@ -96,11 +96,10 @@
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="instrac_nm">
-										<h2>John Doe</h2>
-										<h3>Home</h3>
-										<p>
-											314 79th Canada Corner<br> Near Arham Eye care Hospital<br>
-											Sharanpur Road, Nashik<br> (+91) 1234567890
+										<h2>${sessionScope.liveCustomer.custName}</h2>
+										<h3>${addressDetail.addressCaption}</h3>
+										<p>${addressDetail.address}
+											<br> (+91) 1234567890
 										</p>
 									</div>
 									<br>
@@ -121,8 +120,8 @@
 												<option value="1">COD</option>
 												<option value="2">Online Payment Link</option>
 											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
-												Date & Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">07-07-2020
-												12:03 PM, Order Time : 50 MIN</label><br> <label
+												Date & Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
+												${time}, Order Time : 50 MIN</label><br> <label
 												class="text-light-black fw-500 fs-14">Delivery
 												Option :&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
 												type="radio" id="homeDelivery" name="typeSelect"
@@ -132,13 +131,24 @@
 												name="typeSelect">Take Away</label><br> <label
 												class="text-light-black fw-500 fs-14">Select
 												Delivery Instruction</label><select class="form-control  ">
-												<option value="1">Predefined Options</option>
-												<option value="2">Other Options</option>
+												<c:forEach items="${deliveryInstructionList}"
+													var="deliveryInstructionList">
+													<option value="${deliveryInstructionList.instruId}">${deliveryInstructionList.instructnCaption}</option>
+												</c:forEach>
+
 											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
 												Instructions</label>
 											<textarea name="" cols="" rows="6"
 												class="form-control formcheck"
 												placeholder="Enter Your Delivery Instructions"></textarea>
+											<br> <label class="text-light-black fw-500 fs-14">Billing
+												Name</label> <input name="" class="form-control"
+												placeholder="Billing Name"
+												value="${sessionScope.liveCustomer.custName}" /> <br>
+											<label class="text-light-black fw-500 fs-14">Billing
+												Address</label>
+											<textarea name="" cols="" rows="6"
+												class="form-control formcheck" placeholder="Billing Address">${addressDetail.address}</textarea>
 
 										</div>
 									</div>
@@ -706,10 +716,10 @@
 		}
 
 		function itemDetailDesc(item) {
-			
+
 			var allItemList = sessionStorage.getItem("allItemList");
 			var objson = $.parseJSON(allItemList);
-			 
+
 			//console.log(objson);
 			document.getElementById("loaderimg").style.display = "block";
 			for (var i = 0; i < objson.length; i++) {

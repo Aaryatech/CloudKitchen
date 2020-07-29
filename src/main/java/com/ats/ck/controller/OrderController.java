@@ -3,8 +3,11 @@ package com.ats.ck.controller;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.model.CategoryData;
+import com.ats.ck.model.CustomerAddressDisplay;
+import com.ats.ck.model.DeliveryInstruction;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
@@ -86,7 +91,7 @@ public class OrderController {
 			} catch (IOException e) {
 			}
 
-			System.out.println("sdf" + session.getAttribute("frIdForOrder"));
+			// System.out.println("sdf" + session.getAttribute("frIdForOrder"));
 			// model.addAttribute("frIdForOrder", session.getAttribute("frIdForOrder"));
 
 		} catch (Exception e) {
@@ -111,7 +116,7 @@ public class OrderController {
 			int frIdForOrder = Integer.parseInt(request.getParameter("frIdForOrder"));
 			String orderTime = request.getParameter("orderTime");
 			String orderDate = request.getParameter("orderDate");
- 
+
 			session.setAttribute("addressId", addressId);
 			session.setAttribute("frIdForOrder", frIdForOrder);
 			session.setAttribute("orderTime", orderTime);
@@ -127,11 +132,48 @@ public class OrderController {
 	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
+
+			HttpSession session = request.getSession();
+
+			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custAddressId", session.getAttribute("addressId"));
+			CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+
+			model.addAttribute("addressDetail", addressDetail);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("compId", 1);
+			DeliveryInstruction[] deliveryInstruction = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getAllDeliveryInstructions", map, DeliveryInstruction[].class);
+			List<DeliveryInstruction> deliveryInstructionList = new ArrayList<>(Arrays.asList(deliveryInstruction));
+			model.addAttribute("deliveryInstructionList", deliveryInstructionList);
+
 			/*
-			 * ObjectMapper Obj = new ObjectMapper(); String jsonStr =
-			 * Obj.writeValueAsString(itemList); model.addAttribute("jsonList", jsonStr);
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("custAddressId",
+			 * session.getAttribute("addressId")); CustomerAddressDisplay addressDetail =
+			 * Constants.getRestTemplate() .postForObject(Constants.url +
+			 * "getCustomerAddressListById", map, CustomerAddressDisplay.class);
 			 */
+
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+			SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy");
+			String orderTime = (String) session.getAttribute("orderTime");
+			String orderDate = (String) session.getAttribute("orderDate");
+
+			String dttime = orderDate + " " + orderTime;
+			Date dt = sf.parse(dttime);
+
+			String time = timeFormat.format(dt);
+			String date = dateFormate.format(dt);
+			model.addAttribute("time", time);
+			model.addAttribute("date", date);
+
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "checkout";
 	}
