@@ -169,7 +169,7 @@
 				<div class="sec_title" id="tableHeaderName">Live Orders</div>
 
 				<div class="component">
-					<table class="overflow-y">
+					<table class="overflow-y" id="live_order_table">
 						<thead>
 							<tr>
 								<th></th>
@@ -193,7 +193,7 @@
 						</thead>
 						<tbody>
 							<!--1 row-->
-							<tr>
+							<%-- <tr>
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
@@ -220,8 +220,8 @@
 									class="detail_btn_round" title="Grievences"><i
 										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
-							</tr>
-							<!--1 row-->
+							</tr> --%>
+							<%-- <!--1 row-->
 							<tr>
 								<td class="user-name"><a href="#"
 									class="text-custom-white fw-500"> <img
@@ -280,7 +280,7 @@
 									class="detail_btn_round" title="Grievences"><i
 										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
 
-							</tr>
+							</tr> --%>
 
 						</tbody>
 					</table>
@@ -2472,7 +2472,49 @@
 
 			sessionStorage.removeItem("cartValue");
 			sessionStorage.removeItem("allItemList");
+			getLiveList();
 		});
+
+		function getLiveList() {
+
+			var fd = new FormData();
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getLiveList',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							$("#live_order_table tbody").empty();
+
+							for (var i = 0; i < response.length; i++) {
+								var tr_data = '<tr> <td class="user-name"><a href="#" class="text-custom-white fw-500"> '
+										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
+								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
+										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">0001</a></strong></td>'
+										+ '<td class="user-name">Neal Matthews 1</td> <td class="user-name">Madhavi</td>'
+										+ '<td class="user-name" style="text-align: center;">10-07-2020</td><td class="user-name">Web</td>'
+										+ '<td class="user-name">400.00</td> <td class="user-name"><span class="paid">Paid</span></td>'
+										+ '<td class="user-name">Online</td> <td class="user-name" style="text-align: center;">'
+										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
+										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)" data-toggle="modal" '
+										+ 'data-target="#cancelOrder" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" '+
+								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
+										+ ' class="detail_btn_round" title="Grievences">'
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
+								$('#live_order_table').append(tr_data);
+							}
+
+							//alert(JSON.stringify(response))
+						},
+					});
+
+			/* $('#modal_step1').modal('hide'); */
+		}
 	</script>
 </body>
 

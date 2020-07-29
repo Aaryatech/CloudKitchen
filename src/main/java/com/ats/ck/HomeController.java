@@ -45,6 +45,7 @@ import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.ErrorMessage;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.Language;
@@ -258,7 +259,7 @@ public class HomeController {
 			List<FranchiseData> franchiseList = frData.getFranchise();
 			model.addAttribute("franchiseList", franchiseList);
 			session.setAttribute("allowOrderandCheckoutPage", 0);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -285,6 +286,26 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return areaList;
+	}
+
+	@RequestMapping(value = "/getLiveList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<GetOrderHeaderList> getLiveList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		List<GetOrderHeaderList> list = new ArrayList<>();
+		try {
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("status", "0,1,2");
+
+			GetOrderHeaderList[] getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderListByStatus", map, GetOrderHeaderList[].class);
+			list = new ArrayList<>(Arrays.asList(getOrderHeaderList));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@RequestMapping(value = "/getCityList", method = RequestMethod.POST)
