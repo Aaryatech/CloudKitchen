@@ -624,8 +624,7 @@
 				for(var i = 0 ; i<table.length ; i++){
 					
 					if(table[i].itemId==itemId){
-						table[i].itemName=obj.itemName;
-						table[i].price=obj.spRateAmt;
+						 
 						table[i].qty=parseFloat(table[i].qty)+parseFloat(qty);
 						table[i].total=table[i].qty*table[i].price;
 						findItem=1;
@@ -640,7 +639,11 @@
 						  price: obj.spRateAmt,
 						  itemName: obj.itemName,
 						  qty: qty,
-						  total: total
+						  total: total,
+						  cgstPer : obj.cgstPer,
+						  sgstPer : obj.sgstPer,
+						  igstPer : obj.igstPer,
+						  specialremark : ''
 					});
 				}
 				
@@ -987,7 +990,7 @@
 			});
 
 		}).call(this);
-	</script> 
+	</script>
 </body>
 
 </html>

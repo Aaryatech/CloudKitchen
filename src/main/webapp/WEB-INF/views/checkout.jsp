@@ -61,7 +61,7 @@
 								</div>
 								<div class="total-row">
 									<div class="total-row_l">Tax</div>
-									<div class="total-row_r" id="taxAmt">00.00</div>
+									<div class="total-row_r" id="item_tax_total">00.00</div>
 									<div class="clr"></div>
 								</div>
 
@@ -425,8 +425,7 @@
 
 			var txt = $('#fav_item_text').val();
 
-			$('.fav_item_cls').hide();
-
+			$('.fav_item_cls').hide(); 
 			$('.fav_item_cls')
 					.each(
 							function(index) {
@@ -475,7 +474,9 @@
 
 			$("#printtable1 tbody").empty();
 			var subtotal = 0;
-
+			var taxtotal = 0;
+			var finaltotal = 0;
+			
 			for (var i = 0; i < table.length; i++) {
 
 				var tr_data = '<tr> <td class="user-name menu_nm"><a href="javascript:void(0)"  onclick="itemDetailDesc('
@@ -494,7 +495,9 @@
 						+ '<td class="user-name" style="text-align: right;">'
 						+ table[i].price
 						+ '</td>'
-						+ '<td class="user-name"><input name="" type="text" class="table_inpt" placeholder="Special Note" /></td>'
+						+ '<td class="user-name"><input name="specialRemark'+i+'" type="text" class="table_inpt" placeholder="Special Note" value="'+table[i].specialremark+'" id="specialRemark'+i+'" onchange="changeQty('
+						+ i
+						+ ')"/></td>'
 						+ '<td class="user-name" style="text-align: right;">'
 						+ (table[i].total).toFixed(2)
 						+ '</td>'
@@ -502,13 +505,18 @@
 						+ i
 						+ ')"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td> </tr>'
 				$('#printtable1').append(tr_data);
-				subtotal = parseFloat(subtotal)
-						+ parseFloat((table[i].total).toFixed(2));
+						
+				var baseValue = (parseFloat(table[i].total)*100)/(100+parseFloat(table[i].igstPer)).toFixed(2);
+				var taxAmt = parseFloat(table[i].total)-parseFloat(baseValue).toFixed(2); 
+				subtotal = parseFloat(subtotal)+parseFloat(baseValue);
+				taxtotal = parseFloat(taxtotal)+parseFloat(taxAmt); 
+				finaltotal = parseFloat(finaltotal)+parseFloat(table[i].total);
 			}
 
 			$("#item_sub_total").html(subtotal.toFixed(2));
+			$("#item_tax_total").html(taxtotal.toFixed(2));
 			var deliveryCharges = parseFloat($("#deliveryCharges").val());
-			$("#bill_total").html((subtotal + deliveryCharges).toFixed(2));
+			$("#bill_total").html((finaltotal + deliveryCharges).toFixed(2));
 		}
 
 		function addToTable(itemId) {
@@ -529,9 +537,7 @@
 						var findItem=0;
 						for(var i = 0 ; i<table.length ; i++){
 							
-							if(table[i].itemId==itemId){
-								table[i].itemName=obj.itemName;
-								table[i].price=obj.spRateAmt;
+							if(table[i].itemId==itemId){ 
 								table[i].qty=parseFloat(table[i].qty)+parseFloat(qty);
 								table[i].total=table[i].qty*table[i].price;
 								findItem=1;
@@ -545,7 +551,11 @@
 								  price: obj.spRateAmt,
 								  itemName: obj.itemName,
 								  qty: qty,
-								  total: total
+								  total: total,
+								  cgstPer : obj.cgstPer,
+								  sgstPer : obj.sgstPer,
+								  igstPer : obj.igstPer,
+								  specialremark : ''
 							});
 						}
 						break;
@@ -577,6 +587,8 @@
 			var table = $.parseJSON(cartValue);
 			//console.log(table);
 			var qty = parseFloat($("#item_qty_table" + index).val());
+			var splremark = $("#specialRemark" + index).val();
+			
 			if (isNaN(qty) == true || qty <= 0) {
 				qty = 1;
 			}
@@ -585,6 +597,7 @@
 
 				if (index == i) {
 
+					table[i].specialremark = splremark;
 					table[i].qty = parseFloat(qty);
 					table[i].total = table[i].qty * table[i].price;
 				}
