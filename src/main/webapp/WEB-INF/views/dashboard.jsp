@@ -12,6 +12,21 @@
 <%-- <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
 	rel="stylesheet" type="text/css" /> --%>
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
+<!--    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+-->
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 <body>
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
@@ -2463,6 +2478,30 @@
 			$('.fetch_results').find('textarea').val('');
 		});
 	</script>
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey : "AIzaSyBe2YU3P7ehVwd-WSKNSbpRCUbjOYAjVpw",
+			authDomain : "firbase-1fba8.firebaseapp.com",
+			databaseURL : "https://firbase-1fba8.firebaseio.com",
+			projectId : "firbase-1fba8",
+			storageBucket : "firbase-1fba8.appspot.com",
+			messagingSenderId : "188159878978",
+			appId : "1:188159878978:web:77d2e57846f034d0b0cadb",
+			measurementId : "G-859DV2EL3H"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		//firebase.database.Reference
+		//var database = firebase.database();
+		const messaging = firebase.messaging();
+		var today_date_temp = 't_order';
+		const dbrefObject = firebase.database().ref(today_date_temp);
+
+		/* messaging
+				.usePublicVapidKey('BCMRT4wtRInQjue7hAjVwcgdqcbfTF8cwYQk7qimWOBJqwNZNijKKj8Ev53TqiIX0yoDPGBFBk7ROkXQL_ti8z0'); */
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			setTimeout(function() {
@@ -2472,6 +2511,10 @@
 
 			sessionStorage.removeItem("cartValue");
 			sessionStorage.removeItem("allItemList");
+			//getLiveList();
+		});
+
+		dbrefObject.on('value', function(snapshot) {
 			getLiveList();
 		});
 
