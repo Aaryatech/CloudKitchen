@@ -583,7 +583,8 @@
 											"dateTime" : response.insertDateTime,
 											"frId" : response.frId,
 											"userId" : response.userId,
-											"orderId" : response.orderId
+											"orderId" : response.orderId,
+											"status" : response.status
 										}
 
 										var key = firebase.database().ref().child(today_date_temp+"/"+response.orderId).update(

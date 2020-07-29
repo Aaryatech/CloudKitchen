@@ -351,6 +351,7 @@ public class OrderController {
 				orderResponse.setOrderId(Integer.parseInt(info.getMessage()));
 				orderResponse.setInsertDateTime(dttime.format(ct));
 				orderResponse.setUserId(userObj.getUserId());
+				orderResponse.setStatus(status);
 				session.setAttribute("successMsg", "Order place successfully.");
 			} else {
 				session.setAttribute("errorMsg", "Something wrong while placing order.");
