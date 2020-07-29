@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
+import com.ats.ck.common.DateConvertor;
 import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.CustomerAddressDisplay;
+import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.DeliveryInstruction;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
@@ -34,8 +37,15 @@ import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetSubCategoryData;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
+import com.ats.ck.model.ItemJsonImportData;
 import com.ats.ck.model.LoginResponse;
+import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OfferHeader;
+import com.ats.ck.model.OrderDetail;
+import com.ats.ck.model.OrderHeader;
+import com.ats.ck.model.OrderResponse;
+import com.ats.ck.model.OrderSaveData;
+import com.ats.ck.model.OrderTrail;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -193,5 +203,164 @@ public class OrderController {
 		} catch (Exception e) {
 		}
 		return itemList;
+	}
+
+	@RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public OrderResponse placeOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		OrderResponse orderResponse = new OrderResponse();
+		HttpSession session = request.getSession();
+
+		try {
+			MnUser userObj = (MnUser) session.getAttribute("userInfo");
+
+			Date ct = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			String itemData = request.getParameter("itemaData");
+			int status = Integer.parseInt(request.getParameter("status"));
+			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+			int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
+			int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
+			String textDeliveryInstr = request.getParameter("textDeliveryInstr");
+			String billingName = request.getParameter("billingName");
+			String billingAddress = request.getParameter("billingAddress");
+			String orderTime = (String) session.getAttribute("orderTime");
+			String orderDate = (String) session.getAttribute("orderDate");
+			int frId = (int) session.getAttribute("frIdForOrder");
+			int addressId = (int) session.getAttribute("addressId");
+
+			// create ObjectMapper instance
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			// convert json string to object
+			ItemJsonImportData[] itemJsonImportData = objectMapper.readValue(itemData, ItemJsonImportData[].class);
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custAddressId", addressId);
+			CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+
+			DecimalFormat df = new DecimalFormat("#.00");
+
+			OrderHeader order = new OrderHeader();
+			order.setOrderNo("0002");
+			order.setOrderDate(sf.format(ct));
+			order.setFrId(frId);
+			order.setCustId(liveCustomer.getCustId());
+			order.setOrderStatus(status);
+			order.setPaidStatus(0);
+			order.setPaymentMethod(paymentMethod);
+			order.setCityId(addressDetail.getCityId());
+			order.setAreaId(addressDetail.getAreaId());
+			order.setAddressId(addressId);
+			order.setAddress(addressDetail.getAddress());
+			order.setWhatsappNo(liveCustomer.getWhatsappNo());
+			order.setLandmark(addressDetail.getLandmark());
+			order.setDeliveryDate(DateConvertor.convertToYMD(orderDate));
+			order.setDeliveryTime(orderTime);
+			order.setInsertDateTime(dttime.format(ct));
+			order.setInsertUserId(userObj.getUserId());
+			order.setOrderPlatform(1);
+			order.setBillingName(billingName);
+			order.setBillingAddress(billingAddress);
+			order.setDeliveryType(homeDelivery);
+			order.setDeliveryInstId(deliveryInstru);
+			order.setDeliveryInstText(textDeliveryInstr);
+
+			List<OrderDetail> orderDetailList = new ArrayList<>();
+
+			float finaTaxableAmt = 0;
+			float finaTaxAmt = 0;
+			float finaTotalAmt = 0;
+			float finalCgstAmt = 0;
+			float finalsgstAmt = 0;
+			float finalIgstAmt = 0;
+
+			for (int i = 0; i < itemJsonImportData.length; i++) {
+
+				OrderDetail orderDetail = new OrderDetail();
+				orderDetail.setItemId(itemJsonImportData[i].getItemId());
+				orderDetail.setQty(itemJsonImportData[i].getQty());
+				orderDetail.setRate(itemJsonImportData[i].getPrice());
+				orderDetail.setCgstPer(itemJsonImportData[i].getCgstPer());
+				orderDetail.setIgstPer(itemJsonImportData[i].getIgstPer());
+				orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
+				orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
+
+				float taxableAmt = Float.parseFloat(df
+						.format((itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
+				float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+				orderDetail.setTaxableAmt(taxableAmt);
+				orderDetail.setTaxAmt(taxAmt);
+				orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+
+				orderDetail.setCgstAmt(taxAmt / 2);
+				orderDetail.setSgstAmt(taxAmt / 2);
+				orderDetail.setIgstAmt(taxAmt);
+
+				finalCgstAmt = Float.parseFloat(df.format(finalCgstAmt + (taxAmt / 2)));
+				finalsgstAmt = Float.parseFloat(df.format(finalsgstAmt + (taxAmt / 2)));
+				finalIgstAmt = Float.parseFloat(df.format(finalIgstAmt + (taxAmt)));
+
+				finaTaxableAmt = Float.parseFloat(df.format(finaTaxableAmt + taxableAmt));
+				finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + taxAmt));
+				finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+
+				for (int j = 0; j < itemList.size(); j++) {
+
+					if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
+						orderDetail.setMrp(itemList.get(j).getMrpAmt());
+						break;
+					}
+
+				}
+				orderDetailList.add(orderDetail);
+
+			}
+
+			order.setTaxableAmt(finaTaxableAmt);
+			order.setTaxAmt(finaTaxAmt);
+			order.setTotalAmt(finaTotalAmt);
+			order.setSgstAmt(finalsgstAmt);
+			order.setCgstAmt(finalCgstAmt);
+			order.setIgstAmt(finalIgstAmt);
+
+			OrderTrail orderTrail = new OrderTrail();
+			orderTrail.setActionByUserId(userObj.getUserId());
+			orderTrail.setActionDateTime(dttime.format(ct));
+			orderTrail.setStatus(status);
+
+			OrderSaveData orderSaveData = new OrderSaveData();
+			orderSaveData.setOrderDetailList(orderDetailList);
+			orderSaveData.setOrderHeader(order);
+			orderSaveData.setOrderTrail(orderTrail);
+
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCloudOrder", orderSaveData,
+					Info.class);
+
+			orderResponse.setError(info.getError());
+
+			if (info.getError() == false) {
+				orderResponse.setFrId(frId);
+				orderResponse.setOrderId(Integer.parseInt(info.getMessage()));
+				orderResponse.setInsertDateTime(dttime.format(ct));
+				orderResponse.setUserId(userObj.getUserId());
+				session.setAttribute("successMsg", "Order place successfully.");
+			}else {
+				session.setAttribute("errorMsg", "Something wrong while placing order.");
+			}
+
+			// info.setError(false);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return orderResponse;
 	}
 }

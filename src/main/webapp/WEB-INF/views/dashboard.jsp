@@ -27,7 +27,44 @@
 			<div class="main-box padding-20  margin_bottom">
 				<form action="" method="get">
 
-					<div class="success-msg" style="display: none;"
+					<c:choose>
+						<c:when test="${sessionScope.successMsg!=null}">
+							<div class="success-msg" id="finalSuccessMsg">
+								<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
+									${sessionScope.successMsg}</span>
+							</div>
+							<%
+								session.removeAttribute("successMsg");
+							%>
+						</c:when>
+						<c:otherwise>
+							<div class="success-msg" style="display: none;"
+								id="finalSuccessMsg">
+								<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
+									${sessionScope.successMsg}</span>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${sessionScope.errorMsg!=null}">
+							<div class="error-msg" style="display: none;" id="finalFailedMsg">
+								<i class="fa fa-times-circle"></i> <span
+									id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
+							</div>
+							<%
+								session.removeAttribute("errorMsg");
+							%>
+						</c:when>
+						<c:otherwise>
+							<div class="error-msg" style="display: none;" id="finalFailedMsg">
+								<i class="fa fa-times-circle"></i> <span
+									id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
+							</div>
+						</c:otherwise>
+					</c:choose>
+
+
+					<!-- <div class="success-msg" style="display: none;"
 						id="finalSuccessMsg">
 						<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
 							Success Message</span>
@@ -35,7 +72,7 @@
 					<div class="error-msg" style="display: none;" id="finalFailedMsg">
 						<i class="fa fa-times-circle"></i> <span id="finalerrormsgcontent">Error
 							message.</span>
-					</div>
+					</div> -->
 
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-6">
@@ -2292,7 +2329,7 @@
 							contentType : false,
 							processData : false,
 							success : function(response) {
-								document.getElementById("loaderimg").style.display = "none";
+								//document.getElementById("loaderimg").style.display = "none";
 								var url = '${pageContext.request.contextPath}/addOrder';
 								window.location = url;
 							},
@@ -2424,6 +2461,14 @@
 			$('.model_error_class').hide();
 			$('.fetch_results').find('input:text').val('');
 			$('.fetch_results').find('textarea').val('');
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			setTimeout(function() {
+				$('.error-msg').hide();
+				$('.success-msg').hide();
+			}, 3000);
 		});
 	</script>
 </body>

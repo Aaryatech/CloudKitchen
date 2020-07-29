@@ -2,6 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
+<!--    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+-->
+<script
+	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 <body onload="appendTableList();getItemList();"
 	data-customvalueone='${jsonList}'>
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -35,7 +50,7 @@
 								</thead>
 								<tbody>
 									<!--1 row-->
-									<tr>
+									<!-- <tr>
 										<td class="user-name menu_nm"><a href="#"
 											data-toggle="modal" data-target="#discription"> Bread
 												Butter</a></td>
@@ -47,7 +62,7 @@
 										<td class="user-name" style="text-align: right;">250.00</td>
 										<td class="user-name"><a href="#" class="trash"><i
 												class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-									</tr>
+									</tr> -->
 									<!--1 row-->
 								</tbody>
 							</table>
@@ -112,15 +127,20 @@
 										</p>
 									</div>
 								</div>
+
 								<div class="col-lg-8">
 									<div class="a">
 										<div class="form-group">
 											<label class="text-light-black fw-500 fs-14">Payment
-												Option</label><select class="form-control">
+												Option</label><select class="form-control" id="paymentMethod"
+												name="paymentMethod">
 												<option value="1">COD</option>
 												<option value="2">Online Payment Link</option>
-											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
-												Date & Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
+											</select><span class="model_error_class"
+												style="color: red; display: none;" id="error_paymentMethod">*
+												This field required.</span><br> <label
+												class="text-light-black fw-500 fs-14">Delivery Date
+												& Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
 												${time}, Order Time : 50 MIN</label><br> <label
 												class="text-light-black fw-500 fs-14">Delivery
 												Option :&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
@@ -130,26 +150,36 @@
 												type="radio" class="option-input radio" id="takeaway"
 												name="typeSelect">Take Away</label><br> <label
 												class="text-light-black fw-500 fs-14">Select
-												Delivery Instruction</label><select class="form-control  ">
+												Delivery Instruction</label><select class="form-control"
+												id="deliveryInstru" name="deliveryInstru">
 												<c:forEach items="${deliveryInstructionList}"
 													var="deliveryInstructionList">
 													<option value="${deliveryInstructionList.instruId}">${deliveryInstructionList.instructnCaption}</option>
 												</c:forEach>
-
-											</select><br> <label class="text-light-black fw-500 fs-14">Delivery
+											</select><span class="model_error_class"
+												style="color: red; display: none;" id="error_deliveryInstru">*
+												This field required.</span><br> <label
+												class="text-light-black fw-500 fs-14">Delivery
 												Instructions</label>
-											<textarea name="" cols="" rows="6"
+											<textarea name="textDeliveryInstr" cols="" rows="6"
 												class="form-control formcheck"
-												placeholder="Enter Your Delivery Instructions"></textarea>
+												placeholder="Enter Your Delivery Instructions"
+												id="textDeliveryInstr"></textarea>
 											<br> <label class="text-light-black fw-500 fs-14">Billing
-												Name</label> <input name="" class="form-control"
+												Name *</label> <input name="billingName" class="form-control"
 												placeholder="Billing Name"
-												value="${sessionScope.liveCustomer.custName}" /> <br>
-											<label class="text-light-black fw-500 fs-14">Billing
-												Address</label>
-											<textarea name="" cols="" rows="6"
-												class="form-control formcheck" placeholder="Billing Address">${addressDetail.address}</textarea>
-
+												value="${sessionScope.liveCustomer.custName}"
+												id="billingName" /><span class="model_error_class"
+												style="color: red; display: none;" id="error_billingName">*
+												This field required.</span> <br> <label
+												class="text-light-black fw-500 fs-14">Billing
+												Address *</label>
+											<textarea name="billingAddress" id="billingAddress" cols=""
+												rows="6" class="form-control formcheck"
+												placeholder="Billing Address">${addressDetail.address}</textarea>
+											<span class="model_error_class"
+												style="color: red; display: none;" id="error_billingAddress">*
+												This field required.</span>
 										</div>
 									</div>
 								</div>
@@ -158,10 +188,10 @@
 
 
 						<div class="three_btn">
-							<button type="submit" value="Submit" class="button_place">Place
-								Order</button>
-							<button type="submit" value="Submit" class="button_park">Park
-								Order</button>
+							<button type="submit" value="Submit" class="button_place"
+								onclick="placeOrder(1)">Place Order</button>
+							<button type="submit" value="Submit" class="button_park"
+								onclick="placeOrder(0)">Park Order</button>
 							<a href="${pageContext.request.contextPath}/addOrder"><button
 									type="submit" value="Submit" class="button_back">
 									<i class="fa fa-angle-left" aria-hidden="true"></i> Back
@@ -399,6 +429,30 @@
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey : "AIzaSyBe2YU3P7ehVwd-WSKNSbpRCUbjOYAjVpw",
+			authDomain : "firbase-1fba8.firebaseapp.com",
+			databaseURL : "https://firbase-1fba8.firebaseio.com",
+			projectId : "firbase-1fba8",
+			storageBucket : "firbase-1fba8.appspot.com",
+			messagingSenderId : "188159878978",
+			appId : "1:188159878978:web:77d2e57846f034d0b0cadb",
+			measurementId : "G-859DV2EL3H"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		//firebase.database.Reference
+		//var database = firebase.database();
+		const messaging = firebase.messaging();
+		var today_date_temp = 't_order';
+		const dbrefObject = firebase.database().ref(today_date_temp);
+
+		/* messaging
+				.usePublicVapidKey('BCMRT4wtRInQjue7hAjVwcgdqcbfTF8cwYQk7qimWOBJqwNZNijKKj8Ev53TqiIX0yoDPGBFBk7ROkXQL_ti8z0'); */
+	</script>
 
 	<script type="text/javascript">
 		function searchRelatedItem() {
@@ -459,6 +513,93 @@
 									.stringify(response));
 						},
 					});
+
+		}
+		
+		function placeOrder(status) {
+
+			
+			
+			$("#error_billingName").hide();
+			$("#error_billingAddress").hide();
+			var isError = false;
+			
+			if (!$("#billingName").val().trim()) {
+				isError = true;
+				$("#error_billingName").show();
+			}
+			if (!$("#billingAddress").val().trim()) {
+				isError = true;
+				$("#error_billingAddress").show();
+			}
+			
+			var cartValue = sessionStorage.getItem("cartValue");
+			var table = $.parseJSON(cartValue);
+			
+			if (table.length<1) {
+				isError = true;
+				 alert("Select minimum one item.")
+			}
+			
+			if (!isError) {
+				
+				document.getElementById("loaderimg").style.display = "block";
+				
+				var paymentMethod = $("#paymentMethod").val();
+				var homeDelivery = 1;
+				var deliveryInstru = $("#deliveryInstru").val();
+				var textDeliveryInstr = $("#textDeliveryInstr").val();  
+				
+				if(document.getElementById("takeaway").checked==true){
+					homeDelivery=2;
+				}
+				  
+				var fd = new FormData();
+				
+				fd.append("itemaData",JSON.stringify(table));
+				fd.append("status",status);
+				fd.append("billingName",$("#billingName").val());
+				fd.append("billingAddress",$("#billingAddress").val());
+				fd.append("paymentMethod",paymentMethod);
+				fd.append("homeDelivery",homeDelivery);
+				fd.append("deliveryInstru",deliveryInstru);
+				fd.append("textDeliveryInstr",textDeliveryInstr);
+				
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/placeOrder',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+								//document.getElementById("loaderimg").style.display = "none";
+								
+								if(response.error==false){
+									
+									var data_add = {
+											
+											"dateTime" : response.insertDateTime,
+											"frId" : response.frId,
+											"userId" : response.userId,
+											"orderId" : response.orderId
+										}
+
+										var key = firebase.database().ref().child(today_date_temp+"/"+response.orderId).update(
+												data_add).key;
+									
+									sessionStorage.removeItem("cartValue"); 
+									
+								}
+								var url = '${pageContext.request.contextPath}/dashboard';
+								window.location = url;
+								//alert(JSON.stringify(response))
+								 
+							},
+						});
+			}
+			
 
 		}
 
