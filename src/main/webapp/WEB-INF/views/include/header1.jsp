@@ -348,9 +348,9 @@
 										</div>
 									</div>
 									<div class="card-footer padding-15">
-										<a href="${pageContext.request.contextPath}/checkout"
-											class="btn-first green-btn text-custom-white full-width fw-500">Proceed
-											to Checkout</a>
+										<a href="javascript:void(0)"
+											class="btn-first green-btn text-custom-white full-width fw-500"
+											onclick="checkOutProcess()">Proceed to Checkout</a>
 									</div>
 								</div>
 							</div>
@@ -394,5 +394,25 @@
 	</header>
 </div>
 <div class="main-sec"></div>
+<script type="text/javascript">
+	function checkOutProcess() {
+
+		var isError = false;
+		var cartValue = sessionStorage.getItem("cartValue");
+		var table = $.parseJSON(cartValue);
+
+		if (table.length < 1) {
+			isError = true;
+			alert("Select minimum one item.")
+		}
+
+		if (!isError) {
+
+			var url = '${pageContext.request.contextPath}/checkout';
+			window.location = url;
+		}
+
+	}
+</script>
 </head>
 <!-- Navigation -->

@@ -127,7 +127,7 @@ public class HomeController {
 					mav = "redirect:/dashboard";
 					session.setAttribute("userInfo", userObj.getUser());
 					session.setAttribute("profilePicUrl", Constants.imageShowUrl);
-
+					session.setAttribute("allowOrderandCheckoutPage", 0);
 				} else {
 					mav = "redirect:/";
 					session.setAttribute("errorMsg", "Login Failed");
@@ -257,14 +257,14 @@ public class HomeController {
 					GetFranchiseData.class);
 			List<FranchiseData> franchiseList = frData.getFranchise();
 			model.addAttribute("franchiseList", franchiseList);
-
+			session.setAttribute("allowOrderandCheckoutPage", 0);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "dashboard";
 	}
 
-	 
 	@RequestMapping(value = "/getAreaListByCity", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Area> getAreaListByCity(HttpServletRequest request, HttpServletResponse response, Model model) {

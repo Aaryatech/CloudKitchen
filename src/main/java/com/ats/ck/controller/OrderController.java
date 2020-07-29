@@ -131,6 +131,7 @@ public class OrderController {
 			session.setAttribute("frIdForOrder", frIdForOrder);
 			session.setAttribute("orderTime", orderTime);
 			session.setAttribute("orderDate", orderDate);
+			session.setAttribute("allowOrderandCheckoutPage", 1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -351,7 +352,7 @@ public class OrderController {
 				orderResponse.setInsertDateTime(dttime.format(ct));
 				orderResponse.setUserId(userObj.getUserId());
 				session.setAttribute("successMsg", "Order place successfully.");
-			}else {
+			} else {
 				session.setAttribute("errorMsg", "Something wrong while placing order.");
 			}
 

@@ -22,7 +22,8 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 
 		String path = request.getRequestURI().substring(request.getContextPath().length());
-		//System.out.println("Current Req Mapping is: " + request.getServletPath() + "/" + session.getId());
+		// System.out.println("Current Req Mapping is: " + request.getServletPath() +
+		// "/" + session.getId());
 
 		if (path.startsWith("/pdf")) {
 			return true;
@@ -72,7 +73,18 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 					return false;
 				} else {
-					return true;
+					int allowOrderandCheckoutPage = (int) session.getAttribute("allowOrderandCheckoutPage");
+
+					if ((request.getServletPath().equals("/checkout") || request.getServletPath().equals("/addOrder"))
+							&& allowOrderandCheckoutPage == 0) {
+						session.setAttribute("errorMsg", "Follow order process.");
+						// System.out.println(session.getAttribute("errorMsg"));
+						response.sendRedirect(request.getContextPath() + "/dashboard");
+						return false;
+					} else { 
+						return true;
+					}
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

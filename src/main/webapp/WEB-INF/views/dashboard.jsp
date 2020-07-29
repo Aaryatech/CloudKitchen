@@ -47,7 +47,7 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${sessionScope.errorMsg!=null}">
-							<div class="error-msg" style="display: none;" id="finalFailedMsg">
+							<div class="error-msg" id="finalFailedMsg">
 								<i class="fa fa-times-circle"></i> <span
 									id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
 							</div>
@@ -2469,6 +2469,9 @@
 				$('.error-msg').hide();
 				$('.success-msg').hide();
 			}, 3000);
+
+			sessionStorage.removeItem("cartValue");
+			sessionStorage.removeItem("allItemList");
 		});
 	</script>
 </body>
