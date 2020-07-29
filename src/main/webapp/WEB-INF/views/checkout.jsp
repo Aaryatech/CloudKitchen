@@ -187,64 +187,40 @@
 										<div class="related_head">Related Item</div>
 									</div>
 									<div class="related_row_r">
-										<i class="fa fa-search" aria-hidden="true"></i> <input name=""
-											type="text" class="rel_search" placeholder="Search">
+										<i class="fa fa-search" aria-hidden="true"></i> <input
+											name="related_item_text" type="text" class="rel_search"
+											placeholder="Search" id="related_item_text"
+											onkeyup="searchRelatedItem()">
 									</div>
 									<div class="clr"></div>
 								</div>
 
 								<div class="card-body fix_height no-padding" id="scrollstyle-4">
 									<div class="item_bx">
+
+										<c:forEach items="${relatedItemList}" var="relatedItemList">
+											<div class="item_one related_item_cls">
+												<div class="item_pic">
+													<img
+														src="${catImageUrl}/${relatedItemList.imageList[0].imageName}"
+														alt=""
+														onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg';">
+												</div>
+												<div class="item_cont">
+													<h3 class="item_nm related_item_name"
+														onclick="itemDetailDesc(${relatedItemList.itemId})">${relatedItemList.itemName}</h3>
+													<p class="itm_prc">
+														Rs.${relatedItemList.spRateAmt} <a href="#"
+															onclick="addToTable(${relatedItemList.itemId})">Add
+															to Cart</a>
+													</p>
+												</div>
+											</div>
+										</c:forEach>
 										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
+
 										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
+										<%-- <div class="item_one">
 											<div class="item_pic">
 												<img
 													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
@@ -258,87 +234,9 @@
 													Rs.150.00 <a href="#">Add to Cart</a>
 												</p>
 											</div>
-										</div>
+										</div> --%>
 										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
+
 
 									</div>
 
@@ -354,15 +252,38 @@
 										<div class="related_head">Favourite Item</div>
 									</div>
 									<div class="related_row_r">
-										<i class="fa fa-search" aria-hidden="true"></i> <input name=""
-											type="text" class="rel_search" placeholder="Search">
+										<i class="fa fa-search" aria-hidden="true"></i> <input
+											name="fav_item_text" type="text" class="rel_search"
+											placeholder="Search" onkeyup="searchFavItem()"
+											id="fav_item_text">
 									</div>
 									<div class="clr"></div>
 								</div>
 								<div class="card-body fix_height no-padding" id="scrollstyle-4">
 									<div class="item_bx">
+
+										<c:forEach items="${favItemList}" var="favItemList">
+											<div class="item_one fav_item_cls">
+												<div class="item_pic">
+													<img
+														src="${catImageUrl}/${favItemList.imageList[0].imageName}"
+														alt=""
+														onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg';">
+												</div>
+												<div class="item_cont">
+													<h3 class="item_nm fav_item_name"
+														onclick="itemDetailDesc(${favItemList.itemId})">${favItemList.itemName}</h3>
+													<p class="itm_prc">
+														Rs. ${favItemList.spRateAmt} <a href="#"
+															onclick="addToTable(${favItemList.itemId})">Add to
+															Cart</a>
+													</p>
+												</div>
+											</div>
+										</c:forEach>
+
 										<!--item 1-->
-										<div class="item_one">
+										<%-- <div class="item_one">
 											<div class="item_pic">
 												<img
 													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
@@ -376,140 +297,10 @@
 													Rs.150.00 <a href="#">Add to Cart</a>
 												</p>
 											</div>
-										</div>
+										</div> --%>
 										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_2.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
-										<!--item 1-->
-										<div class="item_one">
-											<div class="item_pic">
-												<img
-													src="${pageContext.request.contextPath}/resources/assets/img/related_item_1.jpg"
-													alt="">
-											</div>
-											<div class="item_cont">
-												<h3 class="item_nm">
-													Chilli Chicken Pizza <span>small, chilli chicken</span>
-												</h3>
-												<p class="itm_prc">
-													Rs.150.00 <a href="#">Add to Cart</a>
-												</p>
-											</div>
-										</div>
 
 									</div>
-
-
-
 
 								</div>
 								<div class="blnk_div"></div>
@@ -610,6 +401,46 @@
 	<!--Plugin Initialization-->
 
 	<script type="text/javascript">
+		function searchRelatedItem() {
+
+			var txt = $('#related_item_text').val();
+
+			$('.related_item_cls').hide();
+
+			$('.related_item_cls')
+					.each(
+							function(index) {
+
+								var related_item_name = document
+										.getElementsByClassName("related_item_name")[index].innerHTML;
+								if (related_item_name.toUpperCase().indexOf(
+										txt.toUpperCase()) != -1) {
+									$(this).show();
+								}
+							});
+
+		}
+		
+		function searchFavItem() {
+
+			var txt = $('#fav_item_text').val();
+
+			$('.fav_item_cls').hide();
+
+			$('.fav_item_cls')
+					.each(
+							function(index) {
+
+								var related_item_name = document
+										.getElementsByClassName("fav_item_name")[index].innerHTML;
+								if (related_item_name.toUpperCase().indexOf(
+										txt.toUpperCase()) != -1) {
+									$(this).show();
+								}
+							});
+
+		}
+		
 		function getItemList() {
 
 			document.getElementById("loaderimg").style.display = "block";
@@ -680,6 +511,54 @@
 			$("#bill_total").html((subtotal + deliveryCharges).toFixed(2));
 		}
 
+		function addToTable(itemId) {
+			
+				var qty = 1;
+			  
+				var cartValue = sessionStorage.getItem("cartValue");
+				var table = $.parseJSON(cartValue);
+				
+				 
+				var allItemList = sessionStorage.getItem("allItemList");
+				var objson = $.parseJSON(allItemList);
+				
+				for (var j = 0; j < objson.length; j++) {
+					 
+					if (itemId == objson[j].itemId) { 
+						var obj = objson[j]; 
+						var findItem=0;
+						for(var i = 0 ; i<table.length ; i++){
+							
+							if(table[i].itemId==itemId){
+								table[i].itemName=obj.itemName;
+								table[i].price=obj.spRateAmt;
+								table[i].qty=parseFloat(table[i].qty)+parseFloat(qty);
+								table[i].total=table[i].qty*table[i].price;
+								findItem=1;
+								break;
+							}
+						} 
+						if(findItem==0){
+							var total = obj.spRateAmt*qty;
+							 table.push({
+								  itemId: obj.itemId,
+								  price: obj.spRateAmt,
+								  itemName: obj.itemName,
+								  qty: qty,
+								  total: total
+							});
+						}
+						break;
+					}
+				}
+				  
+				 sessionStorage.setItem("cartValue", JSON.stringify(table)); 
+				 appendTableList();
+			 
+			 
+				
+		}
+		
 		function deleteItemFromTable(elem) {
 
 			var cartValue = sessionStorage.getItem("cartValue");

@@ -172,6 +172,9 @@ public class OrderController {
 			model.addAttribute("time", time);
 			model.addAttribute("date", date);
 
+			model.addAttribute("relatedItemList", itemList);
+			model.addAttribute("favItemList", itemList);
+			model.addAttribute("catImageUrl", Constants.imageShowUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
