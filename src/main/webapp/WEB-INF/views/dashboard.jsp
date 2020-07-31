@@ -130,33 +130,64 @@
 			<!--dashboard 5 boxes -->
 			<div class="dashboard_count">
 				<ul>
-					<li>
-						<div class="dash_one dash_common">
-							<h3 class="dash_txt">
-								Today Call <span>12,345</span>
-							</h3>
-							<i class="fa fa-phone" aria-hidden="true"></i>
-						</div>
-					</li>
+					<li><a href="#" onclick="changeHeadName(0)">
+							<div class="dash_one dash_common">
+								<h3 class="dash_txt">
+									PENDING ORDER
+									<div class="grievence">
+										<div class="grievence_one">
+											PARK <span id="park_count">0</span>
+										</div>
+										<div class="grievence_one">
+											SHOP PENDING <span id="shop_pending_count">0</span>
+										</div>
+									</div>
+								</h3>
+								<i class="fa fa-shopping-cart"></i>
+							</div>
+					</a></li>
 					<li><a href="#" onclick="changeHeadName(1)">
 							<div class="dash_two dash_common">
 								<h3 class="dash_txt">
-									Today Live <span>12,345</span>
+									LIVE ORDER
+									<div class="grievence">
+										<div class="grievence_one">
+											ACCEPT <span id="accept_count">0</span>
+										</div>
+										<div class="grievence_one">
+											PROCESSING <span id="process_count">0</span>
+										</div>
+										<div class="grievence_one">
+											DELIVERY PENDING <span id="delivery_pending_count">0</span>
+										</div>
+									</div>
 								</h3>
 								<i class="fa fa-user" aria-hidden="true"></i>
 							</div>
 					</a></li>
-					<li><a href="#" onclick="changeHeadName(2)"><div
-								class="dash_three dash_common">
+					<li><a href="#" onclick="changeHeadName(2)">
+							<div class="dash_three dash_common">
 								<h3 class="dash_txt">
-									Today delivered <span>12,345</span>
+									TODAY DELIVERDED <span id="delivered_count">0</span>
 								</h3>
 								<i class="fa fa-check" aria-hidden="true"></i>
-							</div></a></li>
+							</div>
+					</a></li>
 					<li><a href="#" onclick="changeHeadName(3)"><div
 								class="dash_four dash_common">
 								<h3 class="dash_txt">
-									Today Cancelled <span>12,345</span>
+									Today Cancelled
+									<div class="grievence">
+										<div class="grievence_one">
+											REJECT BY SHOP <span id="rejected_count">0</span>
+										</div>
+										<div class="grievence_one">
+											RETURN <span id="return_count">0</span>
+										</div>
+										<div class="grievence_one">
+											CANCELLED<span id="cancelled_count">0</span>
+										</div>
+									</div>
 								</h3>
 								<i class="fa fa-times" aria-hidden="true"></i>
 							</div></a></li>
@@ -166,10 +197,10 @@
 								Grievences
 								<div class="grievence">
 									<div class="grievence_one">
-										Pending <span>123</span>
+										Pending <span>0</span>
 									</div>
 									<div class="grievence_one">
-										Resolve <span>123</span>
+										Resolve <span>0</span>
 									</div>
 								</div>
 							</h3>
@@ -181,126 +212,146 @@
 
 			<!--Live orderes table -->
 			<div class="main-box padding-20 margin_bottom">
-				<div class="sec_title" id="tableHeaderName">Live Orders</div>
-
-				<div class="component">
-					<table class="overflow-y" id="live_order_table">
-						<thead>
-							<tr>
-								<th></th>
-								<th class="sorting_desc" style="text-align: center;">Order
-									NO.</th>
-								<th class="sorting_desc" style="text-align: center;">Customer
-									Name</th>
-								<th class="sorting_desc" style="text-align: center;">Shop
-									Name</th>
-								<th class="sorting_desc js-sort-date"
-									style="text-align: center;">Date</th>
-								<th class="sorting_desc js-sort-date"
-									style="text-align: center;">Type</th>
-								<th class="sorting_desc" style="text-align: center;">Total</th>
-								<th class="sorting_desc" style="text-align: center;">Payment
-									Status</th>
-								<th class="sorting_desc" style="text-align: center;">Payment
-									Method</th>
-								<th class="sorting_desc" style="text-align: center;">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<!--1 row-->
-							<%-- <tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle user_pic_round" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong><a
-										href="javascript:void(0)" onclick="viewOrderFun()">0001</a></strong></td>
-								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">Online</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-
-							</tr> --%>
-							<%-- <!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong><a
-										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
-								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">Online</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-
-							</tr>
-							<!--1 row-->
-							<tr>
-								<td class="user-name"><a href="#"
-									class="text-custom-white fw-500"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-										class="rounded-circle user_pic_round" alt="userimg">
-								</a></td>
-								<td class="user-name"><strong><a
-										href="javascript:void(0)" data-toggle="modal"
-										data-target="#viewOrder">0001</a></strong></td>
-								<td class="user-name">Neal Matthews 1</td>
-								<td class="user-name">Madhavi</td>
-								<td class="user-name" style="text-align: center;">10-07-2020</td>
-								<td class="user-name">Web</td>
-								<td class="user-name">400.00</td>
-								<td class="user-name"><span class="paid">Paid</span></td>
-								<td class="user-name">Online</td>
-								<td class="user-name" style="text-align: center;"><a
-									href="${pageContext.request.contextPath}/checkout"
-									class="detail_btn_round" title="Edit Order"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-									href="javascript:void(0)" data-toggle="modal"
-									data-target="#cancelOrder" class="detail_btn_round"
-									title="Cancel Order"><i class="fa fa-times"
-										aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-									data-toggle="modal" data-target="#grievences"
-									class="detail_btn_round" title="Grievences"><i
-										class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td>
-
-							</tr> --%>
-
-						</tbody>
-					</table>
 
 
+				<div id="pending_order_div" style="display: none;">
+					<div class="sec_title">Pending Order</div>
+
+					<div class="component">
+						<table class="overflow-y" id="pending_order_table">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										NO.</th>
+									<th class="sorting_desc" style="text-align: center;">Customer
+										Name</th>
+									<th class="sorting_desc" style="text-align: center;">Shop
+										Name</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Date</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Type</th>
+									<th class="sorting_desc" style="text-align: center;">Total</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Status</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+
+				<div id="live_order_div">
+					<div class="sec_title">Live Orders</div>
+
+					<div class="component">
+						<table class="overflow-y" id="live_order_table">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										NO.</th>
+									<th class="sorting_desc" style="text-align: center;">Customer
+										Name</th>
+									<th class="sorting_desc" style="text-align: center;">Shop
+										Name</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Date</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Type</th>
+									<th class="sorting_desc" style="text-align: center;">Total</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Status</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+
+				<div id="delivered_order_div" style="display: none;">
+					<div class="sec_title">Delivered Order</div>
+
+					<div class="component">
+						<table class="overflow-y" id="delivered_order_table">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										NO.</th>
+									<th class="sorting_desc" style="text-align: center;">Customer
+										Name</th>
+									<th class="sorting_desc" style="text-align: center;">Shop
+										Name</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Date</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Type</th>
+									<th class="sorting_desc" style="text-align: center;">Total</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Status</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+
+				<div id="cancelled_order_div" style="display: none;">
+					<div class="sec_title">Cancelled Order</div>
+
+					<div class="component">
+						<table class="overflow-y" id="cancelled_order_table">
+							<thead>
+								<tr>
+									<th></th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										NO.</th>
+									<th class="sorting_desc" style="text-align: center;">Customer
+										Name</th>
+									<th class="sorting_desc" style="text-align: center;">Shop
+										Name</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Date</th>
+									<th class="sorting_desc js-sort-date"
+										style="text-align: center;">Type</th>
+									<th class="sorting_desc" style="text-align: center;">Total</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Status</th>
+									<th class="sorting_desc" style="text-align: center;">Payment
+										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+
+
+					</div>
 				</div>
 
 			</div>
@@ -2277,13 +2328,33 @@
 
 		}
 		function changeHeadName(id) {
-			var msg = "Live Orders ";
-			if (id == 2) {
-				msg = "Deliverd Orders ";
+
+			$(".sticky-thead").css({
+				"width" : "100%"
+			});
+
+			if (id == 0) {
+				document.getElementById("pending_order_div").style.display = "block";
+				document.getElementById("live_order_div").style.display = "none";
+				document.getElementById("delivered_order_div").style.display = "none";
+				document.getElementById("cancelled_order_div").style.display = "none";
+			} else if (id == 2) {
+				document.getElementById("pending_order_div").style.display = "none";
+				document.getElementById("live_order_div").style.display = "none";
+				document.getElementById("delivered_order_div").style.display = "block";
+				document.getElementById("cancelled_order_div").style.display = "none";
 			} else if (id == 3) {
-				msg = "Cancelled Orders ";
+				document.getElementById("pending_order_div").style.display = "none";
+				document.getElementById("live_order_div").style.display = "none";
+				document.getElementById("delivered_order_div").style.display = "none";
+				document.getElementById("cancelled_order_div").style.display = "block";
+			} else {
+				document.getElementById("pending_order_div").style.display = "none";
+				document.getElementById("live_order_div").style.display = "block";
+				document.getElementById("delivered_order_div").style.display = "none";
+				document.getElementById("cancelled_order_div").style.display = "none";
 			}
-			document.getElementById("tableHeaderName").innerHTML = msg;
+
 		}
 		function addAddressfun() {
 			$('#orderstep1').modal('hide');
@@ -2530,26 +2601,186 @@
 						data : fd,
 						contentType : false,
 						processData : false,
-						success : function(response) {
+						success : function(data) {
 
+							var response = data.orderListByStatus;
+							var responseByDate = data.orderListByStatusAndDate;
+
+							$("#pending_order_table tbody").empty();
 							$("#live_order_table tbody").empty();
 
+							var park_count = 0;
+							var shop_pending_count = 0;
+							var accept_count = 0;
+							var process_count = 0;
+							var delivery_pending_count = 0;
+
 							for (var i = 0; i < response.length; i++) {
-								var tr_data = '<tr> <td class="user-name"><a href="#" class="text-custom-white fw-500"> '
+
+								var platform = 'Web';
+								var paymentSts = 'PENDING';
+								var orderStatus = 'PARK ORDER';
+
+								if (response[i].orderPlatform == 2) {
+									platform = 'Mobile App';
+								} else if (response[i].orderPlatform == 3) {
+									platform = 'Website';
+								}
+
+								if (response[i].paidStatus == 1) {
+									paymentSts = 'PAID';
+								}
+
+								if (response[i].orderStatus == 1) {
+									orderStatus = 'Shop Confirmation Pending';
+								} else if (response[i].orderStatus == 2) {
+									orderStatus = 'Accept by shop';
+								} else if (response[i].orderStatus == 3) {
+									orderStatus = 'Processing';
+								} else if (response[i].orderStatus == 4) {
+									orderStatus = 'Delivery Pending';
+								}
+
+								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
 								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
-										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">0001</a></strong></td>'
-										+ '<td class="user-name">Neal Matthews 1</td> <td class="user-name">Madhavi</td>'
-										+ '<td class="user-name" style="text-align: center;">10-07-2020</td><td class="user-name">Web</td>'
-										+ '<td class="user-name">400.00</td> <td class="user-name"><span class="paid">Paid</span></td>'
-										+ '<td class="user-name">Online</td> <td class="user-name" style="text-align: center;">'
+										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">'
+										+ response[i].orderNo
+										+ '</a></strong></td>'
+										+ '<td class="user-name">'
+										+ response[i].custName
+										+ '</td> <td class="user-name">'
+										+ response[i].frName
+										+ '</td>'
+										+ '<td class="user-name" style="text-align: center;">'
+										+ response[i].orderDate
+										+ '</td><td class="user-name">'
+										+ platform
+										+ '</td>'
+										+ '<td class="user-name">'
+										+ (response[i].totalAmt).toFixed(2)
+										+ '</td> <td class="user-name"><span class="paid">'
+										+ paymentSts
+										+ '</span></td>'
+										+ '<td class="user-name">'
+										+ orderStatus
+										+ '</td> <td class="user-name" style="text-align: center;">'
 										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)" data-toggle="modal" '
 										+ 'data-target="#cancelOrder" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" '+
 								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
 										+ ' class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
-								$('#live_order_table').append(tr_data);
+
+								if (response[i].orderStatus == 1) {
+									shop_pending_count = shop_pending_count + 1;
+									$('#pending_order_table').append(tr_data);
+								} else if (response[i].orderStatus == 2) {
+									accept_count = accept_count + 1;
+									$('#live_order_table').append(tr_data);
+								} else if (response[i].orderStatus == 3) {
+									process_count = process_count + 1;
+									$('#live_order_table').append(tr_data);
+								} else if (response[i].orderStatus == 4) {
+									delivery_pending_count = delivery_pending_count + 1;
+									$('#live_order_table').append(tr_data);
+								} else {
+									park_count = park_count + 1;
+									$('#pending_order_table').append(tr_data);
+								}
+
+								$('#shop_pending_count').html(
+										shop_pending_count);
+								$('#accept_count').html(accept_count);
+								$('#process_count').html(process_count);
+								$('#delivery_pending_count').html(
+										delivery_pending_count);
+								$('#park_count').html(park_count);
+							}
+
+							// by date	
+
+							var delivered_count = 0;
+							var rejected_count = 0;
+							var return_count = 0;
+							var cancelled_count = 0;
+
+							$("#cancelled_order_table tbody").empty();
+							$("#delivered_order_table tbody").empty();
+							for (var i = 0; i < responseByDate.length; i++) {
+
+								var platform = 'Web';
+								var paymentSts = 'PENDING';
+								var orderStatus = 'Delivered';
+
+								if (responseByDate[i].orderPlatform == 2) {
+									platform = 'Mobile App';
+								} else if (responseByDate[i].orderPlatform == 3) {
+									platform = 'Website';
+								}
+
+								if (responseByDate[i].paidStatus == 1) {
+									paymentSts = 'PAID';
+								}
+
+								if (responseByDate[i].orderStatus == 6) {
+									orderStatus = 'Reject By shop';
+								} else if (responseByDate[i].orderStatus == 7) {
+									orderStatus = 'Return';
+								} else if (responseByDate[i].orderStatus == 8) {
+									orderStatus = 'Cancelled';
+								}
+
+								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
+										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
+								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
+										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">'
+										+ responseByDate[i].orderNo
+										+ '</a></strong></td>'
+										+ '<td class="user-name">'
+										+ responseByDate[i].custName
+										+ '</td> <td class="user-name">'
+										+ responseByDate[i].frName
+										+ '</td>'
+										+ '<td class="user-name" style="text-align: center;">'
+										+ responseByDate[i].orderDate
+										+ '</td><td class="user-name">'
+										+ platform
+										+ '</td>'
+										+ '<td class="user-name">'
+										+ (responseByDate[i].totalAmt)
+												.toFixed(2)
+										+ '</td> <td class="user-name"><span class="paid">'
+										+ paymentSts
+										+ '</span></td>'
+										+ '<td class="user-name">'
+										+ orderStatus
+										+ '</td> <td class="user-name" style="text-align: center;">'
+										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
+										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)" data-toggle="modal" '
+										+ 'data-target="#cancelOrder" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" '+
+								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
+										+ ' class="detail_btn_round" title="Grievences">'
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
+
+								if (responseByDate[i].orderStatus == 6) {
+									rejected_count = rejected_count + 1;
+									$('#cancelled_order_table').append(tr_data);
+								} else if (responseByDate[i].orderStatus == 7) {
+									return_count = return_count + 1;
+									$('#cancelled_order_table').append(tr_data);
+								} else if (responseByDate[i].orderStatus == 8) {
+									cancelled_count = cancelled_count + 1;
+									$('#cancelled_order_table').append(tr_data);
+								} else {
+									delivered_count = delivered_count + 1;
+									$('#delivered_order_table').append(tr_data);
+								}
+
+								$('#delivered_count').html(delivered_count);
+								$('#cancelled_count').html(cancelled_count);
+								$('#return_count').html(return_count);
+								$('#rejected_count').html(rejected_count);
 							}
 
 							//alert(JSON.stringify(response))

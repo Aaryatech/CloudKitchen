@@ -51,6 +51,7 @@ import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
+import com.ats.ck.model.OrderListData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -290,22 +291,21 @@ public class HomeController {
 
 	@RequestMapping(value = "/getLiveList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<GetOrderHeaderList> getLiveList(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public OrderListData getLiveList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		List<GetOrderHeaderList> list = new ArrayList<>();
+		OrderListData orderListData = new OrderListData();
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("status", "0,1,2");
+			map.add("status", "0,1,2,3,4");
 
-			GetOrderHeaderList[] getOrderHeaderList = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getOrderListByStatus", map, GetOrderHeaderList[].class);
-			list = new ArrayList<>(Arrays.asList(getOrderHeaderList));
+			orderListData = Constants.getRestTemplate().postForObject(Constants.url + "getOrderListByStatus", map,
+					OrderListData.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return orderListData;
 	}
 
 	@RequestMapping(value = "/getCityList", method = RequestMethod.POST)

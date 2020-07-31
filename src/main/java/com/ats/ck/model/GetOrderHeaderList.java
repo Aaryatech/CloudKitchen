@@ -59,7 +59,11 @@ public class GetOrderHeaderList {
 	private int deliveryType; 
 	private int deliveryInstId; 
 	private String areaName; 
-	private String cityName; 
+	private String cityName;
+	private String custName; 
+	private String frName;
+	private float deliveryKm;
+	
 	private List<GetOrderDetailList> detailList;
 	public int getOrderId() {
 		return orderId;
@@ -397,6 +401,24 @@ public class GetOrderHeaderList {
 	public void setDetailList(List<GetOrderDetailList> detailList) {
 		this.detailList = detailList;
 	}
+	public String getCustName() {
+		return custName;
+	}
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+	public String getFrName() {
+		return frName;
+	}
+	public void setFrName(String frName) {
+		this.frName = frName;
+	}
+	public float getDeliveryKm() {
+		return deliveryKm;
+	}
+	public void setDeliveryKm(float deliveryKm) {
+		this.deliveryKm = deliveryKm;
+	}
 	@Override
 	public String toString() {
 		return "GetOrderHeaderList [orderId=" + orderId + ", orderNo=" + orderNo + ", orderDate=" + orderDate
@@ -415,7 +437,8 @@ public class GetOrderHeaderList {
 				+ exDate1 + ", exDate2=" + exDate2 + ", billingName=" + billingName + ", billingAddress="
 				+ billingAddress + ", customerGstnNo=" + customerGstnNo + ", deliveryInstText=" + deliveryInstText
 				+ ", deliveryType=" + deliveryType + ", deliveryInstId=" + deliveryInstId + ", areaName=" + areaName
-				+ ", cityName=" + cityName + ", detailList=" + detailList + "]";
+				+ ", cityName=" + cityName + ", custName=" + custName + ", frName=" + frName + ", deliveryKm="
+				+ deliveryKm + ", detailList=" + detailList + "]";
 	}
 	
 	
