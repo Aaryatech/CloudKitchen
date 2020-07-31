@@ -234,6 +234,7 @@ public class OrderController {
 			String orderDate = (String) session.getAttribute("orderDate");
 			int frId = (int) session.getAttribute("frIdForOrder");
 			int addressId = (int) session.getAttribute("addressId");
+			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
 
 			// create ObjectMapper instance
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -272,7 +273,8 @@ public class OrderController {
 			order.setDeliveryType(homeDelivery);
 			order.setDeliveryInstId(deliveryInstru);
 			order.setDeliveryInstText(textDeliveryInstr);
-
+			order.setDeliveryCharges(deliveryCharges);
+			
 			List<OrderDetail> orderDetailList = new ArrayList<>();
 
 			float finaTaxableAmt = 0;

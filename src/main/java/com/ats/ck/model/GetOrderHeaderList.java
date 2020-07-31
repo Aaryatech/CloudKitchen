@@ -2,7 +2,6 @@ package com.ats.ck.model;
  
 import java.util.List;
  
-
 public class GetOrderHeaderList {
 	 
 	private int orderId; 
@@ -63,7 +62,9 @@ public class GetOrderHeaderList {
 	private String custName; 
 	private String frName;
 	private float deliveryKm;
-	
+	private float deliveryCharges; 
+	private int paymentSubMode; 
+	private int isAgent;
 	private List<GetOrderDetailList> detailList;
 	public int getOrderId() {
 		return orderId;
@@ -419,6 +420,24 @@ public class GetOrderHeaderList {
 	public void setDeliveryKm(float deliveryKm) {
 		this.deliveryKm = deliveryKm;
 	}
+	public float getDeliveryCharges() {
+		return deliveryCharges;
+	}
+	public void setDeliveryCharges(float deliveryCharges) {
+		this.deliveryCharges = deliveryCharges;
+	}
+	public int getPaymentSubMode() {
+		return paymentSubMode;
+	}
+	public void setPaymentSubMode(int paymentSubMode) {
+		this.paymentSubMode = paymentSubMode;
+	}
+	public int getIsAgent() {
+		return isAgent;
+	}
+	public void setIsAgent(int isAgent) {
+		this.isAgent = isAgent;
+	}
 	@Override
 	public String toString() {
 		return "GetOrderHeaderList [orderId=" + orderId + ", orderNo=" + orderNo + ", orderDate=" + orderDate
@@ -438,7 +457,8 @@ public class GetOrderHeaderList {
 				+ billingAddress + ", customerGstnNo=" + customerGstnNo + ", deliveryInstText=" + deliveryInstText
 				+ ", deliveryType=" + deliveryType + ", deliveryInstId=" + deliveryInstId + ", areaName=" + areaName
 				+ ", cityName=" + cityName + ", custName=" + custName + ", frName=" + frName + ", deliveryKm="
-				+ deliveryKm + ", detailList=" + detailList + "]";
+				+ deliveryKm + ", deliveryCharges=" + deliveryCharges + ", paymentSubMode=" + paymentSubMode
+				+ ", isAgent=" + isAgent + ", detailList=" + detailList + "]";
 	}
 	
 	

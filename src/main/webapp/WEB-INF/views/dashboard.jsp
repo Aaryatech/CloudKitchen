@@ -235,8 +235,8 @@
 									<th class="sorting_desc" style="text-align: center;">Total</th>
 									<th class="sorting_desc" style="text-align: center;">Payment
 										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										Status</th>
 									<th class="sorting_desc" style="text-align: center;">Action</th>
 								</tr>
 							</thead>
@@ -270,8 +270,8 @@
 									<th class="sorting_desc" style="text-align: center;">Total</th>
 									<th class="sorting_desc" style="text-align: center;">Payment
 										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										Status</th>
 									<th class="sorting_desc" style="text-align: center;">Action</th>
 								</tr>
 							</thead>
@@ -305,8 +305,8 @@
 									<th class="sorting_desc" style="text-align: center;">Total</th>
 									<th class="sorting_desc" style="text-align: center;">Payment
 										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										Status</th>
 									<th class="sorting_desc" style="text-align: center;">Action</th>
 								</tr>
 							</thead>
@@ -340,8 +340,8 @@
 									<th class="sorting_desc" style="text-align: center;">Total</th>
 									<th class="sorting_desc" style="text-align: center;">Payment
 										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Method</th>
+									<th class="sorting_desc" style="text-align: center;">Order
+										Status</th>
 									<th class="sorting_desc" style="text-align: center;">Action</th>
 								</tr>
 							</thead>
@@ -1279,21 +1279,21 @@
 
 				<div class="pop_signup">View Order</div>
 
-
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
 						<li>
 							<div class="pop_txt_l">Order No.</div>
-							<div class="pop_txt_r">: 0001</div>
+							<div class="pop_txt_r" id="order_no">: 0001</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Customer Name</div>
-							<div class="pop_txt_r">: Neal Matthews 1</div>
+							<div class="pop_txt_r" id="order_customer_name">: Neal
+								Matthews 1</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Shop Name</div>
-							<div class="pop_txt_r">: Madhavi</div>
+							<div class="pop_txt_r" id="order_shop_name">: Madhavi</div>
 						</li>
 						<!-- <li>
 							<div class="pop_txt_l">Payment Status</div>
@@ -1304,29 +1304,31 @@
 
 						<li>
 							<div class="pop_txt_l">Order Status</div>
-							<div class="pop_txt_r">Going To Delivered</div>
+							<div class="pop_txt_r" id="order_status_view">Going To
+								Delivered</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Date & Time</div>
-							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+							<div class="pop_txt_r" id="order_data_time">: 10-07-2020
+								11:00 AM</div>
 						</li>
 						<li class="total">
 							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">: 440 /-</div>
+							<div class="pop_txt_r" id="order_tatal">: 440 /-</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Payment Status</div>
 							<div class="pop_txt_r">
-								: <span class="paid">Paid</span>
+								: <span class="paid" id="order_payment_Status">Paid</span>
 							</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Payment Method</div>
-							<div class="pop_txt_r">: COD</div>
+							<div class="pop_txt_r" id="order_payment_method">: COD</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Order Type</div>
-							<div class="pop_txt_r">: Web</div>
+							<div class="pop_txt_r" id="order_type">: Web</div>
 						</li>
 					</ul>
 				</div>
@@ -1334,21 +1336,22 @@
 
 
 				<div class="component">
-					<table class="overflow-y" id="printtable3">
+					<table class="overflow-y" id="order_view_detail">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Special Note</th>
+								<!-- <th class="sorting_desc">UOM</th> -->
 								<th class="sorting_desc">Rate</th>
 								<th class="sorting_desc js-sort-date">Quantity</th>
-								<th class="sorting_desc">Tax %</th>
+								<!-- <th class="sorting_desc">Tax %</th> -->
 								<th class="sorting_desc">Total</th>
 
 							</tr>
 						</thead>
 						<tbody>
 
-							<tr>
+							<!-- <tr>
 								<td class="user-name">Biryani</td>
 								<td class="user-name"><strong>KG</strong></td>
 								<td class="user-name"><span class="paid">400</span></td>
@@ -1364,7 +1367,7 @@
 								<td class="user-name"><strong>1</strong></td>
 								<td class="user-name">18%</td>
 								<td class="user-name">400</td>
-							</tr>
+							</tr> -->
 
 
 
@@ -1382,35 +1385,35 @@
 						<li>
 							<div class="pop_txt_l">Item Total</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
+								: <span style="float: right;" id="view_item_total">440.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Tax</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
+								: <span style="float: right;" id="view_tax_total">00.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Offer Disc AMT</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
+								: <span style="float: right;" id="view_disc_total">00.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Delivery Charges</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">30.00</span>
+								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li class="total">
 							<div class="pop_txt_l">Total</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
+								: <span style="float: right;" id="view_fianl_total">440.00</span>
 							</div>
 						</li>
 					</ul>
@@ -2424,18 +2427,106 @@
 			/* $('#modal_step1').modal('hide'); */
 		}
 
-		function viewOrderFun() {
+		function viewOrderFun(orderId, type) {
 
 			$('#viewOrder').modal('show');
 			$(".sticky-thead").css({
 				"width" : "100%"
 			});
-			/* $("#printtable3 tbody").empty();
-			 
-			var tr_data = '<tr> <td class="user-name">Biryani</td> <td class="user-name"><strong>KG</strong></td>'
-					+ '<td class="user-name"><span class="paid">400</span></td><td class="user-name"><strong>1</strong></td>'
-					+ '<td class="user-name">18%</td> <td class="user-name">400</td> </tr>'; 
-			$('#printtable3').append(tr_data); */
+
+			var liveOrderList = sessionStorage.getItem("liveOrderList");
+			var table = $.parseJSON(liveOrderList);
+
+			var list;
+			if (type == 1) {
+				list = table.orderListByStatus;
+			} else {
+				list = table.orderListByStatusAndDate;
+			}
+
+			console.log(list);
+
+			for (var i = 0; i < list.length; i++) {
+
+				if (list[i].orderId == orderId) {
+					$("#order_no").html(list[i].orderNo);
+					$("#order_customer_name").html(list[i].custName);
+					$("#order_shop_name").html(list[i].frName);
+
+					var orderStatus = 'PARK ORDER';
+
+					if (list[i].orderStatus == 1) {
+						orderStatus = 'Shop Confirmation Pending';
+					} else if (list[i].orderStatus == 2) {
+						orderStatus = 'Accept by shop';
+					} else if (list[i].orderStatus == 3) {
+						orderStatus = 'Processing';
+					} else if (list[i].orderStatus == 4) {
+						orderStatus = 'Delivery Pending';
+					} else if (list[i].orderStatus == 6) {
+						orderStatus = 'Reject By shop';
+					} else if (list[i].orderStatus == 7) {
+						orderStatus = 'Return';
+					} else if (list[i].orderStatus == 8) {
+						orderStatus = 'Cancelled';
+					}
+
+					$("#order_status_view").html(orderStatus);
+					$("#order_data_time").html(
+							list[i].orderDate + ' ' + list[i].deliveryTime);
+					$("#order_tatal").html((list[i].totalAmt).toFixed(2));
+
+					var platform = 'Web';
+					var paymentSts = 'PENDING';
+
+					if (list[i].orderPlatform == 2) {
+						platform = 'Mobile App';
+					} else if (list[i].orderPlatform == 3) {
+						platform = 'Website';
+					}
+
+					if (list[i].paidStatus == 1) {
+						paymentSts = 'PAID';
+					}
+
+					var paymentMethod = "COD";
+
+					if (list[i].paymentMethod == 2) {
+						paymentMethod = 'Online';
+					}
+
+					$("#order_payment_Status").html(paymentSts);
+					$("#order_payment_method").html(paymentMethod);
+					$("#order_type").html(platform);
+
+					$("#order_view_detail tbody").empty();
+
+					for (var j = 0; j < list[i].detailList.length; j++) {
+						var tr_data = '<tr> <td class="user-name">'
+								+ list[i].detailList[j].itemName
+								+ '</td> <td class="user-name">'
+								+ list[i].detailList[j].remark
+								+ '</td>'
+								+ '<td class="user-name" style="text-align: right;"><span>'
+								+ list[i].detailList[j].rate
+								+ '</span></td><td class="user-name" style="text-align: right;">'
+								+ list[i].detailList[j].qty
+								+ '</td>'
+								+ ' <td class="user-name" style="text-align: right;">'
+								+ (list[i].detailList[j].totalAmt).toFixed(2)
+								+ '</td> </tr>';
+						$('#order_view_detail').append(tr_data);
+					}
+					$("#view_item_total").html((list[i].taxableAmt).toFixed(2));
+					$("#view_tax_total").html((list[i].taxAmt).toFixed(2));
+					$("#view_disc_total").html((list[i].discAmt).toFixed(2));
+					$("#view_deliverycharge_total").html(
+							(list[i].deliveryCharges).toFixed(2));
+					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
+
+					break;
+				}
+			}
 
 		}
 	</script>
@@ -2603,6 +2694,9 @@
 						processData : false,
 						success : function(data) {
 
+							sessionStorage.setItem("liveOrderList", JSON
+									.stringify(data));
+
 							var response = data.orderListByStatus;
 							var responseByDate = data.orderListByStatusAndDate;
 
@@ -2644,7 +2738,9 @@
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
 								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
-										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">'
+										+ '<a href="javascript:void(0)" onclick="viewOrderFun('
+										+ response[i].orderId
+										+ ',1)">'
 										+ response[i].orderNo
 										+ '</a></strong></td>'
 										+ '<td class="user-name">'
@@ -2734,7 +2830,9 @@
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
 								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
-										+ '<a href="javascript:void(0)" onclick="viewOrderFun()">'
+										+ '<a href="javascript:void(0)" onclick="viewOrderFun('
+										+ responseByDate[i].orderId
+										+ ',2)">'
 										+ responseByDate[i].orderNo
 										+ '</a></strong></td>'
 										+ '<td class="user-name">'

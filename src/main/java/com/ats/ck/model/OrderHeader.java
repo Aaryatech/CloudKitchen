@@ -57,6 +57,9 @@ public class OrderHeader {
 	private int deliveryInstId; 
 	private String deliveryInstText; 
 	private float deliveryKm;
+	private float deliveryCharges; 
+	private int paymentSubMode; 
+	private int isAgent;
 	
 	public int getOrderId() {
 		return orderId;
@@ -490,6 +493,30 @@ public class OrderHeader {
 		this.deliveryKm = deliveryKm;
 	}
 
+	public float getDeliveryCharges() {
+		return deliveryCharges;
+	}
+
+	public void setDeliveryCharges(float deliveryCharges) {
+		this.deliveryCharges = deliveryCharges;
+	}
+
+	public int getPaymentSubMode() {
+		return paymentSubMode;
+	}
+
+	public void setPaymentSubMode(int paymentSubMode) {
+		this.paymentSubMode = paymentSubMode;
+	}
+
+	public int getIsAgent() {
+		return isAgent;
+	}
+
+	public void setIsAgent(int isAgent) {
+		this.isAgent = isAgent;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderHeader [orderId=" + orderId + ", orderNo=" + orderNo + ", orderDate=" + orderDate + ", frId="
@@ -508,7 +535,8 @@ public class OrderHeader {
 				+ exDate1 + ", exDate2=" + exDate2 + ", billingName=" + billingName + ", billingAddress="
 				+ billingAddress + ", customerGstnNo=" + customerGstnNo + ", deliveryType=" + deliveryType
 				+ ", deliveryInstId=" + deliveryInstId + ", deliveryInstText=" + deliveryInstText + ", deliveryKm="
-				+ deliveryKm + "]";
+				+ deliveryKm + ", deliveryCharges=" + deliveryCharges + ", paymentSubMode=" + paymentSubMode
+				+ ", isAgent=" + isAgent + "]";
 	}
 
 }

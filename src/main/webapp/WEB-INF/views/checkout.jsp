@@ -17,6 +17,7 @@
 -->
 <script
 	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
 <body onload="appendTableList();getItemList();"
 	data-customvalueone='${jsonList}'>
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -89,9 +90,11 @@
 									<div class="total-row_l">Delivery Charges</div>
 									<div class="total-row_r">
 										<input name="deliveryCharges" id="deliveryCharges" type="text"
-											class="table_inpt" placeholder=" Delivery Free" value="50"
-											onchange="appendTableList()" style="text-align: right;" />
+											class="table_inpt numbersOnly" placeholder=" Delivery Free"
+											value="50" onchange="appendTableList()"
+											style="text-align: right;" />
 									</div>
+
 									<div class="clr"></div>
 
 								</div>
@@ -101,6 +104,9 @@
 									<div class="clr"></div>
 
 								</div>
+								<span class="model_error_class"
+									style="color: red; display: none;" id="error_delivery_charges">*
+									Delivery charges required.</span>
 							</div>
 
 						</div>
@@ -427,6 +433,27 @@
 		</div>
 	</div>
 
+	<div class="modal fade kot-popup" id="confirm">
+		<div class="modal-dialog modal-lg">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Are you sure?</div>
+				<div>
+					<button type="button" data-dismiss="modal" class="button_place"
+						id="submitOrder">Submit</button>
+					<button type="button" data-dismiss="modal" class="button_place">Cancel</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
 	<script>
@@ -518,10 +545,12 @@
 		
 		function placeOrder(status) {
 
-			
+			var deliveryCharges = $("#deliveryCharges").val();
 			
 			$("#error_billingName").hide();
 			$("#error_billingAddress").hide();
+			$("#error_delivery_charges").hide();
+			
 			var isError = false;
 			
 			if (!$("#billingName").val().trim()) {
@@ -532,6 +561,10 @@
 				isError = true;
 				$("#error_billingAddress").show();
 			}
+			if (deliveryCharges=="") {
+				isError = true;
+				$("#error_delivery_charges").show();
+			}
 			
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue);
@@ -540,7 +573,11 @@
 				isError = true;
 				 alert("Select minimum one item.")
 			}
-			
+			/* $('#confirm')
+	        .modal({ backdrop: 'static', keyboard: false })
+	        .on('click', '#submitOrder', function (e) {
+	           alert("yes");
+	        }); */
 			if (!isError) {
 				
 				document.getElementById("loaderimg").style.display = "block";
@@ -564,7 +601,7 @@
 				fd.append("homeDelivery",homeDelivery);
 				fd.append("deliveryInstru",deliveryInstru);
 				fd.append("textDeliveryInstr",textDeliveryInstr);
-				
+				fd.append("deliveryCharges",deliveryCharges);
 				$
 						.ajax({
 							url : '${pageContext.request.contextPath}/placeOrder',
