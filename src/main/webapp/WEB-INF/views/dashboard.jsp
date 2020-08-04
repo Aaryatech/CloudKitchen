@@ -40,46 +40,46 @@
 
 			<!--top-search-->
 			<div class="main-box padding-20  margin_bottom">
-				<form action="" method="get">
-
-					<c:choose>
-						<c:when test="${sessionScope.successMsg!=null}">
-							<div class="success-msg" id="finalSuccessMsg">
-								<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
-									${sessionScope.successMsg}</span>
-							</div>
-							<%
-								session.removeAttribute("successMsg");
-							%>
-						</c:when>
-						<c:otherwise>
-							<div class="success-msg" style="display: none;"
-								id="finalSuccessMsg">
-								<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
-									${sessionScope.successMsg}</span>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${sessionScope.errorMsg!=null}">
-							<div class="error-msg" id="finalFailedMsg">
-								<i class="fa fa-times-circle"></i> <span
-									id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
-							</div>
-							<%
-								session.removeAttribute("errorMsg");
-							%>
-						</c:when>
-						<c:otherwise>
-							<div class="error-msg" style="display: none;" id="finalFailedMsg">
-								<i class="fa fa-times-circle"></i> <span
-									id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
-							</div>
-						</c:otherwise>
-					</c:choose>
 
 
-					<!-- <div class="success-msg" style="display: none;"
+				<c:choose>
+					<c:when test="${sessionScope.successMsg!=null}">
+						<div class="success-msg" id="finalSuccessMsg">
+							<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
+								${sessionScope.successMsg}</span>
+						</div>
+						<%
+							session.removeAttribute("successMsg");
+						%>
+					</c:when>
+					<c:otherwise>
+						<div class="success-msg" style="display: none;"
+							id="finalSuccessMsg">
+							<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
+								${sessionScope.successMsg}</span>
+						</div>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${sessionScope.errorMsg!=null}">
+						<div class="error-msg" id="finalFailedMsg">
+							<i class="fa fa-times-circle"></i> <span
+								id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
+						</div>
+						<%
+							session.removeAttribute("errorMsg");
+						%>
+					</c:when>
+					<c:otherwise>
+						<div class="error-msg" style="display: none;" id="finalFailedMsg">
+							<i class="fa fa-times-circle"></i> <span
+								id="finalerrormsgcontent">${sessionScope.errorMsg}</span>
+						</div>
+					</c:otherwise>
+				</c:choose>
+
+
+				<!-- <div class="success-msg" style="display: none;"
 						id="finalSuccessMsg">
 						<i class="fa fa-check"></i><span id="finalsuccessmsgcontent">
 							Success Message</span>
@@ -89,42 +89,46 @@
 							message.</span>
 					</div> -->
 
-					<div class="row">
-						<div class="col-lg-3 col-md-6 col-sm-6">
-							<div class="input_one">
-								<input name="" type="text" class="input_no"
-									placeholder="Customer Mobile Number " /> <i
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="input_one">
+							<form id="findCustomerByMobileNo">
+								<input name="mobileNoSearch" type="text" class="input_no"
+									placeholder="Customer Mobile Number " id="mobileNoSearch" /> <i
 									class="fa fa-mobile mobile" aria-hidden="true"></i>
 								<button type="submit" value="Submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
-							</div>
-							<span style="color: red;">* Mobile no. is not register.</span>
+							</form>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
-							<div class="input_one">
-								<input name="" type="text" class="input_no"
+						<span style="color: red; display: none;"
+							id="error_findCustomerByMobileNo">* Mobile no. is not
+							register.</span>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="input_one">
+							<!-- <input name="" type="text" class="input_no"
 									placeholder="Search by Order Number" /> <i
 									class="fa fa-check mobile check" aria-hidden="true"></i>
 								<button type="submit" value="Submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
-								</button>
-							</div>
-							<span style="color: red;">* Order no. not found.</span>
+								</button> -->
 						</div>
-
-						<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
-							<label class="prefered fs-14">Preferred Language : <Span
-								id="showPreferredLang">${customer.langName}</Span></label>
-						</div>
-
-						<div class="col-lg-3 sec_title right_btn">
-							<a href="javascript:void(0)" data-toggle="modal"
-								data-target="#addCustomer" href="#" class="order_btn"> New
-								Customer Registration</a>
-						</div>
+						<!-- <span style="color: red;">* Order no. not found.</span> -->
 					</div>
-				</form>
+
+					<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
+						<label class="prefered fs-14">Preferred Language : <Span
+							id="showPreferredLang">${customer.langName}</Span></label>
+					</div>
+
+					<div class="col-lg-3 sec_title right_btn">
+						<a href="javascript:void(0)" data-toggle="modal"
+							data-target="#addCustomer" href="#" class="order_btn"> New
+							Customer Registration</a>
+					</div>
+				</div>
+
 			</div>
 
 			<!--dashboard 5 boxes -->
@@ -367,12 +371,7 @@
 						</div>
 						<div class="profile_title">
 							<div class="profile_title_l">Customer Profile</div>
-							<div class="profile_title_r">
-								<a href="javascript:void(0)" onclick="editCustomer()"><i
-									class="fa fa-pencil" aria-hidden="true"></i></a>
-
-
-							</div>
+							<div class="profile_title_r" id="editCustomerSign"></div>
 							<div class="clr"></div>
 						</div>
 
@@ -554,8 +553,9 @@
 						<div class="single_row_r">
 							<div class="pop_frm_one">
 								<span>Mobile Number *</span> <input name="mobileNo" type="text"
-									class="frm_inpt numbersOnly" onchange="trim(this)"
-									id="mobileNo" maxlength="10" placeholder="Customer Mobile No." />
+									class="frm_inpt numbersOnly"
+									onchange="trim(this);checkMobileNo()" id="mobileNo"
+									maxlength="10" placeholder="Customer Mobile No." />
 							</div>
 							<span class="model_error_class"
 								style="color: red; display: none;" id="error_mobileNo">*
@@ -1739,6 +1739,38 @@
 
 		}
 
+		function checkMobileNo() {
+
+			var mobileNo = $("#mobileNo").val();
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append("mobileNo", mobileNo);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/checkMobileNo',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							$("#error_mobileNo").hide();
+
+							if (response.error == true) {
+								$("#error_mobileNo").show();
+								document.getElementById("error_mobileNo").innerHTML = "* "
+										+ mobileNo + " is already register.";
+								$("#mobileNo").val('');
+							}
+							document.getElementById("loaderimg").style.display = "none";
+						},
+					});
+
+		}
+
 		function displayCustomerInfo() {
 
 			document.getElementById("loaderimg").style.display = "block";
@@ -1752,6 +1784,7 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
+							 
 							document.getElementById("loaderimg").style.display = "none";
 
 							document.getElementById("profileCustName").innerHTML = response.custName;
@@ -1765,6 +1798,7 @@
 									+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
 									+ '</span>';
 							document.getElementById("showPreferredLang").innerHTML = response.langName;
+							document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 
 						},
 					});
@@ -2214,7 +2248,7 @@
 								document.getElementById("profilepreferredLang").innerHTML = "-";
 								document.getElementById("profileDeliveryAdd").innerHTML = "-";
 								document.getElementById("showPreferredLang").innerHTML = "-";
-
+								document.getElementById("editCustomerSign").innerHTML = '';
 								$('#finalFailedMsg').show();
 							} else {
 								document
@@ -2887,6 +2921,79 @@
 
 			/* $('#modal_step1').modal('hide'); */
 		}
+
+		$(document)
+				.ready(
+						function($) {
+
+							$("#findCustomerByMobileNo")
+									.submit(
+											function(e) {
+												$(
+														'#error_findCustomerByMobileNo')
+														.hide();
+												var mobileNo = $(
+														"#mobileNoSearch")
+														.val();
+
+												document
+														.getElementById("loaderimg").style.display = "block";
+												var fd = new FormData();
+												fd.append("mobileNo", mobileNo);
+
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/findCustomerByMobileNo',
+															type : 'post',
+															dataType : 'json',
+															data : fd,
+															contentType : false,
+															processData : false,
+															success : function(
+																	response) {
+
+																/* alert(JSON
+																		.stringify(response)) */
+																if (response.error == true) {
+																	displayCustomerInfo();
+																} else {
+																	document
+																			.getElementById("profileCustName").innerHTML = "-";
+																	document
+																			.getElementById("profileMobileNo").innerHTML = "-";
+																	document
+																			.getElementById("profilewhatappNo").innerHTML = "-";
+																	document
+																			.getElementById("profileemail").innerHTML = "-";
+																	document
+																			.getElementById("profilepreferredLang").innerHTML = "-";
+																	document
+																			.getElementById("profileDeliveryAdd").innerHTML = "-";
+																	document
+																			.getElementById("editCustomerSign").innerHTML = '';
+																	document
+																			.getElementById("showPreferredLang").innerHTML = "-";
+																	$(
+																			'#error_findCustomerByMobileNo')
+																			.show();
+																	setTimeout(
+																			function() {
+																				$(
+																						'#error_findCustomerByMobileNo')
+																						.hide();
+																			},
+																			5000);
+																}
+
+																document
+																		.getElementById("loaderimg").style.display = "none";
+
+																return false;
+															},
+														});
+												return false;
+											});
+						});
 	</script>
 </body>
 

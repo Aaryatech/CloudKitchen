@@ -130,6 +130,7 @@ public class HomeController {
 					session.setAttribute("userInfo", userObj.getUser());
 					session.setAttribute("profilePicUrl", Constants.imageShowUrl);
 					session.setAttribute("allowOrderandCheckoutPage", 0);
+					session.removeAttribute("liveCustomer");
 				} else {
 					mav = "redirect:/";
 					session.setAttribute("errorMsg", "Login Failed");
@@ -247,20 +248,24 @@ public class HomeController {
 			List<Language> languageList = new ArrayList<>(Arrays.asList(language));
 			model.addAttribute("languageList", languageList);
 
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("custId", 3);
-			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
-					CustomerDisplay.class);
-			model.addAttribute("customer", customer);
-
-			session.setAttribute("liveCustomer", customer);
-
 			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
 					GetFranchiseData.class);
 			List<FranchiseData> franchiseList = frData.getFranchise();
 			model.addAttribute("franchiseList", franchiseList);
 			session.setAttribute("allowOrderandCheckoutPage", 0);
 
+			try {
+				CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", liveCustomer.getCustId());
+				CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
+						map, CustomerDisplay.class);
+				model.addAttribute("customer", customer);
+
+				session.setAttribute("liveCustomer", customer);
+			} catch (Exception e) {
+				session.removeAttribute("liveCustomer");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -287,6 +292,65 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return areaList;
+	}
+
+	@RequestMapping(value = "/checkMobileNo", method = RequestMethod.POST)
+	@ResponseBody
+	public Info checkMobileNo(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+		try {
+
+			String mobileNo = request.getParameter("mobileNo");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("mobileNo", mobileNo);
+
+			CustomerDisplay[] customerDisplay = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerByMobileNo", map, CustomerDisplay[].class);
+
+			if (customerDisplay.length == 0) {
+				info.setError(false);
+			} else {
+				info.setError(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
+
+	@RequestMapping(value = "/findCustomerByMobileNo", method = RequestMethod.POST)
+	@ResponseBody
+	public Info findCustomerByMobileNo(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+		try {
+
+			String mobileNo = request.getParameter("mobileNo");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("mobileNo", mobileNo);
+
+			CustomerDisplay[] customerDisplay = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerByMobileNo", map, CustomerDisplay[].class);
+			HttpSession session = request.getSession();
+			if (customerDisplay.length == 0) {
+				info.setError(false);
+				session.removeAttribute("liveCustomer");
+			} else {
+				info.setError(true);
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", customerDisplay[0].getCustId());
+				CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
+						map, CustomerDisplay.class);
+
+				session.setAttribute("liveCustomer", customer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	@RequestMapping(value = "/getLiveList", method = RequestMethod.POST)
@@ -453,29 +517,39 @@ public class HomeController {
 	public Customer submitCustomerRegistration(HttpServletRequest request, HttpServletResponse response) {
 		Customer res = new Customer();
 		try {
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("mobileNo", newcust.getPhoneNumber());
+			CustomerDisplay[] customerDisplay = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerByMobileNo", map, CustomerDisplay[].class);
 
-			HttpSession session = request.getSession();
-			MnUser userInfo = (MnUser) session.getAttribute("userInfo");
-			Date dt = new Date();
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			newcust.setAddedFormType(2);
-			newcust.setCustAddDatetime(sf.format(dt));
-			newcust.setUserId(userInfo.getUserId());
-			newcust.setCompId(1);
-			res = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomer", newcust, Customer.class);
+			if (customerDisplay.length == 0) {
+				HttpSession session = request.getSession();
+				MnUser userInfo = (MnUser) session.getAttribute("userInfo");
+				Date dt = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-			if (res.isError() == false) {
-				List<CustomerAddress> addList = new ArrayList<CustomerAddress>();
-				customerAddress.setCustId(res.getCustId());
-				addList.add(customerAddress);
-				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList",
-						addList, Info.class);
+				newcust.setAddedFormType(2);
+				newcust.setCustAddDatetime(sf.format(dt));
+				newcust.setUserId(userInfo.getUserId());
+				newcust.setCompId(1);
+				res = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomer", newcust,
+						Customer.class);
 
-				LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				map.add("custId", res.getCustId());
-				CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
-						map, CustomerDisplay.class);
-				session.setAttribute("liveCustomer", customer);
+				if (res.isError() == false) {
+					List<CustomerAddress> addList = new ArrayList<CustomerAddress>();
+					customerAddress.setCustId(res.getCustId());
+					addList.add(customerAddress);
+					Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList",
+							addList, Info.class);
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("custId", res.getCustId());
+					CustomerDisplay customer = Constants.getRestTemplate()
+							.postForObject(Constants.url + "getCustomerById", map, CustomerDisplay.class);
+					session.setAttribute("liveCustomer", customer);
+				}
+			} else {
+				res.setError(true);
 			}
 
 		} catch (Exception e) {
