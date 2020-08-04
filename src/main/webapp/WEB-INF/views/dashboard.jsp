@@ -215,151 +215,153 @@
 			</div>
 
 			<!--Live orderes table -->
-			<div class="main-box padding-20 margin_bottom">
+			<div id="tableDive">
+
+				<div class="main-box padding-20 margin_bottom">
 
 
-				<div id="pending_order_div" style="display: none;">
-					<div class="sec_title">Pending Order</div>
+					<div id="pending_order_div" style="display: none;">
+						<div class="sec_title">Pending Order</div>
 
-					<div class="component">
-						<table class="overflow-y" id="pending_order_table">
-							<thead>
-								<tr>
-									<th></th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										NO.</th>
-									<th class="sorting_desc" style="text-align: center;">Customer
-										Name</th>
-									<th class="sorting_desc" style="text-align: center;">Shop
-										Name</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Date</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Type</th>
-									<th class="sorting_desc" style="text-align: center;">Total</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Action</th>
-								</tr>
-							</thead>
-							<tbody>
+						<div class="component">
+							<table class="overflow-y" id="pending_order_table">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											NO.</th>
+										<th class="sorting_desc" style="text-align: center;">Customer
+											Name</th>
+										<th class="sorting_desc" style="text-align: center;">Shop
+											Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Type</th>
+										<th class="sorting_desc" style="text-align: center;">Total</th>
+										<th class="sorting_desc" style="text-align: center;">Payment
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							</tbody>
-						</table>
+								</tbody>
+							</table>
 
 
+						</div>
 					</div>
-				</div>
 
-				<div id="live_order_div">
-					<div class="sec_title">Live Orders</div>
+					<div id="live_order_div">
+						<div class="sec_title">Live Orders</div>
 
-					<div class="component">
-						<table class="overflow-y" id="live_order_table">
-							<thead>
-								<tr>
-									<th></th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										NO.</th>
-									<th class="sorting_desc" style="text-align: center;">Customer
-										Name</th>
-									<th class="sorting_desc" style="text-align: center;">Shop
-										Name</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Date</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Type</th>
-									<th class="sorting_desc" style="text-align: center;">Total</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Action</th>
-								</tr>
-							</thead>
-							<tbody>
+						<div class="component">
+							<table class="overflow-y" id="live_order_table">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											NO.</th>
+										<th class="sorting_desc" style="text-align: center;">Customer
+											Name</th>
+										<th class="sorting_desc" style="text-align: center;">Shop
+											Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Type</th>
+										<th class="sorting_desc" style="text-align: center;">Total</th>
+										<th class="sorting_desc" style="text-align: center;">Payment
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							</tbody>
-						</table>
+								</tbody>
+							</table>
 
 
+						</div>
 					</div>
-				</div>
 
-				<div id="delivered_order_div" style="display: none;">
-					<div class="sec_title">Delivered Order</div>
+					<div id="delivered_order_div" style="display: none;">
+						<div class="sec_title">Delivered Order</div>
 
-					<div class="component">
-						<table class="overflow-y" id="delivered_order_table">
-							<thead>
-								<tr>
-									<th></th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										NO.</th>
-									<th class="sorting_desc" style="text-align: center;">Customer
-										Name</th>
-									<th class="sorting_desc" style="text-align: center;">Shop
-										Name</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Date</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Type</th>
-									<th class="sorting_desc" style="text-align: center;">Total</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Action</th>
-								</tr>
-							</thead>
-							<tbody>
+						<div class="component">
+							<table class="overflow-y" id="delivered_order_table">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											NO.</th>
+										<th class="sorting_desc" style="text-align: center;">Customer
+											Name</th>
+										<th class="sorting_desc" style="text-align: center;">Shop
+											Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Type</th>
+										<th class="sorting_desc" style="text-align: center;">Total</th>
+										<th class="sorting_desc" style="text-align: center;">Payment
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							</tbody>
-						</table>
+								</tbody>
+							</table>
 
 
+						</div>
 					</div>
-				</div>
 
-				<div id="cancelled_order_div" style="display: none;">
-					<div class="sec_title">Cancelled Order</div>
+					<div id="cancelled_order_div" style="display: none;">
+						<div class="sec_title">Cancelled Order</div>
 
-					<div class="component">
-						<table class="overflow-y" id="cancelled_order_table">
-							<thead>
-								<tr>
-									<th></th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										NO.</th>
-									<th class="sorting_desc" style="text-align: center;">Customer
-										Name</th>
-									<th class="sorting_desc" style="text-align: center;">Shop
-										Name</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Date</th>
-									<th class="sorting_desc js-sort-date"
-										style="text-align: center;">Type</th>
-									<th class="sorting_desc" style="text-align: center;">Total</th>
-									<th class="sorting_desc" style="text-align: center;">Payment
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Order
-										Status</th>
-									<th class="sorting_desc" style="text-align: center;">Action</th>
-								</tr>
-							</thead>
-							<tbody>
+						<div class="component">
+							<table class="overflow-y" id="cancelled_order_table">
+								<thead>
+									<tr>
+										<th></th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											NO.</th>
+										<th class="sorting_desc" style="text-align: center;">Customer
+											Name</th>
+										<th class="sorting_desc" style="text-align: center;">Shop
+											Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center;">Type</th>
+										<th class="sorting_desc" style="text-align: center;">Total</th>
+										<th class="sorting_desc" style="text-align: center;">Payment
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Order
+											Status</th>
+										<th class="sorting_desc" style="text-align: center;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							</tbody>
-						</table>
+								</tbody>
+							</table>
 
 
+						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
-
 			<!-- -->
 			<div class="row margin_bottom">
 				<div class="col-lg-4">
@@ -371,7 +373,13 @@
 						</div>
 						<div class="profile_title">
 							<div class="profile_title_l">Customer Profile</div>
-							<div class="profile_title_r" id="editCustomerSign"></div>
+							<div class="profile_title_r" id="editCustomerSign">
+								<c:if test="${customer.phoneNumber!=null}">
+									<a href="javascript:void(0)" onclick="editCustomer()"><i
+										class="fa fa-pencil" aria-hidden="true"></i></a>
+								</c:if>
+
+							</div>
 							<div class="clr"></div>
 						</div>
 
@@ -1096,12 +1104,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="cancelOrder"
+	<div class="modal fade kot-popup fetch_results" id="cancelOrder"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
 			<!--modal-md-->
 			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
+				<button type="button" class="close kot_close cleardiv" data-dismiss="modal">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 						alt="">
@@ -1115,15 +1123,17 @@
 					<ul>
 						<li>
 							<div class="pop_txt_l">Order No.</div>
-							<div class="pop_txt_r">: 0001</div>
+							<div class="pop_txt_r" id="cancel_order_no">: 0001</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Customer Name</div>
-							<div class="pop_txt_r">: Neal Matthews 1</div>
+							<div class="pop_txt_r" id="cancel_order_customer_name">:
+								Neal Matthews 1</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Shop Name</div>
-							<div class="pop_txt_r">: Madhavi</div>
+							<div class="pop_txt_r" id="cancel_order_shop_name">:
+								Madhavi</div>
 						</li>
 						<!-- <li>
 							<div class="pop_txt_l">Payment Status</div>
@@ -1134,29 +1144,32 @@
 
 						<li>
 							<div class="pop_txt_l">Order Status</div>
-							<div class="pop_txt_r">Going To Delivered</div>
+							<div class="pop_txt_r" id="cancel_order_status_view">Going
+								To Delivered</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Date & Time</div>
-							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+							<div class="pop_txt_r" id="cancel_order_data_time">:
+								10-07-2020 11:00 AM</div>
 						</li>
 						<li class="total">
 							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">: 440 /-</div>
+							<div class="pop_txt_r" id="cancel_order_tatal">: 440 /-</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Payment Status</div>
 							<div class="pop_txt_r">
-								: <span class="paid">Paid</span>
+								: <span class="paid" id="cancel_order_payment_Status">Paid</span>
 							</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Payment Method</div>
-							<div class="pop_txt_r">: COD</div>
+							<div class="pop_txt_r" id="cancel_order_payment_method">:
+								COD</div>
 						</li>
 						<li>
 							<div class="pop_txt_l">Order Type</div>
-							<div class="pop_txt_r">: Web</div>
+							<div class="pop_txt_r" id="cancel_order_type">: Web</div>
 						</li>
 					</ul>
 				</div>
@@ -1164,29 +1177,21 @@
 
 
 				<div class="component">
-					<table class="overflow-y">
+					<table class="overflow-y" id="order_cancel_detail">
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">UOM</th>
+								<th class="sorting_desc">Special Note</th>
+								<!-- <th class="sorting_desc">UOM</th> -->
 								<th class="sorting_desc">Rate</th>
 								<th class="sorting_desc js-sort-date">Quantity</th>
-								<th class="sorting_desc">Tax %</th>
+								<!-- <th class="sorting_desc">Tax %</th> -->
 								<th class="sorting_desc">Total</th>
 
 							</tr>
 						</thead>
 						<tbody>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-							<!--1 row-->
+
 
 						</tbody>
 					</table>
@@ -1201,43 +1206,43 @@
 						<li>
 							<div class="pop_txt_l">Item Total</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
+								: <span style="float: right;" id="cancel_item_total">440.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Tax</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
+								: <span style="float: right;" id="cancel_tax_total">00.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Offer Disc AMT</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
+								: <span style="float: right;" id="cancel_disc_total">00.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li>
 							<div class="pop_txt_l">Delivery Charges</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">30.00</span>
+								: <span style="float: right;" id="cancel_deliverycharge_total">30.00</span>
 							</div>
 						</li>
 						<li></li>
 						<li class="total">
 							<div class="pop_txt_l">Total</div>
 							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
+								: <span style="float: right;" id="cancel_fianl_total">440.00</span>
 							</div>
 						</li>
 					</ul>
 				</div>
 
 				<div class="form_one extra_marg">
-					<form action="" method="get">
-						<div class="single_row">
+					<form id="submitCancelForm">
+						<!-- <div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Cancel Reason</span>
 								<div class="search_multiple">
@@ -1248,16 +1253,20 @@
 									</select>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Remark</span>
-								<textarea name="" cols="" rows="" class="frm_inpt"
-									placeholder="Remark"></textarea>
+								<span>Remark *</span>
+								<textarea name="cancel_remark" cols="" rows="" class="frm_inpt"
+									placeholder="Remark" id="cancel_remark"></textarea>
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_cancel_remark">* This
+								field required.</span>
 						</div>
 						<div>
-							<input name="" type="button" value="Submit" class="next_btn" />
+							<input name="cancelOrderBtn" type="submit" value="Submit"
+								class="next_btn" />
 						</div>
 						<!-- class="pop_btn_row"-->
 					</form>
@@ -1784,7 +1793,7 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							 
+
 							document.getElementById("loaderimg").style.display = "none";
 
 							document.getElementById("profileCustName").innerHTML = response.custName;
@@ -2366,6 +2375,8 @@
 		}
 		function changeHeadName(id) {
 
+			$('#tableDive').show();
+
 			$(".sticky-thead").css({
 				"width" : "100%"
 			});
@@ -2563,6 +2574,112 @@
 			}
 
 		}
+
+		function cancelOrderFun(orderId, type) {
+
+			$('#cancelOrder').modal('show');
+			$(".sticky-thead").css({
+				"width" : "100%"
+			});
+
+			var liveOrderList = sessionStorage.getItem("liveOrderList");
+			var table = $.parseJSON(liveOrderList);
+
+			var list;
+			if (type == 1) {
+				list = table.orderListByStatus;
+			} else {
+				list = table.orderListByStatusAndDate;
+			}
+
+			console.log(list);
+
+			for (var i = 0; i < list.length; i++) {
+
+				if (list[i].orderId == orderId) {
+					$("#cancel_order_no").html(list[i].orderNo);
+					$("#cancel_order_customer_name").html(list[i].custName);
+					$("#cancel_order_shop_name").html(list[i].frName);
+
+					var orderStatus = 'PARK ORDER';
+
+					if (list[i].orderStatus == 1) {
+						orderStatus = 'Shop Confirmation Pending';
+					} else if (list[i].orderStatus == 2) {
+						orderStatus = 'Accept by shop';
+					} else if (list[i].orderStatus == 3) {
+						orderStatus = 'Processing';
+					} else if (list[i].orderStatus == 4) {
+						orderStatus = 'Delivery Pending';
+					} else if (list[i].orderStatus == 6) {
+						orderStatus = 'Reject By shop';
+					} else if (list[i].orderStatus == 7) {
+						orderStatus = 'Return';
+					} else if (list[i].orderStatus == 8) {
+						orderStatus = 'Cancelled';
+					}
+
+					$("#cancel_order_status_view").html(orderStatus);
+					$("cancel_#order_data_time").html(
+							list[i].orderDate + ' ' + list[i].deliveryTime);
+					$("#cancel_order_tatal")
+							.html((list[i].totalAmt).toFixed(2));
+
+					var platform = 'Web';
+					var paymentSts = 'PENDING';
+
+					if (list[i].orderPlatform == 2) {
+						platform = 'Mobile App';
+					} else if (list[i].orderPlatform == 3) {
+						platform = 'Website';
+					}
+
+					if (list[i].paidStatus == 1) {
+						paymentSts = 'PAID';
+					}
+
+					var paymentMethod = "COD";
+
+					if (list[i].paymentMethod == 2) {
+						paymentMethod = 'Online';
+					}
+
+					$("#cancel_order_payment_Status").html(paymentSts);
+					$("#cancel_order_payment_method").html(paymentMethod);
+					$("#cancel_order_type").html(platform);
+
+					$("#order_cancel_detail tbody").empty();
+
+					for (var j = 0; j < list[i].detailList.length; j++) {
+						var tr_data = '<tr> <td class="user-name">'
+								+ list[i].detailList[j].itemName
+								+ '</td> <td class="user-name">'
+								+ list[i].detailList[j].remark
+								+ '</td>'
+								+ '<td class="user-name" style="text-align: right;"><span>'
+								+ list[i].detailList[j].rate
+								+ '</span></td><td class="user-name" style="text-align: right;">'
+								+ list[i].detailList[j].qty
+								+ '</td>'
+								+ ' <td class="user-name" style="text-align: right;">'
+								+ (list[i].detailList[j].totalAmt).toFixed(2)
+								+ '</td> </tr>';
+						$('#order_cancel_detail').append(tr_data);
+					}
+					$("#cancel_item_total").html(
+							(list[i].taxableAmt).toFixed(2));
+					$("#cancel_tax_total").html((list[i].taxAmt).toFixed(2));
+					$("#cancel_disc_total").html((list[i].discAmt).toFixed(2));
+					$("#cancel_deliverycharge_total").html(
+							(list[i].deliveryCharges).toFixed(2));
+					$("#cancel_fianl_total")
+							.html((list[i].totalAmt).toFixed(2));
+					sessionStorage.setItem("cancel_order_id", list[i].orderId);
+					break;
+				}
+			}
+
+		}
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
@@ -2669,6 +2786,7 @@
 			});
 		});
 		$('.cleardiv').click(function(e) {
+			$('#error_cancel_remark').hide();
 			$('.model_error_class').hide();
 			$('.fetch_results').find('input:text').val('');
 			$('.fetch_results').find('textarea').val('');
@@ -2796,8 +2914,10 @@
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
 										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
-										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)" data-toggle="modal" '
-										+ 'data-target="#cancelOrder" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" '+
+										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
+										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+										+ response[i].orderId
+										+ ',1)"><i class="fa fa-times" '+
 								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
 										+ ' class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
@@ -2889,8 +3009,10 @@
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
 										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
-										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)" data-toggle="modal" '
-										+ 'data-target="#cancelOrder" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" '+
+										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
+										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+										+ response[i].orderId
+										+ ',2)"><i class="fa fa-times" '+
 								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
 										+ ' class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
@@ -2929,6 +3051,7 @@
 							$("#findCustomerByMobileNo")
 									.submit(
 											function(e) {
+
 												$(
 														'#error_findCustomerByMobileNo')
 														.hide();
@@ -2955,6 +3078,9 @@
 																/* alert(JSON
 																		.stringify(response)) */
 																if (response.error == true) {
+																	$(
+																			'#tableDive')
+																			.hide();
 																	displayCustomerInfo();
 																} else {
 																	document
@@ -2993,6 +3119,92 @@
 														});
 												return false;
 											});
+
+							$("#submitCancelForm")
+									.submit(
+											function(e) {
+
+												$('#error_cancel_remark')
+														.hide();
+												var isError = false;
+												if ($("#cancel_remark").val() == "") {
+													isError = true;
+													$('#error_cancel_remark')
+															.show();
+												}
+
+												if (!isError) {
+
+													var order_id = sessionStorage.getItem("cancel_order_id"); 
+													document
+															.getElementById("loaderimg").style.display = "block";
+													var fd = new FormData();
+													fd.append("cancel_remark",
+															$("#cancel_remark")
+																	.val());
+													fd.append("order_id",
+															order_id);
+													$
+															.ajax({
+																url : '${pageContext.request.contextPath}/submitCancelOrder',
+																type : 'post',
+																dataType : 'json',
+																data : fd,
+																contentType : false,
+																processData : false,
+																success : function(
+																		response) {
+
+																	$(
+																			'#cancelOrder')
+																			.modal(
+																					'hide');
+																	if (response.error == false) {
+
+																		var db = firebase
+																				.database();
+																		db
+																				.ref(
+																						today_date_temp
+																								+ "/"
+																								+ order_id
+																								+ "/status")
+																				.set(
+																						8);
+
+																		document
+																				.getElementById("finalsuccessmsgcontent").innerHTML = "Order Cancel Successfully";
+																		$(
+																				'#finalSuccessMsg')
+																				.show();
+
+																	} else {
+																		document
+																				.getElementById("finalFailedMsg").innerHTML = "Error while Canceling Order.";
+																		$(
+																				'#finalFailedMsg')
+																				.show();
+																	}
+																	document
+																			.getElementById("loaderimg").style.display = "none";
+																	setTimeout(
+																			function() {
+																				$(
+																						'#finalFailedMsg')
+																						.hide();
+																				$(
+																						'#finalSuccessMsg')
+																						.hide();
+																			},
+																			5000);
+																	return false;
+																},
+															});
+													return false;
+												}
+												return false;
+											});
+
 						});
 	</script>
 </body>

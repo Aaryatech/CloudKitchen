@@ -274,7 +274,7 @@ public class OrderController {
 			order.setDeliveryInstId(deliveryInstru);
 			order.setDeliveryInstText(textDeliveryInstr);
 			order.setDeliveryCharges(deliveryCharges);
-			
+
 			List<OrderDetail> orderDetailList = new ArrayList<>();
 
 			float finaTaxableAmt = 0;
@@ -366,5 +366,30 @@ public class OrderController {
 
 		}
 		return orderResponse;
+	}
+
+	@RequestMapping(value = "/submitCancelOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public Info submitCancelOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+			MnUser userObj = (MnUser) session.getAttribute("userInfo");
+
+			int order_id = Integer.parseInt(request.getParameter("order_id"));
+			String cancel_remark = request.getParameter("cancel_remark");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("status", 8);
+			map.add("userId", userObj.getUserId());
+			map.add("orderId", order_id);
+			map.add("remark", cancel_remark);
+			info = Constants.getRestTemplate().postForObject(Constants.url + "changeStatusByOrderId", map, Info.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return info;
 	}
 }
