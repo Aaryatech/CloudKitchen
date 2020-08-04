@@ -1786,7 +1786,7 @@
 			var fd = new FormData();
 			$
 					.ajax({
-						url : '${pageContext.request.contextPath}/editCustomer',
+						url : '${pageContext.request.contextPath}/displayCustomerInfo',
 						type : 'post',
 						dataType : 'json',
 						data : fd,
@@ -1796,17 +1796,17 @@
 
 							document.getElementById("loaderimg").style.display = "none";
 
-							document.getElementById("profileCustName").innerHTML = response.custName;
-							document.getElementById("profileMobileNo").innerHTML = response.phoneNumber;
-							document.getElementById("profilewhatappNo").innerHTML = response.whatsappNo;
-							document.getElementById("profileemail").innerHTML = response.emailId;
-							document.getElementById("profilepreferredLang").innerHTML = response.langName;
+							document.getElementById("profileCustName").innerHTML = response.customerInfo.custName;
+							document.getElementById("profileMobileNo").innerHTML = response.customerInfo.phoneNumber;
+							document.getElementById("profilewhatappNo").innerHTML = response.customerInfo.whatsappNo;
+							document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
+							document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
 							document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
 									+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
 									+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
 									+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
 									+ '</span>';
-							document.getElementById("showPreferredLang").innerHTML = response.langName;
+							document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
 							document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 
 						},

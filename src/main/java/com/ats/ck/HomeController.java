@@ -52,6 +52,7 @@ import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OrderListData;
+import com.ats.ck.model.showCustomerInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -684,6 +685,29 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return editcust;
+	}
+
+	@RequestMapping(value = "/displayCustomerInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public showCustomerInfo displayCustomerInfo(HttpServletRequest request, HttpServletResponse response) {
+
+		showCustomerInfo info = new showCustomerInfo();
+		try {
+
+			HttpSession session = request.getSession();
+			editcust = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			/*LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", editcust.getCustId());
+			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
+					CustomerDisplay.class);*/
+			
+			info.setCustomerInfo(editcust);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	@RequestMapping(value = "/sumbitEditCust", method = RequestMethod.POST)
