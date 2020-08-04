@@ -392,4 +392,57 @@ public class OrderController {
 		}
 		return info;
 	}
+	
+	@RequestMapping(value = "/editOrder", method = RequestMethod.GET)
+	public String editOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			/*// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custAddressId", session.getAttribute("addressId"));
+			CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+
+			model.addAttribute("addressDetail", addressDetail);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("compId", 1);
+			DeliveryInstruction[] deliveryInstruction = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getAllDeliveryInstructions", map, DeliveryInstruction[].class);
+			List<DeliveryInstruction> deliveryInstructionList = new ArrayList<>(Arrays.asList(deliveryInstruction));
+			model.addAttribute("deliveryInstructionList", deliveryInstructionList);
+
+			
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("custAddressId",
+			 * session.getAttribute("addressId")); CustomerAddressDisplay addressDetail =
+			 * Constants.getRestTemplate() .postForObject(Constants.url +
+			 * "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+			 
+
+			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+			SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy");
+			String orderTime = (String) session.getAttribute("orderTime");
+			String orderDate = (String) session.getAttribute("orderDate");
+
+			String dttime = orderDate + " " + orderTime;
+			Date dt = sf.parse(dttime);
+
+			String time = timeFormat.format(dt);
+			String date = dateFormate.format(dt);
+			model.addAttribute("time", time);
+			model.addAttribute("date", date);
+
+			model.addAttribute("relatedItemList", itemList);
+			model.addAttribute("favItemList", itemList);
+			model.addAttribute("catImageUrl", Constants.imageShowUrl);*/
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "editOrder";
+	}
 }

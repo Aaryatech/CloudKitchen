@@ -465,7 +465,7 @@
 										<td class="user-name">Live</td>
 
 										<td class="user-name"><a
-											href="${pageContext.request.contextPath}/checkout"
+											href="${pageContext.request.contextPath}/editOrder"
 											class="detail_btn_round" title="Edit Order"><i
 												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
 											href="javascript:void(0)" data-toggle="modal"
@@ -495,7 +495,7 @@
 										<td class="user-name">Live</td>
 
 										<td class="user-name"><a
-											href="${pageContext.request.contextPath}/checkout"
+											href="${pageContext.request.contextPath}/editOrder"
 											class="detail_btn_round" title="Edit Order"><i
 												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
 											href="javascript:void(0)" data-toggle="modal"
@@ -2913,7 +2913,7 @@
 										+ '<td class="user-name">'
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
+										+ '<a href="${pageContext.request.contextPath}/editOrder" class="detail_btn_round" title="Edit Order">'
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ response[i].orderId
@@ -3008,7 +3008,7 @@
 										+ '<td class="user-name">'
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="${pageContext.request.contextPath}/checkout" class="detail_btn_round" title="Edit Order">'
+										+ '<a href="${pageContext.request.contextPath}/editOrder" class="detail_btn_round" title="Edit Order">'
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ response[i].orderId
