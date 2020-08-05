@@ -1839,6 +1839,10 @@
 			$("#grievences").modal("show");
 			$('#grievences').on('hidden.bs.modal', function() {
 				$("#modalbody").html("");
+				setTimeout(function() {
+					$('#finalFailedMsg').hide();
+					$('#finalSuccessMsg').hide();
+				}, 5000);
 			});
 			//document.getElementById("loaderimg").style.display = "none";
 		}

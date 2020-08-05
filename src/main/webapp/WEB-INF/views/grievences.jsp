@@ -206,10 +206,11 @@
 </div>
 <div class="form_one extra_marg">
 
-
+	<input name="orderIdGrievences" id="orderIdGrievences" type="hidden"
+		value="${getOrderHeaderList.orderId}" />
 
 	<div id="grivience_div">
-		<form>
+		<form id="grivienceForm">
 			<div class="single_row">
 				<div class="pop_frm_one">
 					<span>Select Grievance Type</span>
@@ -237,14 +238,17 @@
 		</form>
 	</div>
 	<div id="feedback_div" style="display: none;">
-		<form>
+		<form id="feedbackForm">
 
 			<div class="single_row">
 				<div class="pop_frm_one">
 					<span>Remark *</span>
 					<textarea name="feedback_remark" id="feedback_remark" cols=""
-						rows="" class="frm_inpt" placeholder="Remark"></textarea>
+						rows="" class="frm_inpt" placeholder="Remark"
+						onchange="trim(this)"></textarea>
 				</div>
+				<span style="color: red; display: none;" id="error_feedback_remark">*
+					This field is required.</span>
 			</div>
 			<div>
 				<input name="grivnceSbmtbtn" type="submit" value="Submit"
@@ -256,6 +260,13 @@
 
 </div>
 <script>
+	function trim(el) {
+		el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+		replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+		replace(/\n +/, "\n"); // Removes spaces after newlines
+
+		return;
+	}
 	function changeFeedBack() {
 
 		if (document.getElementById("feedback").checked == true) {
@@ -271,4 +282,81 @@
 		placeholder : "Select Option",
 		allowClear : false
 	});
+
+	$(document)
+			.ready(
+					function($) {
+
+						$("#feedbackForm")
+								.submit(
+										function(e) {
+
+											$('#error_feedback_remark').hide();
+											var feedback_remark = $(
+													"#feedback_remark").val();
+											var isError = false;
+											if (!$("#feedback_remark").val()) {
+												isError = true;
+												$("#error_feedback_remark")
+														.show();
+											}
+
+											if (!isError) {
+												document
+														.getElementById("loaderimg").style.display = "block";
+												var fd = new FormData();
+												fd.append("feedback_remark",
+														feedback_remark);
+												fd.append("orderIdGrievences",
+														$("#orderIdGrievences")
+																.val());
+
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/submitFeedback',
+															type : 'post',
+															dataType : 'json',
+															data : fd,
+															contentType : false,
+															processData : false,
+															success : function(
+																	response) {
+
+																$(
+																		'#finalFailedMsg')
+																		.hide();
+																$(
+																		'#finalSuccessMsg')
+																		.hide();
+
+																if (response.error == true) {
+																	document
+																			.getElementById("finalerrormsgcontent").innerHTML = "Error while Apply Grievance.";
+
+																	$(
+																			'#finalFailedMsg')
+																			.show();
+																} else {
+																	document
+																			.getElementById("finalsuccessmsgcontent").innerHTML = "Grievance Successfully Submitted.";
+																	$(
+																			'#finalSuccessMsg')
+																			.show();
+
+																}
+																document
+																		.getElementById("loaderimg").style.display = "none";
+																$('#grievences')
+																		.modal(
+																				'hide');
+																return false;
+															},
+														});
+												return false;
+											}
+											return false;
+
+										});
+
+					});
 </script>

@@ -44,6 +44,7 @@ import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OfferHeader;
 import com.ats.ck.model.OrderDetail;
+import com.ats.ck.model.OrderFeedback;
 import com.ats.ck.model.OrderHeader;
 import com.ats.ck.model.OrderResponse;
 import com.ats.ck.model.OrderSaveData;
@@ -330,7 +331,7 @@ public class OrderController {
 
 			order.setTaxableAmt(finaTaxableAmt);
 			order.setTaxAmt(finaTaxAmt);
-			order.setTotalAmt(finaTotalAmt+deliveryCharges);
+			order.setTotalAmt(finaTotalAmt + deliveryCharges);
 			order.setSgstAmt(finalsgstAmt);
 			order.setCgstAmt(finalCgstAmt);
 			order.setIgstAmt(finalIgstAmt);
@@ -424,5 +425,42 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "grievences";
+	}
+
+	@RequestMapping(value = "/submitFeedback", method = RequestMethod.POST)
+	@ResponseBody
+	public Info submitFeedback(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+		try {
+
+			HttpSession session = request.getSession();
+			MnUser userObj = (MnUser) session.getAttribute("userInfo");
+			Date ct = new Date();
+			SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			int orderId = Integer.parseInt(request.getParameter("orderIdGrievences"));
+			String remark = request.getParameter("feedback_remark");
+
+			OrderFeedback orderFeedback = new OrderFeedback();
+			orderFeedback.setOrderId(orderId);
+			orderFeedback.setInsertUserId(userObj.getUserId());
+			orderFeedback.setInsertDatetime(dttime.format(ct));
+			orderFeedback.setRemark(remark);
+			orderFeedback.setPlatform(1);
+
+			OrderFeedback res = Constants.getRestTemplate().postForObject(Constants.url + "saveFeedBackOfOrder",
+					orderFeedback, OrderFeedback.class);
+			if (res == null) {
+				info.setError(true);
+			} else {
+				info.setError(false);
+			}
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
 	}
 }
