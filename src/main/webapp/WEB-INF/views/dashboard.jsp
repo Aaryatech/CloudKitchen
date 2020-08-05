@@ -2652,6 +2652,8 @@
 				var list = $.parseJSON(previous_order_history);
 			}
 
+			
+			
 			//console.log(list);
 
 			for (var i = 0; i < list.length; i++) {
