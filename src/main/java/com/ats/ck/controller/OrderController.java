@@ -393,7 +393,7 @@ public class OrderController {
 		return info;
 	}
 	
-	@RequestMapping(value = "/editOrder", method = RequestMethod.GET)
+	@RequestMapping(value = "/grievences", method = RequestMethod.GET)
 	public String editOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
@@ -443,6 +443,6 @@ public class OrderController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "editOrder";
+		return "grievences";
 	}
 }

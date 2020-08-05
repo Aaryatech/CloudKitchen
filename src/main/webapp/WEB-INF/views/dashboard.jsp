@@ -892,7 +892,7 @@
 
 
 
-	<div class="modal fade kot-popup" id="grievences"
+	<%-- <div class="modal fade kot-popup" id="grievences"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
 			<!--modal-md-->
@@ -1069,6 +1069,23 @@
 						<!-- class="pop_btn_row"-->
 					</form>
 				</div>
+			</div>
+		</div>
+	</div> --%>
+	
+	<div class="modal fade kot-popup" id="grievences"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Customer feedback - against order</div>
+				 
 			</div>
 		</div>
 	</div>
@@ -2652,8 +2669,6 @@
 				var list = $.parseJSON(previous_order_history);
 			}
 
-			
-			
 			//console.log(list);
 
 			for (var i = 0; i < list.length; i++) {
@@ -2682,7 +2697,7 @@
 					}
 
 					$("#cancel_order_status_view").html(orderStatus);
-					$("cancel_#order_data_time").html(
+					$("cancel_order_data_time").html(
 							list[i].orderDate + ' ' + list[i].deliveryTime);
 					$("#cancel_order_tatal")
 							.html((list[i].totalAmt).toFixed(2));
