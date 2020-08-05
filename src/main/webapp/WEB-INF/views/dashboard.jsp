@@ -427,7 +427,7 @@
 						</div>
 
 						<div class="component">
-							<table class="overflow-y">
+							<table class="overflow-y" id="previousOrderTabl">
 								<thead>
 									<tr>
 
@@ -449,7 +449,7 @@
 								</thead>
 								<tbody>
 									<!--1 row-->
-									<tr>
+									<%-- <tr>
 										<td class="user-name"><a href="#"
 											class="text-custom-white fw-500"> <img
 												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
@@ -477,39 +477,8 @@
 												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
 											href="#" class="detail_btn_round" title="Repeat Order"><i
 												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
+									</tr> --%>
 									<!--1 row-->
-									<tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Live</td>
-
-										<td class="user-name"><a
-											href="${pageContext.request.contextPath}/editOrder"
-											class="detail_btn_round" title="Edit Order"><i
-												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-											href="javascript:void(0)" data-toggle="modal"
-											data-target="#cancelOrder" class="detail_btn_round"
-											title="Cancel Order"><i class="fa fa-times"
-												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr>
-
-
 
 								</tbody>
 							</table>
@@ -1109,7 +1078,8 @@
 		<div class="modal-dialog modal-lg">
 			<!--modal-md-->
 			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close cleardiv" data-dismiss="modal">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 						alt="">
@@ -1794,21 +1764,42 @@
 						processData : false,
 						success : function(response) {
 
+							if (response.customerInfo.custId != 0) {
+								document.getElementById("profileCustName").innerHTML = response.customerInfo.custName;
+								document.getElementById("profileMobileNo").innerHTML = response.customerInfo.phoneNumber;
+								document.getElementById("profilewhatappNo").innerHTML = response.customerInfo.whatsappNo;
+								document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
+								document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
+								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
+										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
+										+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
+										+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
+										+ '</span>';
+								document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
+								document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+
+								sessionStorage
+										.setItem(
+												"previous_order_history",
+												JSON
+														.stringify(response.orderListByStatus));
+							} else {
+								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
+								document.getElementById("profileCustName").innerHTML = "-";
+								document.getElementById("profileMobileNo").innerHTML = "-";
+								document.getElementById("profilewhatappNo").innerHTML = "-";
+								document.getElementById("profileemail").innerHTML = "-";
+								document.getElementById("profilepreferredLang").innerHTML = "-";
+								document.getElementById("profileDeliveryAdd").innerHTML = "-";
+								document.getElementById("showPreferredLang").innerHTML = "-";
+								document.getElementById("editCustomerSign").innerHTML = '';
+								var list = [];
+								sessionStorage.setItem(
+										"previous_order_history", JSON
+												.stringify(list));
+							}
+							getpreviousorderlist();
 							document.getElementById("loaderimg").style.display = "none";
-
-							document.getElementById("profileCustName").innerHTML = response.customerInfo.custName;
-							document.getElementById("profileMobileNo").innerHTML = response.customerInfo.phoneNumber;
-							document.getElementById("profilewhatappNo").innerHTML = response.customerInfo.whatsappNo;
-							document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
-							document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
-							document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
-									+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
-									+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
-									+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
-									+ '</span>';
-							document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
-							document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-
 						},
 					});
 
@@ -1821,6 +1812,72 @@
 			$("#addAddressDetailId").val(0);
 			$('#addAddress').modal('show');
 
+		}
+
+		function getpreviousorderlist() {
+
+			var previous_order_history = sessionStorage
+					.getItem("previous_order_history");
+			var table = $.parseJSON(previous_order_history);
+
+			$("#previousOrderTabl tbody").empty();
+
+			for (var i = 0; i < table.length; i++) {
+
+				var orderStatus = 'PARK ORDER';
+
+				if (table[i].orderStatus == 1) {
+					orderStatus = 'Shop Confirmation Pending';
+				} else if (table[i].orderStatus == 2) {
+					orderStatus = 'Accept by shop';
+				} else if (table[i].orderStatus == 3) {
+					orderStatus = 'Processing';
+				} else if (table[i].orderStatus == 4) {
+					orderStatus = 'Delivery Pending';
+				} else if (table[i].orderStatus == 6) {
+					orderStatus = 'Reject By shop';
+				} else if (table[i].orderStatus == 7) {
+					orderStatus = 'Return';
+				} else if (table[i].orderStatus == 8) {
+					orderStatus = 'Cancelled';
+				}
+
+				var platform = 'Web';
+
+				if (table[i].orderPlatform == 2) {
+					platform = 'Mobile App';
+				} else if (table[i].orderPlatform == 3) {
+					platform = 'Website';
+				}
+
+				var action = ' <a href="javascript:void(0)" onclick="cancelOrderFun('
+						+ table[i].orderId
+						+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+						+ '</a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences" class="detail_btn_round" title="Grievences">'
+						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" class="detail_btn_round" title="Repeat Order">'
+						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
+				var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> <img '+
+				'src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" class="rounded-circle" alt="userimg">'
+						+ '</a></td> <td class="user-name"><strong><a href="javascript:void(0)" onclick="viewOrderFun('
+						+ table[i].orderId
+						+ ',3)">'
+						+ table[i].orderNo
+						+ '</a></strong></td>'
+						+ '<td class="user-name">'
+						+ table[i].frName
+						+ '</td><td class="user-name" style="text-align: center;">'
+						+ table[i].deliveryDate
+						+ '</td><td class="user-name">'
+						+ platform
+						+ '</td> <td class="user-name" style="text-align: right;">'
+						+ (table[i].totalAmt).toFixed(2)
+						+ '</td>'
+						+ '<td class="user-name">'
+						+ orderStatus
+						+ '</td> <td class="user-name" style="text-align: center;">'
+						+ action + '</td> </tr>';
+				$('#previousOrderTabl').append(tr_data);
+			}
 		}
 		function customerAddList() {
 
@@ -2250,21 +2307,14 @@
 
 							if (response.error == true) {
 								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
-								document.getElementById("profileCustName").innerHTML = "-";
-								document.getElementById("profileMobileNo").innerHTML = "-";
-								document.getElementById("profilewhatappNo").innerHTML = "-";
-								document.getElementById("profileemail").innerHTML = "-";
-								document.getElementById("profilepreferredLang").innerHTML = "-";
-								document.getElementById("profileDeliveryAdd").innerHTML = "-";
-								document.getElementById("showPreferredLang").innerHTML = "-";
-								document.getElementById("editCustomerSign").innerHTML = '';
 								$('#finalFailedMsg').show();
 							} else {
 								document
 										.getElementById("finalsuccessmsgcontent").innerHTML = "Customer Registration Successfully Completed";
 								$('#finalSuccessMsg').show();
-								displayCustomerInfo();
+
 							}
+							displayCustomerInfo();
 							$('.fetch_results').find('textarea').val('');
 							$('.fetch_results').find('input:text').val('');
 							setTimeout(function() {
@@ -2479,17 +2529,22 @@
 				"width" : "100%"
 			});
 
-			var liveOrderList = sessionStorage.getItem("liveOrderList");
-			var table = $.parseJSON(liveOrderList);
-
 			var list;
 			if (type == 1) {
+				var liveOrderList = sessionStorage.getItem("liveOrderList");
+				var table = $.parseJSON(liveOrderList);
 				list = table.orderListByStatus;
-			} else {
+			} else if (type == 2) {
+				var liveOrderList = sessionStorage.getItem("liveOrderList");
+				var table = $.parseJSON(liveOrderList);
 				list = table.orderListByStatusAndDate;
+			} else if (type == 3) {
+				var previous_order_history = sessionStorage
+						.getItem("previous_order_history");
+				var list = $.parseJSON(previous_order_history);
 			}
 
-			console.log(list);
+			//console.log(list);
 
 			for (var i = 0; i < list.length; i++) {
 
@@ -2582,17 +2637,22 @@
 				"width" : "100%"
 			});
 
-			var liveOrderList = sessionStorage.getItem("liveOrderList");
-			var table = $.parseJSON(liveOrderList);
-
 			var list;
 			if (type == 1) {
+				var liveOrderList = sessionStorage.getItem("liveOrderList");
+				var table = $.parseJSON(liveOrderList);
 				list = table.orderListByStatus;
-			} else {
+			} else if (type == 2) {
+				var liveOrderList = sessionStorage.getItem("liveOrderList");
+				var table = $.parseJSON(liveOrderList);
 				list = table.orderListByStatusAndDate;
+			} else if (type == 3) {
+				var previous_order_history = sessionStorage
+						.getItem("previous_order_history");
+				var list = $.parseJSON(previous_order_history);
 			}
 
-			console.log(list);
+			//console.log(list);
 
 			for (var i = 0; i < list.length; i++) {
 
@@ -2825,10 +2885,12 @@
 
 			sessionStorage.removeItem("cartValue");
 			sessionStorage.removeItem("allItemList");
+			displayCustomerInfo();
 			//getLiveList();
 		});
 
 		dbrefObject.on('value', function(snapshot) {
+			displayCustomerInfo();
 			getLiveList();
 		});
 
@@ -3011,7 +3073,7 @@
 										+ '<a href="${pageContext.request.contextPath}/editOrder" class="detail_btn_round" title="Edit Order">'
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
-										+ response[i].orderId
+										+ responseByDate[i].orderId
 										+ ',2)"><i class="fa fa-times" '+
 								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
 										+ ' class="detail_btn_round" title="Grievences">'
@@ -3081,24 +3143,9 @@
 																	$(
 																			'#tableDive')
 																			.hide();
-																	displayCustomerInfo();
+
 																} else {
-																	document
-																			.getElementById("profileCustName").innerHTML = "-";
-																	document
-																			.getElementById("profileMobileNo").innerHTML = "-";
-																	document
-																			.getElementById("profilewhatappNo").innerHTML = "-";
-																	document
-																			.getElementById("profileemail").innerHTML = "-";
-																	document
-																			.getElementById("profilepreferredLang").innerHTML = "-";
-																	document
-																			.getElementById("profileDeliveryAdd").innerHTML = "-";
-																	document
-																			.getElementById("editCustomerSign").innerHTML = '';
-																	document
-																			.getElementById("showPreferredLang").innerHTML = "-";
+
 																	$(
 																			'#error_findCustomerByMobileNo')
 																			.show();
@@ -3110,7 +3157,7 @@
 																			},
 																			5000);
 																}
-
+																displayCustomerInfo();
 																document
 																		.getElementById("loaderimg").style.display = "none";
 
@@ -3135,7 +3182,8 @@
 
 												if (!isError) {
 
-													var order_id = sessionStorage.getItem("cancel_order_id"); 
+													var order_id = sessionStorage
+															.getItem("cancel_order_id");
 													document
 															.getElementById("loaderimg").style.display = "block";
 													var fd = new FormData();

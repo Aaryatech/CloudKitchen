@@ -697,15 +697,20 @@ public class HomeController {
 			HttpSession session = request.getSession();
 			editcust = (CustomerDisplay) session.getAttribute("liveCustomer");
 
-			/*LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("custId", editcust.getCustId());
-			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
-					CustomerDisplay.class);*/
-			
+			GetOrderHeaderList[] getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderListByCustomerId", map, GetOrderHeaderList[].class);
+			List<GetOrderHeaderList> list = new ArrayList<>(Arrays.asList(getOrderHeaderList));
+
+			info.setOrderListByStatus(list);
 			info.setCustomerInfo(editcust);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			CustomerDisplay editcust = new CustomerDisplay();
+			List<GetOrderHeaderList> list = new ArrayList<>();
+			info.setOrderListByStatus(list);
+			info.setCustomerInfo(editcust);
+			//e.printStackTrace();
 		}
 		return info;
 	}
