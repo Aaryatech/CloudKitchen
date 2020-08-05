@@ -431,20 +431,22 @@
 								<thead>
 									<tr>
 
-										<th></th>
-										<th class="sorting_desc" style="text-align: center;">Order
-											NO.</th>
+										<th style="text-align: center; width: 7%;"></th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 7%;">Order NO.</th>
 
-										<th class="sorting_desc" style="text-align: center;">Shop
-											Name</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 20%;">Shop Name</th>
 										<th class="sorting_desc js-sort-date"
-											style="text-align: center;">Date</th>
+											style="text-align: center; width: 15%;">Date</th>
 										<th class="sorting_desc js-sort-date"
-											style="text-align: center;">Type</th>
-										<th class="sorting_desc" style="text-align: center;">Amount</th>
-										<th class="sorting_desc" style="text-align: center;">
-											Status</th>
-										<th class="sorting_desc" style="text-align: center;">Action</th>
+											style="text-align: center; width: 7%;">Type</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Amount</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -1848,6 +1850,10 @@
 		}
 
 		function getpreviousorderlist() {
+
+			$(".sticky-thead").css({
+				"width" : "100%"
+			});
 
 			var previous_order_history = sessionStorage
 					.getItem("previous_order_history");
