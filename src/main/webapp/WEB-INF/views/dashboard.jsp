@@ -1072,7 +1072,7 @@
 			</div>
 		</div>
 	</div> --%>
-	
+
 	<div class="modal fade kot-popup" id="grievences"
 		data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-lg">
@@ -1085,7 +1085,7 @@
 				</button>
 
 				<div class="pop_signup">Customer feedback - against order</div>
-				 
+				<div class="modal-body" id="modalbody"></div>
 			</div>
 		</div>
 	</div>
@@ -1830,6 +1830,18 @@
 			$('#addAddress').modal('show');
 
 		}
+		function insertgrievences(orderId) {
+
+			//document.getElementById("loaderimg").style.display = "block";
+			var strhref = "${pageContext.request.contextPath}/grievences?orderId="
+					+ orderId;
+			$("#modalbody").load(strhref);
+			$("#grievences").modal("show");
+			$('#grievences').on('hidden.bs.modal', function() {
+				$("#modalbody").html("");
+			});
+			//document.getElementById("loaderimg").style.display = "none";
+		}
 
 		function getpreviousorderlist() {
 
@@ -1851,6 +1863,8 @@
 					orderStatus = 'Processing';
 				} else if (table[i].orderStatus == 4) {
 					orderStatus = 'Delivery Pending';
+				} else if (table[i].orderStatus == 5) {
+					orderStatus = 'Delivered';
 				} else if (table[i].orderStatus == 6) {
 					orderStatus = 'Reject By shop';
 				} else if (table[i].orderStatus == 7) {
@@ -1870,7 +1884,9 @@
 				var action = ' <a href="javascript:void(0)" onclick="cancelOrderFun('
 						+ table[i].orderId
 						+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
-						+ '</a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences" class="detail_btn_round" title="Grievences">'
+						+ '</a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('
+						+ table[i].orderId
+						+ ')" class="detail_btn_round" title="Grievences">'
 						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" class="detail_btn_round" title="Repeat Order">'
 						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
 				var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> <img '+
@@ -2580,6 +2596,8 @@
 						orderStatus = 'Processing';
 					} else if (list[i].orderStatus == 4) {
 						orderStatus = 'Delivery Pending';
+					} else if (list[i].orderStatus == 5) {
+						orderStatus = 'Delivered';
 					} else if (list[i].orderStatus == 6) {
 						orderStatus = 'Reject By shop';
 					} else if (list[i].orderStatus == 7) {
@@ -2688,6 +2706,8 @@
 						orderStatus = 'Processing';
 					} else if (list[i].orderStatus == 4) {
 						orderStatus = 'Delivery Pending';
+					} else if (list[i].orderStatus == 5) {
+						orderStatus = 'Delivered';
 					} else if (list[i].orderStatus == 6) {
 						orderStatus = 'Reject By shop';
 					} else if (list[i].orderStatus == 7) {
@@ -2996,9 +3016,10 @@
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ response[i].orderId
-										+ ',1)"><i class="fa fa-times" '+
-								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
-										+ ' class="detail_btn_round" title="Grievences">'
+										+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" '
+										+ 'onclick="insertgrievences('
+										+ response[i].orderId
+										+ ')" class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
 
 								if (response[i].orderStatus == 1) {
@@ -3091,9 +3112,9 @@
 										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ responseByDate[i].orderId
-										+ ',2)"><i class="fa fa-times" '+
-								'aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" data-toggle="modal" data-target="#grievences"'
-										+ ' class="detail_btn_round" title="Grievences">'
+										+ ',2)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('
+										+ responseByDate[i].orderId
+										+ ')"  class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
 
 								if (responseByDate[i].orderStatus == 6) {

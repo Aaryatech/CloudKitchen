@@ -34,7 +34,9 @@ import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.GetSubCategoryData;
+import com.ats.ck.model.GrievencesInstruction;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.ItemJsonImportData;
@@ -328,7 +330,7 @@ public class OrderController {
 
 			order.setTaxableAmt(finaTaxableAmt);
 			order.setTaxAmt(finaTaxAmt);
-			order.setTotalAmt(finaTotalAmt);
+			order.setTotalAmt(finaTotalAmt+deliveryCharges);
 			order.setSgstAmt(finalsgstAmt);
 			order.setCgstAmt(finalCgstAmt);
 			order.setIgstAmt(finalIgstAmt);
@@ -392,7 +394,7 @@ public class OrderController {
 		}
 		return info;
 	}
-	
+
 	@RequestMapping(value = "/grievences", method = RequestMethod.GET)
 	public String editOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -400,46 +402,24 @@ public class OrderController {
 
 			HttpSession session = request.getSession();
 
-			/*// int addDetailId = Integer.parseInt(request.getParameter("id"));
+			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
 
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("custAddressId", session.getAttribute("addressId"));
-			CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
-
-			model.addAttribute("addressDetail", addressDetail);
+			map.add("compId", 1);
+			GrievencesInstruction[] grievencesInstruction = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getAllGrievancesInstructns", map, GrievencesInstruction[].class);
+			List<GrievencesInstruction> grievencesInstructionList = new ArrayList<>(
+					Arrays.asList(grievencesInstruction));
+			model.addAttribute("grievencesInstructionList", grievencesInstructionList);
 
 			map = new LinkedMultiValueMap<String, Object>();
-			map.add("compId", 1);
-			DeliveryInstruction[] deliveryInstruction = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getAllDeliveryInstructions", map, DeliveryInstruction[].class);
-			List<DeliveryInstruction> deliveryInstructionList = new ArrayList<>(Arrays.asList(deliveryInstruction));
-			model.addAttribute("deliveryInstructionList", deliveryInstructionList);
+			map.add("orderId", orderId);
+			GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+			model.addAttribute("getOrderHeaderList", getOrderHeaderList);
 
-			
-			 * map = new LinkedMultiValueMap<String, Object>(); map.add("custAddressId",
-			 * session.getAttribute("addressId")); CustomerAddressDisplay addressDetail =
-			 * Constants.getRestTemplate() .postForObject(Constants.url +
-			 * "getCustomerAddressListById", map, CustomerAddressDisplay.class);
-			 
-
-			SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
-			SimpleDateFormat dateFormate = new SimpleDateFormat("dd-MM-yyyy");
-			String orderTime = (String) session.getAttribute("orderTime");
-			String orderDate = (String) session.getAttribute("orderDate");
-
-			String dttime = orderDate + " " + orderTime;
-			Date dt = sf.parse(dttime);
-
-			String time = timeFormat.format(dt);
-			String date = dateFormate.format(dt);
-			model.addAttribute("time", time);
-			model.addAttribute("date", date);
-
-			model.addAttribute("relatedItemList", itemList);
-			model.addAttribute("favItemList", itemList);
-			model.addAttribute("catImageUrl", Constants.imageShowUrl);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

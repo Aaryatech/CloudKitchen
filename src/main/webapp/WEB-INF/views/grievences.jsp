@@ -1,10 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%><%@ taglib
+	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%@ taglib
+	prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="grievences_tab">
 	<ul>
 		<li><label class="radio_one"> <input type="radio"
-				class="option-input radio" name="example" checked /> Grievance
+				class="option-input radio" name="grievanceType" id="complent"
+				checked onchange="changeFeedBack()" /> Grievance
 		</label></li>
 		<li><label class="radio_one"> <input type="radio"
-				class="option-input radio" name="example" /> Appreciation
+				class="option-input radio" name="grievanceType" id="feedback"
+				onchange="changeFeedBack()" /> Appreciation
 		</label></li>
 
 	</ul>
@@ -16,48 +22,100 @@
 	<ul>
 		<li>
 			<div class="pop_txt_l">Order No.</div>
-			<div class="pop_txt_r">: 0001</div>
+			<div class="pop_txt_r">: ${getOrderHeaderList.orderNo}</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Customer Name</div>
-			<div class="pop_txt_r">: Neal Matthews 1</div>
+			<div class="pop_txt_r">: ${getOrderHeaderList.custName}</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Shop Name</div>
-			<div class="pop_txt_r">: Madhavi</div>
+			<div class="pop_txt_r">: ${getOrderHeaderList.frName}</div>
 		</li>
-		<!-- <li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								<span class="paid">Paid</span>
-							</div>
-						</li> -->
+
+		<c:set var="orderStatus" value="PARK ORDER"></c:set>
+		<c:choose>
+			<c:when test="${getOrderHeaderList.orderStatus==1}">
+				<c:set var="orderStatus" value="Shop Confirmation Pending"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==2}">
+				<c:set var="orderStatus" value="Accept by shop"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==3}">
+				<c:set var="orderStatus" value="Processing"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==4}">
+				<c:set var="orderStatus" value="Delivery Pending"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==5}">
+				<c:set var="orderStatus" value="Delivered"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==6}">
+				<c:set var="orderStatus" value="Reject By shop"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==7}">
+				<c:set var="orderStatus" value="Return"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==8}">
+				<c:set var="orderStatus" value="Cancelled"></c:set>
+			</c:when>
+		</c:choose>
+
+
+		<c:set var="platform" value="Web"></c:set>
+		<c:choose>
+
+			<c:when test="${getOrderHeaderList.orderPlatform==2}">
+				<c:set var="platform" value="Mobile App"></c:set>
+			</c:when>
+			<c:when test="${getOrderHeaderList.orderPlatform==3}">
+				<c:set var="platform" value="Website"></c:set>
+			</c:when>
+		</c:choose>
+
+		<c:set var="paymentSts" value="PENDING"></c:set>
+		<c:choose>
+
+			<c:when test="${getOrderHeaderList.paidStatus==1}">
+				<c:set var="paymentSts" value="PAID"></c:set>
+			</c:when>
+
+		</c:choose>
+		<c:set var="paymentMethod" value="COD"></c:set>
+		<c:choose>
+
+			<c:when test="${getOrderHeaderList.paidStatus==1}">
+				<c:set var="paymentMethod" value="Online"></c:set>
+			</c:when>
+
+		</c:choose>
 
 		<li>
 			<div class="pop_txt_l">Order Status</div>
-			<div class="pop_txt_r">Going To Delivered</div>
+			<div class="pop_txt_r">${orderStatus}</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Date & Time</div>
-			<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
+			<div class="pop_txt_r">: ${getOrderHeaderList.deliveryDate}
+				${getOrderHeaderList.deliveryTime}</div>
 		</li>
 		<li class="total">
 			<div class="pop_txt_l">Total</div>
-			<div class="pop_txt_r">: 440 /-</div>
+			<div class="pop_txt_r">: ${getOrderHeaderList.totalAmt} /-</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Payment Status</div>
 			<div class="pop_txt_r">
-				: <span class="paid">Paid</span>
+				: <span class="paid">${paymentSts}</span>
 			</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Payment Method</div>
-			<div class="pop_txt_r">: COD</div>
+			<div class="pop_txt_r">: ${paymentMethod}</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Order Type</div>
-			<div class="pop_txt_r">: Web</div>
+			<div class="pop_txt_r">: ${platform}</div>
 		</li>
 	</ul>
 </div>
@@ -69,24 +127,25 @@
 		<thead>
 			<tr>
 				<th class="sorting_desc">Name</th>
-				<th class="sorting_desc">UOM</th>
+				<th class="sorting_desc">Special Note</th>
 				<th class="sorting_desc">Rate</th>
 				<th class="sorting_desc js-sort-date">Quantity</th>
-				<th class="sorting_desc">Tax %</th>
 				<th class="sorting_desc">Total</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			<!--1 row-->
-			<tr>
-				<td class="user-name">Biryani</td>
-				<td class="user-name"><strong>KG</strong></td>
-				<td class="user-name"><span class="paid">400</span></td>
-				<td class="user-name"><strong>1</strong></td>
-				<td class="user-name">18%</td>
-				<td class="user-name">400</td>
-			</tr>
+			<c:forEach items="${getOrderHeaderList.detailList}" var="detailList">
+				<tr>
+					<td class="user-name">${detailList.itemName}</td>
+					<td class="user-name">${detailList.remark}</td>
+					<td class="user-name" style="text-align: right;">${detailList.rate}</td>
+					<td class="user-name" style="text-align: right;">${detailList.qty}</td>
+					<td class="user-name" style="text-align: right;"><fmt:formatNumber
+							type="number" minFractionDigits="2" maxFractionDigits="2"
+							groupingUsed="false" value="${detailList.totalAmt}" /></td>
+				</tr>
+			</c:forEach>
 			<!--1 row-->
 
 		</tbody>
@@ -102,63 +161,114 @@
 		<li>
 			<div class="pop_txt_l">Item Total</div>
 			<div class="pop_txt_r">
-				: <span style="float: right;">440.00</span>
+				: <span style="float: right;"><fmt:formatNumber type="number"
+						minFractionDigits="2" maxFractionDigits="2" groupingUsed="false"
+						value="${getOrderHeaderList.taxableAmt}" /></span>
 			</div>
 		</li>
 		<li></li>
 		<li>
 			<div class="pop_txt_l">Tax</div>
 			<div class="pop_txt_r">
-				: <span style="float: right;">00.00</span>
+				: <span style="float: right;"><fmt:formatNumber type="number"
+						minFractionDigits="2" maxFractionDigits="2" groupingUsed="false"
+						value="${getOrderHeaderList.taxAmt}" /></span>
 			</div>
 		</li>
 		<li></li>
 		<li>
 			<div class="pop_txt_l">Offer Disc AMT</div>
 			<div class="pop_txt_r">
-				: <span style="float: right;">00.00</span>
+				: <span style="float: right;"><fmt:formatNumber type="number"
+						minFractionDigits="2" maxFractionDigits="2" groupingUsed="false"
+						value="${getOrderHeaderList.discAmt}" /></span>
 			</div>
 		</li>
 		<li></li>
 		<li>
 			<div class="pop_txt_l">Delivery Charges</div>
 			<div class="pop_txt_r">
-				: <span style="float: right;">30.00</span>
+				: <span style="float: right;"><fmt:formatNumber type="number"
+						minFractionDigits="2" maxFractionDigits="2" groupingUsed="false"
+						value="${getOrderHeaderList.deliveryCharges}" /></span>
 			</div>
 		</li>
 		<li></li>
 		<li class="total">
 			<div class="pop_txt_l">Total</div>
 			<div class="pop_txt_r">
-				: <span style="float: right;">440.00</span>
+				: <span style="float: right;"><fmt:formatNumber type="number"
+						minFractionDigits="2" maxFractionDigits="2" groupingUsed="false"
+						value="${getOrderHeaderList.totalAmt}" /></span>
 			</div>
 		</li>
 	</ul>
 </div>
 <div class="form_one extra_marg">
-	<form action="" method="get">
-		<div class="single_row">
-			<div class="pop_frm_one">
-				<span>Select Grievance Type</span>
-				<div class="search_multiple">
-					<select class="country">
-						<option value="">Select Option</option>
-						<option value="1">Packing Damage</option>
-						<option value="4">Other</option>
-					</select>
+
+
+
+	<div id="grivience_div">
+		<form>
+			<div class="single_row">
+				<div class="pop_frm_one">
+					<span>Select Grievance Type</span>
+					<div class="search_multiple">
+						<select class="country">
+							<c:forEach items="${grievencesInstructionList}"
+								var="grievencesInstructionList">
+								<option value="${grievencesInstructionList.grievanceId}">${grievencesInstructionList.caption}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="single_row">
-			<div class="pop_frm_one">
-				<span>Remark</span>
-				<textarea name="" cols="" rows="" class="frm_inpt"
-					placeholder="Remark"></textarea>
+			<div class="single_row">
+				<div class="pop_frm_one">
+					<span>Remark *</span>
+					<textarea name="grivience_remark" id="grivience_remark" cols=""
+						rows="" class="frm_inpt" placeholder="Remark"></textarea>
+				</div>
 			</div>
-		</div>
-		<div>
-			<input name="" type="button" value="Submit" class="next_btn" />
-		</div>
-		<!-- class="pop_btn_row"-->
-	</form>
+			<div>
+				<input name="grivnceSbmtbtn" type="submit" value="Submit"
+					class="next_btn" />
+			</div>
+		</form>
+	</div>
+	<div id="feedback_div" style="display: none;">
+		<form>
+
+			<div class="single_row">
+				<div class="pop_frm_one">
+					<span>Remark *</span>
+					<textarea name="feedback_remark" id="feedback_remark" cols=""
+						rows="" class="frm_inpt" placeholder="Remark"></textarea>
+				</div>
+			</div>
+			<div>
+				<input name="grivnceSbmtbtn" type="submit" value="Submit"
+					class="next_btn" />
+			</div>
+		</form>
+	</div>
+	<!-- class="pop_btn_row"-->
+
 </div>
+<script>
+	function changeFeedBack() {
+
+		if (document.getElementById("feedback").checked == true) {
+			$("#feedback_div").show();
+			$("#grivience_div").hide();
+		} else {
+			$("#feedback_div").hide();
+			$("#grivience_div").show();
+		}
+
+	}
+	$(".country").select2({
+		placeholder : "Select Option",
+		allowClear : false
+	});
+</script>
