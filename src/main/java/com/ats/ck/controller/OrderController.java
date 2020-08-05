@@ -45,6 +45,8 @@ import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OfferHeader;
 import com.ats.ck.model.OrderDetail;
 import com.ats.ck.model.OrderFeedback;
+import com.ats.ck.model.OrderGrievance;
+import com.ats.ck.model.OrderGrievanceTrail;
 import com.ats.ck.model.OrderHeader;
 import com.ats.ck.model.OrderResponse;
 import com.ats.ck.model.OrderSaveData;
@@ -396,6 +398,8 @@ public class OrderController {
 		return info;
 	}
 
+	List<GrievencesInstruction> grievencesInstructionList = new ArrayList<>();
+
 	@RequestMapping(value = "/grievences", method = RequestMethod.GET)
 	public String editOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -411,8 +415,7 @@ public class OrderController {
 			map.add("compId", 1);
 			GrievencesInstruction[] grievencesInstruction = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getAllGrievancesInstructns", map, GrievencesInstruction[].class);
-			List<GrievencesInstruction> grievencesInstructionList = new ArrayList<>(
-					Arrays.asList(grievencesInstruction));
+			grievencesInstructionList = new ArrayList<>(Arrays.asList(grievencesInstruction));
 			model.addAttribute("grievencesInstructionList", grievencesInstructionList);
 
 			map = new LinkedMultiValueMap<String, Object>();
@@ -452,6 +455,62 @@ public class OrderController {
 
 			OrderFeedback res = Constants.getRestTemplate().postForObject(Constants.url + "saveFeedBackOfOrder",
 					orderFeedback, OrderFeedback.class);
+			if (res == null) {
+				info.setError(true);
+			} else {
+				info.setError(false);
+			}
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
+	}
+
+	@RequestMapping(value = "/submitGrievince", method = RequestMethod.POST)
+	@ResponseBody
+	public Info submitGrievince(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+		try {
+
+			HttpSession session = request.getSession();
+			MnUser userObj = (MnUser) session.getAttribute("userInfo");
+			Date ct = new Date();
+			SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat yy = new SimpleDateFormat("yyyy-MM-dd");
+			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			int orderId = Integer.parseInt(request.getParameter("orderIdGrievences"));
+			int grievencesInstructionId = Integer.parseInt(request.getParameter("grievencesInstructionId"));
+			String remark = request.getParameter("grivience_remark");
+
+			OrderGrievance orderGrievance = new OrderGrievance();
+			orderGrievance.setOrderId(orderId);
+			orderGrievance.setInsertById(userObj.getUserId());
+			orderGrievance.setInsertDateTime(dttime.format(ct));
+			orderGrievance.setRemark(remark);
+			orderGrievance.setPlatform(1);
+			orderGrievance.setGrievenceSubtypeId(grievencesInstructionId);
+			orderGrievance.setCurrentStatus(0);
+			orderGrievance.setDate(yy.format(ct));
+			for (int i = 0; i < grievencesInstructionList.size(); i++) {
+
+				if (grievencesInstructionList.get(i).getGrievanceId() == grievencesInstructionId) {
+					orderGrievance.setGrievenceTypeId(grievencesInstructionList.get(i).getGrievenceTypeId());
+					break;
+				}
+			}
+
+			OrderGrievanceTrail orderGrievanceTrail = new OrderGrievanceTrail();
+			orderGrievanceTrail.setActionByUserId(userObj.getUserId());
+			orderGrievanceTrail.setActionDateTime(dttime.format(ct));
+			orderGrievanceTrail.setStatus(0);
+			orderGrievanceTrail.setRemark(remark);
+			orderGrievance.setOrderGrievanceTrail(orderGrievanceTrail);
+
+			OrderGrievance res = Constants.getRestTemplate().postForObject(Constants.url + "saveGrievanceOfOrder",
+					orderGrievance, OrderGrievance.class);
 			if (res == null) {
 				info.setError(true);
 			} else {

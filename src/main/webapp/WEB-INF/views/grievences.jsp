@@ -215,7 +215,9 @@
 				<div class="pop_frm_one">
 					<span>Select Grievance Type</span>
 					<div class="search_multiple">
-						<select class="country">
+						<select class="country" name="grievencesInstructionId"
+							id="grievencesInstructionId">
+							<option value="0">Select Option</option>
 							<c:forEach items="${grievencesInstructionList}"
 								var="grievencesInstructionList">
 								<option value="${grievencesInstructionList.grievanceId}">${grievencesInstructionList.caption}</option>
@@ -223,13 +225,18 @@
 						</select>
 					</div>
 				</div>
+				<span style="color: red; display: none;"
+					id="error_grievencesInstructionId">* This field is required.</span>
 			</div>
 			<div class="single_row">
 				<div class="pop_frm_one">
 					<span>Remark *</span>
 					<textarea name="grivience_remark" id="grivience_remark" cols=""
-						rows="" class="frm_inpt" placeholder="Remark"></textarea>
+						rows="" class="frm_inpt" placeholder="Remark"
+						onchange="trim(this)"></textarea>
 				</div>
+				<span style="color: red; display: none;" id="error_grivience_remark">*
+					This field is required.</span>
 			</div>
 			<div>
 				<input name="grivnceSbmtbtn" type="submit" value="Submit"
@@ -287,6 +294,91 @@
 			.ready(
 					function($) {
 
+						$("#grivienceForm")
+								.submit(
+										function(e) {
+
+											$('#error_grivience_remark').hide();
+											$('#error_grievencesInstructionId')
+													.hide();
+
+											var isError = false;
+											if (!$("#grivience_remark").val()) {
+												isError = true;
+												$("#error_grivience_remark")
+														.show();
+											}
+											if ($("#grievencesInstructionId")
+													.val() == 0) {
+												isError = true;
+												$(
+														"#error_grievencesInstructionId")
+														.show();
+											}
+
+											if (!isError) {
+												document
+														.getElementById("loaderimg").style.display = "block";
+												var fd = new FormData();
+												fd.append("grivience_remark",
+														$("#grivience_remark")
+																.val());
+												fd.append("orderIdGrievences",
+														$("#orderIdGrievences")
+																.val());
+												fd
+														.append(
+																"grievencesInstructionId",
+																$(
+																		"#grievencesInstructionId")
+																		.val());
+												$
+														.ajax({
+															url : '${pageContext.request.contextPath}/submitGrievince',
+															type : 'post',
+															dataType : 'json',
+															data : fd,
+															contentType : false,
+															processData : false,
+															success : function(
+																	response) {
+
+																$(
+																		'#finalFailedMsg')
+																		.hide();
+																$(
+																		'#finalSuccessMsg')
+																		.hide();
+
+																if (response.error == true) {
+																	document
+																			.getElementById("finalerrormsgcontent").innerHTML = "Error while Apply Grievance.";
+
+																	$(
+																			'#finalFailedMsg')
+																			.show();
+																} else {
+																	document
+																			.getElementById("finalsuccessmsgcontent").innerHTML = "Grievance Successfully Submitted.";
+																	$(
+																			'#finalSuccessMsg')
+																			.show();
+
+																}
+																document
+																		.getElementById("loaderimg").style.display = "none";
+																$('#grievences')
+																		.modal(
+																				'hide');
+																return false;
+															},
+														});
+												return false;
+											}
+											return false;
+
+										});
+
 						$("#feedbackForm")
 								.submit(
 										function(e) {
@@ -331,14 +423,14 @@
 
 																if (response.error == true) {
 																	document
-																			.getElementById("finalerrormsgcontent").innerHTML = "Error while Apply Grievance.";
+																			.getElementById("finalerrormsgcontent").innerHTML = "Error while Apply Feedback.";
 
 																	$(
 																			'#finalFailedMsg')
 																			.show();
 																} else {
 																	document
-																			.getElementById("finalsuccessmsgcontent").innerHTML = "Grievance Successfully Submitted.";
+																			.getElementById("finalsuccessmsgcontent").innerHTML = "Feedback Successfully Submitted.";
 																	$(
 																			'#finalSuccessMsg')
 																			.show();
