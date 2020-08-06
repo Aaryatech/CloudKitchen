@@ -92,7 +92,9 @@
 
 		<li>
 			<div class="pop_txt_l">Order Status</div>
-			<div class="pop_txt_r">${orderStatus}</div>
+			<div class="pop_txt_r">
+				: <span class="paid">${orderStatus}</span>
+			</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Date & Time</div>
@@ -105,9 +107,7 @@
 		</li>
 		<li>
 			<div class="pop_txt_l">Payment Status</div>
-			<div class="pop_txt_r">
-				: <span class="paid">${paymentSts}</span>
-			</div>
+			<div class="pop_txt_r">: ${paymentSts}</div>
 		</li>
 		<li>
 			<div class="pop_txt_l">Payment Method</div>

@@ -1152,16 +1152,16 @@
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
 						<li>
-							<div class="pop_txt_l">Order No.</div>
-							<div class="pop_txt_r" id="cancel_order_no">: 0001</div>
+							<div class="pop_txt_l">Order No.:</div>
+							<div class="pop_txt_r" id="cancel_order_no">0001</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Customer Name</div>
+							<div class="pop_txt_l">Customer Name :</div>
 							<div class="pop_txt_r" id="cancel_order_customer_name">:
 								Neal Matthews 1</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Shop Name</div>
+							<div class="pop_txt_l">Shop Name :</div>
 							<div class="pop_txt_r" id="cancel_order_shop_name">:
 								Madhavi</div>
 						</li>
@@ -1173,32 +1173,33 @@
 						</li> -->
 
 						<li>
-							<div class="pop_txt_l">Order Status</div>
-							<div class="pop_txt_r" id="cancel_order_status_view">Going
-								To Delivered</div>
+							<div class="pop_txt_l">Order Status :</div>
+							<div class="pop_txt_r">
+								<span class="paid" id="cancel_order_status_view">Going To
+									Delivered</span>
+							</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Date & Time</div>
+							<div class="pop_txt_l">Date & Time :</div>
 							<div class="pop_txt_r" id="cancel_order_data_time">:
 								10-07-2020 11:00 AM</div>
 						</li>
 						<li class="total">
-							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_l">Total :</div>
 							<div class="pop_txt_r" id="cancel_order_tatal">: 440 /-</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								: <span class="paid" id="cancel_order_payment_Status">Paid</span>
-							</div>
+							<div class="pop_txt_l">Payment Status :</div>
+							<div class="pop_txt_r" id="cancel_order_payment_Status">:
+								Paid</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_l">Payment Method :</div>
 							<div class="pop_txt_r" id="cancel_order_payment_method">:
 								COD</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Order Type</div>
+							<div class="pop_txt_l">Order Type :</div>
 							<div class="pop_txt_r" id="cancel_order_type">: Web</div>
 						</li>
 					</ul>
@@ -1322,16 +1323,16 @@
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
 						<li>
-							<div class="pop_txt_l">Order No.</div>
+							<div class="pop_txt_l">Order No. :</div>
 							<div class="pop_txt_r" id="order_no">: 0001</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Customer Name</div>
+							<div class="pop_txt_l">Customer Name :</div>
 							<div class="pop_txt_r" id="order_customer_name">: Neal
 								Matthews 1</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Shop Name</div>
+							<div class="pop_txt_l">Shop Name :</div>
 							<div class="pop_txt_r" id="order_shop_name">: Madhavi</div>
 						</li>
 						<!-- <li>
@@ -1342,31 +1343,31 @@
 						</li> -->
 
 						<li>
-							<div class="pop_txt_l">Order Status</div>
-							<div class="pop_txt_r" id="order_status_view">Going To
-								Delivered</div>
+							<div class="pop_txt_l">Order Status :</div>
+							<div class="pop_txt_r">
+								<span class="paid" id="order_status_view">Going To
+									Delivered</span>
+							</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Date & Time</div>
+							<div class="pop_txt_l">Date & Time :</div>
 							<div class="pop_txt_r" id="order_data_time">: 10-07-2020
 								11:00 AM</div>
 						</li>
 						<li class="total">
-							<div class="pop_txt_l">Total</div>
+							<div class="pop_txt_l">Total :</div>
 							<div class="pop_txt_r" id="order_tatal">: 440 /-</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								: <span class="paid" id="order_payment_Status">Paid</span>
-							</div>
+							<div class="pop_txt_l">Payment Status :</div>
+							<div class="pop_txt_r" id="order_payment_Status">: Paid</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Payment Method</div>
+							<div class="pop_txt_l">Payment Method :</div>
 							<div class="pop_txt_r" id="order_payment_method">: COD</div>
 						</li>
 						<li>
-							<div class="pop_txt_l">Order Type</div>
+							<div class="pop_txt_l">Order Type :</div>
 							<div class="pop_txt_r" id="order_type">: Web</div>
 						</li>
 					</ul>
@@ -1379,11 +1380,9 @@
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">Special Note</th>
-								<!-- <th class="sorting_desc">UOM</th> -->
+								<th class="sorting_desc">Special Note</th> 
 								<th class="sorting_desc">Rate</th>
-								<th class="sorting_desc js-sort-date">Quantity</th>
-								<!-- <th class="sorting_desc">Tax %</th> -->
+								<th class="sorting_desc js-sort-date">Quantity</th> 
 								<th class="sorting_desc">Total</th>
 
 							</tr>
@@ -3074,12 +3073,12 @@
 										+ '</td>'
 										+ '<td class="user-name" style="text-align: right;">'
 										+ (response[i].totalAmt).toFixed(2)
-										+ '</td> <td class="user-name"><span class="paid">'
+										+ '</td> <td class="user-name">'
 										+ paymentSts
-										+ '</span></td>'
-										+ '<td class="user-name">'
+										+ '</td>'
+										+ '<td class="user-name"><span class="paid">'
 										+ orderStatus
-										+ '</td> <td class="user-name" style="text-align: center;">'
+										+ '</span></td> <td class="user-name" style="text-align: center;">'
 										+ '<a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ response[i].orderId
@@ -3091,7 +3090,7 @@
 
 								if (response[i].orderStatus == 1) {
 									shop_pending_count = shop_pending_count + 1;
-									$('#pending_order_table').append(tr_data); 
+									$('#pending_order_table').append(tr_data);
 								} else if (response[i].orderStatus == 2) {
 									accept_count = accept_count + 1;
 									$('#live_order_table').append(tr_data);
@@ -3169,12 +3168,12 @@
 										+ '<td class="user-name" style="text-align: right;">'
 										+ (responseByDate[i].totalAmt)
 												.toFixed(2)
-										+ '</td> <td class="user-name"><span class="paid">'
+										+ '</td> <td class="user-name"> '
 										+ paymentSts
-										+ '</span></td>'
-										+ '<td class="user-name">'
+										+ '</td>'
+										+ '<td class="user-name"><span class="paid">'
 										+ orderStatus
-										+ '</td> <td class="user-name" style="text-align: center;">'
+										+ '</span></td> <td class="user-name" style="text-align: center;">'
 										+ '<a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ responseByDate[i].orderId
