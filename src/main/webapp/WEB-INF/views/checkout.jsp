@@ -173,7 +173,7 @@
 												id="textDeliveryInstr"></textarea>
 											<br> <label class="text-light-black fw-500 fs-14">Billing
 												Name *</label> <input name="billingName" class="form-control"
-												placeholder="Billing Name"
+												onchange="trim(this)" placeholder="Billing Name"
 												value="${sessionScope.liveCustomer.custName}"
 												id="billingName" /><span class="model_error_class"
 												style="color: red; display: none;" id="error_billingName">*
@@ -182,7 +182,7 @@
 												Address *</label>
 											<textarea name="billingAddress" id="billingAddress" cols=""
 												rows="6" class="form-control formcheck"
-												placeholder="Billing Address">${addressDetail.address}</textarea>
+												onchange="trim(this)" placeholder="Billing Address">${addressDetail.address}</textarea>
 											<span class="model_error_class"
 												style="color: red; display: none;" id="error_billingAddress">*
 												This field required.</span>
@@ -674,7 +674,7 @@
 						+ '<td class="user-name" style="text-align: right;">'
 						+ table[i].price
 						+ '</td>'
-						+ '<td class="user-name"><input name="specialRemark'+i+'" type="text" class="table_inpt" placeholder="Special Note" value="'+table[i].specialremark+'" id="specialRemark'+i+'" onchange="changeQty('
+						+ '<td class="user-name"><input name="specialRemark'+i+'" type="text" class="table_inpt" placeholder="Special Note" value="'+table[i].specialremark+'" id="specialRemark'+i+'" onchange="trim(this);changeQty('
 						+ i
 						+ ')"/></td>'
 						+ '<td class="user-name" style="text-align: right;">'
@@ -885,6 +885,13 @@
 
 			document.getElementById("loaderimg").style.display = "none";
 
+		}
+		function trim(el) {
+			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
+			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
+			replace(/\n +/, "\n"); // Removes spaces after newlines
+
+			return;
 		}
 	</script>
 

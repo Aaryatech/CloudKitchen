@@ -794,11 +794,12 @@
 		</div>
 	</div>
 
-	<div class="modal fade kot-popup" id="orderstep1">
+	<div class="modal fade kot-popup fetch_results" id="orderstep1">
 		<div class="modal-dialog modal-md">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
 					<img
 						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 						alt="">
@@ -1088,6 +1089,23 @@
 
 				<div class="pop_signup">Customer feedback - against order</div>
 				<div class="modal-body" id="modalbody"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="repeatOrderOption"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Repeat Order Process</div>
+				<div class="modal-body" id="repeatmodalbody"></div>
 			</div>
 		</div>
 	</div>
@@ -1848,12 +1866,23 @@
 			});
 			//document.getElementById("loaderimg").style.display = "none";
 		}
+		function repeateOrder(orderId, frId, addressId) {
 
-		function getpreviousorderlist() {
-
-			$(".sticky-thead").css({
-				"width" : "100%"
+			//document.getElementById("loaderimg").style.display = "block";
+			var strhref = "${pageContext.request.contextPath}/selectOptionForRepeateOrder?orderId="
+					+ orderId + "&frId=" + frId + "&addressId=" + addressId;
+			$("#repeatmodalbody").load(strhref);
+			$("#repeatOrderOption").modal("show");
+			$('#repeatOrderOption').on('hidden.bs.modal', function() {
+				$("#repeatmodalbody").html("");
+				setTimeout(function() {
+					$('#finalFailedMsg').hide();
+					$('#finalSuccessMsg').hide();
+				}, 5000);
 			});
+			//document.getElementById("loaderimg").style.display = "none";
+		}
+		function getpreviousorderlist() {
 
 			var previous_order_history = sessionStorage
 					.getItem("previous_order_history");
@@ -1897,7 +1926,13 @@
 						+ '</a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
 						+ ')" class="detail_btn_round" title="Grievences">'
-						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" class="detail_btn_round" title="Repeat Order">'
+						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
+						+ table[i].orderId
+						+ ','
+						+ table[i].frId
+						+ ','
+						+ table[i].addressId
+						+ ') class="detail_btn_round" title="Repeat Order">'
 						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
 				var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> <img '+
 				'src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" class="rounded-circle" alt="userimg">'
@@ -3022,8 +3057,7 @@
 										+ '<td class="user-name">'
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="${pageContext.request.contextPath}/editOrder" class="detail_btn_round" title="Edit Order">'
-										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
+										+ '<a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ response[i].orderId
 										+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" '
@@ -3118,8 +3152,7 @@
 										+ '<td class="user-name">'
 										+ orderStatus
 										+ '</td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="${pageContext.request.contextPath}/editOrder" class="detail_btn_round" title="Edit Order">'
-										+ '<i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a href="javascript:void(0)"'
+										+ '<a href="javascript:void(0)"'
 										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 										+ responseByDate[i].orderId
 										+ ',2)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('

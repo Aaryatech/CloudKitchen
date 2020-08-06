@@ -55,7 +55,7 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 			}
 
-			System.out.println();
+			//System.out.println();
 			try {
 				if (request.getServletPath().equals("/") || request.getServletPath().equals("/loginProcess")
 						|| request.getServletPath().equals("/logout")

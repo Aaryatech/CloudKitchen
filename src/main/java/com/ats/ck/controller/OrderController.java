@@ -34,6 +34,7 @@ import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetOrderDetailList;
 import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.GetSubCategoryData;
 import com.ats.ck.model.GrievencesInstruction;
@@ -494,6 +495,8 @@ public class OrderController {
 			orderGrievance.setGrievenceSubtypeId(grievencesInstructionId);
 			orderGrievance.setCurrentStatus(0);
 			orderGrievance.setDate(yy.format(ct));
+			orderGrievance.setGrievencceNo("1");
+
 			for (int i = 0; i < grievencesInstructionList.size(); i++) {
 
 				if (grievencesInstructionList.get(i).getGrievanceId() == grievencesInstructionId) {
@@ -522,4 +525,169 @@ public class OrderController {
 		}
 		return info;
 	}
+
+	@RequestMapping(value = "/selectOptionForRepeateOrder", method = RequestMethod.GET)
+	public String selectOptionForRepeateOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			int addressId = Integer.parseInt(request.getParameter("addressId"));
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+			int frId = Integer.parseInt(request.getParameter("frId"));
+
+			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+					GetFranchiseData.class);
+			List<FranchiseData> franchiseList = frData.getFranchise();
+			model.addAttribute("franchiseList", franchiseList);
+
+			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", liveCustomer.getCustId());
+			CustomerAddressDisplay[] info = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressList", map, CustomerAddressDisplay[].class);
+			List<CustomerAddressDisplay> addressList = new ArrayList<>(Arrays.asList(info));
+			model.addAttribute("addressList", addressList);
+			model.addAttribute("frId", frId);
+			model.addAttribute("addressId", addressId);
+
+			session.setAttribute("repeatOrderReferenceOrderId", orderId);
+
+			/*
+			 * LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+			 * Object>(); map.add("compId", 1); GrievencesInstruction[]
+			 * grievencesInstruction = Constants.getRestTemplate()
+			 * .postForObject(Constants.url + "getAllGrievancesInstructns", map,
+			 * GrievencesInstruction[].class); grievencesInstructionList = new
+			 * ArrayList<>(Arrays.asList(grievencesInstruction));
+			 * model.addAttribute("grievencesInstructionList", grievencesInstructionList);
+			 * 
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("orderId", orderId);
+			 * GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+			 * .postForObject(Constants.url + "getOrderOrderId", map,
+			 * GetOrderHeaderList.class); model.addAttribute("getOrderHeaderList",
+			 * getOrderHeaderList);
+			 */
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "selectOptionForRepeateOrder";
+	}
+
+	@RequestMapping(value = "/orderProcessgetList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ItemJsonImportData> orderProcessgetList(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+
+		List<ItemJsonImportData> itemJsonList = new ArrayList<>();
+
+		try {
+			HttpSession session = request.getSession();
+
+			int addressId = Integer.parseInt(request.getParameter("addressListForRepeatOrder"));
+			int frId = Integer.parseInt(request.getParameter("frIdForRepeatOrder"));
+			String orderTime = request.getParameter("orderRepeatTime");
+			String orderDate = request.getParameter("orderRepeatDate");
+
+			session.setAttribute("addressId", addressId);
+			session.setAttribute("frIdForOrder", frId);
+			session.setAttribute("orderTime", orderTime);
+			session.setAttribute("orderDate", orderDate);
+			session.setAttribute("allowOrderandCheckoutPage", 1);
+
+			int orderId = (int) session.getAttribute("repeatOrderReferenceOrderId");
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("orderId", orderId);
+			GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+
+			List<GetOrderDetailList> detailList = getOrderHeaderList.getDetailList();
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frId);
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
+					map, GetAllDataByFr.class);
+
+			itemList = getAllDataByFr.getItemData();
+
+			for (int i = 0; i < detailList.size(); i++) {
+
+				for (int j = 0; j < itemList.size(); j++) {
+
+					if (detailList.get(i).getItemId() == itemList.get(j).getItemId()) {
+						ItemJsonImportData item = new ItemJsonImportData();
+						item.setItemId(itemList.get(j).getItemId());
+						item.setItemName(itemList.get(j).getItemName());
+						item.setPrice(itemList.get(j).getSpRateAmt());
+						item.setQty(detailList.get(i).getQty());
+						item.setTotal(detailList.get(i).getQty() * itemList.get(j).getSpRateAmt());
+						item.setCgstPer(itemList.get(j).getCgstPer());
+						item.setSgstPer(itemList.get(j).getSgstPer());
+						item.setIgstPer(itemList.get(j).getIgstPer());
+						item.setSpecialremark("");
+						itemJsonList.add(item);
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemJsonList;
+	}
+
+	/*
+	 * @RequestMapping(value = "/repeatOrderProcess", method = RequestMethod.GET)
+	 * public String repeatOrderProcess(HttpServletRequest request,
+	 * HttpServletResponse response, Model model) {
+	 * 
+	 * try {
+	 * 
+	 * HttpSession session = request.getSession();
+	 * 
+	 * int frId = (int) session.getAttribute("frIdForOrder");
+	 * 
+	 * model.addAttribute("frId", frId);
+	 * 
+	 * GetFranchiseData frData =
+	 * Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+	 * GetFranchiseData.class); List<FranchiseData> franchiseList =
+	 * frData.getFranchise(); model.addAttribute("franchiseList", franchiseList);
+	 * 
+	 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+	 * Object>(); map.add("frId", frId); map.add("type", 2);
+	 * map.add("applicableFor", 1); GetAllDataByFr getAllDataByFr =
+	 * Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
+	 * map, GetAllDataByFr.class); List<CategoryData> catList =
+	 * getAllDataByFr.getCategoryData(); model.addAttribute("catList", catList);
+	 * model.addAttribute("catImageUrl", Constants.imageShowUrl);
+	 * 
+	 * List<SubCategoryData> subcatList = getAllDataByFr.getSubCategoryData();
+	 * model.addAttribute("subcatList", subcatList);
+	 * 
+	 * List<Tags> tagList = getAllDataByFr.getTagsData();
+	 * model.addAttribute("tagList", tagList);
+	 * 
+	 * itemList = getAllDataByFr.getItemData(); model.addAttribute("itemList",
+	 * itemList);
+	 * 
+	 * List<OfferHeader> offerList = getAllDataByFr.getOfferData();
+	 * model.addAttribute("offerList", offerList);
+	 * 
+	 * ObjectMapper Obj = new ObjectMapper();
+	 * 
+	 * try {
+	 * 
+	 * String jsonStr = Obj.writeValueAsString(itemList);
+	 * model.addAttribute("jsonList", jsonStr); } catch (IOException e) { }
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } return "repeatOrderProcess"; }
+	 */
 }
