@@ -226,7 +226,7 @@
 						<div class="component">
 							<table class="overflow-y" id="pending_order_table">
 								<thead>
-									<tr>
+									<!-- <tr>
 										<th></th>
 										<th class="sorting_desc" style="text-align: center;">Order
 											NO.</th>
@@ -244,6 +244,27 @@
 										<th class="sorting_desc" style="text-align: center;">Order
 											Status</th>
 										<th class="sorting_desc" style="text-align: center;">Action</th>
+									</tr> -->
+									<tr>
+										<th style="text-align: center; width: 5%;"></th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 5%;">Order NO.</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Customer Name</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Shop Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center; width: 10%;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center; width: 5%;">Type</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 7%;">Total</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Payment Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Order Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -262,23 +283,25 @@
 							<table class="overflow-y" id="live_order_table">
 								<thead>
 									<tr>
-										<th></th>
-										<th class="sorting_desc" style="text-align: center;">Order
-											NO.</th>
-										<th class="sorting_desc" style="text-align: center;">Customer
-											Name</th>
-										<th class="sorting_desc" style="text-align: center;">Shop
-											Name</th>
+										<th style="text-align: center; width: 5%;"></th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 5%;">Order NO.</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Customer Name</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Shop Name</th>
 										<th class="sorting_desc js-sort-date"
-											style="text-align: center;">Date</th>
+											style="text-align: center; width: 10%;">Date</th>
 										<th class="sorting_desc js-sort-date"
-											style="text-align: center;">Type</th>
-										<th class="sorting_desc" style="text-align: center;">Total</th>
-										<th class="sorting_desc" style="text-align: center;">Payment
-											Status</th>
-										<th class="sorting_desc" style="text-align: center;">Order
-											Status</th>
-										<th class="sorting_desc" style="text-align: center;">Action</th>
+											style="text-align: center; width: 5%;">Type</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 7%;">Total</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Payment Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Order Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -444,7 +467,7 @@
 										<th class="sorting_desc"
 											style="text-align: center; width: 10%;">Amount</th>
 										<th class="sorting_desc"
-											style="text-align: center; width: 15%;">Status</th>
+											style="text-align: center; width: 20%;">Status</th>
 										<th class="sorting_desc"
 											style="text-align: center; width: 15%;">Action</th>
 									</tr>
@@ -3049,7 +3072,7 @@
 										+ '</td><td class="user-name">'
 										+ platform
 										+ '</td>'
-										+ '<td class="user-name">'
+										+ '<td class="user-name" style="text-align: right;">'
 										+ (response[i].totalAmt).toFixed(2)
 										+ '</td> <td class="user-name"><span class="paid">'
 										+ paymentSts
@@ -3068,7 +3091,7 @@
 
 								if (response[i].orderStatus == 1) {
 									shop_pending_count = shop_pending_count + 1;
-									$('#pending_order_table').append(tr_data);
+									$('#pending_order_table').append(tr_data); 
 								} else if (response[i].orderStatus == 2) {
 									accept_count = accept_count + 1;
 									$('#live_order_table').append(tr_data);
@@ -3143,7 +3166,7 @@
 										+ '</td><td class="user-name">'
 										+ platform
 										+ '</td>'
-										+ '<td class="user-name">'
+										+ '<td class="user-name" style="text-align: right;">'
 										+ (responseByDate[i].totalAmt)
 												.toFixed(2)
 										+ '</td> <td class="user-name"><span class="paid">'
