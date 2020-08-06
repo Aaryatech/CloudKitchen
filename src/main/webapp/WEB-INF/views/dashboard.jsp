@@ -280,6 +280,12 @@
 						<div class="sec_title">Live Orders</div>
 
 						<div class="component">
+							<!-- <div class="related_row_r">
+								<i class="fa fa-search" aria-hidden="true"></i> <input
+									name="related_item_text" type="text" class="rel_search"
+									placeholder="Search" id="related_item_text"
+									onkeyup="searchRelatedItem()">
+							</div> -->
 							<table class="overflow-y" id="live_order_table">
 								<thead>
 									<tr>
@@ -1380,9 +1386,9 @@
 						<thead>
 							<tr>
 								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">Special Note</th> 
+								<th class="sorting_desc">Special Note</th>
 								<th class="sorting_desc">Rate</th>
-								<th class="sorting_desc js-sort-date">Quantity</th> 
+								<th class="sorting_desc js-sort-date">Quantity</th>
 								<th class="sorting_desc">Total</th>
 
 							</tr>
