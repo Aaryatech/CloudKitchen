@@ -612,20 +612,27 @@
 							processData : false,
 							success : function(response) {
 								//document.getElementById("loaderimg").style.display = "none";
-								
+								 
 								if(response.error==false){
 									
-									var data_add = {
-											
-											"dateTime" : response.insertDateTime,
-											"frId" : response.frId,
-											"userId" : response.userId,
-											"orderId" : response.orderId,
-											"status" : response.status
-										}
+									
+								/* 	if(response.addEdit==2){
+										var db = firebase.database();
+										db.ref(today_date_temp+"/" + response.orderId + "/status").set(response.status);
+									}else{ */
+										var data_add = {
+												
+												"dateTime" : response.insertDateTime,
+												"frId" : response.frId,
+												"userId" : response.userId,
+												"orderId" : response.orderId,
+												"status" : response.status
+											}
 
-										var key = firebase.database().ref().child(today_date_temp+"/"+response.orderId).update(
-												data_add).key;
+											var key = firebase.database().ref().child(today_date_temp+"/"+response.orderId).update(
+													data_add).key;
+									//}
+									
 									
 									sessionStorage.removeItem("cartValue"); 
 									

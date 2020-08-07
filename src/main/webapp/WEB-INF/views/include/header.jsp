@@ -74,8 +74,10 @@
 	rel="stylesheet" type="text/css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/select2.min.css" />
+<!-- <link rel="stylesheet"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css"> -->
 <link rel="stylesheet"
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css">
+	href="${pageContext.request.contextPath}/resources/assets/css/jquery-ui.css">
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap"

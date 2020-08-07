@@ -9,8 +9,9 @@ public class OrderResponse {
     private String insertDateTime;
     private int orderId;
     private int status;
-    
-	public String getMessage() {
+    private int addEdit;
+
+    public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
@@ -52,10 +53,17 @@ public class OrderResponse {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public int getAddEdit() {
+		return addEdit;
+	}
+	public void setAddEdit(int addEdit) {
+		this.addEdit = addEdit;
+	}
 	@Override
 	public String toString() {
 		return "OrderResponse [message=" + message + ", error=" + error + ", frId=" + frId + ", userId=" + userId
-				+ ", insertDateTime=" + insertDateTime + ", orderId=" + orderId + ", status=" + status + "]";
+				+ ", insertDateTime=" + insertDateTime + ", orderId=" + orderId + ", status=" + status + ", addEdit="
+				+ addEdit + "]";
 	}
     
     

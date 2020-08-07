@@ -134,12 +134,12 @@
 												<label class="text-light-white fs-14" for="username">Username</label>
 												<input type="text" name="username"
 													class="form-control form-control-submit"
-													placeholder="Username" max="10" required>
+													placeholder="Username" maxlength="10" required>
 											</div>
 											<div class="form-group">
 												<label class="text-light-white fs-14">Password</label> <input
 													type="password" id="password-field" name="password"
-													class="form-control form-control-submit" value="password"
+													class="form-control form-control-submit"
 													placeholder="Password" required>
 												<div data-name="#password-field"
 													class="fa fa-fw fa-eye field-icon toggle-password"></div>

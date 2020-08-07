@@ -93,9 +93,11 @@
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="input_one">
 							<form id="findCustomerByMobileNo">
-								<input name="mobileNoSearch" type="text" class="input_no"
-									placeholder="Customer Mobile Number " id="mobileNoSearch" /> <i
-									class="fa fa-mobile mobile" aria-hidden="true"></i>
+								<input name="mobileNoSearch" type="text"
+									class="input_no numbersOnly"
+									placeholder="Customer Mobile Number " id="mobileNoSearch"
+									maxlength="10" /> <i class="fa fa-mobile mobile"
+									aria-hidden="true"></i>
 								<button type="submit" value="Submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
@@ -134,7 +136,7 @@
 			<!--dashboard 5 boxes -->
 			<div class="dashboard_count">
 				<ul>
-					<li><a href="#" onclick="changeHeadName(0)">
+					<li><a href="javascript:void(0)" onclick="changeHeadName(0)">
 							<div class="dash_one dash_common">
 								<h3 class="dash_txt">
 									PENDING ORDER
@@ -150,7 +152,7 @@
 								<i class="fa fa-shopping-cart"></i>
 							</div>
 					</a></li>
-					<li><a href="#" onclick="changeHeadName(1)">
+					<li><a href="javascript:void(0)" onclick="changeHeadName(1)">
 							<div class="dash_two dash_common">
 								<h3 class="dash_txt">
 									LIVE ORDER
@@ -169,7 +171,7 @@
 								<i class="fa fa-user" aria-hidden="true"></i>
 							</div>
 					</a></li>
-					<li><a href="#" onclick="changeHeadName(2)">
+					<li><a href="javascript:void(0)" onclick="changeHeadName(2)">
 							<div class="dash_three dash_common">
 								<h3 class="dash_txt">
 									TODAY DELIVERDED <span id="delivered_count">0</span>
@@ -177,7 +179,7 @@
 								<i class="fa fa-check" aria-hidden="true"></i>
 							</div>
 					</a></li>
-					<li><a href="#" onclick="changeHeadName(3)"><div
+					<li><a href="javascript:void(0)" onclick="changeHeadName(3)"><div
 								class="dash_four dash_common">
 								<h3 class="dash_txt">
 									Today Cancelled
@@ -1978,9 +1980,9 @@
 						+ '</td> <td class="user-name" style="text-align: right;">'
 						+ (table[i].totalAmt).toFixed(2)
 						+ '</td>'
-						+ '<td class="user-name">'
+						+ '<td class="user-name"> <span class="paid">'
 						+ orderStatus
-						+ '</td> <td class="user-name" style="text-align: center;">'
+						+ '</span></td> <td class="user-name" style="text-align: center;">'
 						+ action + '</td> </tr>';
 				$('#previousOrderTabl').append(tr_data);
 			}
@@ -2850,6 +2852,30 @@
 			}
 
 		}
+
+		function placeOrderFun(orderId) {
+
+			var fd = new FormData();
+			document.getElementById("loaderimg").style.display = "block";
+			fd.append("orderId", orderId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/parkOrderToPlaceOrder',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							sessionStorage.setItem("cartValue", JSON
+									.stringify(response));
+							var url = '${pageContext.request.contextPath}/addOrder';
+							window.location = url;
+						},
+					});
+
+		}
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
@@ -3035,6 +3061,8 @@
 
 							for (var i = 0; i < response.length; i++) {
 
+								var actionBtn = '';
+
 								var platform = 'Web';
 								var paymentSts = 'PENDING';
 								var orderStatus = 'PARK ORDER';
@@ -3057,7 +3085,22 @@
 									orderStatus = 'Processing';
 								} else if (response[i].orderStatus == 4) {
 									orderStatus = 'Delivery Pending';
+								} else {
+									actionBtn = '<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
+											+ response[i].orderId
+											+ ')"><i class="fa fa-shopping-cart"></i></a>';
 								}
+
+								actionBtn = actionBtn
+										+ '<a href="javascript:void(0)"'
+										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+										+ response[i].orderId
+										+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" '
+										+ 'onclick="insertgrievences('
+										+ response[i].orderId
+										+ ')" class="detail_btn_round" title="Grievences">'
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>';
 
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
@@ -3085,14 +3128,7 @@
 										+ '<td class="user-name"><span class="paid">'
 										+ orderStatus
 										+ '</span></td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="javascript:void(0)"'
-										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
-										+ response[i].orderId
-										+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" '
-										+ 'onclick="insertgrievences('
-										+ response[i].orderId
-										+ ')" class="detail_btn_round" title="Grievences">'
-										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
+										+ actionBtn + '</td> </tr>';
 
 								if (response[i].orderStatus == 1) {
 									shop_pending_count = shop_pending_count + 1;

@@ -254,6 +254,7 @@ public class HomeController {
 			List<FranchiseData> franchiseList = frData.getFranchise();
 			model.addAttribute("franchiseList", franchiseList);
 			session.setAttribute("allowOrderandCheckoutPage", 0);
+			session.setAttribute("parkOrderToPlaceOrderOrderId", 0);
 
 			try {
 				CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
@@ -710,7 +711,7 @@ public class HomeController {
 			List<GetOrderHeaderList> list = new ArrayList<>();
 			info.setOrderListByStatus(list);
 			info.setCustomerInfo(editcust);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return info;
 	}

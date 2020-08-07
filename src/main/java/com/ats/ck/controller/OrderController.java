@@ -80,6 +80,7 @@ public class OrderController {
 			map.add("frId", frId);
 			map.add("type", 2);
 			map.add("applicableFor", 1);
+			map.add("compId", 1);
 			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
 					map, GetAllDataByFr.class);
 			List<CategoryData> catList = getAllDataByFr.getCategoryData();
@@ -221,151 +222,348 @@ public class OrderController {
 
 		try {
 			MnUser userObj = (MnUser) session.getAttribute("userInfo");
+			int parkOrderToPlaceOrderOrderId = (int) session.getAttribute("parkOrderToPlaceOrderOrderId");
 
-			Date ct = new Date();
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			if (parkOrderToPlaceOrderOrderId == 0) {
 
-			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+				Date ct = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-			String itemData = request.getParameter("itemaData");
-			int status = Integer.parseInt(request.getParameter("status"));
-			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
-			int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
-			int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
-			String textDeliveryInstr = request.getParameter("textDeliveryInstr");
-			String billingName = request.getParameter("billingName");
-			String billingAddress = request.getParameter("billingAddress");
-			String orderTime = (String) session.getAttribute("orderTime");
-			String orderDate = (String) session.getAttribute("orderDate");
-			int frId = (int) session.getAttribute("frIdForOrder");
-			int addressId = (int) session.getAttribute("addressId");
-			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+				CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
-			// create ObjectMapper instance
-			ObjectMapper objectMapper = new ObjectMapper();
+				String itemData = request.getParameter("itemaData");
+				int status = Integer.parseInt(request.getParameter("status"));
+				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
+				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
+				String textDeliveryInstr = request.getParameter("textDeliveryInstr");
+				String billingName = request.getParameter("billingName");
+				String billingAddress = request.getParameter("billingAddress");
+				String orderTime = (String) session.getAttribute("orderTime");
+				String orderDate = (String) session.getAttribute("orderDate");
+				int frId = (int) session.getAttribute("frIdForOrder");
+				int addressId = (int) session.getAttribute("addressId");
+				float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
 
-			// convert json string to object
-			ItemJsonImportData[] itemJsonImportData = objectMapper.readValue(itemData, ItemJsonImportData[].class);
+				// create ObjectMapper instance
+				ObjectMapper objectMapper = new ObjectMapper();
 
-			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("custAddressId", addressId);
-			CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+				// convert json string to object
+				ItemJsonImportData[] itemJsonImportData = objectMapper.readValue(itemData, ItemJsonImportData[].class);
 
-			DecimalFormat df = new DecimalFormat("#.00");
+				LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("custAddressId", addressId);
+				CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
 
-			OrderHeader order = new OrderHeader();
-			order.setOrderNo("0002");
-			order.setOrderDate(sf.format(ct));
-			order.setFrId(frId);
-			order.setCustId(liveCustomer.getCustId());
-			order.setOrderStatus(status);
-			order.setPaidStatus(0);
-			order.setPaymentMethod(paymentMethod);
-			order.setCityId(addressDetail.getCityId());
-			order.setAreaId(addressDetail.getAreaId());
-			order.setAddressId(addressId);
-			order.setAddress(addressDetail.getAddress());
-			order.setWhatsappNo(liveCustomer.getWhatsappNo());
-			order.setLandmark(addressDetail.getLandmark());
-			order.setDeliveryDate(DateConvertor.convertToYMD(orderDate));
-			order.setDeliveryTime(orderTime);
-			order.setInsertDateTime(dttime.format(ct));
-			order.setInsertUserId(userObj.getUserId());
-			order.setOrderPlatform(1);
-			order.setBillingName(billingName);
-			order.setBillingAddress(billingAddress);
-			order.setDeliveryType(homeDelivery);
-			order.setDeliveryInstId(deliveryInstru);
-			order.setDeliveryInstText(textDeliveryInstr);
-			order.setDeliveryCharges(deliveryCharges);
+				DecimalFormat df = new DecimalFormat("#.00");
 
-			List<OrderDetail> orderDetailList = new ArrayList<>();
+				OrderHeader order = new OrderHeader();
+				order.setOrderNo("0002");
+				order.setOrderDate(sf.format(ct));
+				order.setFrId(frId);
+				order.setCustId(liveCustomer.getCustId());
+				order.setOrderStatus(status);
+				order.setPaidStatus(0);
+				order.setPaymentMethod(paymentMethod);
+				order.setCityId(addressDetail.getCityId());
+				order.setAreaId(addressDetail.getAreaId());
+				order.setAddressId(addressId);
+				order.setAddress(addressDetail.getAddress());
+				order.setWhatsappNo(liveCustomer.getWhatsappNo());
+				order.setLandmark(addressDetail.getLandmark());
+				order.setDeliveryDate(DateConvertor.convertToYMD(orderDate));
+				order.setDeliveryTime(orderTime);
+				order.setInsertDateTime(dttime.format(ct));
+				order.setInsertUserId(userObj.getUserId());
+				order.setOrderPlatform(1);
+				order.setBillingName(billingName);
+				order.setBillingAddress(billingAddress);
+				order.setDeliveryType(homeDelivery);
+				order.setDeliveryInstId(deliveryInstru);
+				order.setDeliveryInstText(textDeliveryInstr);
+				order.setDeliveryCharges(deliveryCharges);
 
-			float finaTaxableAmt = 0;
-			float finaTaxAmt = 0;
-			float finaTotalAmt = 0;
-			float finalCgstAmt = 0;
-			float finalsgstAmt = 0;
-			float finalIgstAmt = 0;
+				List<OrderDetail> orderDetailList = new ArrayList<>();
 
-			for (int i = 0; i < itemJsonImportData.length; i++) {
+				float finaTaxableAmt = 0;
+				float finaTaxAmt = 0;
+				float finaTotalAmt = 0;
+				float finalCgstAmt = 0;
+				float finalsgstAmt = 0;
+				float finalIgstAmt = 0;
 
-				OrderDetail orderDetail = new OrderDetail();
-				orderDetail.setItemId(itemJsonImportData[i].getItemId());
-				orderDetail.setQty(itemJsonImportData[i].getQty());
-				orderDetail.setRate(itemJsonImportData[i].getPrice());
-				orderDetail.setCgstPer(itemJsonImportData[i].getCgstPer());
-				orderDetail.setIgstPer(itemJsonImportData[i].getIgstPer());
-				orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
-				orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
+				for (int i = 0; i < itemJsonImportData.length; i++) {
 
-				float taxableAmt = Float.parseFloat(df
-						.format((itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
-				float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
-				orderDetail.setTaxableAmt(taxableAmt);
-				orderDetail.setTaxAmt(taxAmt);
-				orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+					OrderDetail orderDetail = new OrderDetail();
+					orderDetail.setItemId(itemJsonImportData[i].getItemId());
+					orderDetail.setQty(itemJsonImportData[i].getQty());
+					orderDetail.setRate(itemJsonImportData[i].getPrice());
+					orderDetail.setCgstPer(itemJsonImportData[i].getCgstPer());
+					orderDetail.setIgstPer(itemJsonImportData[i].getIgstPer());
+					orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
+					orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
 
-				orderDetail.setCgstAmt(taxAmt / 2);
-				orderDetail.setSgstAmt(taxAmt / 2);
-				orderDetail.setIgstAmt(taxAmt);
+					float taxableAmt = Float.parseFloat(df.format(
+							(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
+					float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+					orderDetail.setTaxableAmt(taxableAmt);
+					orderDetail.setTaxAmt(taxAmt);
+					orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
 
-				finalCgstAmt = Float.parseFloat(df.format(finalCgstAmt + (taxAmt / 2)));
-				finalsgstAmt = Float.parseFloat(df.format(finalsgstAmt + (taxAmt / 2)));
-				finalIgstAmt = Float.parseFloat(df.format(finalIgstAmt + (taxAmt)));
+					orderDetail.setCgstAmt(taxAmt / 2);
+					orderDetail.setSgstAmt(taxAmt / 2);
+					orderDetail.setIgstAmt(taxAmt);
 
-				finaTaxableAmt = Float.parseFloat(df.format(finaTaxableAmt + taxableAmt));
-				finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + taxAmt));
-				finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+					finalCgstAmt = Float.parseFloat(df.format(finalCgstAmt + (taxAmt / 2)));
+					finalsgstAmt = Float.parseFloat(df.format(finalsgstAmt + (taxAmt / 2)));
+					finalIgstAmt = Float.parseFloat(df.format(finalIgstAmt + (taxAmt)));
 
-				for (int j = 0; j < itemList.size(); j++) {
+					finaTaxableAmt = Float.parseFloat(df.format(finaTaxableAmt + taxableAmt));
+					finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + taxAmt));
+					finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
 
-					if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
-						orderDetail.setMrp(itemList.get(j).getMrpAmt());
-						break;
+					for (int j = 0; j < itemList.size(); j++) {
+
+						if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
+							orderDetail.setMrp(itemList.get(j).getMrpAmt());
+							break;
+						}
+
+					}
+					orderDetailList.add(orderDetail);
+
+				}
+
+				order.setTaxableAmt(finaTaxableAmt);
+				order.setTaxAmt(finaTaxAmt);
+				order.setTotalAmt(finaTotalAmt + deliveryCharges);
+				order.setSgstAmt(finalsgstAmt);
+				order.setCgstAmt(finalCgstAmt);
+				order.setIgstAmt(finalIgstAmt);
+
+				OrderTrail orderTrail = new OrderTrail();
+				orderTrail.setActionByUserId(userObj.getUserId());
+				orderTrail.setActionDateTime(dttime.format(ct));
+				orderTrail.setStatus(status);
+
+				OrderSaveData orderSaveData = new OrderSaveData();
+				orderSaveData.setOrderDetailList(orderDetailList);
+				orderSaveData.setOrderHeader(order);
+				orderSaveData.setOrderTrail(orderTrail);
+
+				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCloudOrder", orderSaveData,
+						Info.class);
+
+				orderResponse.setError(info.getError());
+
+				if (info.getError() == false) {
+					orderResponse.setFrId(frId);
+					orderResponse.setOrderId(Integer.parseInt(info.getMessage()));
+					orderResponse.setInsertDateTime(dttime.format(ct));
+					orderResponse.setUserId(userObj.getUserId());
+					orderResponse.setStatus(status);
+					if (status == 0) {
+						session.setAttribute("successMsg", "Order Park successfully.");
+					} else {
+						session.setAttribute("successMsg", "Order place successfully.");
+					}
+					orderResponse.setAddEdit(1);
+				} else {
+					session.setAttribute("errorMsg", "Something wrong while placing order.");
+				}
+
+			} else {
+
+				Date ct = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("orderId", parkOrderToPlaceOrderOrderId);
+				GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+
+				String itemData = request.getParameter("itemaData");
+				int status = Integer.parseInt(request.getParameter("status"));
+				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
+				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
+				String textDeliveryInstr = request.getParameter("textDeliveryInstr");
+				String billingName = request.getParameter("billingName");
+				String billingAddress = request.getParameter("billingAddress");
+				float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+
+				// create ObjectMapper instance
+				ObjectMapper objectMapper = new ObjectMapper();
+
+				// convert json string to object
+				ItemJsonImportData[] itemJsonImportData = objectMapper.readValue(itemData, ItemJsonImportData[].class);
+
+				DecimalFormat df = new DecimalFormat("#.00");
+
+				getOrderHeaderList.setOrderDate(sf.format(ct));
+				getOrderHeaderList.setOrderStatus(status);
+				getOrderHeaderList.setPaymentMethod(paymentMethod);
+				getOrderHeaderList.setBillingName(billingName);
+				getOrderHeaderList.setBillingAddress(billingAddress);
+				getOrderHeaderList.setDeliveryType(homeDelivery);
+				getOrderHeaderList.setDeliveryInstId(deliveryInstru);
+				getOrderHeaderList.setDeliveryInstText(textDeliveryInstr);
+				getOrderHeaderList.setDeliveryCharges(deliveryCharges);
+				getOrderHeaderList.setDeliveryDate(DateConvertor.convertToYMD(getOrderHeaderList.getDeliveryDate()));
+				getOrderHeaderList.setInsertDateTime(dttime.format(ct));
+				getOrderHeaderList.setInsertUserId(userObj.getUserId());
+				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
+
+				float finaTaxableAmt = 0;
+				float finaTaxAmt = 0;
+				float finaTotalAmt = 0;
+				float finalCgstAmt = 0;
+				float finalsgstAmt = 0;
+				float finalIgstAmt = 0;
+
+				for (int i = 0; i < itemJsonImportData.length; i++) {
+
+					int findItem = 0;
+
+					for (int j = 0; j < orderDetailList.size(); j++) {
+
+						if (itemJsonImportData[i].getItemId() == orderDetailList.get(j).getItemId()) {
+
+							orderDetailList.get(j).setQty(itemJsonImportData[i].getQty());
+							orderDetailList.get(j).setRate(itemJsonImportData[i].getPrice());
+							orderDetailList.get(j).setCgstPer(itemJsonImportData[i].getCgstPer());
+							orderDetailList.get(j).setIgstPer(itemJsonImportData[i].getIgstPer());
+							orderDetailList.get(j).setSgstPer(itemJsonImportData[i].getSgstPer());
+							orderDetailList.get(j).setRemark(itemJsonImportData[i].getSpecialremark());
+							float taxableAmt = Float.parseFloat(df.format((itemJsonImportData[i].getTotal() * 100)
+									/ (100 + itemJsonImportData[i].getIgstPer())));
+							float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+							orderDetailList.get(j).setTaxableAmt(taxableAmt);
+							orderDetailList.get(j).setTaxAmt(taxAmt);
+							orderDetailList.get(j).setTotalAmt(itemJsonImportData[i].getTotal());
+
+							orderDetailList.get(j).setCgstAmt(taxAmt / 2);
+							orderDetailList.get(j).setSgstAmt(taxAmt / 2);
+							orderDetailList.get(j).setIgstAmt(taxAmt);
+
+							for (int k = 0; k < itemList.size(); k++) {
+
+								if (itemJsonImportData[i].getItemId() == itemList.get(k).getItemId()) {
+									orderDetailList.get(j).setMrp(itemList.get(j).getMrpAmt());
+									break;
+								}
+
+							}
+							findItem = 1;
+							break;
+						}
+					}
+
+					if (findItem == 0) {
+
+						GetOrderDetailList orderDetail = new GetOrderDetailList();
+						orderDetail.setOrderId(getOrderHeaderList.getOrderId());
+						orderDetail.setItemId(itemJsonImportData[i].getItemId());
+						orderDetail.setQty(itemJsonImportData[i].getQty());
+						orderDetail.setRate(itemJsonImportData[i].getPrice());
+						orderDetail.setCgstPer(itemJsonImportData[i].getCgstPer());
+						orderDetail.setIgstPer(itemJsonImportData[i].getIgstPer());
+						orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
+						orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
+
+						float taxableAmt = Float.parseFloat(df.format(
+								(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
+						float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+
+						orderDetail.setTaxableAmt(taxableAmt);
+						orderDetail.setTaxAmt(taxAmt);
+						orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+
+						orderDetail.setCgstAmt(taxAmt / 2);
+						orderDetail.setSgstAmt(taxAmt / 2);
+						orderDetail.setIgstAmt(taxAmt);
+
+						for (int j = 0; j < itemList.size(); j++) {
+
+							if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
+								orderDetail.setMrp(itemList.get(j).getMrpAmt());
+								break;
+							}
+
+						}
+						orderDetailList.add(orderDetail);
 					}
 
 				}
-				orderDetailList.add(orderDetail);
 
-			}
+				for (int j = 0; j < orderDetailList.size(); j++) {
+					int findItem = 0;
 
-			order.setTaxableAmt(finaTaxableAmt);
-			order.setTaxAmt(finaTaxAmt);
-			order.setTotalAmt(finaTotalAmt + deliveryCharges);
-			order.setSgstAmt(finalsgstAmt);
-			order.setCgstAmt(finalCgstAmt);
-			order.setIgstAmt(finalIgstAmt);
+					for (int i = 0; i < itemJsonImportData.length; i++) {
 
-			OrderTrail orderTrail = new OrderTrail();
-			orderTrail.setActionByUserId(userObj.getUserId());
-			orderTrail.setActionDateTime(dttime.format(ct));
-			orderTrail.setStatus(status);
+						if (orderDetailList.get(j).getItemId() == itemJsonImportData[i].getItemId()) {
 
-			OrderSaveData orderSaveData = new OrderSaveData();
-			orderSaveData.setOrderDetailList(orderDetailList);
-			orderSaveData.setOrderHeader(order);
-			orderSaveData.setOrderTrail(orderTrail);
+							finalCgstAmt = Float
+									.parseFloat(df.format(finalCgstAmt + (orderDetailList.get(i).getTaxAmt() / 2)));
+							finalsgstAmt = Float
+									.parseFloat(df.format(finalsgstAmt + (orderDetailList.get(i).getTaxAmt() / 2)));
+							finalIgstAmt = Float
+									.parseFloat(df.format(finalIgstAmt + (orderDetailList.get(i).getTaxAmt())));
 
-			Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCloudOrder", orderSaveData,
-					Info.class);
+							finaTaxableAmt = Float
+									.parseFloat(df.format(finaTaxableAmt + orderDetailList.get(i).getTaxableAmt()));
+							finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + orderDetailList.get(i).getTaxAmt()));
+							finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+							findItem = 1;
+							break;
+						}
+					}
 
-			orderResponse.setError(info.getError());
+					if (findItem == 0) {
+						orderDetailList.get(j).setDelStatus(1);
+					}
+				}
 
-			if (info.getError() == false) {
-				orderResponse.setFrId(frId);
-				orderResponse.setOrderId(Integer.parseInt(info.getMessage()));
+				getOrderHeaderList.setTaxableAmt(finaTaxableAmt);
+				getOrderHeaderList.setTaxAmt(finaTaxAmt);
+				getOrderHeaderList.setTotalAmt(finaTotalAmt + deliveryCharges);
+				getOrderHeaderList.setSgstAmt(finalsgstAmt);
+				getOrderHeaderList.setCgstAmt(finalCgstAmt);
+				getOrderHeaderList.setIgstAmt(finalIgstAmt);
+
+				OrderTrail orderTrail = new OrderTrail();
+				orderTrail.setOrderId(parkOrderToPlaceOrderOrderId);
+				orderTrail.setActionByUserId(userObj.getUserId());
+				orderTrail.setActionDateTime(dttime.format(ct));
+				orderTrail.setStatus(status);
+
+				OrderHeader orderHeaderRes = Constants.getRestTemplate()
+						.postForObject(Constants.url + "updateOrderHeader", getOrderHeaderList, OrderHeader.class);
+
+				OrderDetail[] orderDetail = Constants.getRestTemplate()
+						.postForObject(Constants.url + "updateOrderHeaderDetail", orderDetailList, OrderDetail[].class);
+
+				OrderTrail orderTrailRes = Constants.getRestTemplate().postForObject(Constants.url + "insertOrderTrail",
+						orderTrail, OrderTrail.class);
+
+				orderResponse.setFrId(getOrderHeaderList.getFrId());
+				orderResponse.setOrderId(orderHeaderRes.getOrderId());
 				orderResponse.setInsertDateTime(dttime.format(ct));
 				orderResponse.setUserId(userObj.getUserId());
 				orderResponse.setStatus(status);
-				session.setAttribute("successMsg", "Order place successfully.");
-			} else {
-				session.setAttribute("errorMsg", "Something wrong while placing order.");
-			}
+				orderResponse.setAddEdit(2);
+				orderResponse.setError(false);
+				if (status == 0) {
+					session.setAttribute("successMsg", "Order Park successfully.");
+				} else {
+					session.setAttribute("successMsg", "Order place successfully.");
+				}
 
-			// info.setError(false);
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -611,6 +809,7 @@ public class OrderController {
 			map.add("frId", frId);
 			map.add("type", 2);
 			map.add("applicableFor", 1);
+			map.add("compId", 1);
 			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
 					map, GetAllDataByFr.class);
 
@@ -643,7 +842,77 @@ public class OrderController {
 		return itemJsonList;
 	}
 
-	@RequestMapping(value = "/tableScrollExample", method = RequestMethod.GET) 
+	@RequestMapping(value = "/parkOrderToPlaceOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ItemJsonImportData> parkOrderToPlaceOrder(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+
+		List<ItemJsonImportData> itemJsonList = new ArrayList<>();
+
+		try {
+			HttpSession session = request.getSession();
+
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+
+			session.setAttribute("parkOrderToPlaceOrderOrderId", orderId);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("orderId", orderId);
+			GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+
+			session.setAttribute("addressId", getOrderHeaderList.getAddressId());
+			session.setAttribute("frIdForOrder", getOrderHeaderList.getFrId());
+			session.setAttribute("orderTime", getOrderHeaderList.getDeliveryTime());
+			session.setAttribute("orderDate", getOrderHeaderList.getOrderDate());
+			session.setAttribute("allowOrderandCheckoutPage", 1);
+
+			List<GetOrderDetailList> detailList = getOrderHeaderList.getDetailList();
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", getOrderHeaderList.getFrId());
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			map.add("compId", 1);
+			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
+					map, GetAllDataByFr.class);
+
+			itemList = getAllDataByFr.getItemData();
+
+			for (int i = 0; i < detailList.size(); i++) {
+
+				for (int j = 0; j < itemList.size(); j++) {
+
+					if (detailList.get(i).getItemId() == itemList.get(j).getItemId()) {
+						ItemJsonImportData item = new ItemJsonImportData();
+						item.setItemId(itemList.get(j).getItemId());
+						item.setItemName(itemList.get(j).getItemName());
+						item.setPrice(itemList.get(j).getSpRateAmt());
+						item.setQty(detailList.get(i).getQty());
+						item.setTotal(detailList.get(i).getQty() * itemList.get(j).getSpRateAmt());
+						item.setCgstPer(itemList.get(j).getCgstPer());
+						item.setSgstPer(itemList.get(j).getSgstPer());
+						item.setIgstPer(itemList.get(j).getIgstPer());
+						item.setSpecialremark("");
+						itemJsonList.add(item);
+					}
+				}
+
+			}
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", getOrderHeaderList.getCustId());
+			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
+					CustomerDisplay.class);
+			session.setAttribute("liveCustomer", customer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemJsonList;
+	}
+
+	@RequestMapping(value = "/tableScrollExample", method = RequestMethod.GET)
 	public String tableScrollExample(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
