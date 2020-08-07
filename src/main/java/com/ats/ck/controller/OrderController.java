@@ -563,7 +563,6 @@ public class OrderController {
 				}
 
 			}
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -809,11 +808,10 @@ public class OrderController {
 			map.add("frId", frId);
 			map.add("type", 2);
 			map.add("applicableFor", 1);
-			map.add("compId", 1);
-			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
-					map, GetAllDataByFr.class);
+			ItemDisplay[] itemDisplay = Constants.getRestTemplate().postForObject(Constants.url + "getAllItemListByFr",
+					map, ItemDisplay[].class);
 
-			itemList = getAllDataByFr.getItemData();
+			itemList = new ArrayList<>(Arrays.asList(itemDisplay));
 
 			for (int i = 0; i < detailList.size(); i++) {
 
@@ -873,11 +871,10 @@ public class OrderController {
 			map.add("frId", getOrderHeaderList.getFrId());
 			map.add("type", 2);
 			map.add("applicableFor", 1);
-			map.add("compId", 1);
-			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
-					map, GetAllDataByFr.class);
+			ItemDisplay[] itemDisplay = Constants.getRestTemplate().postForObject(Constants.url + "getAllItemListByFr",
+					map, ItemDisplay[].class);
 
-			itemList = getAllDataByFr.getItemData();
+			itemList = new ArrayList<>(Arrays.asList(itemDisplay));
 
 			for (int i = 0; i < detailList.size(); i++) {
 
