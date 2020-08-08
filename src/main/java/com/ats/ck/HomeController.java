@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.RandomString;
+import com.ats.ck.model.Agent;
 import com.ats.ck.model.Area;
 import com.ats.ck.model.City;
 import com.ats.ck.model.Customer;
@@ -294,6 +295,52 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return areaList;
+	}
+
+	@RequestMapping(value = "/getShopByCityId", method = RequestMethod.POST)
+	@ResponseBody
+	public GetFranchiseData getShopByCityId(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		GetFranchiseData getFranchiseData = new GetFranchiseData();
+		try {
+
+			int cityId = Integer.parseInt(request.getParameter("cityId"));
+			// int iscity = Integer.parseInt(request.getParameter("iscity"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("cityId", cityId);
+
+			getFranchiseData = Constants.getRestTemplate().postForObject(Constants.url + "getShopByCityId", map,
+					GetFranchiseData.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return getFranchiseData;
+	}
+
+	@RequestMapping(value = "/getAgetListByShopId", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Agent> getAgetListByShopId(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		List<Agent> list = new ArrayList<>();
+		try {
+
+			int cityId = Integer.parseInt(request.getParameter("cityId"));
+			int shopId = Integer.parseInt(request.getParameter("shopId"));
+			// int iscity = Integer.parseInt(request.getParameter("iscity"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("cityId", cityId);
+			map.add("shopId", shopId);
+			Agent[] agent = Constants.getRestTemplate().postForObject(Constants.url + "getAgetListByShopId", map,
+					Agent[].class);
+			list = new ArrayList<>(Arrays.asList(agent));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@RequestMapping(value = "/checkMobileNo", method = RequestMethod.POST)

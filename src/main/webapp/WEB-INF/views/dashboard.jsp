@@ -125,9 +125,8 @@
 					</div>
 
 					<div class="col-lg-3 sec_title right_btn">
-						<a href="javascript:void(0)" data-toggle="modal"
-							data-target="#addCustomer" href="#" class="order_btn"> New
-							Customer Registration</a>
+						<a href="javascript:void(0)" onclick="addNewCustomerModel()"
+							class="order_btn"> New Customer Registration</a>
 					</div>
 				</div>
 
@@ -606,13 +605,15 @@
 					</div> -->
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select Delivery City *</span>
+							<span>Select Delivery City/Village *</span>
 							<div class="search_multiple">
 								<select class="country" id="addcity" name="addcity"
-									onchange="getAreaListByCity(this.value,1)">
+									onchange="getShopByCityId(this.value)">
 									<option value="">Select City</option>
 									<c:forEach items="${cityList}" var="cityList">
-										<option value="${cityList.cityId}">${cityList.cityName}</option>
+										<option value="${cityList.cityId}"
+											data-iscity="${cityList.exInt1}"
+											id="cityData${cityList.cityId}">${cityList.cityName}</option>
 									</c:forEach>
 
 								</select>
@@ -622,30 +623,19 @@
 							id="error_addcity">* This field required.</span>
 					</div>
 
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Select Delivery Area *</span>
-							<div class="search_multiple">
-								<select class="country" id="addarea" name="addarea">
-									<!-- <option value="">Select Area</option>
-									<option value="1" data-name="">Nashik Road</option>
-									<option value="2" data-name="">Canada Corner</option> -->
-								</select>
+					<div id="landmarkDiv">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Landmark *</span> <input name="txtPlaces" type="text"
+									class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
+									name="addLatitude" type="hidden" class="frm_inpt"
+									id="addLatitude" /><input name="addLongitude" type="hidden"
+									class="frm_inpt" id="addLongitude" />
 							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_txtPlaces">* This
+								field required.</span>
 						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_addarea">* This field required.</span>
-					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Landmark *</span> <input name="txtPlaces" type="text"
-								class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
-								name="addLatitude" type="hidden" class="frm_inpt"
-								id="addLatitude" /><input name="addLongitude" type="hidden"
-								class="frm_inpt" id="addLongitude" />
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_txtPlaces">* This field required.</span>
 					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
@@ -671,6 +661,39 @@
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_language">* This field required.</span>
+					</div>
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Shop *</span>
+							<div class="search_multiple">
+								<select class="country" id="addShop" name="addShop"
+									onchange="getAgetListByShopId(this.value)">
+									<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addShop">* This field required.</span>
+					</div>
+					<div id="agentDiv">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Agent *</span>
+								<div class="search_multiple">
+									<select class="country" id="addCustAgent" name="addCustAgent">
+										<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+									</select>
+								</div>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addCustAgent">* This
+								field required.</span>
+						</div>
 					</div>
 					<div class="pop_btn_row">
 						<input id="addnewcustomer" type="button" value="Submit"
@@ -1658,8 +1681,8 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-	<!-- <script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script>
 	<script type="text/javascript">
 		function placeOrderProcess() {
 
@@ -2534,6 +2557,92 @@
 					});
 		}
 
+		function getShopByCityId(cityId) {
+
+			$('#txtPlaces').val('');
+			document.getElementById("loaderimg").style.display = "block";
+			var iscity = $("#cityData" + cityId).data("iscity")
+			var fd = new FormData();
+			fd.append('cityId', cityId);
+			fd.append('iscity', iscity);
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getShopByCityId',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							sessionStorage.setItem("frList", JSON
+									.stringify(response.franchise));
+
+							var html = '<option value="0" selected>Select Shop</option>';
+
+							for (var i = 0; i < response.franchise.length; i++) {
+
+								html += '<option value="' + response.franchise[i].frId + '">'
+										+ response.franchise[i].frName
+										+ '</option>';
+
+							}
+
+							$('#addShop').html(html);
+							$("#addShop").trigger("change");
+							document.getElementById("loaderimg").style.display = "none";
+							// will return the number 123
+							if (iscity == 1) {
+								$("#landmarkDiv").hide();
+								$("#agentDiv").show();
+							} else {
+								$("#landmarkDiv").show();
+								$("#agentDiv").hide();
+							}
+						},
+					});
+		}
+
+		function getAgetListByShopId(shopId) {
+
+			var cityId = $("#addcity").val();
+			var iscity = $("#cityData" + cityId).data("iscity");
+
+			if (iscity == 1) {
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('shopId', shopId);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getAgetListByShopId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								var html = '<option value="0" selected>Select Agent</option>';
+
+								for (var i = 0; i < response.length; i++) {
+
+									html += '<option value="' + response[i].agentId + '">'
+											+ response[i].agentName
+											+ '</option>';
+
+								}
+
+								$('#addCustAgent').html(html);
+								$("#addCustAgent").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+			}
+		}
+
 		function trim(el) {
 			el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
 			replace(/[ ]{2,}/gi, " "). // replaces multiple spaces with one space 
@@ -2563,6 +2672,11 @@
 			}
 
 			return true;
+
+		}
+		function addNewCustomerModel() {
+			$('#addCustomer').modal('show');
+			$('#mobileNo').val($('#mobileNoSearch').val()).trigger('change');
 
 		}
 		function changeHeadName(id) {
@@ -2949,6 +3063,80 @@
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
+		function calculateDistance(latitude, longitude) {
+
+			var bounds = new google.maps.LatLngBounds;
+
+			var origin1 = {
+				lat : latitude,
+				lng : longitude
+			};
+
+			var waypts = [];
+
+			var frList = sessionStorage.getItem("frList");
+			var list = $.parseJSON(frList);
+
+			for (var i = 0; i < list.length; i++) {
+				var data_add = {
+					lat : parseFloat(list[i].fromLatitude),
+					lng : parseFloat(list[i].fromLongitude)
+				}
+				waypts.push(data_add);
+			}
+
+			console.log(waypts);
+
+			var geocoder = new google.maps.Geocoder;
+			var service = new google.maps.DistanceMatrixService;
+			service
+					.getDistanceMatrix(
+							{
+								origins : [ origin1 ],
+								destinations : waypts,
+								travelMode : 'DRIVING',
+								unitSystem : google.maps.UnitSystem.METRIC,
+								avoidHighways : false,
+								avoidTolls : false
+							},
+							function(response, status) {
+
+								// alert(JSON.stringify(response))
+
+								if (status !== 'OK') {
+									alert('Error was: ' + status);
+								} else {
+
+									var html = '<option value="0" selected>Select Shop</option>';
+									var originList = response.originAddresses;
+									var destinationList = response.destinationAddresses;
+
+									var results = response.rows[0].elements;
+
+									for (var j = 0; j < results.length; j++) {
+
+										try {
+											var km = (parseFloat((results[j].distance.value) / 1000))
+													.toFixed(2);
+
+											if (km <= parseFloat(list[j].kmAreaCovered)) {
+												html += '<option value="' + list[j].frId + '">'
+														+ list[j].frName
+														+ '</option>';
+											}
+
+										} catch (err) {
+
+										}
+
+									}
+									$('#addShop').html(html);
+									$("#addShop").trigger("change");
+								}
+							});
+
+		}
+
 		google.maps.event
 				.addDomListener(
 						window,
@@ -2971,6 +3159,7 @@
 														.getElementById("error_txtPlaces").style.display = "none";
 												var place = places.getPlace();
 
+												console.log(place);
 												try {
 													var address = place.formatted_address;
 													var latitude = place.geometry.location
@@ -2981,6 +3170,9 @@
 															.getElementById("addLatitude").value = latitude;
 													document
 															.getElementById("addLongitude").value = longitude;
+													calculateDistance(latitude,
+															longitude);
+
 												} catch (err) {
 
 													document
