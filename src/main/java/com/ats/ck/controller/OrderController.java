@@ -153,7 +153,7 @@ public class OrderController {
 
 			HttpSession session = request.getSession();
 
-			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+			
 
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("custAddressId", session.getAttribute("addressId"));
@@ -189,10 +189,35 @@ public class OrderController {
 			String date = dateFormate.format(dt);
 			model.addAttribute("time", time);
 			model.addAttribute("date", date);
-
-			model.addAttribute("relatedItemList", itemList);
-			model.addAttribute("favItemList", itemList);
+ 
 			model.addAttribute("catImageUrl", Constants.imageShowUrl);
+			 
+			String itemIdsForRelatedItem = (String) session.getAttribute("itemIdsForRelatedItem");
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", session.getAttribute("frIdForOrder"));
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			map.add("itemIds", itemIdsForRelatedItem);
+			ItemDisplay[] relatedItem = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getRelatedItemListByItemIds", map, ItemDisplay[].class);
+			List<ItemDisplay> relatedItemList = new ArrayList<>(Arrays.asList(relatedItem)); 
+			
+			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", session.getAttribute("frIdForOrder"));
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			map.add("custId", liveCustomer.getCustId()); 
+			ItemDisplay[] favrouitItem = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getFrequentlyOrderedItemListByCust", map, ItemDisplay[].class);
+			List<ItemDisplay> favrouitItemList = new ArrayList<>(Arrays.asList(favrouitItem)); 
+			
+			System.out.println(favrouitItemList);
+			model.addAttribute("relatedItemList", relatedItemList);
+			model.addAttribute("favItemList", favrouitItemList);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -347,7 +372,8 @@ public class OrderController {
 				orderTrail.setActionByUserId(userObj.getUserId());
 				orderTrail.setActionDateTime(dttime.format(ct));
 				orderTrail.setStatus(status);
-
+				orderTrail.setExInt1(1);
+				
 				OrderSaveData orderSaveData = new OrderSaveData();
 				orderSaveData.setOrderDetailList(orderDetailList);
 				orderSaveData.setOrderHeader(order);
@@ -539,7 +565,8 @@ public class OrderController {
 				orderTrail.setActionByUserId(userObj.getUserId());
 				orderTrail.setActionDateTime(dttime.format(ct));
 				orderTrail.setStatus(status);
-
+				orderTrail.setExInt1(1);
+				
 				OrderHeader orderHeaderRes = Constants.getRestTemplate()
 						.postForObject(Constants.url + "updateOrderHeader", getOrderHeaderList, OrderHeader.class);
 
@@ -589,6 +616,7 @@ public class OrderController {
 			map.add("userId", userObj.getUserId());
 			map.add("orderId", order_id);
 			map.add("remark", cancel_remark);
+			map.add("type", 1);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "changeStatusByOrderId", map, Info.class);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -918,6 +946,36 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "tableScrollExample";
+	}
+
+	@RequestMapping(value = "/setItemIdsForRelatedItemList", method = RequestMethod.POST)
+	@ResponseBody
+	public Info setItemIdsForRelatedItemList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+		try {
+
+			String itemIds = request.getParameter("itemIds");
+			ObjectMapper objectMapper = new ObjectMapper();
+			int[] itemIdsList = objectMapper.readValue(itemIds, int[].class);
+
+			String str = "";
+
+			for (int i = 0; i < itemIdsList.length; i++) {
+
+				str = str + itemIdsList[i] + ",";
+				// System.out.println(itemIdsList[i]);
+			}
+
+			str = str.substring(0, str.length() - 1);
+
+			HttpSession session = request.getSession(); 
+			session.setAttribute("itemIdsForRelatedItem", str);
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	/*

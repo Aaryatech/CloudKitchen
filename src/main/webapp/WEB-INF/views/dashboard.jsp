@@ -1464,7 +1464,41 @@
 						</li>
 					</ul>
 				</div>
+				<div class="component">
+					<table id="order_view_trail">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Status</th>
+								<th class="sorting_desc">Action By</th>
+								<th class="sorting_desc">Date Time</th>
+							</tr>
+						</thead>
+						<tbody>
 
+							<!-- <tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr>
+
+							<tr>
+								<td class="user-name">Biryani</td>
+								<td class="user-name"><strong>KG</strong></td>
+								<td class="user-name"><span class="paid">400</span></td>
+								<td class="user-name"><strong>1</strong></td>
+								<td class="user-name">18%</td>
+								<td class="user-name">400</td>
+							</tr> -->
+
+
+
+
+						</tbody>
+					</table>
+				</div>
 
 			</div>
 		</div>
@@ -2657,6 +2691,9 @@
 			for (var i = 0; i < list.length; i++) {
 
 				if (list[i].orderId == orderId) {
+
+					//alert(JSON.stringify(list[i].trailList));
+
 					$("#order_no").html(list[i].orderNo);
 					$("#order_customer_name").html(list[i].custName);
 					$("#order_shop_name").html(list[i].frName);
@@ -2733,6 +2770,39 @@
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
+
+					$("#order_view_trail tbody").empty();
+
+					for (var j = 0; j < list[i].trailList.length; j++) {
+
+						var actionStatus = 'PARK ORDER';
+
+						if (list[i].trailList[j].status == 1) {
+							actionStatus = 'Apply Order';
+						} else if (list[i].trailList[j].status == 2) {
+							actionStatus = 'Accept Order by Shop';
+						} else if (list[i].trailList[j].status == 3) {
+							actionStatus = 'Accept Order For Process By Shop';
+						} else if (list[i].trailList[j].status == 4) {
+							actionStatus = 'Order Processing Completed By Shop';
+						} else if (list[i].trailList[j].status == 5) {
+							actionStatus = 'Delivered';
+						} else if (list[i].trailList[j].status == 6) {
+							actionStatus = 'Rejected By shop';
+						} else if (list[i].trailList[j].status == 7) {
+							actionStatus = 'Return';
+						} else if (list[i].trailList[j].status == 8) {
+							actionStatus = 'Cancelled';
+						}
+
+						var tr_data = '<tr> <td class="user-name">'
+								+ actionStatus + '</td> <td class="user-name">'
+								+ list[i].trailList[j].actionUserName + '</td>'
+								+ '<td class="user-name"  ><span>'
+								+ list[i].trailList[j].actionDateTime
+								+ '</span></td></tr>';
+						$('#order_view_trail').append(tr_data);
+					}
 
 					break;
 				}

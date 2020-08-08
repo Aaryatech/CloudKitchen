@@ -403,6 +403,8 @@
 		var cartValue = sessionStorage.getItem("cartValue");
 		var table = $.parseJSON(cartValue);
 
+		var itemIds = [];
+
 		if (table.length < 1) {
 			isError = true;
 			alert("Select minimum one item.")
@@ -410,8 +412,31 @@
 
 		if (!isError) {
 
-			var url = '${pageContext.request.contextPath}/checkout';
-			window.location = url;
+			document.getElementById("loaderimg").style.display = "block";
+
+			for (var i = 0; i < table.length; i++) {
+				itemIds.push(table[i].itemId);
+			}
+
+			var fd = new FormData();
+
+			fd.append("itemIds", JSON.stringify(itemIds));
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/setItemIdsForRelatedItemList',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							var url = '${pageContext.request.contextPath}/checkout';
+							window.location = url;
+
+						},
+					});
+
 		}
 
 	}
