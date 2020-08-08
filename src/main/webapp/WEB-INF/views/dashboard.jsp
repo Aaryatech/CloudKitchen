@@ -1423,7 +1423,6 @@
 
 
 				</div>
-
 				<div class="view_order_list">
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
@@ -1464,6 +1463,7 @@
 						</li>
 					</ul>
 				</div>
+				<div class="pop_signup">Order Log</div>
 				<div class="component">
 					<table id="order_view_trail">
 						<thead>
