@@ -71,10 +71,10 @@ public class OrderController {
 
 			model.addAttribute("frId", frId);
 
-			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+			/*GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
 					GetFranchiseData.class);
-			List<FranchiseData> franchiseList = frData.getFranchise();
-			model.addAttribute("franchiseList", franchiseList);
+			List<FranchiseData> franchiseList = frData.getFranchise();*/
+			//model.addAttribute("franchiseList", franchiseList);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);

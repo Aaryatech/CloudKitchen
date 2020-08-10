@@ -111,8 +111,9 @@
 												placeholder="Search for restaurant, cuisine or a dish" />
 										</div>
 										<div class="head_search_r">
-											<select class="country top_drop_ones">
-												<c:forEach items="${franchiseList}" var="franchiseList">
+											<select class="country top_drop_ones" id="headerFrId"
+												name="headerFrId">
+												<%-- <c:forEach items="${franchiseList}" var="franchiseList">
 													<c:choose>
 														<c:when
 															test="${sessionScope.frIdForOrder==franchiseList.frId}">
@@ -123,10 +124,12 @@
 														</c:otherwise>
 													</c:choose>
 
-												</c:forEach>
+												</c:forEach> --%>
 
 											</select>
 										</div>
+										<input type="hidden" value="${sessionScope.frIdForOrder}"
+											id="hiddenSelectedFrId" name="hiddenSelectedFrId">
 									</div>
 
 								</div>
@@ -397,6 +400,7 @@
 </div>
 <div class="main-sec"></div>
 <script type="text/javascript">
+	
 	function checkOutProcess() {
 
 		var isError = false;

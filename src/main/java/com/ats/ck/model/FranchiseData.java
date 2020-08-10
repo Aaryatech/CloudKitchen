@@ -18,6 +18,7 @@ public class FranchiseData {
 	private String toLongitude;
 	private float kmAreaCovered;
 	private int compId; 
+	private int km; 
 	List<CityData> cityList; 
 	List<AreaData> areaList;
 	public int getFrConfigId() {
@@ -110,13 +111,19 @@ public class FranchiseData {
 	public void setAreaList(List<AreaData> areaList) {
 		this.areaList = areaList;
 	}
+	public int getKm() {
+		return km;
+	}
+	public void setKm(int km) {
+		this.km = km;
+	}
 	@Override
 	public String toString() {
 		return "FranchiseData [frConfigId=" + frConfigId + ", frId=" + frId + ", frType=" + frType + ", frName="
 				+ frName + ", frCode=" + frCode + ", frAddress=" + frAddress + ", frMob=" + frMob + ", fromLatitude="
 				+ fromLatitude + ", fromLongitude=" + fromLongitude + ", toLatitude=" + toLatitude + ", toLongitude="
-				+ toLongitude + ", kmAreaCovered=" + kmAreaCovered + ", compId=" + compId + ", cityList=" + cityList
-				+ ", areaList=" + areaList + "]";
+				+ toLongitude + ", kmAreaCovered=" + kmAreaCovered + ", compId=" + compId + ", km=" + km + ", cityList="
+				+ cityList + ", areaList=" + areaList + "]";
 	}
 	
 	

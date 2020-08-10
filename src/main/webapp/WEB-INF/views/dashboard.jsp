@@ -3024,12 +3024,12 @@
 										try {
 											var km = (parseFloat((results[j].distance.value) / 1000))
 													.toFixed(2);
-											list[j].frCode = km;
+											list[j].km = km;
 											if (km <= parseFloat(list[j].kmAreaCovered)) {
 												html += '<option value="' + list[j].frId + '">'
 														+ list[j].frName
 														+ ' - '
-														+ list[j].frCode
+														+ list[j].km
 														+ ' KM</option>';
 											}
 											newFrList.push(list[j]);

@@ -971,7 +971,37 @@
 			//Expands all the accordion menu on click
 			});
 			$("#currentVal").html(500);
+			getFrList();
 		});
+		 
+		function getFrList() {
+
+			var selectedFrId = $("#hiddenSelectedFrId").val();
+
+			var fr = sessionStorage.getItem("frList");
+			var frList = $.parseJSON(fr);
+
+			var html = '';
+			
+			for (var i = 0; i < frList.length; i++) {
+
+				if (selectedFrId == frList[i].frId) {
+					html += '<option value="' + frList[i].frId + '" selected>'
+							+ frList[i].frName + ' - ' + frList[i].km
+							+ ' KM</option>';
+				} else {
+					html += '<option value="' + frList[i].frId + '">'
+							+ frList[i].frName + ' - ' + frList[i].km
+							+ ' KM </option>';
+				}
+
+			}
+
+			$('#headerFrId').html(html);
+			//$("#headerFrId").trigger("country:updated");
+			$("#headerFrId").trigger("change");
+
+		}
 	</script>
 
 	<!-- range slider js -->
