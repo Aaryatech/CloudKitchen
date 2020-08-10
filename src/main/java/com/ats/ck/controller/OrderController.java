@@ -130,6 +130,8 @@ public class OrderController {
 			HttpSession session = request.getSession();
 
 			int addressId = Integer.parseInt(request.getParameter("addressId"));
+			int iscity = Integer.parseInt(request.getParameter("iscity"));
+			int placeCustAgent = Integer.parseInt(request.getParameter("placeCustAgent"));
 			int frIdForOrder = Integer.parseInt(request.getParameter("frIdForOrder"));
 			String orderTime = request.getParameter("orderTime");
 			String orderDate = request.getParameter("orderDate");
@@ -139,6 +141,12 @@ public class OrderController {
 			session.setAttribute("orderTime", orderTime);
 			session.setAttribute("orderDate", orderDate);
 			session.setAttribute("allowOrderandCheckoutPage", 1);
+
+			if (iscity == 0) {
+				session.setAttribute("addCustAgent", 0);
+			} else {
+				session.setAttribute("addCustAgent", placeCustAgent);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -152,8 +160,6 @@ public class OrderController {
 		try {
 
 			HttpSession session = request.getSession();
-
-			
 
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("custAddressId", session.getAttribute("addressId"));
@@ -189,11 +195,11 @@ public class OrderController {
 			String date = dateFormate.format(dt);
 			model.addAttribute("time", time);
 			model.addAttribute("date", date);
- 
+
 			model.addAttribute("catImageUrl", Constants.imageShowUrl);
-			 
+
 			String itemIdsForRelatedItem = (String) session.getAttribute("itemIdsForRelatedItem");
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", session.getAttribute("frIdForOrder"));
 			map.add("type", 2);
@@ -201,23 +207,23 @@ public class OrderController {
 			map.add("itemIds", itemIdsForRelatedItem);
 			ItemDisplay[] relatedItem = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getRelatedItemListByItemIds", map, ItemDisplay[].class);
-			List<ItemDisplay> relatedItemList = new ArrayList<>(Arrays.asList(relatedItem)); 
-			
+			List<ItemDisplay> relatedItemList = new ArrayList<>(Arrays.asList(relatedItem));
+
 			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", session.getAttribute("frIdForOrder"));
 			map.add("type", 2);
 			map.add("applicableFor", 1);
-			map.add("custId", liveCustomer.getCustId()); 
+			map.add("custId", liveCustomer.getCustId());
 			ItemDisplay[] favrouitItem = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getFrequentlyOrderedItemListByCust", map, ItemDisplay[].class);
-			List<ItemDisplay> favrouitItemList = new ArrayList<>(Arrays.asList(favrouitItem)); 
-			
+			List<ItemDisplay> favrouitItemList = new ArrayList<>(Arrays.asList(favrouitItem));
+
 			System.out.println(favrouitItemList);
 			model.addAttribute("relatedItemList", relatedItemList);
 			model.addAttribute("favItemList", favrouitItemList);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -373,7 +379,7 @@ public class OrderController {
 				orderTrail.setActionDateTime(dttime.format(ct));
 				orderTrail.setStatus(status);
 				orderTrail.setExInt1(1);
-				
+
 				OrderSaveData orderSaveData = new OrderSaveData();
 				orderSaveData.setOrderDetailList(orderDetailList);
 				orderSaveData.setOrderHeader(order);
@@ -566,7 +572,7 @@ public class OrderController {
 				orderTrail.setActionDateTime(dttime.format(ct));
 				orderTrail.setStatus(status);
 				orderTrail.setExInt1(1);
-				
+
 				OrderHeader orderHeaderRes = Constants.getRestTemplate()
 						.postForObject(Constants.url + "updateOrderHeader", getOrderHeaderList, OrderHeader.class);
 
@@ -969,7 +975,7 @@ public class OrderController {
 
 			str = str.substring(0, str.length() - 1);
 
-			HttpSession session = request.getSession(); 
+			HttpSession session = request.getSession();
 			session.setAttribute("itemIdsForRelatedItem", str);
 		} catch (Exception e) {
 			info.setError(true);

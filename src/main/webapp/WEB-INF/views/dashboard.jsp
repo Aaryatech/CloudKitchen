@@ -907,7 +907,8 @@
 								</span>
 								<div class="search_multiple">
 									<select class="country" id="addressListForOrder"
-										name="addressListForOrder">
+										name="addressListForOrder"
+										onchange="getShopByAddress(this.value)">
 
 
 									</select>
@@ -921,10 +922,11 @@
 							<div class="pop_frm_one">
 								<span>Select Shop</span>
 								<div class="search_multiple">
-									<select class="country" id="frIdForOrder" name="frIdForOrder">
-										<c:forEach items="${franchiseList}" var="franchiseList">
+									<select class="country" id="frIdForOrder" name="frIdForOrder"
+										onchange="getAgetListByShopIdOrderProcess(this.value)">
+										<%-- <c:forEach items="${franchiseList}" var="franchiseList">
 											<option value="${franchiseList.frId}">${franchiseList.frName}</option>
-										</c:forEach>
+										</c:forEach> --%>
 									</select>
 								</div>
 							</div>
@@ -932,10 +934,29 @@
 								class="model_error_class" id="error_frIdForOrder">* This
 								field required.</span>
 						</div>
+						<div id="agentDivForPlaceOrder">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Select Agent *</span>
+									<div class="search_multiple">
+										<select class="country" id="placeCustAgent"
+											name="placeCustAgent">
+											<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+										</select>
+									</div>
+								</div>
+								<span style="color: red; display: none;"
+									class="model_error_class" id="error_placeCustAgent">*
+									This field required.</span>
+							</div>
+						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Date</span> <input type="text" id="orderDate"
-									name="orderDate" class="frm_inpt datepicker">
+									placeholder="Delivery Date" name="orderDate"
+									class="frm_inpt datepicker">
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderDate">* This
@@ -962,191 +983,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-	<%-- <div class="modal fade kot-popup" id="grievences"
-		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-lg">
-			<!--modal-md-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
-
-				<div class="pop_signup">Customer feedback - against order</div>
-				<div class="grievences_tab">
-					<ul>
-						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" checked /> Grievance
-						</label></li>
-						<li><label class="radio_one"> <input type="radio"
-								class="option-input radio" name="example" /> Appreciation
-						</label></li>
-
-					</ul>
-				</div>
-
-
-				<div class="view_order_list">
-
-					<ul>
-						<li>
-							<div class="pop_txt_l">Order No.</div>
-							<div class="pop_txt_r">: 0001</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Customer Name</div>
-							<div class="pop_txt_r">: Neal Matthews 1</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Shop Name</div>
-							<div class="pop_txt_r">: Madhavi</div>
-						</li>
-						<!-- <li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								<span class="paid">Paid</span>
-							</div>
-						</li> -->
-
-						<li>
-							<div class="pop_txt_l">Order Status</div>
-							<div class="pop_txt_r">Going To Delivered</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Date & Time</div>
-							<div class="pop_txt_r">: 10-07-2020 11:00 AM</div>
-						</li>
-						<li class="total">
-							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">: 440 /-</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Payment Status</div>
-							<div class="pop_txt_r">
-								: <span class="paid">Paid</span>
-							</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Payment Method</div>
-							<div class="pop_txt_r">: COD</div>
-						</li>
-						<li>
-							<div class="pop_txt_l">Order Type</div>
-							<div class="pop_txt_r">: Web</div>
-						</li>
-					</ul>
-				</div>
-				<br>
-
-
-				<div class="component">
-					<table class="overflow-y">
-						<thead>
-							<tr>
-								<th class="sorting_desc">Name</th>
-								<th class="sorting_desc">UOM</th>
-								<th class="sorting_desc">Rate</th>
-								<th class="sorting_desc js-sort-date">Quantity</th>
-								<th class="sorting_desc">Tax %</th>
-								<th class="sorting_desc">Total</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<!--1 row-->
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-							<!--1 row-->
-
-						</tbody>
-					</table>
-
-
-				</div>
-
-				<div class="view_order_list">
-					<!-- <h3 class="order_head">View Order Details</h3> -->
-					<ul>
-						<li></li>
-						<li>
-							<div class="pop_txt_l">Item Total</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
-							</div>
-						</li>
-						<li></li>
-						<li>
-							<div class="pop_txt_l">Tax</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
-							</div>
-						</li>
-						<li></li>
-						<li>
-							<div class="pop_txt_l">Offer Disc AMT</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;">00.00</span>
-							</div>
-						</li>
-						<li></li>
-						<li>
-							<div class="pop_txt_l">Delivery Charges</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;">30.00</span>
-							</div>
-						</li>
-						<li></li>
-						<li class="total">
-							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;">440.00</span>
-							</div>
-						</li>
-					</ul>
-				</div>
-
-				<div class="form_one extra_marg">
-					<form action="" method="get">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Select Grievance Type</span>
-								<div class="search_multiple">
-									<select class="country">
-										<option value="">Select Option</option>
-										<option value="1">Packing Damage</option>
-										<option value="4">Other</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Remark</span>
-								<textarea name="" cols="" rows="" class="frm_inpt"
-									placeholder="Remark"></textarea>
-							</div>
-						</div>
-						<div>
-							<input name="" type="button" value="Submit" class="next_btn" />
-						</div>
-						<!-- class="pop_btn_row"-->
-					</form>
-				</div>
-			</div>
-		</div>
-	</div> --%>
 
 	<div class="modal fade kot-popup" id="grievences"
 		data-backdrop="static" data-keyboard="false">
@@ -1438,27 +1274,6 @@
 						</thead>
 						<tbody>
 
-							<!-- <tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr> -->
-
-
-
-
 						</tbody>
 					</table>
 
@@ -1515,27 +1330,6 @@
 							</tr>
 						</thead>
 						<tbody>
-
-							<!-- <tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr>
-
-							<tr>
-								<td class="user-name">Biryani</td>
-								<td class="user-name"><strong>KG</strong></td>
-								<td class="user-name"><span class="paid">400</span></td>
-								<td class="user-name"><strong>1</strong></td>
-								<td class="user-name">18%</td>
-								<td class="user-name">400</td>
-							</tr> -->
-
-
-
 
 						</tbody>
 					</table>
@@ -1725,11 +1519,32 @@
 							//alert(JSON.stringify(response))
 							$('#orderstep1').modal('show');
 
-							var html = '<option value="0">Select Address</option>';
+							var html = '<option value="0" id="addressData0" data-iscity="1" data-cityid="0">Select Address</option>';
 
 							for (var i = 0; i < response.length; i++) {
 
-								html += '<option value="' + response[i].custAddressId + '">'
+								var latitude = 0;
+								var longitude = 0;
+								try {
+									latitude = parseFloat(response[i].latitude);
+									longitude = parseFloat(response[i].longitude);
+								} catch (err) {
+									latitude = 0;
+									longitude = 0;
+								}
+
+								html += '<option value="'
+										+ response[i].custAddressId
+										+ '" id="addressData'
+										+ response[i].custAddressId
+										+ '" data-iscity="'
+										+ response[i].exInt1
+										+ '" data-latitude="'
+										+ latitude
+										+ '"  data-longitude="'
+										+ longitude
+										+ '" data-cityid="'
+										+ response[i].cityId + '">'
 										+ response[i].addressCaption
 										+ '</option>';
 
@@ -1742,6 +1557,99 @@
 						},
 					});
 
+		}
+
+		function getShopByAddress(addressId) {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var cityId = $("#addressData" + addressId).data("cityid");
+			var iscity = $("#addressData" + addressId).data("iscity");
+
+			var fd = new FormData();
+			fd.append('cityId', cityId);
+			fd.append('iscity', iscity);
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getShopByCityId',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							sessionStorage.setItem("frList", JSON
+									.stringify(response.franchise));
+
+							// will return the number 123
+							if (iscity == 1) {
+								var html = '<option value="0" selected>Select Shop</option>';
+
+								for (var i = 0; i < response.franchise.length; i++) {
+
+									html += '<option value="' + response.franchise[i].frId + '">'
+											+ response.franchise[i].frName
+											+ '</option>';
+
+								}
+
+								$('#frIdForOrder').html(html);
+								$("#frIdForOrder").trigger("change");
+								$("#agentDivForPlaceOrder").show();
+							} else {
+
+								var lat = $("#addressData" + addressId).data(
+										"latitude");
+								var longi = $("#addressData" + addressId).data(
+										"longitude");
+								calculateDistance(lat, longi, 2);
+								$("#agentDivForPlaceOrder").hide();
+							}
+							document.getElementById("loaderimg").style.display = "none";
+						},
+					});
+		}
+
+		function getAgetListByShopIdOrderProcess(shopId) {
+
+			var cityId = $("#addressData" + $("#addressListForOrder").val())
+					.data("cityid");
+			var iscity = $("#addressData" + $("#addressListForOrder").val())
+					.data("iscity");
+
+			if (iscity == 1) {
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('shopId', shopId);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getAgetListByShopId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								var html = '<option value="0" selected>Select Agent</option>';
+
+								for (var i = 0; i < response.length; i++) {
+
+									html += '<option value="' + response[i].agentId + '">'
+											+ response[i].agentName
+											+ '</option>';
+
+								}
+
+								$('#placeCustAgent').html(html);
+								$("#placeCustAgent").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+			}
 		}
 
 		function editCustomer() {
@@ -2715,7 +2623,18 @@
 			$("#error_frIdForOrder").hide();
 			$("#error_orderTime").hide();
 			$("#error_orderDate").hide();
+			$("#error_placeCustAgent").hide();
 
+			var iscity = $("#addressData" + $("#addressListForOrder").val())
+					.data("iscity");
+
+			if (iscity == 1) {
+				if (!$("#placeCustAgent").val()
+						|| $("#placeCustAgent").val() == 0) {
+					isError = true;
+					$("#error_placeCustAgent").show();
+				}
+			}
 			if (!$("#addressListForOrder").val()
 					|| $("#addressListForOrder").val() == 0) {
 				isError = true;
@@ -2740,7 +2659,8 @@
 				fd.append('frIdForOrder', $("#frIdForOrder").val());
 				fd.append('orderTime', $("#orderTime").val());
 				fd.append('orderDate', $("#orderDate").val());
-
+				fd.append('placeCustAgent', $("#placeCustAgent").val());
+				fd.append('iscity', iscity);
 				$
 						.ajax({
 							url : '${pageContext.request.contextPath}/orderProcess',
@@ -3044,7 +2964,7 @@
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
-		function calculateDistance(latitude, longitude) {
+		function calculateDistance(latitude, longitude, type) {
 
 			var bounds = new google.maps.LatLngBounds;
 
@@ -3111,8 +3031,15 @@
 										}
 
 									}
-									$('#addShop').html(html);
-									$("#addShop").trigger("change");
+
+									if (type == 1) {
+										$('#addShop').html(html);
+										$("#addShop").trigger("change");
+									} else {
+										$('#frIdForOrder').html(html);
+										$("#frIdForOrder").trigger("change");
+									}
+
 								}
 							});
 
@@ -3152,7 +3079,7 @@
 													document
 															.getElementById("addLongitude").value = longitude;
 													calculateDistance(latitude,
-															longitude);
+															longitude, 1);
 
 												} catch (err) {
 

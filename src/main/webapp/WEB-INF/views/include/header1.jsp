@@ -271,7 +271,7 @@
 						<div class="cart-btn cart-dropdown">
 							<a href="#" class="text-custom-white fw-700"> <i
 								class="fas fa-shopping-bag"></i> <span class="user-alert-cart"
-								id="cart_item_count">3</span>
+								id="cart_item_count">0</span>
 							</a>
 							<div class="cart-detail-box">
 								<div class="card">
