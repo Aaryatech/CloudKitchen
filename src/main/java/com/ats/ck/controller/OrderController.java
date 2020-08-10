@@ -275,6 +275,8 @@ public class OrderController {
 				String orderDate = (String) session.getAttribute("orderDate");
 				int frId = (int) session.getAttribute("frIdForOrder");
 				int addressId = (int) session.getAttribute("addressId");
+				int addCustAgent = (int) session.getAttribute("addCustAgent");
+
 				float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
 
 				// create ObjectMapper instance
@@ -316,6 +318,10 @@ public class OrderController {
 				order.setDeliveryInstText(textDeliveryInstr);
 				order.setDeliveryCharges(deliveryCharges);
 
+				if (addCustAgent > 0) {
+					order.setIsAgent(1);
+					order.setOrderDeliveredBy(addCustAgent);
+				}
 				List<OrderDetail> orderDetailList = new ArrayList<>();
 
 				float finaTaxableAmt = 0;

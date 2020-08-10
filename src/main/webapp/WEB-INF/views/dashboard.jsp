@@ -2625,6 +2625,8 @@
 			$("#error_orderDate").hide();
 			$("#error_placeCustAgent").hide();
 
+			var agentId = 0;
+
 			var iscity = $("#addressData" + $("#addressListForOrder").val())
 					.data("iscity");
 
@@ -2633,6 +2635,8 @@
 						|| $("#placeCustAgent").val() == 0) {
 					isError = true;
 					$("#error_placeCustAgent").show();
+				} else {
+					agentId = $("#placeCustAgent").val();
 				}
 			}
 			if (!$("#addressListForOrder").val()
@@ -2659,7 +2663,7 @@
 				fd.append('frIdForOrder', $("#frIdForOrder").val());
 				fd.append('orderTime', $("#orderTime").val());
 				fd.append('orderDate', $("#orderDate").val());
-				fd.append('placeCustAgent', $("#placeCustAgent").val());
+				fd.append('placeCustAgent', agentId);
 				fd.append('iscity', iscity);
 				$
 						.ajax({
@@ -3156,6 +3160,12 @@
 			$('.model_error_class').hide();
 			$('.fetch_results').find('input:text').val('');
 			$('.fetch_results').find('textarea').val('');
+
+			$('#addLatitude').val(0);
+			$('#addLongitude').val(0);
+			
+			$('#addAddressLatitude').val(0);
+			$('#addAddressLongitude').val(0);
 		});
 	</script>
 	<script>
