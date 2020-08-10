@@ -2981,6 +2981,7 @@
 
 			var frList = sessionStorage.getItem("frList");
 			var list = $.parseJSON(frList);
+			var newFrList = [];
 
 			for (var i = 0; i < list.length; i++) {
 				var data_add = {
@@ -3023,25 +3024,33 @@
 										try {
 											var km = (parseFloat((results[j].distance.value) / 1000))
 													.toFixed(2);
-
+											list[j].frCode = km;
 											if (km <= parseFloat(list[j].kmAreaCovered)) {
 												html += '<option value="' + list[j].frId + '">'
 														+ list[j].frName
-														+ '</option>';
+														+ ' - '
+														+ list[j].frCode
+														+ ' KM</option>';
 											}
+											newFrList.push(list[j]);
 
 										} catch (err) {
 
 										}
 
 									}
-
+									sessionStorage.setItem("frList", JSON
+											.stringify(newFrList));
 									if (type == 1) {
 										$('#addShop').html(html);
 										$("#addShop").trigger("change");
-									} else {
+									} else if (type == 2) {
 										$('#frIdForOrder').html(html);
 										$("#frIdForOrder").trigger("change");
+									} else if (type == 3) {
+										$('#frIdForRepeatOrder').html(html);
+										$("#frIdForRepeatOrder").trigger(
+												"change");
 									}
 
 								}
@@ -3163,7 +3172,7 @@
 
 			$('#addLatitude').val(0);
 			$('#addLongitude').val(0);
-			
+
 			$('#addAddressLatitude').val(0);
 			$('#addAddressLongitude').val(0);
 		});

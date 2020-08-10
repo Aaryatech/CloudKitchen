@@ -774,10 +774,12 @@ public class OrderController {
 			int orderId = Integer.parseInt(request.getParameter("orderId"));
 			int frId = Integer.parseInt(request.getParameter("frId"));
 
-			GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
-					GetFranchiseData.class);
-			List<FranchiseData> franchiseList = frData.getFranchise();
-			model.addAttribute("franchiseList", franchiseList);
+			/*
+			 * GetFranchiseData frData =
+			 * Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+			 * GetFranchiseData.class); List<FranchiseData> franchiseList =
+			 * frData.getFranchise(); model.addAttribute("franchiseList", franchiseList);
+			 */
 
 			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
@@ -828,12 +830,20 @@ public class OrderController {
 			int frId = Integer.parseInt(request.getParameter("frIdForRepeatOrder"));
 			String orderTime = request.getParameter("orderRepeatTime");
 			String orderDate = request.getParameter("orderRepeatDate");
+			int iscity = Integer.parseInt(request.getParameter("iscity"));
 
 			session.setAttribute("addressId", addressId);
 			session.setAttribute("frIdForOrder", frId);
 			session.setAttribute("orderTime", orderTime);
 			session.setAttribute("orderDate", orderDate);
 			session.setAttribute("allowOrderandCheckoutPage", 1);
+
+			if (iscity == 0) {
+				session.setAttribute("addCustAgent", 0);
+			} else {
+				int repeatOrderAgent = Integer.parseInt(request.getParameter("repeatOrderAgent"));
+				session.setAttribute("addCustAgent", repeatOrderAgent);
+			}
 
 			int orderId = (int) session.getAttribute("repeatOrderReferenceOrderId");
 
