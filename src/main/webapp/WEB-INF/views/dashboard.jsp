@@ -695,6 +695,24 @@
 								field required.</span>
 						</div>
 					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Delivery Date *</span> <input type="text" id="regorderDate"
+								name="regorderDate" class="frm_inpt datepicker"
+								placeholder="Delivery Date">
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_regorderDate">* This field required.</span>
+					</div>
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Delivery Time *</span><input name="regorderTime"
+								id="regorderTime" type="time" class="frm_inpt" />
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_regorderTime">* This field required.</span>
+					</div>
 					<div class="pop_btn_row">
 						<input id="addnewcustomer" type="button" value="Submit"
 							class="next_btn" onclick="sendOtpForCustomerRegistration()" />
@@ -926,8 +944,8 @@
 
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<input name="orderTime" id="orderTime" type="time"
-									class="frm_inpt" />
+								<span>Delivery Time</span> <input name="orderTime"
+									id="orderTime" type="time" class="frm_inpt" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderTime">* This
@@ -2338,11 +2356,28 @@
 			$("#error_custname").hide();
 			$("#error_mobileNo").hide();
 			$("#error_email").hide();
-			$("#error_addarea").hide();
+			//$("#error_addarea").hide();
 			$("#error_txtPlaces").hide();
 			$("#error_address").hide();
 			$("#error_language").hide();
+			$("#error_addCustAgent").hide();
+			$("#error_regorderDate").hide();
+			$("#error_regorderTime").hide();
+			$("#error_addShop").hide();
 			var isError = false;
+
+			if ($("#addShop").val() == "" || $("#addShop").val() == 0) {
+				isError = true;
+				$("#error_addShop").show();
+			}
+			if (!$("#regorderDate").val()) {
+				isError = true;
+				$("#error_regorderDate").show();
+			}
+			if (!$("#regorderTime").val()) {
+				isError = true;
+				$("#error_regorderTime").show();
+			}
 			if (!$("#custname").val()) {
 				isError = true;
 				$("#error_custname").show();
@@ -2384,15 +2419,24 @@
 			if (!$("#addcity").val()) {
 				isError = true;
 				$("#error_addcity").show();
-			}
-			if (!$("#addarea").val() || $("#addarea").val() == 0) {
-				isError = true;
-				$("#error_addarea").show();
-			}
-			if (!$("#txtPlaces").val()) {
-				isError = true;
+				$("#error_addCustAgent").show();
 				$("#error_txtPlaces").show();
+			} else {
+				if ($("#cityData" + $("#addcity").val()).data("iscity") == 1) {
+
+					if ($("#addCustAgent").val() == ""
+							|| $("#addCustAgent").val() == 0) {
+						isError = true;
+						$("#error_addCustAgent").show();
+					}
+				} else {
+					if (!$("#txtPlaces").val()) {
+						isError = true;
+						$("#error_txtPlaces").show();
+					}
+				}
 			}
+
 			if (!$("#address").val()) {
 				isError = true;
 				$("#error_address").show();
@@ -2410,7 +2454,12 @@
 				fd.append('email', $("#email").val());
 				fd.append('whatappno', $("#whatappno").val());
 				fd.append('addcity', $("#addcity").val());
-				fd.append('addarea', $("#addarea").val());
+				fd.append('iscity', $("#cityData" + $("#addcity").val()).data(
+						"iscity"));
+				fd.append('addShop', $("#addShop").val());
+				fd.append('addCustAgent', $("#addCustAgent").val());
+				fd.append('regorderDate', $("#regorderDate").val());
+				fd.append('regorderTime', $("#regorderTime").val());
 				fd.append('txtPlaces', $("#txtPlaces").val());
 				fd.append('language', $("#language").val());
 				fd.append('address', $("#address").val());
@@ -2435,14 +2484,16 @@
 
 								if (response.error == true) {
 									$('#otpFailedMsg').show();
+									setTimeout(function() {
+										$('#otpFailedMsg').hide();
+										$('#otpSuccessMsg').hide();
+									}, 5000);
 								} else {
 									$('#otpSuccessMsg').show();
+									/* var url = '${pageContext.request.contextPath}/addOrder';
+									window.location = url; */
 								}
 
-								setTimeout(function() {
-									$('#otpFailedMsg').hide();
-									$('#otpSuccessMsg').hide();
-								}, 5000);
 							},
 						});
 
@@ -2464,7 +2515,7 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							document.getElementById("loaderimg").style.display = "none";
+							
 							$('#otpModel').modal('hide');
 
 							$('#finalFailedMsg').hide();
@@ -2473,10 +2524,10 @@
 							if (response.error == true) {
 								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
 								$('#finalFailedMsg').show();
+								document.getElementById("loaderimg").style.display = "none";
 							} else {
-								document
-										.getElementById("finalsuccessmsgcontent").innerHTML = "Customer Registration Successfully Completed";
-								$('#finalSuccessMsg').show();
+								var url = '${pageContext.request.contextPath}/addOrder';
+								window.location = url;
 
 							}
 							displayCustomerInfo();
@@ -3085,7 +3136,7 @@
 				waypts.push(data_add);
 			}
 
-			console.log(waypts);
+			//console.log(waypts);
 
 			var geocoder = new google.maps.Geocoder;
 			var service = new google.maps.DistanceMatrixService;

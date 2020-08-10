@@ -502,6 +502,7 @@ public class HomeController {
 	public ErrorMessage sendOtpCustRegistration(HttpServletRequest request, HttpServletResponse response) {
 		ErrorMessage errorMessage = new ErrorMessage();
 		try {
+			HttpSession session = request.getSession();
 
 			String custname = request.getParameter("custname");
 			String mobileNo = request.getParameter("mobileNo");
@@ -511,7 +512,19 @@ public class HomeController {
 			String address = request.getParameter("address");
 
 			String addcity = request.getParameter("addcity");
-			String addarea = request.getParameter("addarea");
+			int iscity = Integer.parseInt(request.getParameter("iscity"));
+			int addShop = Integer.parseInt(request.getParameter("addShop"));
+			
+			String regorderDate = request.getParameter("regorderDate");
+			String regorderTime = request.getParameter("regorderTime");
+
+			// session.setAttribute("addressId", addressId);
+			session.setAttribute("frIdForOrder", addShop);
+			session.setAttribute("orderTime", regorderTime);
+			session.setAttribute("orderDate", regorderDate);
+
+			// session.setAttribute("allowOrderandCheckoutPage", 1);
+
 			String txtPlaces = request.getParameter("txtPlaces");
 			String addLatitude = request.getParameter("addLatitude");
 			String addLongitude = request.getParameter("addLongitude");
@@ -527,8 +540,16 @@ public class HomeController {
 			customerAddress = new CustomerAddress();
 			customerAddress.setAddress(address);
 			customerAddress.setCityId(Integer.parseInt(addcity));
-			customerAddress.setAreaId(Integer.parseInt(addarea));
-			customerAddress.setLandmark(txtPlaces);
+
+			if (iscity == 0) {
+				customerAddress.setLandmark(txtPlaces);
+				session.setAttribute("addCustAgent", 0);
+			} else {
+				int addCustAgent = Integer.parseInt(request.getParameter("addCustAgent"));
+				session.setAttribute("addCustAgent", addCustAgent);
+			}
+			// customerAddress.setAreaId(Integer.parseInt(addarea));
+
 			customerAddress.setLatitude(addLatitude);
 			customerAddress.setLongitude(addLongitude);
 			customerAddress.setAddressCaption("HOME");
@@ -590,12 +611,19 @@ public class HomeController {
 					addList.add(customerAddress);
 					Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList",
 							addList, Info.class);
+					if (info.getError() == false) {
 
-					map = new LinkedMultiValueMap<String, Object>();
-					map.add("custId", res.getCustId());
-					CustomerDisplay customer = Constants.getRestTemplate()
-							.postForObject(Constants.url + "getCustomerById", map, CustomerDisplay.class);
-					session.setAttribute("liveCustomer", customer);
+						map = new LinkedMultiValueMap<String, Object>();
+						map.add("custId", res.getCustId());
+						CustomerDisplay customer = Constants.getRestTemplate()
+								.postForObject(Constants.url + "getCustomerById", map, CustomerDisplay.class);
+						session.setAttribute("liveCustomer", customer);
+
+						session.setAttribute("addressId", Integer.parseInt(info.getMessage()));
+						session.setAttribute("allowOrderandCheckoutPage", 1);
+					} else {
+						res.setError(true);
+					}
 				}
 			} else {
 				res.setError(true);
