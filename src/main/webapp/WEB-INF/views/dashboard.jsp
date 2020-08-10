@@ -1583,10 +1583,13 @@
 								<span>Select Delivery City *</span>
 								<div class="search_multiple">
 									<select class="country" name="addAddressCity"
-										id="addAddressCity" onchange="getAreaListByCity(this.value,2)">
+										id="addAddressCity"
+										onchange="lanmarkValidationForAddAdress(this.value)">
 										<option value="">Select City</option>
 										<c:forEach items="${cityList}" var="cityList">
-											<option value="${cityList.cityId}">${cityList.cityName}</option>
+											<option value="${cityList.cityId}"
+												data-iscity="${cityList.exInt1}"
+												id="cityDataAddReg${cityList.cityId}">${cityList.cityName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -1596,7 +1599,7 @@
 								This field required.</span>
 						</div>
 
-						<div class="single_row">
+						<!-- <div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Delivery Area *</span>
 								<div class="search_multiple">
@@ -1609,21 +1612,24 @@
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_addAddressArea">*
 								This field required.</span>
-						</div>
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Landmark *</span> <input name="addAddressLandmark"
-									id="addAddressLandmark" placeholder="Landmark" type="text"
-									class="frm_inpt" /><input name="addAddressLatitude"
-									type="hidden" class="frm_inpt" id="addAddressLatitude" /><input
-									name="addAddressLongitude" type="hidden" class="frm_inpt"
-									id="addAddressLongitude" /><input name="addAddressDetailId"
-									type="hidden" class="frm_inpt" id="addAddressDetailId"
-									value="0" />
+						</div> -->
+
+						<div id="addAddressLandMark">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Landmark *</span> <input name="addAddressLandmark"
+										id="addAddressLandmark" placeholder="Landmark" type="text"
+										class="frm_inpt" /><input name="addAddressLatitude"
+										type="hidden" class="frm_inpt" id="addAddressLatitude" /><input
+										name="addAddressLongitude" type="hidden" class="frm_inpt"
+										id="addAddressLongitude" /><input name="addAddressDetailId"
+										type="hidden" class="frm_inpt" id="addAddressDetailId"
+										value="0" />
+								</div>
+								<span style="color: red; display: none;"
+									class="model_error_class" id="error_addAddressLandmark">*
+									This field required.</span>
 							</div>
-							<span style="color: red; display: none;"
-								class="model_error_class" id="error_addAddressLandmark">*
-								This field required.</span>
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
@@ -1669,7 +1675,7 @@
 							<tr>
 								<th class="sorting_desc">Caption</th>
 								<th class="sorting_desc">City</th>
-								<th class="sorting_desc">Area</th>
+								<!-- <th class="sorting_desc">Area</th> -->
 								<th class="sorting_desc">Landmark</th>
 								<th class="sorting_desc">Address</th>
 								<th class="sorting_desc">Action</th>
@@ -2090,9 +2096,7 @@
 								var tr_data = '<tr> <td class="user-name">'
 										+ response[i].addressCaption
 										+ '</td> <td class="user-name">'
-										+ response[i].cityName + '</td>'
-										+ '<td class="user-name">'
-										+ response[i].areaName
+										+ response[i].cityName
 										+ '</td><td class="user-name">'
 										+ response[i].landmark + '</td>'
 										+ '<td class="user-name">'
@@ -2149,114 +2153,17 @@
 							$('#orderstep1').modal('hide');
 							$('#addAddress').modal('show');
 
-							fd = new FormData();
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath}/getCityList',
-										type : 'post',
-										dataType : 'json',
-										data : fd,
-										contentType : false,
-										processData : false,
-										success : function(cityList) {
+							$('#addAddressCity').val(response.cityId);
+							$("#addAddressCity").trigger("change");
+							$("#addressCation").val(response.addressCaption);
+							$("#addAddressLandmark").val(response.landmark);
+							$("#addAddressDeliveryAdd").val(response.address);
+							$("#addAddressLatitude").val(response.latitude);
+							$("#addAddressLongitude").val(response.longitude);
+							$("#addAddressDetailId")
+									.val(response.custAddressId);
 
-											var html = '';
-
-											for (var i = 0; i < cityList.length; i++) {
-
-												if (cityList[i].cityId == response.cityId) {
-													html += '<option value="' + cityList[i].cityId + '" selected>'
-															+ cityList[i].cityName
-															+ '</option>';
-												} else {
-													html += '<option value="' + cityList[i].cityId + '">'
-															+ cityList[i].cityName
-															+ '</option>';
-												}
-
-											}
-											/* $("#addAddressCity").val(
-													response.cityId).trigger(
-													'change'); */
-											$('#addAddressCity').html(html);
-											$("#addAddressCity").trigger(
-													"country:updated");
-											var fd = new FormData();
-											fd
-													.append('cityId',
-															response.cityId);
-
-											$
-													.ajax({
-														url : '${pageContext.request.contextPath}/getAreaListByCity',
-														type : 'post',
-														dataType : 'json',
-														data : fd,
-														contentType : false,
-														processData : false,
-														success : function(
-																areaList) {
-															document
-																	.getElementById("loaderimg").style.display = "none";
-
-															html = '<option value="0">Select Area</option>';
-
-															for (var i = 0; i < areaList.length; i++) {
-
-																if (areaList[i].areaId == response.areaId) {
-																	html += '<option value="' + areaList[i].areaId + '" selected>'
-																			+ areaList[i].areaName
-																			+ '</option>';
-																} else {
-																	html += '<option value="' + areaList[i].areaId + '">'
-																			+ areaList[i].areaName
-																			+ '</option>';
-																}
-
-															}
-
-															//alert(html)
-															$('#addAddressArea')
-																	.html(html);
-															$("#addAddressArea")
-																	.val(
-																			response.areaId)
-																	.trigger(
-																			'change');
-															$("#addAddressArea")
-																	.trigger(
-																			"country:updated");
-															$("#addressCation")
-																	.val(
-																			response.addressCaption);
-															$(
-																	"#addAddressLandmark")
-																	.val(
-																			response.landmark);
-															$(
-																	"#addAddressDeliveryAdd")
-																	.val(
-																			response.address);
-															$(
-																	"#addAddressLatitude")
-																	.val(
-																			response.latitude);
-															$(
-																	"#addAddressLongitude")
-																	.val(
-																			response.longitude);
-															$(
-																	"#addAddressDetailId")
-																	.val(
-																			response.custAddressId);
-
-															document
-																	.getElementById("loaderimg").style.display = "none";
-														},
-													});
-
-										},
-									});
+							document.getElementById("loaderimg").style.display = "none";
 
 						},
 					});
@@ -2267,7 +2174,7 @@
 
 			$("#error_addressCaption").hide();
 			$("#error_addAddressCity").hide();
-			$("#error_addAddressArea").hide();
+			//$("#error_addAddressArea").hide();
 			$("#error_addAddressLandmark").hide();
 			$("#error_addAddressDeliveryAdd").hide();
 
@@ -2281,14 +2188,26 @@
 				isError = true;
 				$("#error_addAddressCity").show();
 			}
-			if (!$("#addAddressArea").val() || $("#addAddressArea").val() == 0) {
-				isError = true;
-				$("#error_addAddressArea").show();
+
+			var iscity = $("#cityDataAddReg" + $("#addAddressCity").val())
+					.data("iscity");
+
+			if (iscity == 0) {
+				if (!$("#addAddressLandmark").val()) {
+					isError = true;
+					document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
+					$("#error_addAddressLandmark").show();
+				} else {
+					if ($("#addAddressLatitude").val() == 0
+							|| $("#addAddressLongitude").val() == 0) {
+						isError = true;
+						document.getElementById("error_addAddressLandmark").innerHTML = "* Invalid Address.";
+						$("#addAddressLandmark").val('');
+						$("#error_addAddressLandmark").show();
+					}
+				}
 			}
-			if (!$("#addAddressLandmark").val()) {
-				isError = true;
-				$("#error_addAddressLandmark").show();
-			}
+
 			if (!$("#addAddressDeliveryAdd").val()) {
 				isError = true;
 				$("#error_addAddressDeliveryAdd").show();
@@ -2299,7 +2218,7 @@
 				var fd = new FormData();
 				fd.append('addressCation', $("#addressCation").val());
 				fd.append('addAddressCity', $("#addAddressCity").val());
-				fd.append('addAddressArea', $("#addAddressArea").val());
+				fd.append('iscity', iscity);
 				fd.append('addAddressLandmark', $("#addAddressLandmark").val());
 				fd.append('addAddressDeliveryAdd', $("#addAddressDeliveryAdd")
 						.val());
@@ -2515,7 +2434,7 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							
+
 							$('#otpModel').modal('hide');
 
 							$('#finalFailedMsg').hide();
@@ -2652,6 +2571,17 @@
 							}
 						},
 					});
+		}
+
+		function lanmarkValidationForAddAdress(cityId) {
+			var iscity = $("#cityDataAddReg" + cityId).data("iscity")
+
+			if (iscity == 1) {
+				$('#addAddressLandMark').hide();
+			} else {
+				$('#addAddressLandMark').show();
+			}
+
 		}
 
 		function getAgetListByShopId(shopId) {

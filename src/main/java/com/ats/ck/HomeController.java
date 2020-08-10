@@ -514,7 +514,7 @@ public class HomeController {
 			String addcity = request.getParameter("addcity");
 			int iscity = Integer.parseInt(request.getParameter("iscity"));
 			int addShop = Integer.parseInt(request.getParameter("addShop"));
-			
+
 			String regorderDate = request.getParameter("regorderDate");
 			String regorderTime = request.getParameter("regorderTime");
 
@@ -526,8 +526,6 @@ public class HomeController {
 			// session.setAttribute("allowOrderandCheckoutPage", 1);
 
 			String txtPlaces = request.getParameter("txtPlaces");
-			String addLatitude = request.getParameter("addLatitude");
-			String addLongitude = request.getParameter("addLongitude");
 
 			newcust = new Customer();
 			newcust.setCustName(custname);
@@ -543,15 +541,19 @@ public class HomeController {
 
 			if (iscity == 0) {
 				customerAddress.setLandmark(txtPlaces);
+				String addLatitude = request.getParameter("addLatitude");
+				String addLongitude = request.getParameter("addLongitude");
+				customerAddress.setLatitude(addLatitude);
+				customerAddress.setLongitude(addLongitude);
 				session.setAttribute("addCustAgent", 0);
 			} else {
 				int addCustAgent = Integer.parseInt(request.getParameter("addCustAgent"));
 				session.setAttribute("addCustAgent", addCustAgent);
+				customerAddress.setLatitude("");
+				customerAddress.setLongitude("");
 			}
 			// customerAddress.setAreaId(Integer.parseInt(addarea));
 
-			customerAddress.setLatitude(addLatitude);
-			customerAddress.setLongitude(addLongitude);
 			customerAddress.setAddressCaption("HOME");
 
 			errorMessage.setError(false);
@@ -649,7 +651,7 @@ public class HomeController {
 
 			String addressCation = request.getParameter("addressCation");
 			String addAddressCity = request.getParameter("addAddressCity");
-			String addAddressArea = request.getParameter("addAddressArea");
+			int iscity = Integer.parseInt(request.getParameter("iscity"));
 			String addAddressLandmark = request.getParameter("addAddressLandmark");
 			String addAddressDeliveryAdd = request.getParameter("addAddressDeliveryAdd");
 			String addAddressLatitude = request.getParameter("addAddressLatitude");
@@ -661,11 +663,17 @@ public class HomeController {
 			customerAddress.setCustId(liveCustomer.getCustId());
 			customerAddress.setAddressCaption(addressCation);
 			customerAddress.setCityId(Integer.parseInt(addAddressCity));
-			customerAddress.setAreaId(Integer.parseInt(addAddressArea));
-			customerAddress.setLandmark(addAddressLandmark);
+			if (iscity == 0) {
+				customerAddress.setLandmark(addAddressLandmark);
+				customerAddress.setLatitude(addAddressLatitude);
+				customerAddress.setLongitude(addAddressLongitude);
+			} else {
+				customerAddress.setLandmark("-");
+				customerAddress.setLatitude("");
+				customerAddress.setLongitude("");
+			}
 			customerAddress.setAddress(addAddressDeliveryAdd);
-			customerAddress.setLatitude(addAddressLatitude);
-			customerAddress.setLongitude(addAddressLongitude);
+
 			customerAddress.setCustAddressId(addAddressDetailId);
 			addList.add(customerAddress);
 			info = Constants.getRestTemplate().postForObject(Constants.url + "saveCustomerAddressList", addList,
