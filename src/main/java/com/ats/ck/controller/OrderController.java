@@ -36,6 +36,7 @@ import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetOrderDetailList;
 import com.ats.ck.model.GetOrderHeaderList;
+import com.ats.ck.model.GetRelatedItemsAndFreqOrderList;
 import com.ats.ck.model.GetSubCategoryData;
 import com.ats.ck.model.GrievencesInstruction;
 import com.ats.ck.model.Info;
@@ -53,7 +54,7 @@ import com.ats.ck.model.OrderResponse;
 import com.ats.ck.model.OrderSaveData;
 import com.ats.ck.model.OrderTrail;
 import com.ats.ck.model.SubCategoryData;
-import com.ats.ck.model.Tags;
+import com.ats.ck.model.Tags; 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -71,10 +72,13 @@ public class OrderController {
 
 			model.addAttribute("frId", frId);
 
-			/*GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
-					GetFranchiseData.class);
-			List<FranchiseData> franchiseList = frData.getFranchise();*/
-			//model.addAttribute("franchiseList", franchiseList);
+			/*
+			 * GetFranchiseData frData =
+			 * Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+			 * GetFranchiseData.class); List<FranchiseData> franchiseList =
+			 * frData.getFranchise();
+			 */
+			// model.addAttribute("franchiseList", franchiseList);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
@@ -199,26 +203,20 @@ public class OrderController {
 			model.addAttribute("catImageUrl", Constants.imageShowUrl);
 
 			String itemIdsForRelatedItem = (String) session.getAttribute("itemIdsForRelatedItem");
-
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("frId", session.getAttribute("frIdForOrder"));
-			map.add("type", 2);
-			map.add("applicableFor", 1);
-			map.add("itemIds", itemIdsForRelatedItem);
-			ItemDisplay[] relatedItem = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getRelatedItemListByItemIds", map, ItemDisplay[].class);
-			List<ItemDisplay> relatedItemList = new ArrayList<>(Arrays.asList(relatedItem));
-
 			CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", session.getAttribute("frIdForOrder"));
 			map.add("type", 2);
 			map.add("applicableFor", 1);
+			map.add("itemIds", itemIdsForRelatedItem);
 			map.add("custId", liveCustomer.getCustId());
-			ItemDisplay[] favrouitItem = Constants.getRestTemplate()
-					.postForObject(Constants.url + "getFrequentlyOrderedItemListByCust", map, ItemDisplay[].class);
-			List<ItemDisplay> favrouitItemList = new ArrayList<>(Arrays.asList(favrouitItem));
+
+			GetRelatedItemsAndFreqOrderList getRelatedItemsAndFreqOrderList = Constants.getRestTemplate().postForObject(
+					Constants.url + "getRelAndFreqOrderItemList", map, GetRelatedItemsAndFreqOrderList.class);
+
+			List<ItemDisplay> relatedItemList = getRelatedItemsAndFreqOrderList.getRelatedItemList();
+			List<ItemDisplay> favrouitItemList = getRelatedItemsAndFreqOrderList.getFreqOrderItemList();
 
 			System.out.println(favrouitItemList);
 			model.addAttribute("relatedItemList", relatedItemList);
