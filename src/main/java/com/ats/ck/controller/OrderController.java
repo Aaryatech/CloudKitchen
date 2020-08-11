@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.DateConvertor;
+import com.ats.ck.common.PushNotification;
 import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.CustomerAddressDisplay;
 import com.ats.ck.model.CustomerDisplay;
@@ -54,7 +55,7 @@ import com.ats.ck.model.OrderResponse;
 import com.ats.ck.model.OrderSaveData;
 import com.ats.ck.model.OrderTrail;
 import com.ats.ck.model.SubCategoryData;
-import com.ats.ck.model.Tags; 
+import com.ats.ck.model.Tags;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -252,6 +253,8 @@ public class OrderController {
 		try {
 			MnUser userObj = (MnUser) session.getAttribute("userInfo");
 			int parkOrderToPlaceOrderOrderId = (int) session.getAttribute("parkOrderToPlaceOrderOrderId");
+			int status = Integer.parseInt(request.getParameter("status"));
+			int frId = (int) session.getAttribute("frIdForOrder");
 
 			if (parkOrderToPlaceOrderOrderId == 0) {
 
@@ -262,7 +265,7 @@ public class OrderController {
 				CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
 				String itemData = request.getParameter("itemaData");
-				int status = Integer.parseInt(request.getParameter("status"));
+				// int status = Integer.parseInt(request.getParameter("status"));
 				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
 				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
@@ -271,7 +274,7 @@ public class OrderController {
 				String billingAddress = request.getParameter("billingAddress");
 				String orderTime = (String) session.getAttribute("orderTime");
 				String orderDate = (String) session.getAttribute("orderDate");
-				int frId = (int) session.getAttribute("frIdForOrder");
+				// int frId = (int) session.getAttribute("frIdForOrder");
 				int addressId = (int) session.getAttribute("addressId");
 				int addCustAgent = (int) session.getAttribute("addCustAgent");
 
@@ -422,7 +425,7 @@ public class OrderController {
 						.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
 
 				String itemData = request.getParameter("itemaData");
-				int status = Integer.parseInt(request.getParameter("status"));
+				// int status = Integer.parseInt(request.getParameter("status"));
 				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
 				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
@@ -601,6 +604,20 @@ public class OrderController {
 
 			}
 
+			// int status = Integer.parseInt(request.getParameter("status"));
+
+			if (status == 1) {
+
+				LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("frId", frId);
+				String[] list = Constants.getRestTemplate().postForObject(Constants.url + "getAllTokenListByFr", map,
+						String[].class);
+				List<String> tokenList = new ArrayList<>(Arrays.asList(list));
+
+				PushNotification.sendNotification(tokenList, "New Notification", "New Notification",
+						"https://107.180.88.121:8443/CloudKitchen/firebase",
+						"https://107.180.88.121:8443/CloudKitchen");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 

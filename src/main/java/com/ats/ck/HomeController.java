@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.EmailUtility;
+import com.ats.ck.common.PushNotification;
 import com.ats.ck.common.RandomString;
 import com.ats.ck.model.Agent;
 import com.ats.ck.model.Area;
@@ -487,7 +488,12 @@ public class HomeController {
 
 		ErrorMessage ErrorMessage = new ErrorMessage();
 		try {
-			execute();
+			// execute();
+			List<String> tokenList = new ArrayList<>();
+			tokenList.add(DEVICE_ID);
+			PushNotification.sendNotification(tokenList, "New Notification", "New Notification",
+					"https://107.180.88.121:8443/CloudKitchen/firebase", "https://107.180.88.121:8443/CloudKitchen");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -840,7 +846,7 @@ public class HomeController {
 	// Method to send Notifications from server to client end.
 	public final static String AUTH_KEY_FCM = "AAAAK88z50I:APA91bEu1TLNO0aV6Z16KjdQ5htyR3ju7eCOMPxpTyWQGuU7PZ26HzyVN-ZuIK4j7vz_iXoJaFBEwzhhGNs5bwQ792GySSLZ9nXq8i9wwt9GWWrn2bovhwFOvDUPhzIOYIQjG1bJgmdA";
 	public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-	public final static String DEVICE_ID = "";
+	public final static String DEVICE_ID = "dT6As-WOIk7rYCVARvWxYz:APA91bFUCw5XdkzS6wgkDnPMsfpgf2JZAbEylY-jNhHef6k6ux-AURbksoFJWCDxzbjiCYpmpOaIoLbS3tWTS9KFZWDl6TNIW4H8_m3HQUmbuPbqD2qQckbSiYypxJlv4OtK7mfS9Azw";
 
 //fcvBXJVWI_gpahKUUR5-MZ:APA91bEFA8ZUOPaVUp1m4HUdyWJ5x0j-DVpyvrICFZChkPokDT6uehb3GluQSmKX2UyImVyr353eQyp2rgaidt1G_Mg76XNKxBzjdmS9HqX-ZFTFiilOE1V64vq7h5U07ANJJqMYpqmC
 	public void execute() {
@@ -876,7 +882,7 @@ public class HomeController {
 				info.put("icon", "/ck/resources/assets/img/dashboard_logo.png");
 				info.put("image", "/ck/resources/assets/img/dashboard_logo.png");
 
-				json.put("data", info);
+				json.put("notification", info);
 
 			} catch (JSONException e1) {
 				e1.printStackTrace();
