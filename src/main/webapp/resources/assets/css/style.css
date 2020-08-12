@@ -564,7 +564,7 @@ input[type=text]::placeholder {
     border: 1px solid #8f8fa1;
     border-radius: 4px;
     padding: 10px 16px;
-    height: 100%;
+    /*height: 100%;*/ height: auto; min-height: 43px;
 }
 label.custom-checkbox input {
     position: absolute;
@@ -1206,6 +1206,9 @@ span.type-tag{
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
+    
+    overflow-y: scroll;
+    height: 90vh;
 }
 .cart-dropdown .cart-detail-box,
 .notification-btn .notification-dropdown {
