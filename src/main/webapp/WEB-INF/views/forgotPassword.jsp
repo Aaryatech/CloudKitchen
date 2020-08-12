@@ -93,7 +93,7 @@
 										</center>
 									</div>
 
-									<h4 class="text-light-black fw-600">Reset Password</h4>
+									<h4 class="text-light-black fw-600 signin_title">Reset Password</h4>
 									<div class="row">
 										<div class="col-12">
 											<c:if test="${sessionScope.errorMsg!=null}">

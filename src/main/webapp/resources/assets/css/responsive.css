@@ -526,6 +526,7 @@ Version: 1.0.0
 	.mb-xs-40 {
 		margin-bottom: 40px;
 	}
+	.main-padding{padding: 25px 15px;}
 }
 
 @media (max-width:386px){

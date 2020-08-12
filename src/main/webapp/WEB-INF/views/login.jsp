@@ -94,7 +94,7 @@
 												class="logo_pic" alt="">
 										</center>
 									</div>
-									<h4 class="text-light-black fw-600">Sign in with your
+									<h4 class="text-light-black fw-600 signin_title">Sign in with your
 										Cloud Kitchen account</h4>
 									<!--with your Cloud Kitchen account-->
 									<div class="row">

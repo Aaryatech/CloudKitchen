@@ -106,8 +106,19 @@
 						<span style="color: red; display: none;"
 							id="error_findCustomerByMobileNo">* Mobile no. is not
 							register.</span>
+							
+							
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6">
+						
+						<!-- switch toggle -->
+						<label class="switch">
+							<input class="switch-input" type="checkbox" />
+							<span class="switch-label" data-on="On" data-off="Off"></span> 
+							<span class="switch-handle"></span> 
+						</label>
+					
+					
 						<div class="input_one">
 							<!-- <input name="" type="text" class="input_no"
 									placeholder="Search by Order Number" /> <i
@@ -122,6 +133,10 @@
 					<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
 						<label class="prefered fs-14">Preferred Language : <Span
 							id="showPreferredLang">${customer.langName}</Span></label>
+							
+							
+									
+							
 					</div>
 
 					<div class="col-lg-3 sec_title right_btn">
@@ -156,14 +171,14 @@
 								<h3 class="dash_txt">
 									LIVE ORDER
 									<div class="grievence">
-										<div class="grievence_one">
+										<div class="grievence_one three">
 											ACCEPT <span id="accept_count">0</span>
 										</div>
-										<div class="grievence_one">
+										<div class="grievence_one three">
 											PROCESSING <span id="process_count">0</span>
 										</div>
-										<div class="grievence_one">
-											DELIVERY PENDING <span id="delivery_pending_count">0</span>
+										<div class="grievence_one three">
+											<!-- DELIVERY --> PENDING <span id="delivery_pending_count">0</span>
 										</div>
 									</div>
 								</h3>
@@ -183,13 +198,13 @@
 								<h3 class="dash_txt">
 									Today Cancelled
 									<div class="grievence">
-										<div class="grievence_one">
-											REJECT BY SHOP <span id="rejected_count">0</span>
+										<div class="grievence_one three">
+											REJECT <!-- BY SHOP --> <span id="rejected_count">0</span>
 										</div>
-										<div class="grievence_one">
+										<div class="grievence_one three">
 											RETURN <span id="return_count">0</span>
 										</div>
-										<div class="grievence_one">
+										<div class="grievence_one three">
 											CANCELLED<span id="cancelled_count">0</span>
 										</div>
 									</div>
@@ -222,7 +237,11 @@
 
 
 					<div id="pending_order_div" style="display: none;">
-						<div class="sec_title">Pending Order</div>
+						<div class="sec_title flt_lft">Pending Order</div>
+						<div class="related_row_r right_serach">
+							<i class="fa fa-search" aria-hidden="true"></i> 
+							<input name="related_item_text" type="text" class="rel_search" placeholder="Search">
+						</div>
 
 						<div class="component">
 							<table class="overflow-y" id="pending_order_table">
@@ -432,11 +451,12 @@
 									id="profilepreferredLang">${customer.langName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
-									<a title="Add New Address" class="detail_btn_round"
+								<span>Delivery Address</span> : 
+								<span id="profileDeliveryAdd">
+								<a title="Add New Address" class="detail_btn_round"
 									href="javascript:void(0)" onclick="addCustomerAdd()"><i
-										class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a
-									href="javascript:void(0)" title="Address List"
+										class="fa fa-plus" aria-hidden="true"></i></a>
+								<a href="javascript:void(0)" title="Address List"
 									class="detail_btn_round" onclick="customerAddList()"><i
 										class="fa fa-list" aria-hidden="true"></i></a>
 								</span>
@@ -1826,11 +1846,11 @@
 								document.getElementById("profilewhatappNo").innerHTML = response.customerInfo.whatsappNo;
 								document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
 								document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
-								document.getElementById("profileDeliveryAdd").innerHTML = '<span id="profileDeliveryAdd">'
+								document.getElementById("profileDeliveryAdd").innerHTML = '' /*<span id="profileDeliveryAdd">*/
 										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
-										+ '<i class="fa fa-plus" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" title="Address List"'
+										+ '<i class="fa fa-plus" aria-hidden="true"></i></a><a href="javascript:void(0)" title="Address List"'
 										+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
-										+ '</span>';
+										+ ''; /*</span>*/
 								document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
 								document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 
@@ -1939,13 +1959,13 @@
 					platform = 'Website';
 				}
 
-				var action = ' <a href="javascript:void(0)" onclick="cancelOrderFun('
+				var action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
 						+ table[i].orderId
 						+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
-						+ '</a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('
+						+ '</a><a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
 						+ ')" class="detail_btn_round" title="Grievences">'
-						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
+						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a><a href="#" onclick=repeateOrder('
 						+ table[i].orderId
 						+ ','
 						+ table[i].frId
@@ -1971,7 +1991,7 @@
 						+ '</td>'
 						+ '<td class="user-name"> <span class="paid">'
 						+ orderStatus
-						+ '</span></td> <td class="user-name" style="text-align: center;">'
+						+ '</span></td> <td class="user-name" style="text-align: center; padding:0;">'
 						+ action + '</td> </tr>';
 				$('#previousOrderTabl').append(tr_data);
 			}

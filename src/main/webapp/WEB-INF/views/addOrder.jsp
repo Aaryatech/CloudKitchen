@@ -76,8 +76,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-header-left">
-							<h3 class="text-light-black header-title title">Browse by
-								Category</h3>
+							<h3 class="text-light-black header-title title">Browse by Category</h3>
 						</div>
 					</div>
 					<div class="col-12">
@@ -123,12 +122,12 @@
 										<a href="javascript:void(0)" class="categories"
 											id="category${catList.catId}"
 											onclick="changeCategory(${catList.catId})">
-											<div
-												class="icon icon-parent text-custom-white bg-light-green">
+											<div class="icon icon-parent text-custom-white bg-light-green">
 												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
-													class="rounded-circle" alt="categories"
-													onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
-											</div> <span class="text-light-black cat-name fw-500">${catList.catName}</span>
+												class="rounded-circle" alt="categories"
+												onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
+											</div> 
+											<span class="text-light-black cat-name fw-500">${catList.catName}</span>
 										</a>
 									</div>
 								</c:forEach>
