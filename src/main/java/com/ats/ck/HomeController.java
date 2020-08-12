@@ -240,6 +240,10 @@ public class HomeController {
 
 		try {
 
+			/*String invoiceNo = String.format("%0" + 5 + "d", 101);
+
+			System.out.println(invoiceNo);*/
+
 			City[] city = Constants.getRestTemplate().getForObject(Constants.url + "getAllCities", City[].class);
 			cityList = new ArrayList<>(Arrays.asList(city));
 			model.addAttribute("cityList", cityList);

@@ -54,6 +54,7 @@ import com.ats.ck.model.OrderHeader;
 import com.ats.ck.model.OrderResponse;
 import com.ats.ck.model.OrderSaveData;
 import com.ats.ck.model.OrderTrail;
+import com.ats.ck.model.Setting;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -290,6 +291,11 @@ public class OrderController {
 				map.add("custAddressId", addressId);
 				CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
 						.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
+				
+				/*map = new LinkedMultiValueMap<String, Object>();
+				map.add("key", "ORDER_NO");
+				Setting setting = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getCustomerAddressListById", map, Setting.class);*/
 
 				DecimalFormat df = new DecimalFormat("#.00");
 
