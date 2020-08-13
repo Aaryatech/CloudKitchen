@@ -243,7 +243,8 @@
 						<div class="sec_title flt_lft">Pending Order</div>
 						<div class="related_row_r right_serach">
 							<i class="fa fa-search" aria-hidden="true"></i> <input
-								name="related_item_text" type="text" class="rel_search"
+								name="pendingOrderText" id="pendingOrderText" type="text"
+								class="rel_search" onkeyup="searchPendingOrder()"
 								placeholder="Search">
 						</div>
 
@@ -301,8 +302,14 @@
 					</div>
 
 					<div id="live_order_div">
-						<div class="sec_title">Live Orders</div>
+						<div class="sec_title flt_lft">Live Orders</div>
 
+						<div class="related_row_r right_serach">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="pendingOrderText" id="liveOrderText" type="text"
+								class="rel_search" onkeyup="searchLiveOrder()"
+								placeholder="Search">
+						</div>
 						<div class="component">
 							<!-- <div class="related_row_r">
 								<i class="fa fa-search" aria-hidden="true"></i> <input
@@ -344,8 +351,13 @@
 					</div>
 
 					<div id="delivered_order_div" style="display: none;">
-						<div class="sec_title">Delivered Order</div>
-
+						<div class="sec_title flt_lft">Delivered Order</div>
+						<div class="related_row_r right_serach">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="deliverdOrderText" id="deliverdOrderText" type="text"
+								class="rel_search" onkeyup="searchDeliverdOrder()"
+								placeholder="Search">
+						</div>
 						<div class="component">
 							<table class="overflow-y" id="delivered_order_table">
 								<thead>
@@ -379,8 +391,13 @@
 					</div>
 
 					<div id="cancelled_order_div" style="display: none;">
-						<div class="sec_title">Cancelled Order</div>
-
+						<div class="sec_title flt_lft">Cancelled Order</div>
+						<div class="related_row_r right_serach">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="cancelOrOrderText" id="cancelOrOrderText" type="text"
+								class="rel_search" onkeyup="searchCancelOrder()"
+								placeholder="Search">
+						</div>
 						<div class="component">
 							<table class="overflow-y" id="cancelled_order_table">
 								<thead>
@@ -473,12 +490,18 @@
 				<!--previous order history table-->
 				<div class="col-lg-8">
 					<div class="main-box padding-20">
-						<div class="sec_title">
+						<div class="sec_title ">
 							previous orders History <a href="javascript:void(0)"
 								onclick="placeOrderProcess()" class="order_btn">New Order
 								Booking</a>
 						</div>
 
+						<div class="related_row_r right_serach" style="padding: 10px;">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="previousOrderText" id="previousOrderText" type="text"
+								class="rel_search" onkeyup="searchPreviousOrder()"
+								placeholder="Search">
+						</div>
 						<div class="component">
 							<table class="overflow-y" id="previousOrderTabl">
 								<thead>
@@ -503,43 +526,19 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!--1 row-->
-									<%-- <tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Live</td>
-
-										<td class="user-name"><a
-											href="${pageContext.request.contextPath}/editOrder"
-											class="detail_btn_round" title="Edit Order"><i
-												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-											href="javascript:void(0)" data-toggle="modal"
-											data-target="#cancelOrder" class="detail_btn_round"
-											title="Cancel Order"><i class="fa fa-times"
-												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr> --%>
-									<!--1 row-->
 
 								</tbody>
 							</table>
 
 							<br>
+							<div class="sec_title flt_lft">Grievence History</div>
 
+							<div class="related_row_r right_serach">
+								<i class="fa fa-search" aria-hidden="true"></i> <input
+									name="pendingGrivienceText" id="pendingGrivienceText"
+									type="text" class="rel_search"
+									onkeyup="searchPendingGrivience()" placeholder="Search">
+							</div>
 							<table class="overflow-y" id="customerGrivienceTable">
 								<thead>
 									<tr>
@@ -559,37 +558,6 @@
 									</tr>
 								</thead>
 								<tbody>
-									<!--1 row-->
-									<%-- <tr>
-										<td class="user-name"><a href="#"
-											class="text-custom-white fw-500"> <img
-												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
-												class="rounded-circle" alt="userimg">
-										</a></td>
-										<td class="user-name"><strong><a
-												href="javascript:void(0)" data-toggle="modal"
-												data-target="#viewOrder">0001</a></strong></td>
-										<td class="user-name">Shop No. 1</td>
-										<td class="user-name">22-06-20</td>
-										<td class="user-name">Online</td>
-										<td class="user-name">205.00</td>
-										<td class="user-name">Live</td>
-
-										<td class="user-name"><a
-											href="${pageContext.request.contextPath}/editOrder"
-											class="detail_btn_round" title="Edit Order"><i
-												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
-											href="javascript:void(0)" data-toggle="modal"
-											data-target="#cancelOrder" class="detail_btn_round"
-											title="Cancel Order"><i class="fa fa-times"
-												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
-											data-toggle="modal" data-target="#grievences"
-											class="detail_btn_round" title="Grievences"><i
-												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
-											href="#" class="detail_btn_round" title="Repeat Order"><i
-												class="fa fa-repeat" aria-hidden="true"></i></a></td>
-									</tr> --%>
-									<!--1 row-->
 
 								</tbody>
 							</table>
@@ -2022,6 +1990,9 @@
 		}
 		function getpreviousorderlist() {
 
+			$('#pendingGrivienceText').val('');
+			$('#previousOrderText').val('');
+
 			var previous_order_history = sessionStorage
 					.getItem("previous_order_history");
 			var table = $.parseJSON(previous_order_history);
@@ -2107,6 +2078,9 @@
 
 				if (griviencehistory[i].currentStatus == 1) {
 					currentSts = 'Solved';
+				}
+				if (griviencehistory[i].currentStatus == 2) {
+					currentSts = 'Damage';
 				}
 
 				var tr_data = '<tr> <td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" onclick="viewGrvDetailFun('
@@ -2749,7 +2723,14 @@
 				document.getElementById("delivered_order_div").style.display = "none";
 				document.getElementById("cancelled_order_div").style.display = "none";
 			}
-
+			$('#pendingOrderText').val('');
+			$('#liveOrderText').val('');
+			$('#deliverdOrderText').val('');
+			$('#cancelOrOrderText').val('');
+			searchPendingOrder();
+			searchLiveOrder();
+			searchDeliverdOrder();
+			searchCancelOrder();
 		}
 		function addAddressfun() {
 			$('#orderstep1').modal('hide');
@@ -3740,6 +3721,120 @@
 											});
 
 						});
+	</script>
+
+
+	<script>
+		function searchPendingOrder() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("pendingOrderText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("pending_order_table");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+		function searchLiveOrder() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("liveOrderText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("live_order_table");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+		function searchDeliverdOrder() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("deliverdOrderText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("delivered_order_table");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+
+		function searchCancelOrder() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("cancelOrOrderText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("cancelled_order_table");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+		function searchPreviousOrder() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("previousOrderText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("previousOrderTabl");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+
+		function searchPendingGrivience() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("pendingGrivienceText");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("customerGrivienceTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 1; i < tr.length; i++) {
+				td = tr[i];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
 	</script>
 </body>
 

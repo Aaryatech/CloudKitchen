@@ -40,7 +40,7 @@
 	<table class="overflow-y" id="grn_detail_tabl">
 		<thead>
 			<tr>
-				<th class="sorting_desc" style="text-align: center;">Action</th>
+				<th class="sorting_desc" style="text-align: center;">Status</th>
 				<th class="sorting_desc" style="text-align: center;">Action By</th>
 				<th class="sorting_desc" style="text-align: center;">Date Time</th>
 				<th class="sorting_desc js-sort-date" style="text-align: center;">Remark</th>
@@ -59,9 +59,12 @@
 					<td class="user-name">${getGrievienceTailList.actionUserName}</td>
 					<td class="user-name" style="text-align: center;">${getGrievienceTailList.actionDateTime}</td>
 					<td class="user-name">${getGrievienceTailList.remark}</td>
-					<td class="user-name">Root cause <br> Action Taken
-						:${getGrievienceTailList.grivActionText} <br> Resposibility
-						Detail <br> Repay AMT <br> Repay Status
+					<td class="user-name">Root cause :
+						${getGrievienceTailList.identifiedRootCause} <br> Action
+						Taken : ${getGrievienceTailList.grivActionText} <br>
+						Resposibility Detail : ${getGrievienceTailList.resolutionDetail}<br>
+						Repay AMT : ${getGrievienceTailList.repayAmt}<br> Repay
+						Status : ${getGrievienceTailList.repayDetails}
 					</td>
 				</tr>
 			</c:forEach>
