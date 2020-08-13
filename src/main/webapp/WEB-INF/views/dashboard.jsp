@@ -491,91 +491,100 @@
 				<div class="col-lg-8">
 					<div class="main-box padding-20">
 						<div class="sec_title ">
-							previous orders History <a href="javascript:void(0)"
-								onclick="placeOrderProcess()" class="order_btn">New Order
-								Booking</a>
-						</div>
-						
-						<div class="tab_row_top">
 							<div class="tab_l">
 								<ul>
-									<li><a href="#" class="act">Previous Orders</a></li>
-									<li><a href="#">Grievence</a></li>
+									<li><a href="javascript:void(0)" class="act"
+										id="previousOrderTab" onclick="showPreviousOrGrivienceTab(1)">Previous
+											Orders</a></li>
+									<li><a href="javascript:void(0)" id="grievencesTab"
+										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-						
-							<div class="related_row_r right_serach">
-							<i class="fa fa-search" aria-hidden="true"></i> <input
-								name="previousOrderText" id="previousOrderText" type="text"
-								class="rel_search" onkeyup="searchPreviousOrder()"
-								placeholder="Search">
+							<a href="javascript:void(0)" onclick="placeOrderProcess()"
+								class="order_btn">New Order Booking</a>
 						</div>
-						<div class="clr"></div>
-						</div>
-						
-						<div class="component">
-							<table class="overflow-y" id="previousOrderTabl">
-								<thead>
-									<tr>
+						<div id="previousOrderTabDiv">
+							<div class="tab_row_top">
 
-										<th style="text-align: center; width: 7%;"></th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 7%;">Order NO.</th>
-
-										<th class="sorting_desc"
-											style="text-align: center; width: 20%;">Shop Name</th>
-										<th class="sorting_desc js-sort-date"
-											style="text-align: center; width: 15%;">Date</th>
-										<th class="sorting_desc js-sort-date"
-											style="text-align: center; width: 7%;">Type</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 10%;">Amount</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 20%;">Status</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 15%;">Action</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								</tbody>
-							</table>
-
-							<br>
-							<div class="sec_title flt_lft">Grievence History</div>
-
-							<div class="related_row_r right_serach">
-								<i class="fa fa-search" aria-hidden="true"></i> <input
-									name="pendingGrivienceText" id="pendingGrivienceText"
-									type="text" class="rel_search"
-									onkeyup="searchPendingGrivience()" placeholder="Search">
+								<div class="sec_title flt_lft">previous orders History</div>
+								<div class="related_row_r right_serach">
+									<i class="fa fa-search" aria-hidden="true"></i> <input
+										name="previousOrderText" id="previousOrderText" type="text"
+										class="rel_search" onkeyup="searchPreviousOrder()"
+										placeholder="Search">
+								</div>
+								<div class="clr"></div>
 							</div>
-							<table class="overflow-y" id="customerGrivienceTable">
-								<thead>
-									<tr>
 
+							<div class="component">
+								<table class="overflow-y" id="previousOrderTabl">
+									<thead>
+										<tr>
 
-										<th class="sorting_desc"
-											style="text-align: center; width: 15%;">Grievence No.</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 15%;">Order NO.</th>
-										<th class="sorting_desc js-sort-date"
-											style="text-align: center; width: 15%;">Date</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 10%;">Grievence Type</th>
-										<th class="sorting_desc"
-											style="text-align: center; width: 20%;">Status</th>
+											<th style="text-align: center; width: 7%;"></th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 7%;">Order NO.</th>
 
-									</tr>
-								</thead>
-								<tbody>
+											<th class="sorting_desc"
+												style="text-align: center; width: 20%;">Shop Name</th>
+											<th class="sorting_desc js-sort-date"
+												style="text-align: center; width: 15%;">Date</th>
+											<th class="sorting_desc js-sort-date"
+												style="text-align: center; width: 7%;">Type</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 10%;">Amount</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 20%;">Status</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 15%;">Action</th>
+										</tr>
+									</thead>
+									<tbody>
 
-								</tbody>
-							</table>
-
-
+									</tbody>
+								</table>
+							</div>
 						</div>
+						<div id="grievencesTabDiv" style="display: none;">
 
+							<div class="tab_row_top">
+
+								<div class="sec_title flt_lft">Grievence History</div>
+								<div class="related_row_r right_serach">
+									<i class="fa fa-search" aria-hidden="true"></i> <input
+										name="pendingGrivienceText" id="pendingGrivienceText"
+										type="text" class="rel_search"
+										onkeyup="searchPendingGrivience()" placeholder="Search">
+								</div>
+								<div class="clr"></div>
+							</div>
+							<div class="component">
+								<table class="overflow-y" id="customerGrivienceTable">
+									<thead>
+										<tr>
+
+
+											<th class="sorting_desc"
+												style="text-align: center; width: 15%;">Grievence No.</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 15%;">Order NO.</th>
+											<th class="sorting_desc js-sort-date"
+												style="text-align: center; width: 15%;">Date</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 10%;">Grievence Type</th>
+											<th class="sorting_desc"
+												style="text-align: center; width: 20%;">Status</th>
+
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+
+
+							</div>
+						</div>
 
 
 					</div>
@@ -1573,6 +1582,7 @@
 			</div>
 		</div>
 	</div>
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script>
@@ -1952,6 +1962,27 @@
 			$('#addAddress').modal('show');
 
 		}
+
+		function showPreviousOrGrivienceTab(value) {
+
+			$(".sticky-thead").css({
+				"width" : "100%"
+			});
+			var active = document.querySelector(".act");
+			active.classList.remove("act");
+
+			if (value == 1) {
+				$('#previousOrderTab').addClass("act");
+				$('#previousOrderTabDiv').show();
+				$('#grievencesTabDiv').hide();
+			} else {
+				$('#grievencesTab').addClass("act");
+				$('#previousOrderTabDiv').hide();
+				$('#grievencesTabDiv').show();
+			}
+
+		}
+
 		function insertgrievences(orderId) {
 
 			//document.getElementById("loaderimg").style.display = "block";
