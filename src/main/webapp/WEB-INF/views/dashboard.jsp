@@ -495,13 +495,24 @@
 								onclick="placeOrderProcess()" class="order_btn">New Order
 								Booking</a>
 						</div>
-
-						<div class="related_row_r right_serach" style="padding: 10px;">
+						
+						<div class="tab_row_top">
+							<div class="tab_l">
+								<ul>
+									<li><a href="#" class="act">Previous Orders</a></li>
+									<li><a href="#">Grievence</a></li>
+								</ul>
+							</div>
+						
+							<div class="related_row_r right_serach">
 							<i class="fa fa-search" aria-hidden="true"></i> <input
 								name="previousOrderText" id="previousOrderText" type="text"
 								class="rel_search" onkeyup="searchPreviousOrder()"
 								placeholder="Search">
 						</div>
+						<div class="clr"></div>
+						</div>
+						
 						<div class="component">
 							<table class="overflow-y" id="previousOrderTabl">
 								<thead>
