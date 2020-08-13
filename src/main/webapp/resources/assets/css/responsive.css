@@ -186,14 +186,15 @@ Version: 1.0.0
 	}
 	.product-list-view .product-list-details .product-detail-right-box .product-list-tags,
 	.product-list-view .product-list-details .product-detail-right-box .product-list-label,
-	.header .right-side .cart-btn.notification-btn,
 	.header .right-side .user-details>a>span,
 	.heading .head-rating .product-review h6,
 	.parent-megamenu a span,
 	.main-search,
 	.title-2 small,
 	.banner-adv2,
-	.banner-adv {
+	.banner-adv 
+	/* .header .right-side .cart-btn.notification-btn, */
+	{
 		display: none;
 	}
 	.header .main-search {
@@ -206,18 +207,21 @@ Version: 1.0.0
 	}
 	.header .right-side .cart-btn.notification-btn>a {
 		position: absolute;
-		left: 50px;
+		/*left: 50px;*/
+		right:60px;
 		margin: 0 10px;
 		top: 0;
 	}
 	.header .right-side .user-details>a {
 		position: absolute;
-		left: 0;
+		/*left: 0;*/
+		right:0;
 		margin: 0 10px;
 		top: 0;
 	}
 	.header .user-details:hover>.user-dropdown {
-		left: 0;
+		/* left: 0; */
+		right:0;
 	}
 	.parent-megamenu .megamenu .ex-collection-box{
 		padding-bottom: 40px;
@@ -272,7 +276,9 @@ Version: 1.0.0
 		left: -15%;
 	}
 	.notification-btn:hover>.notification-dropdown {
-		left: 0;
+		/* left: 0; */
+		right:0;
+		
 	}
 	.product-list-view,
 	.location-picker,
@@ -283,9 +289,9 @@ Version: 1.0.0
 	.user-page .login-sec {
 		transform: none;
 	}
-	.main-sec {
+	/* .main-sec {
 		height: 190px;
-	}
+	} */
 	.sort-tag-filter {
 		text-align: center;
 	}
@@ -300,7 +306,8 @@ Version: 1.0.0
 	.user-dropdown{
 		opacity: 1;
 	    visibility: visible;
-	    left: 0;
+	    /* left: 0; */
+	    right:0;
 	    display: none;
 	}
 	.megamenu.show,
@@ -461,8 +468,10 @@ Version: 1.0.0
 	.header .right-side .cart-btn.notification-btn>a {
 		margin: 0 5px;
 	}
+	.header .right-side .user-details>a{right:10px;}
 	.header .right-side .cart-btn.notification-btn>a {
-		left: 40px;
+		/* left: 40px; */
+		right:65px;
 	}
 	.header .right-side .catring>a {
 		left: 50px;
@@ -527,6 +536,8 @@ Version: 1.0.0
 		margin-bottom: 40px;
 	}
 	.main-padding{padding: 25px 15px;}
+	.header .right-side .cart-btn.notification-btn>a{top:4px;}
+	
 }
 
 @media (max-width:386px){

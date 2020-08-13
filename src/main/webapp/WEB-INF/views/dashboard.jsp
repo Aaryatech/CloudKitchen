@@ -139,7 +139,7 @@
 
 					</div>
 
-					<div class="col-lg-3 sec_title right_btn">
+					<div class="col-lg-3 col-md-6 col-sm-6 sec_title right_btn">
 						<a href="javascript:void(0)" onclick="addNewCustomerModel()"
 							class="order_btn"> New Customer Registration</a>
 					</div>
@@ -496,12 +496,23 @@
 								Booking</a>
 						</div>
 
-						<div class="related_row_r right_serach" style="padding: 10px;">
+						<div class="tab_row_top">
+							<div class="tab_l">
+								<ul>
+									<li><a href="#" class="act">Previous Orders</a></li>
+									<li><a href="#">Grievence</a></li>
+								</ul>
+							</div>
+						
+							<div class="related_row_r right_serach">
 							<i class="fa fa-search" aria-hidden="true"></i> <input
 								name="previousOrderText" id="previousOrderText" type="text"
 								class="rel_search" onkeyup="searchPreviousOrder()"
 								placeholder="Search">
 						</div>
+						<div class="clr"></div>
+						</div>
+						
 						<div class="component">
 							<table class="overflow-y" id="previousOrderTabl">
 								<thead>

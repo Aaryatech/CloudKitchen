@@ -106,3 +106,7 @@ td.user-name {
 	overflow-y: auto;
 	max-height: 50vh;
 }
+
+@media screen and (max-width: 480px) {
+	th{font-size: 12px;}
+}	
