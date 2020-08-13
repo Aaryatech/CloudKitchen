@@ -106,19 +106,19 @@
 						<span style="color: red; display: none;"
 							id="error_findCustomerByMobileNo">* Mobile no. is not
 							register.</span>
-							
-							
+
+
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6">
-						
+
 						<!-- switch toggle -->
-						<label class="switch">
+						<!-- <label class="switch">
 							<input class="switch-input" type="checkbox" />
 							<span class="switch-label" data-on="On" data-off="Off"></span> 
 							<span class="switch-handle"></span> 
-						</label>
-					
-					
+						</label> -->
+
+
 						<div class="input_one">
 							<!-- <input name="" type="text" class="input_no"
 									placeholder="Search by Order Number" /> <i
@@ -133,10 +133,10 @@
 					<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
 						<label class="prefered fs-14">Preferred Language : <Span
 							id="showPreferredLang">${customer.langName}</Span></label>
-							
-							
-									
-							
+
+
+
+
 					</div>
 
 					<div class="col-lg-3 sec_title right_btn">
@@ -178,7 +178,8 @@
 											PROCESSING <span id="process_count">0</span>
 										</div>
 										<div class="grievence_one three">
-											<!-- DELIVERY --> PENDING <span id="delivery_pending_count">0</span>
+											<!-- DELIVERY -->
+											PENDING <span id="delivery_pending_count">0</span>
 										</div>
 									</div>
 								</h3>
@@ -199,7 +200,9 @@
 									Today Cancelled
 									<div class="grievence">
 										<div class="grievence_one three">
-											REJECT <!-- BY SHOP --> <span id="rejected_count">0</span>
+											REJECT
+											<!-- BY SHOP -->
+											<span id="rejected_count">0</span>
 										</div>
 										<div class="grievence_one three">
 											RETURN <span id="return_count">0</span>
@@ -239,8 +242,9 @@
 					<div id="pending_order_div" style="display: none;">
 						<div class="sec_title flt_lft">Pending Order</div>
 						<div class="related_row_r right_serach">
-							<i class="fa fa-search" aria-hidden="true"></i> 
-							<input name="related_item_text" type="text" class="rel_search" placeholder="Search">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="related_item_text" type="text" class="rel_search"
+								placeholder="Search">
 						</div>
 
 						<div class="component">
@@ -451,12 +455,11 @@
 									id="profilepreferredLang">${customer.langName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Delivery Address</span> : 
-								<span id="profileDeliveryAdd">
-								<a title="Add New Address" class="detail_btn_round"
+								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
+									<a title="Add New Address" class="detail_btn_round"
 									href="javascript:void(0)" onclick="addCustomerAdd()"><i
-										class="fa fa-plus" aria-hidden="true"></i></a>
-								<a href="javascript:void(0)" title="Address List"
+										class="fa fa-plus" aria-hidden="true"></i></a> <a
+									href="javascript:void(0)" title="Address List"
 									class="detail_btn_round" onclick="customerAddList()"><i
 										class="fa fa-list" aria-hidden="true"></i></a>
 								</span>
@@ -497,6 +500,62 @@
 											style="text-align: center; width: 20%;">Status</th>
 										<th class="sorting_desc"
 											style="text-align: center; width: 15%;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!--1 row-->
+									<%-- <tr>
+										<td class="user-name"><a href="#"
+											class="text-custom-white fw-500"> <img
+												src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg"
+												class="rounded-circle" alt="userimg">
+										</a></td>
+										<td class="user-name"><strong><a
+												href="javascript:void(0)" data-toggle="modal"
+												data-target="#viewOrder">0001</a></strong></td>
+										<td class="user-name">Shop No. 1</td>
+										<td class="user-name">22-06-20</td>
+										<td class="user-name">Online</td>
+										<td class="user-name">205.00</td>
+										<td class="user-name">Live</td>
+
+										<td class="user-name"><a
+											href="${pageContext.request.contextPath}/editOrder"
+											class="detail_btn_round" title="Edit Order"><i
+												class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp; <a
+											href="javascript:void(0)" data-toggle="modal"
+											data-target="#cancelOrder" class="detail_btn_round"
+											title="Cancel Order"><i class="fa fa-times"
+												aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)"
+											data-toggle="modal" data-target="#grievences"
+											class="detail_btn_round" title="Grievences"><i
+												class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a
+											href="#" class="detail_btn_round" title="Repeat Order"><i
+												class="fa fa-repeat" aria-hidden="true"></i></a></td>
+									</tr> --%>
+									<!--1 row-->
+
+								</tbody>
+							</table>
+
+							<br>
+
+							<table class="overflow-y" id="customerGrivienceTable">
+								<thead>
+									<tr>
+
+
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Grievence No.</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Order NO.</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center; width: 15%;">Date</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Grievence Type</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 20%;">Status</th>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -1017,6 +1076,23 @@
 
 				<div class="pop_signup">Customer feedback - against order</div>
 				<div class="modal-body" id="modalbody"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade kot-popup" id="grievencesDetail"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-md-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">Grievences Detail</div>
+				<div class="modal-body" id="grievencesDetailModalbody"></div>
 			</div>
 		</div>
 	</div>
@@ -1859,6 +1935,11 @@
 												"previous_order_history",
 												JSON
 														.stringify(response.orderListByStatus));
+								sessionStorage
+										.setItem(
+												"customer_grivience_history",
+												JSON
+														.stringify(response.grievienceList));
 							} else {
 								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
 								document.getElementById("profileCustName").innerHTML = "-";
@@ -1872,6 +1953,9 @@
 								var list = [];
 								sessionStorage.setItem(
 										"previous_order_history", JSON
+												.stringify(list));
+								sessionStorage.setItem(
+										"customer_grivience_history", JSON
 												.stringify(list));
 							}
 							getpreviousorderlist();
@@ -1902,9 +1986,24 @@
 					$('#finalFailedMsg').hide();
 					$('#finalSuccessMsg').hide();
 				}, 5000);
+				displayCustomerInfo();
 			});
 			//document.getElementById("loaderimg").style.display = "none";
 		}
+
+		function viewGrvDetailFun(grvId) {
+
+			//document.getElementById("loaderimg").style.display = "block";
+			var strhref = "${pageContext.request.contextPath}/viewGrvDetail?grvId="
+					+ grvId;
+			$("#grievencesDetailModalbody").load(strhref);
+			$("#grievencesDetail").modal("show");
+			$('#grievencesDetail').on('hidden.bs.modal', function() {
+				$("#grievencesDetailModalbody").html("");
+			});
+			//document.getElementById("loaderimg").style.display = "none";
+		}
+
 		function repeateOrder(orderId, frId, addressId) {
 
 			//document.getElementById("loaderimg").style.display = "block";
@@ -1995,6 +2094,39 @@
 						+ action + '</td> </tr>';
 				$('#previousOrderTabl').append(tr_data);
 			}
+
+			var customer_grivience_history = sessionStorage
+					.getItem("customer_grivience_history");
+			var griviencehistory = $.parseJSON(customer_grivience_history);
+
+			$("#customerGrivienceTable tbody").empty();
+
+			for (var i = 0; i < griviencehistory.length; i++) {
+
+				var currentSts = 'Pending';
+
+				if (griviencehistory[i].currentStatus == 1) {
+					currentSts = 'Solved';
+				}
+
+				var tr_data = '<tr> <td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" onclick="viewGrvDetailFun('
+						+ griviencehistory[i].grieveId
+						+ ')">'
+						+ griviencehistory[i].grievencceNo
+						+ '</a></strong></td>'
+						+ '<td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" onclick="viewOrderFun('
+						+ griviencehistory[i].orderId
+						+ ',3)">'
+						+ griviencehistory[i].orderNo
+						+ '</a></strong></td><td class="user-name" style="text-align: center;">'
+						+ griviencehistory[i].date
+						+ '</td><td class="user-name" >'
+						+ griviencehistory[i].grvInstrustion
+						+ '</td><td class="user-name" style="text-align: center;"><span class="paid">'
+						+ currentSts + '<span></td>  </tr>';
+				$('#customerGrivienceTable').append(tr_data);
+			}
+
 		}
 		function customerAddList() {
 

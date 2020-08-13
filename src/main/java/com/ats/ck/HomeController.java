@@ -47,6 +47,7 @@ import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.ErrorMessage;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetGrievienceList;
 import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
@@ -796,7 +797,13 @@ public class HomeController {
 			GetOrderHeaderList[] getOrderHeaderList = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getOrderListByCustomerId", map, GetOrderHeaderList[].class);
 			List<GetOrderHeaderList> list = new ArrayList<>(Arrays.asList(getOrderHeaderList));
+			
+			
+			GetGrievienceList[] getGrievienceList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getGrievienceListByCustomerId", map, GetGrievienceList[].class);
+			List<GetGrievienceList> grievienceList = new ArrayList<>(Arrays.asList(getGrievienceList));
 
+			info.setGrievienceList(grievienceList);
 			info.setOrderListByStatus(list);
 			info.setCustomerInfo(editcust);
 		} catch (Exception e) {

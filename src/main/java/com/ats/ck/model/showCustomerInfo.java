@@ -3,10 +3,11 @@ package com.ats.ck.model;
 import java.util.List;
 
 public class showCustomerInfo {
-	
+
 	private CustomerDisplay customerInfo;
 	private List<GetOrderHeaderList> orderListByStatus;
-	
+	private List<GetGrievienceList> grievienceList;
+
 	public CustomerDisplay getCustomerInfo() {
 		return customerInfo;
 	}
@@ -23,11 +24,18 @@ public class showCustomerInfo {
 		this.orderListByStatus = orderListByStatus;
 	}
 
+	public List<GetGrievienceList> getGrievienceList() {
+		return grievienceList;
+	}
+
+	public void setGrievienceList(List<GetGrievienceList> grievienceList) {
+		this.grievienceList = grievienceList;
+	}
+
 	@Override
 	public String toString() {
-		return "showCustomerInfo [customerInfo=" + customerInfo + ", orderListByStatus=" + orderListByStatus + "]";
+		return "showCustomerInfo [customerInfo=" + customerInfo + ", orderListByStatus=" + orderListByStatus
+				+ ", grievienceList=" + grievienceList + "]";
 	}
-	
-	
 
 }

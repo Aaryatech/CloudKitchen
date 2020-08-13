@@ -35,6 +35,7 @@ import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
 import com.ats.ck.model.GetFranchiseData;
+import com.ats.ck.model.GetGrievienceList;
 import com.ats.ck.model.GetOrderDetailList;
 import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.GetRelatedItemsAndFreqOrderList;
@@ -291,11 +292,12 @@ public class OrderController {
 				map.add("custAddressId", addressId);
 				CustomerAddressDisplay addressDetail = Constants.getRestTemplate()
 						.postForObject(Constants.url + "getCustomerAddressListById", map, CustomerAddressDisplay.class);
-				
-				/*map = new LinkedMultiValueMap<String, Object>();
-				map.add("key", "ORDER_NO");
-				Setting setting = Constants.getRestTemplate()
-						.postForObject(Constants.url + "getCustomerAddressListById", map, Setting.class);*/
+
+				/*
+				 * map = new LinkedMultiValueMap<String, Object>(); map.add("key", "ORDER_NO");
+				 * Setting setting = Constants.getRestTemplate() .postForObject(Constants.url +
+				 * "getCustomerAddressListById", map, Setting.class);
+				 */
 
 				DecimalFormat df = new DecimalFormat("#.00");
 
@@ -620,7 +622,7 @@ public class OrderController {
 						String[].class);
 				List<String> tokenList = new ArrayList<>(Arrays.asList(list));
 
-				PushNotification.sendNotification(tokenList, "New Notification", "New Notification",
+				PushNotification.sendNotification(tokenList, "New Order", "You Have New Order.",
 						"https://107.180.88.121:8443/CloudKitchen/firebase",
 						"https://107.180.88.121:8443/CloudKitchen");
 			}
@@ -687,6 +689,29 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "grievences";
+	}
+
+	@RequestMapping(value = "/viewGrvDetail", method = RequestMethod.GET)
+	public String viewGrvDetail(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			// int addDetailId = Integer.parseInt(request.getParameter("id"));
+
+			int grvId = Integer.parseInt(request.getParameter("grvId"));
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("grvId", grvId);
+			GetGrievienceList getGrvHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getGriviencevByGrvId", map, GetGrievienceList.class);
+			model.addAttribute("getGrvHeaderList", getGrvHeaderList);
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "viewGrvDetail";
 	}
 
 	@RequestMapping(value = "/submitFeedback", method = RequestMethod.POST)
