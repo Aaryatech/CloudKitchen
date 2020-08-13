@@ -110,9 +110,11 @@
 												id="myInput1" class="top_place"
 												placeholder="Search for restaurant, cuisine or a dish" />
 										</div>
+										<input type="hidden" value="${sessionScope.frIdForOrder}"
+											id="hiddenSelectedFrId" name="hiddenSelectedFrId">
 										<div class="head_search_r">
 											<select class="country top_drop_ones" id="headerFrId"
-												name="headerFrId">
+												name="headerFrId" onchange="changeFrId()">
 												<%-- <c:forEach items="${franchiseList}" var="franchiseList">
 													<c:choose>
 														<c:when
@@ -128,8 +130,7 @@
 
 											</select>
 										</div>
-										<input type="hidden" value="${sessionScope.frIdForOrder}"
-											id="hiddenSelectedFrId" name="hiddenSelectedFrId">
+
 									</div>
 
 								</div>
@@ -400,7 +401,6 @@
 </div>
 <div class="main-sec"></div>
 <script type="text/javascript">
-	
 	function checkOutProcess() {
 
 		var isError = false;

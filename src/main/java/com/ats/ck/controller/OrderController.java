@@ -707,7 +707,7 @@ public class OrderController {
 			GetGrievienceList getGrvHeaderList = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getGriviencevByGrvId", map, GetGrievienceList.class);
 			model.addAttribute("getGrvHeaderList", getGrvHeaderList);
- 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -925,6 +925,7 @@ public class OrderController {
 						item.setIgstPer(itemList.get(j).getIgstPer());
 						item.setSpecialremark("");
 						itemJsonList.add(item);
+						break;
 					}
 				}
 
@@ -988,6 +989,7 @@ public class OrderController {
 						item.setIgstPer(itemList.get(j).getIgstPer());
 						item.setSpecialremark("");
 						itemJsonList.add(item);
+						break;
 					}
 				}
 
@@ -1044,6 +1046,63 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return info;
+	}
+
+	@RequestMapping(value = "/changeFrId", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ItemJsonImportData> changeFrId(HttpServletRequest request, HttpServletResponse response) {
+
+		List<ItemJsonImportData> itemJsonList = new ArrayList<>();
+
+		try {
+			HttpSession session = request.getSession();
+
+			int headerFrId = Integer.parseInt(request.getParameter("headerFrId"));
+			String cartListJson = request.getParameter("cartList");
+
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			// convert json string to object
+			ItemJsonImportData[] itemJsonImportData = objectMapper.readValue(cartListJson, ItemJsonImportData[].class);
+
+			List<ItemJsonImportData> cartList = new ArrayList<>(Arrays.asList(itemJsonImportData));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", headerFrId);
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			ItemDisplay[] itemDisplay = Constants.getRestTemplate().postForObject(Constants.url + "getAllItemListByFr",
+					map, ItemDisplay[].class);
+
+			itemList = new ArrayList<>(Arrays.asList(itemDisplay));
+
+			for (int i = 0; i < cartList.size(); i++) {
+
+				for (int j = 0; j < itemList.size(); j++) {
+
+					if (cartList.get(i).getItemId() == itemList.get(j).getItemId()) {
+						ItemJsonImportData item = new ItemJsonImportData();
+						item.setItemId(itemList.get(j).getItemId());
+						item.setItemName(itemList.get(j).getItemName());
+						item.setPrice(itemList.get(j).getSpRateAmt());
+						item.setQty(cartList.get(i).getQty());
+						item.setTotal(cartList.get(i).getQty() * itemList.get(j).getSpRateAmt());
+						item.setCgstPer(itemList.get(j).getCgstPer());
+						item.setSgstPer(itemList.get(j).getSgstPer());
+						item.setIgstPer(itemList.get(j).getIgstPer());
+						item.setSpecialremark("");
+						//System.out.println(item);
+						itemJsonList.add(item);
+						break;
+					}
+				}
+
+			}
+			session.setAttribute("frIdForOrder", headerFrId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemJsonList;
 	}
 
 	/*

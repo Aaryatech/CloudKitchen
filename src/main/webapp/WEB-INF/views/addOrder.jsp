@@ -76,7 +76,8 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-header-left">
-							<h3 class="text-light-black header-title title">Browse by Category</h3>
+							<h3 class="text-light-black header-title title">Browse by
+								Category</h3>
 						</div>
 					</div>
 					<div class="col-12">
@@ -122,12 +123,12 @@
 										<a href="javascript:void(0)" class="categories"
 											id="category${catList.catId}"
 											onclick="changeCategory(${catList.catId})">
-											<div class="icon icon-parent text-custom-white bg-light-green">
+											<div
+												class="icon icon-parent text-custom-white bg-light-green">
 												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
-												class="rounded-circle" alt="categories"
-												onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
-											</div> 
-											<span class="text-light-black cat-name fw-500">${catList.catName}</span>
+													class="rounded-circle" alt="categories"
+													onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
+											</div> <span class="text-light-black cat-name fw-500">${catList.catName}</span>
 										</a>
 									</div>
 								</c:forEach>
@@ -673,7 +674,7 @@
 				 try {
 					 for(var i = 0 ; i<table.length ; i++){
 						 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
-								 '<a href="javascript:void(0)" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
+								 '<a href="javascript:void(0)" onclick="itemDetailDesc('+table[i].itemId+')" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
 								 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
 								 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
 								 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
@@ -999,6 +1000,42 @@
 			$('#headerFrId').html(html);
 			//$("#headerFrId").trigger("country:updated");
 			$("#headerFrId").trigger("change");
+
+		}
+		
+		function changeFrId() {
+
+			var headerFrId = $("#headerFrId").val();
+			var selectedFrId = $("#hiddenSelectedFrId").val();
+			
+			if(headerFrId!=selectedFrId){
+				
+				var cartValue = sessionStorage.getItem("cartValue");
+				var table = $.parseJSON(cartValue); 
+				
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('headerFrId', headerFrId);
+				fd.append('cartList', cartValue);
+				
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/changeFrId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+ 
+								//document.getElementById("loaderimg").style.display = "none"; 
+								//alert(JSON.stringify(response))
+								sessionStorage.setItem("cartValue",JSON.stringify(response));  
+								window.location.reload();
+							},
+						});
+			}
+			
 
 		}
 	</script>
