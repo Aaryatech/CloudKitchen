@@ -4854,6 +4854,7 @@ text-transform: uppercase;}
   .header,.main-sec{height: auto /*123px*/;}
 }
 @media screen and (max-width: 768px) {
+	.loader img{left: 35%;}
   .item_one{width: 100%;}	
   .itm_prc a{display: table;}
   .related_row_l{float: left; width: 50%; margin: 0;}
@@ -4929,6 +4930,7 @@ text-transform: uppercase;}
 	.not_one{min-height: 60px;}
 }
 @media screen and (max-width: 480px) {
+	.loader img{left: 35%;}
 	.tab_l {float: none;}
 	.related_row_r.right_serach { float: none; width: 100%; display: inline-block; 
 	margin: 15px 0 0 0;}
@@ -4954,7 +4956,7 @@ text-transform: uppercase;}
 	.single_row_r{float: none; width:100%;}
 	
 	.section-padding {padding: 75px 0 30px 0;}
-	a.order_btn{float: none;}
+	a.order_btn{float: none; margin: 15px 0 0 0;}
 	.welcome_top{display: none;}
     .input_one{margin: 8px 0;}
     .dashboard_count ul li, .dashboard_count ul li:last-child{width: 100%; 
@@ -4964,6 +4966,7 @@ text-transform: uppercase;}
 }
 @media screen and (max-width: 420px) {
 	.header .right-side .cart-btn:last-child {margin: 0 0 0 45px;}	
+	.loader img {left: 24%;}
 }
 @media screen and (max-width: 400px) {
 	.header .right-side .cart-btn:last-child {margin: 0 0 0 13px;}	
@@ -4971,8 +4974,9 @@ text-transform: uppercase;}
 @media screen and (max-width: 375px) {
 	.header .right-side .cart-btn:last-child {margin: 0;}
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 376px) {
 	.header .right-side .cart-btn:last-child {margin: 0 0 0 -10px;}
+	.loader img{left: 25%;}
 }
 @media screen and (max-width: 320px) {
 	.header .right-side .cart-btn:last-child {margin: 0 0 0 -33px;}
