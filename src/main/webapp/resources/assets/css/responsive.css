@@ -176,6 +176,7 @@ Version: 1.0.0
 	}
 }
 @media (max-width: 767px) {
+	
 	.header,
 	.section-2,
 	.main-banner {
@@ -471,7 +472,7 @@ Version: 1.0.0
 	.header .right-side .user-details>a{right:10px;}
 	.header .right-side .cart-btn.notification-btn>a {
 		/* left: 40px; */
-		right:65px;
+		right:62px;
 	}
 	.header .right-side .catring>a {
 		left: 50px;
@@ -544,4 +545,7 @@ Version: 1.0.0
 	.product-box-3 .product-caption ul.food-description li:last-child{
 		margin-top: 7px;
 	}
+}
+@media screen and (max-width: 320px) {
+  .header .logo {max-width: 180px;}
 }
