@@ -221,9 +221,15 @@ public class OrderController {
 			List<ItemDisplay> relatedItemList = getRelatedItemsAndFreqOrderList.getRelatedItemList();
 			List<ItemDisplay> favrouitItemList = getRelatedItemsAndFreqOrderList.getFreqOrderItemList();
 
-			System.out.println(favrouitItemList);
+			//System.out.println(favrouitItemList);
 			model.addAttribute("relatedItemList", relatedItemList);
 			model.addAttribute("favItemList", favrouitItemList);
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", session.getAttribute("frIdForOrder"));
+			FranchiseData franchiseData = Constants.getRestTemplate().postForObject(
+					Constants.url + "getFranchiseByFrId", map, FranchiseData.class);
+			model.addAttribute("franchiseData", franchiseData);
 
 		} catch (Exception e) {
 			e.printStackTrace();

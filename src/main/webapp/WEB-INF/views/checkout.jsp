@@ -125,12 +125,9 @@
 									</div>
 									<br>
 									<div class="instrac_nm">
-										<h2>Shop No. 1</h2>
-										<h3>8888888888</h3>
-										<p>
-											314 79th Canada Corner<br> Near Arham Eye care Hospital<br>
-											Sharanpur Road, Nashik<br> (+91) 1234567890
-										</p>
+										<h2>${franchiseData.frName}</h2>
+										<h3>${franchiseData.frMob}</h3>
+										<p>${franchiseData.frAddress}</p>
 									</div>
 								</div>
 
