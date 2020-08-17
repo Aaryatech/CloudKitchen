@@ -55,14 +55,16 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 
 			}
 
-			//System.out.println();
+			// System.out.println();
 			try {
 				if (request.getServletPath().equals("/") || request.getServletPath().equals("/loginProcess")
 						|| request.getServletPath().equals("/logout")
 						|| request.getServletPath().equals("/forgotPassword")
-						|| request.getServletPath().equals("/submitResetPassword")) { // ||request.getServletPath().equals("/logout"))
-																						// { //
-																						// ||request.getServletPath().equals("/logout")
+						|| request.getServletPath().equals("/submitResetPassword")
+						|| request.getServletPath().equals("/thankYou")
+						|| request.getServletPath().equals("/returnUrl")) { // ||request.getServletPath().equals("/logout"))
+					// { //
+					// ||request.getServletPath().equals("/logout")
 					// System.out.println("Login request");
 					return true;
 				} else if (userObj == null) {
@@ -81,7 +83,7 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 						// System.out.println(session.getAttribute("errorMsg"));
 						response.sendRedirect(request.getContextPath() + "/dashboard");
 						return false;
-					} else { 
+					} else {
 						return true;
 					}
 

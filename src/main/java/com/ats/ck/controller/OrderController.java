@@ -8,9 +8,18 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.UUID;
 
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,11 +35,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.DateConvertor;
+import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.PushNotification;
 import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.CustomerAddressDisplay;
 import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.DeliveryInstruction;
+import com.ats.ck.model.ErrorMessage;
 import com.ats.ck.model.FranchiseData;
 import com.ats.ck.model.GetAllDataByFr;
 import com.ats.ck.model.GetCategoryData;
@@ -58,6 +69,8 @@ import com.ats.ck.model.OrderTrail;
 import com.ats.ck.model.Setting;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
+import com.ats.ck.model.gatwaymodel.Body;
+import com.ats.ck.model.gatwaymodel.Formdata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -221,14 +234,14 @@ public class OrderController {
 			List<ItemDisplay> relatedItemList = getRelatedItemsAndFreqOrderList.getRelatedItemList();
 			List<ItemDisplay> favrouitItemList = getRelatedItemsAndFreqOrderList.getFreqOrderItemList();
 
-			//System.out.println(favrouitItemList);
+			// System.out.println(favrouitItemList);
 			model.addAttribute("relatedItemList", relatedItemList);
 			model.addAttribute("favItemList", favrouitItemList);
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", session.getAttribute("frIdForOrder"));
-			FranchiseData franchiseData = Constants.getRestTemplate().postForObject(
-					Constants.url + "getFranchiseByFrId", map, FranchiseData.class);
+			FranchiseData franchiseData = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getFranchiseByFrId", map, FranchiseData.class);
 			model.addAttribute("franchiseData", franchiseData);
 
 		} catch (Exception e) {
@@ -1097,7 +1110,7 @@ public class OrderController {
 						item.setSgstPer(itemList.get(j).getSgstPer());
 						item.setIgstPer(itemList.get(j).getIgstPer());
 						item.setSpecialremark("");
-						//System.out.println(item);
+						// System.out.println(item);
 						itemJsonList.add(item);
 						break;
 					}
@@ -1109,6 +1122,117 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return itemJsonList;
+	}
+
+	@RequestMapping(value = "/paymentLink", method = RequestMethod.GET)
+	public String paymentLink(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+			String uuid = UUID.randomUUID().toString();
+
+			/*
+			 * Map<String, String> postData = new HashMap<String, String>();
+			 * postData.put("appId", "27027a6652b91619aa1a8ad8172072");
+			 * postData.put("orderId", uuid); postData.put("orderAmount", "2");
+			 * postData.put("orderCurrency", "INR"); postData.put("orderNote", "OK");
+			 * postData.put("customerName", "akshay kasar"); postData.put("customerEmail",
+			 * "akshaykasar72@gmail.com"); postData.put("customerPhone", "7588519473");
+			 * postData.put("returnUrl", "http://localhost:8086/ck/returnUrl");
+			 * postData.put("notifyUrl", "http://localhost:8086/ck/notifyUrl"); String data
+			 * = ""; SortedSet<String> keys = new TreeSet<String>(postData.keySet()); for
+			 * (String key : keys) { data = data + key + postData.get(key); } Mac
+			 * sha256_HMAC = Mac.getInstance("HmacSHA256"); SecretKeySpec secret_key_spec =
+			 * new SecretKeySpec("68bdc7d71b4ff20a294a8844c98fdb696510078d".getBytes(),
+			 * "HmacSHA256"); sha256_HMAC.init(secret_key_spec); String signature =
+			 * Base64.getEncoder().encodeToString(sha256_HMAC.doFinal(data.getBytes()));
+			 * model.addAttribute("signature", signature); model.addAttribute("uuid", uuid);
+			 */
+
+			// List<Formdata> formdataList = new ArrayList<>();
+			Body body = new Body();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("appId", "27027a6652b91619aa1a8ad8172072");
+			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("orderId", uuid);
+			map.add("orderAmount", "1");
+			map.add("orderCurrency", "INR");
+			map.add("orderNote", "Test");
+			map.add("customerEmail", "shirkeanmol@gmail.com");
+			map.add("customerName", "Akshay Kasar");
+			map.add("customerPhone", "7588519473");
+			map.add("returnUrl", "http://192.168.2.12:8086/ck/returnUrl");
+			map.add("notifyUrl", "http://192.168.2.12:8086/ck/notifyUrl");
+
+			Body res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/create", map,
+					Body.class);
+
+			/* System.out.println(res); */
+
+			String subject = "Order Payment Link";
+			String msg = "Your Bill total is  5/- Only <br> " + res.getPaymentLink();
+
+			ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, "shirkeanmol@gmail.com");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "paymentLink";
+	}
+
+	@RequestMapping(value = "/notifyUrl", method = RequestMethod.POST)
+	public String notifyUrl(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "notifyUrl";
+	}
+
+	@RequestMapping(value = "/returnUrl", method = RequestMethod.POST)
+	public String returnUrl(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+			
+			String orderId = request.getParameter("orderId");
+			String txStatus = request.getParameter("txStatus");
+			
+			System.out.println(orderId);
+			System.out.println(txStatus);
+			/*
+			 * String uuid = request.getParameter("orderId");
+			 * 
+			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+			 * Object>();
+			 * 
+			 * map.add("appId", "27027a6652b91619aa1a8ad8172072"); map.add("secretKey",
+			 * "68bdc7d71b4ff20a294a8844c98fdb696510078d"); map.add("orderId", uuid);
+			 * 
+			 * String res = Constants.getRestTemplate().postForObject(
+			 * "https://test.cashfree.com/api/v1/order/info/status", map, String.class);
+			 * 
+			 * System.out.println(res);
+			 */
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/thankYou";
+	}
+
+	@RequestMapping(value = "/thankYou", method = RequestMethod.GET)
+	public String thankYou(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "thankYou";
 	}
 
 	/*
