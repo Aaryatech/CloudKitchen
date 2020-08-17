@@ -656,7 +656,8 @@
 								<span>Whats App no.</span><input name="whatappno" type="text"
 									class="frm_inpt" style="width: 70%" onchange="trim(this)"
 									id="whatappno" maxlength="10" placeholder="Whats App no." /><input
-									name="" type="checkbox" class="frm_inpt" style="width: 30%" />
+									name="sameMoNo" id="sameMoNo" type="checkbox" class="frm_inpt"
+									style="width: 30%" onchange="sameMobileNo()" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_whatappno">* This
@@ -895,10 +896,10 @@
 
 							<div class="pop_frm_one">
 								<span>Whats App no.</span><input name="edit_whatappno"
-									type="text" class="frm_inpt" style="width: 70%"
-									onchange="trim(this)" id="edit_whatappno" maxlength="10"
-									placeholder="Whats App no." /><input name="" type="checkbox"
-									class="frm_inpt" style="width: 30%" />
+									type="text" class="frm_inpt" onchange="trim(this)"
+									id="edit_whatappno" maxlength="10" placeholder="Whats App no." />
+								<!-- <input name="" type="checkbox"
+									class="frm_inpt" style="width: 30%" /> -->
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_edit_whatappno">*
@@ -2043,12 +2044,22 @@
 
 			for (var i = 0; i < table.length; i++) {
 
+				var action = '';
+
 				var orderStatus = 'PARK ORDER';
 
 				if (table[i].orderStatus == 1) {
 					orderStatus = 'Shop Confirmation Pending';
+					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+							+ table[i].orderId
+							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ '</a>';
 				} else if (table[i].orderStatus == 2) {
 					orderStatus = 'Accept by shop';
+					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+							+ table[i].orderId
+							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ '</a>';
 				} else if (table[i].orderStatus == 3) {
 					orderStatus = 'Processing';
 				} else if (table[i].orderStatus == 4) {
@@ -2061,6 +2072,11 @@
 					orderStatus = 'Return';
 				} else if (table[i].orderStatus == 8) {
 					orderStatus = 'Cancelled';
+				} else {
+					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+							+ table[i].orderId
+							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ '</a>';
 				}
 
 				var platform = 'Web';
@@ -2071,17 +2087,12 @@
 					platform = 'Website';
 				}
 
-				var action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
-						+ table[i].orderId
-						+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
-						+ '</a><a href="javascript:void(0)" onclick="insertgrievences('
+				action = action
+						+ '<a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
 						+ ')" class="detail_btn_round" title="Grievences">'
 						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a><a href="#" onclick=repeateOrder('
-						+ table[i].orderId
-						+ ','
-						+ table[i].frId
-						+ ','
+						+ table[i].orderId + ',' + table[i].frId + ','
 						+ table[i].addressId
 						+ ') class="detail_btn_round" title="Repeat Order">'
 						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
@@ -3354,6 +3365,8 @@
 
 			$('#addAddressLatitude').val(0);
 			$('#addAddressLongitude').val(0);
+
+			document.getElementById("sameMoNo").checked = false;
 		});
 	</script>
 	<script>
@@ -3447,8 +3460,16 @@
 
 								if (response[i].orderStatus == 1) {
 									orderStatus = 'Shop Confirmation Pending';
+									actionBtn = '<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ response[i].orderId
+											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else if (response[i].orderStatus == 2) {
 									orderStatus = 'Accept by shop';
+									actionBtn = '<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ response[i].orderId
+											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else if (response[i].orderStatus == 3) {
 									orderStatus = 'Processing';
 								} else if (response[i].orderStatus == 4) {
@@ -3457,14 +3478,14 @@
 									actionBtn = '<a href="javascript:void(0)"'
 											+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
 											+ response[i].orderId
-											+ ')"><i class="fa fa-shopping-cart"></i></a>';
+											+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ response[i].orderId
+											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								}
 
 								actionBtn = actionBtn
-										+ '<a href="javascript:void(0)"'
-										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
-										+ response[i].orderId
-										+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" '
+										+ '<a href="javascript:void(0)" '
 										+ 'onclick="insertgrievences('
 										+ response[i].orderId
 										+ ')" class="detail_btn_round" title="Grievences">'
@@ -3584,10 +3605,7 @@
 										+ '<td class="user-name"><span class="paid">'
 										+ orderStatus
 										+ '</span></td> <td class="user-name" style="text-align: center;">'
-										+ '<a href="javascript:void(0)"'
-										+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
-										+ responseByDate[i].orderId
-										+ ',2)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;<a href="javascript:void(0)" onclick="insertgrievences('
+										+ '<a href="javascript:void(0)" onclick="insertgrievences('
 										+ responseByDate[i].orderId
 										+ ')"  class="detail_btn_round" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a></td> </tr>';
@@ -3880,6 +3898,17 @@
 					}
 				}
 			}
+		}
+
+		function sameMobileNo() {
+
+			if (document.getElementById("sameMoNo").checked == true) {
+
+				$("#whatappno").val($("#mobileNo").val());
+			} else {
+				$("#whatappno").val('');
+			}
+
 		}
 	</script>
 </body>
