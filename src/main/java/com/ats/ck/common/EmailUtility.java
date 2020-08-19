@@ -85,8 +85,9 @@ public class EmailUtility {
 					mimeMessage.setFrom(new InternetAddress(username));
 					mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
 					mimeMessage.setSubject(mailSubjet);
-					mimeMessage.setText(msgContent);
-				
+					//mimeMessage.setText(msgContent);
+					mimeMessage.setContent(msgContent,"text/html");
+					
 					Transport.send(mimeMessage);
 				} catch (Exception e) {
 					e.printStackTrace();

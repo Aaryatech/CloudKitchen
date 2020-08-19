@@ -60,6 +60,7 @@ public class OrderHeader {
 	private float deliveryCharges; 
 	private int paymentSubMode; 
 	private int isAgent;
+	private String uuidNo;
 	
 	public int getOrderId() {
 		return orderId;
@@ -517,6 +518,14 @@ public class OrderHeader {
 		this.isAgent = isAgent;
 	}
 
+	public String getUuidNo() {
+		return uuidNo;
+	}
+
+	public void setUuidNo(String uuidNo) {
+		this.uuidNo = uuidNo;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderHeader [orderId=" + orderId + ", orderNo=" + orderNo + ", orderDate=" + orderDate + ", frId="
@@ -536,7 +545,7 @@ public class OrderHeader {
 				+ billingAddress + ", customerGstnNo=" + customerGstnNo + ", deliveryType=" + deliveryType
 				+ ", deliveryInstId=" + deliveryInstId + ", deliveryInstText=" + deliveryInstText + ", deliveryKm="
 				+ deliveryKm + ", deliveryCharges=" + deliveryCharges + ", paymentSubMode=" + paymentSubMode
-				+ ", isAgent=" + isAgent + "]";
+				+ ", isAgent=" + isAgent + ", uuidNo=" + uuidNo + "]";
 	}
 
 }

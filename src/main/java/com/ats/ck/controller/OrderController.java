@@ -283,9 +283,21 @@ public class OrderController {
 			int parkOrderToPlaceOrderOrderId = (int) session.getAttribute("parkOrderToPlaceOrderOrderId");
 			int status = Integer.parseInt(request.getParameter("status"));
 			int frId = (int) session.getAttribute("frIdForOrder");
+			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+
+			float finaTaxableAmt = 0;
+			float finaTaxAmt = 0;
+			float finaTotalAmt = 0;
+			float finalCgstAmt = 0;
+			float finalsgstAmt = 0;
+			float finalIgstAmt = 0;
+
+			String uuid = "0";
 
 			if (parkOrderToPlaceOrderOrderId == 0) {
 
+				uuid = UUID.randomUUID().toString();
 				Date ct = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				SimpleDateFormat dttime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -294,7 +306,7 @@ public class OrderController {
 
 				String itemData = request.getParameter("itemaData");
 				// int status = Integer.parseInt(request.getParameter("status"));
-				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+				// int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
 				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
 				String textDeliveryInstr = request.getParameter("textDeliveryInstr");
@@ -306,7 +318,8 @@ public class OrderController {
 				int addressId = (int) session.getAttribute("addressId");
 				int addCustAgent = (int) session.getAttribute("addCustAgent");
 
-				float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+				// float deliveryCharges =
+				// Float.parseFloat(request.getParameter("deliveryCharges"));
 
 				// create ObjectMapper instance
 				ObjectMapper objectMapper = new ObjectMapper();
@@ -332,7 +345,13 @@ public class OrderController {
 				order.setOrderDate(sf.format(ct));
 				order.setFrId(frId);
 				order.setCustId(liveCustomer.getCustId());
-				order.setOrderStatus(status);
+
+				if (paymentMethod == 2 && status == 1) {
+					order.setOrderStatus(9);
+				} else {
+					order.setOrderStatus(status);
+				}
+
 				order.setPaidStatus(0);
 				order.setPaymentMethod(paymentMethod);
 				order.setCityId(addressDetail.getCityId());
@@ -352,19 +371,13 @@ public class OrderController {
 				order.setDeliveryInstId(deliveryInstru);
 				order.setDeliveryInstText(textDeliveryInstr);
 				order.setDeliveryCharges(deliveryCharges);
-
+				order.setUuidNo(uuid);
+				
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
 					order.setOrderDeliveredBy(addCustAgent);
 				}
 				List<OrderDetail> orderDetailList = new ArrayList<>();
-
-				float finaTaxableAmt = 0;
-				float finaTaxAmt = 0;
-				float finaTotalAmt = 0;
-				float finalCgstAmt = 0;
-				float finalsgstAmt = 0;
-				float finalIgstAmt = 0;
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
 
@@ -437,6 +450,9 @@ public class OrderController {
 					orderResponse.setInsertDateTime(dttime.format(ct));
 					orderResponse.setUserId(userObj.getUserId());
 					orderResponse.setStatus(status);
+					orderResponse.setPaymentStatus(paymentMethod);
+					orderResponse.setUuidNo(uuid);
+
 					if (status == 0) {
 						session.setAttribute("successMsg", "Order Park successfully.");
 					} else {
@@ -458,15 +474,18 @@ public class OrderController {
 				GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
 						.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
 
+				uuid = getOrderHeaderList.getUuidNo();
+
 				String itemData = request.getParameter("itemaData");
 				// int status = Integer.parseInt(request.getParameter("status"));
-				int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
+				// int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 				int homeDelivery = Integer.parseInt(request.getParameter("homeDelivery"));
 				int deliveryInstru = Integer.parseInt(request.getParameter("deliveryInstru"));
 				String textDeliveryInstr = request.getParameter("textDeliveryInstr");
 				String billingName = request.getParameter("billingName");
 				String billingAddress = request.getParameter("billingAddress");
-				float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+				// float deliveryCharges =
+				// Float.parseFloat(request.getParameter("deliveryCharges"));
 
 				// create ObjectMapper instance
 				ObjectMapper objectMapper = new ObjectMapper();
@@ -477,7 +496,13 @@ public class OrderController {
 				DecimalFormat df = new DecimalFormat("#.00");
 
 				getOrderHeaderList.setOrderDate(sf.format(ct));
-				getOrderHeaderList.setOrderStatus(status);
+
+				if (paymentMethod == 2 && status == 1) {
+					getOrderHeaderList.setOrderStatus(9);
+				} else {
+					getOrderHeaderList.setOrderStatus(status);
+				}
+				
 				getOrderHeaderList.setPaymentMethod(paymentMethod);
 				getOrderHeaderList.setBillingName(billingName);
 				getOrderHeaderList.setBillingAddress(billingAddress);
@@ -489,13 +514,6 @@ public class OrderController {
 				getOrderHeaderList.setInsertDateTime(dttime.format(ct));
 				getOrderHeaderList.setInsertUserId(userObj.getUserId());
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
-
-				float finaTaxableAmt = 0;
-				float finaTaxAmt = 0;
-				float finaTotalAmt = 0;
-				float finalCgstAmt = 0;
-				float finalsgstAmt = 0;
-				float finalIgstAmt = 0;
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
 
@@ -629,7 +647,10 @@ public class OrderController {
 				orderResponse.setUserId(userObj.getUserId());
 				orderResponse.setStatus(status);
 				orderResponse.setAddEdit(2);
+				orderResponse.setPaymentStatus(paymentMethod);
 				orderResponse.setError(false);
+				orderResponse.setUuidNo(uuid);
+
 				if (status == 0) {
 					session.setAttribute("successMsg", "Order Park successfully.");
 				} else {
@@ -642,6 +663,42 @@ public class OrderController {
 
 			if (status == 1) {
 
+				if (paymentMethod == 2) {
+
+					try {
+
+						CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+						float totalAmt = finaTotalAmt + deliveryCharges;
+
+						MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+						map.add("appId", "27027a6652b91619aa1a8ad8172072");
+						map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+						map.add("orderId", uuid);
+						map.add("orderAmount", totalAmt);
+						map.add("orderCurrency", "INR");
+						map.add("orderNote", "Ok");
+						map.add("customerEmail", liveCustomer.getEmailId());
+						map.add("customerName", liveCustomer.getCustName());
+						map.add("customerPhone", liveCustomer.getPhoneNumber());
+						map.add("returnUrl", "http://192.168.2.12:8086/ck/returnUrl");
+						map.add("notifyUrl", "https://localhost:8443/CloudKitchen/notifyUrl");
+
+						Body res = Constants.getRestTemplate()
+								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
+
+						String subject = "Order Payment Link";
+						String msg = "<html><body> Your Bill total is " + totalAmt + " /- Only <a href="
+								+ res.getPaymentLink() + ">" + " <button>Pay</button></a></body></html>";
+
+						ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
+								liveCustomer.getEmailId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
 				LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 				map.add("frId", frId);
 				String[] list = Constants.getRestTemplate().postForObject(Constants.url + "getAllTokenListByFr", map,
@@ -1250,20 +1307,31 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "/thankYou", method = RequestMethod.GET)
-	public String thankYou(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public RedirectView thankYou(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("appId", "27027a6652b91619aa1a8ad8172072");
-			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
-			map.add("orderId", "204708b2-b7d2-42b1-b88c-b523ddc3c729");
+			/*
+			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+			 * Object>(); map.add("appId", "27027a6652b91619aa1a8ad8172072");
+			 * map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			 * map.add("orderId", "204708b2-b7d2-42b1-b88c-b523ddc3c729");
+			 * 
+			 * System.out.println(map); String res =
+			 * Constants.getRestTemplate().postForObject(
+			 * "https://test.cashfree.com/api/v1/order/info/link", map, String.class);
+			 * 
+			 * System.out.println(res);
+			 */
 
-			System.out.println(map);
-			String res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/info/status",
-					map, String.class);
-
-			System.out.println(res);
+			/*
+			 * String subject = "Order Payment Link"; String msg =
+			 * "<html><body><img src=\"http://107.180.95.11:8080/HrEasy/resources/global_assets/images/monginis1.png\" alt=\"\">Your Bill total is  5/- Only <a href=\"https://payments-test.cashfree.com/order/#D4hxA1EDAc0g4PUKicxi\">"
+			 * + "<button>Activate your Account</button></a></body></html>";
+			 * 
+			 * ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject,
+			 * msg, "akshaykasar72@gmail.com");
+			 */
 
 			/*
 			 * String url = "https://test.cashfree.com/api/v1/order/info/"; URL obj = new
@@ -1299,11 +1367,11 @@ public class OrderController {
 			e.printStackTrace();
 		}
 
-		/*
-		 * RedirectView redirectView = new RedirectView();
-		 * redirectView.setUrl("https://madhvi.in/"); return redirectView;
-		 */
-		return "thankYou";
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("https://madhvi.in/");
+		return redirectView;
+
+		// return "thankYou";
 	}
 
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)

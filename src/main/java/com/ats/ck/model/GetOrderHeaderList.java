@@ -65,6 +65,8 @@ public class GetOrderHeaderList {
 	private float deliveryCharges; 
 	private int paymentSubMode; 
 	private int isAgent;
+	private String uuidNo;
+	
 	private List<GetOrderDetailList> detailList;
 	private List<GetOrderTrailList> trailList;
 	
@@ -445,7 +447,15 @@ public class GetOrderHeaderList {
 	}
 	public void setTrailList(List<GetOrderTrailList> trailList) {
 		this.trailList = trailList;
+	} 
+	public String getUuidNo() {
+		return uuidNo;
 	}
+
+	public void setUuidNo(String uuidNo) {
+		this.uuidNo = uuidNo;
+	}
+	
 	@Override
 	public String toString() {
 		return "GetOrderHeaderList [orderId=" + orderId + ", orderNo=" + orderNo + ", orderDate=" + orderDate
@@ -466,7 +476,8 @@ public class GetOrderHeaderList {
 				+ ", deliveryType=" + deliveryType + ", deliveryInstId=" + deliveryInstId + ", areaName=" + areaName
 				+ ", cityName=" + cityName + ", custName=" + custName + ", frName=" + frName + ", deliveryKm="
 				+ deliveryKm + ", deliveryCharges=" + deliveryCharges + ", paymentSubMode=" + paymentSubMode
-				+ ", isAgent=" + isAgent + ", detailList=" + detailList + ", trailList=" + trailList + "]";
+				+ ", isAgent=" + isAgent + ", uuidNo=" + uuidNo + ", detailList=" + detailList + ", trailList="
+				+ trailList + "]";
 	}
 	
 	

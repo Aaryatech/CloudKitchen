@@ -623,10 +623,12 @@
 												"frId" : response.frId,
 												"userId" : response.userId,
 												"orderId" : response.orderId,
-												"status" : response.status
+												"status" : response.status,
+												"paymentStatus" : response.paymentStatus,
+												"uuidNo" : response.uuidNo
 											}
 
-											var key = firebase.database().ref().child(today_date_temp+"/"+response.orderId).update(
+											var key = firebase.database().ref().child(today_date_temp+"/"+response.uuidNo).update(
 													data_add).key;
 									//}
 									

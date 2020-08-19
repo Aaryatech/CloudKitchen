@@ -10,7 +10,9 @@ public class OrderResponse {
     private int orderId;
     private int status;
     private int addEdit;
-
+    private int paymentStatus;
+    private String uuidNo;
+    
     public String getMessage() {
 		return message;
 	}
@@ -59,11 +61,23 @@ public class OrderResponse {
 	public void setAddEdit(int addEdit) {
 		this.addEdit = addEdit;
 	}
+	public int getPaymentStatus() {
+		return paymentStatus;
+	}
+	public void setPaymentStatus(int paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+	public String getUuidNo() {
+		return uuidNo;
+	}
+	public void setUuidNo(String uuidNo) {
+		this.uuidNo = uuidNo;
+	}
 	@Override
 	public String toString() {
 		return "OrderResponse [message=" + message + ", error=" + error + ", frId=" + frId + ", userId=" + userId
 				+ ", insertDateTime=" + insertDateTime + ", orderId=" + orderId + ", status=" + status + ", addEdit="
-				+ addEdit + "]";
+				+ addEdit + ", paymentStatus=" + paymentStatus + ", uuidNo=" + uuidNo + "]";
 	}
     
     
