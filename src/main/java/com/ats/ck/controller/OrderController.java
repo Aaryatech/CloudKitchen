@@ -1,7 +1,12 @@
 package com.ats.ck.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -20,6 +25,7 @@ import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +38,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.DateConvertor;
@@ -1159,11 +1166,11 @@ public class OrderController {
 			map.add("orderAmount", "1");
 			map.add("orderCurrency", "INR");
 			map.add("orderNote", "Test");
-			map.add("customerEmail", "shirkeanmol@gmail.com");
+			map.add("customerEmail", "akshaykasar72@gmail.com");
 			map.add("customerName", "Akshay Kasar");
 			map.add("customerPhone", "7588519473");
 			map.add("returnUrl", "http://192.168.2.12:8086/ck/returnUrl");
-			map.add("notifyUrl", "http://192.168.2.12:8086/ck/notifyUrl");
+			map.add("notifyUrl", "https://localhost:8443/CloudKitchen/notifyUrl");
 
 			Body res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/create", map,
 					Body.class);
@@ -1171,9 +1178,9 @@ public class OrderController {
 			/* System.out.println(res); */
 
 			String subject = "Order Payment Link";
-			String msg = "Your Bill total is  5/- Only <br> " + res.getPaymentLink();
+			String msg = "Your Bill total is  5/- Only \n" + res.getPaymentLink();
 
-			ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, "shirkeanmol@gmail.com");
+			ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, "akshaykasar72@gmail.com");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1186,6 +1193,12 @@ public class OrderController {
 
 		try {
 
+			String orderId = request.getParameter("orderId");
+			String txStatus = request.getParameter("txStatus");
+
+			System.out.println("notifyUrl" + orderId);
+			System.out.println("notifyUrl" + txStatus);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1197,12 +1210,24 @@ public class OrderController {
 
 		try {
 
-			
 			String orderId = request.getParameter("orderId");
+			String orderAmount = request.getParameter("orderAmount");
+			String referenceId = request.getParameter("referenceId");
 			String txStatus = request.getParameter("txStatus");
-			
+			String paymentMode = request.getParameter("paymentMode");
+			String txMsg = request.getParameter("paymentMode");
+			String txTime = request.getParameter("txTime");
+			String signature = request.getParameter("signature");
+
 			System.out.println(orderId);
+			System.out.println(orderAmount);
+			System.out.println(referenceId);
 			System.out.println(txStatus);
+			System.out.println(paymentMode);
+			System.out.println(txMsg);
+			System.out.println(txTime);
+			System.out.println(signature);
+
 			/*
 			 * String uuid = request.getParameter("orderId");
 			 * 
@@ -1229,10 +1254,64 @@ public class OrderController {
 
 		try {
 
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("appId", "27027a6652b91619aa1a8ad8172072");
+			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("orderId", "204708b2-b7d2-42b1-b88c-b523ddc3c729");
+
+			System.out.println(map);
+			String res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/info/status",
+					map, String.class);
+
+			System.out.println(res);
+
+			/*
+			 * String url = "https://test.cashfree.com/api/v1/order/info/"; URL obj = new
+			 * URL(url); HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+			 * 
+			 * // add reuqest header con.setRequestMethod("POST");
+			 * con.setRequestProperty("cache-control", "no-cache");
+			 * con.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+			 * 
+			 * String urlParameters =
+			 * "appId=27027a6652b91619aa1a8ad8172072&secretKey=68bdc7d71b4ff20a294a8844c98fdb696510078d&orderId=204708b2-b7d2-42b1-b88c-b523ddc3c729";
+			 * 
+			 * // Send post request con.setDoOutput(true); DataOutputStream wr = new
+			 * DataOutputStream(con.getOutputStream()); wr.writeBytes(urlParameters);
+			 * wr.flush(); wr.close();
+			 * 
+			 * int responseCode = con.getResponseCode();
+			 * System.out.println("\nSending 'POST' request to URL : " + url);
+			 * System.out.println("Post parameters : " + urlParameters);
+			 * System.out.println("Response Code : " + responseCode);
+			 * 
+			 * BufferedReader in = new BufferedReader(new
+			 * InputStreamReader(con.getInputStream())); String inputLine; StringBuffer
+			 * response1 = new StringBuffer();
+			 * 
+			 * while ((inputLine = in.readLine()) != null) { response1.append(inputLine); }
+			 * in.close(); System.out.println("response1 : " + response1);
+			 */
+			// print result
+
+			// read this input
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		/*
+		 * RedirectView redirectView = new RedirectView();
+		 * redirectView.setUrl("https://madhvi.in/"); return redirectView;
+		 */
 		return "thankYou";
+	}
+
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+	public RedirectView hello(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("https://madhvi.in/");
+		return redirectView;
 	}
 
 	/*

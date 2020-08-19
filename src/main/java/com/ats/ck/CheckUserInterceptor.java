@@ -61,8 +61,8 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 						|| request.getServletPath().equals("/logout")
 						|| request.getServletPath().equals("/forgotPassword")
 						|| request.getServletPath().equals("/submitResetPassword")
-						|| request.getServletPath().equals("/thankYou")
-						|| request.getServletPath().equals("/returnUrl")) { // ||request.getServletPath().equals("/logout"))
+						|| request.getServletPath().equals("/thankYou") || request.getServletPath().equals("/returnUrl")
+						|| request.getServletPath().equals("/notifyUrl")) { // ||request.getServletPath().equals("/logout"))
 					// { //
 					// ||request.getServletPath().equals("/logout")
 					// System.out.println("Login request");

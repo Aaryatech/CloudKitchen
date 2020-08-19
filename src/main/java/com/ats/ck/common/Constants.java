@@ -8,7 +8,7 @@ public class Constants {
 	// local
 	public static final String opsWebApiUrl = "http://107.180.95.11:8080/webapi/";
 	public static final String softPath = "https://107.180.88.121:8443/CloudKitchen/";
-	//public static final String url = "http://107.180.88.121:8080/CloudKitchenWebapi/";
+	//public static final String url = "http://192.168.2.12:8080/ckdemoapi/";
 	public static final String url = "http://localhost:8095/";
 	public static String REPORT_SAVE = "/home/lenovo/Documents/pdf/Report.pdf";
 	public static final String ReportURL = "http://localhost:8082/hreasy/";
