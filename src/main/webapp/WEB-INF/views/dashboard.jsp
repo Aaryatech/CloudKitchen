@@ -1465,6 +1465,7 @@
 								<th class="sorting_desc">Status</th>
 								<th class="sorting_desc">Action By</th>
 								<th class="sorting_desc">Date Time</th>
+								<th class="sorting_desc">Remark</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -3081,6 +3082,8 @@
 								+ list[i].trailList[j].actionUserName + '</td>'
 								+ '<td class="user-name"  ><span>'
 								+ list[i].trailList[j].actionDateTime
+								+ '</span></td><td class="user-name"  ><span>'
+								+ list[i].trailList[j].exVar1
 								+ '</span></td></tr>';
 						$('#order_view_trail').append(tr_data);
 					}
