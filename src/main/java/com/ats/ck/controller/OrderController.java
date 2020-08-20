@@ -372,7 +372,7 @@ public class OrderController {
 				order.setDeliveryInstText(textDeliveryInstr);
 				order.setDeliveryCharges(deliveryCharges);
 				order.setUuidNo(uuid);
-				
+
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
 					order.setOrderDeliveredBy(addCustAgent);
@@ -449,8 +449,6 @@ public class OrderController {
 					orderResponse.setOrderId(Integer.parseInt(info.getMessage()));
 					orderResponse.setInsertDateTime(dttime.format(ct));
 					orderResponse.setUserId(userObj.getUserId());
-					orderResponse.setStatus(status);
-					orderResponse.setPaymentStatus(paymentMethod);
 					orderResponse.setUuidNo(uuid);
 
 					if (status == 0) {
@@ -502,7 +500,7 @@ public class OrderController {
 				} else {
 					getOrderHeaderList.setOrderStatus(status);
 				}
-				
+
 				getOrderHeaderList.setPaymentMethod(paymentMethod);
 				getOrderHeaderList.setBillingName(billingName);
 				getOrderHeaderList.setBillingAddress(billingAddress);
@@ -645,9 +643,7 @@ public class OrderController {
 				orderResponse.setOrderId(orderHeaderRes.getOrderId());
 				orderResponse.setInsertDateTime(dttime.format(ct));
 				orderResponse.setUserId(userObj.getUserId());
-				orderResponse.setStatus(status);
 				orderResponse.setAddEdit(2);
-				orderResponse.setPaymentStatus(paymentMethod);
 				orderResponse.setError(false);
 				orderResponse.setUuidNo(uuid);
 
@@ -659,6 +655,8 @@ public class OrderController {
 
 			}
 
+			orderResponse.setPaymentStatus(0);
+
 			// int status = Integer.parseInt(request.getParameter("status"));
 
 			if (status == 1) {
@@ -666,6 +664,8 @@ public class OrderController {
 				if (paymentMethod == 2) {
 
 					try {
+
+						orderResponse.setStatus(9);
 
 						CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
@@ -682,8 +682,8 @@ public class OrderController {
 						map.add("customerEmail", liveCustomer.getEmailId());
 						map.add("customerName", liveCustomer.getCustName());
 						map.add("customerPhone", liveCustomer.getPhoneNumber());
-						map.add("returnUrl", "http://192.168.2.12:8086/ck/returnUrl");
-						map.add("notifyUrl", "https://localhost:8443/CloudKitchen/notifyUrl");
+						map.add("returnUrl", "http://localhost:8086/ck/returnUrl");
+						map.add("notifyUrl", "http://localhost:8086/ck/notifyUrl");
 
 						Body res = Constants.getRestTemplate()
 								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
@@ -694,6 +694,9 @@ public class OrderController {
 
 						ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
 								liveCustomer.getEmailId());
+
+						session.setAttribute("successMsg",
+								"Order place successfully And Payment Link Send To Customer Mail.");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1226,8 +1229,8 @@ public class OrderController {
 			map.add("customerEmail", "akshaykasar72@gmail.com");
 			map.add("customerName", "Akshay Kasar");
 			map.add("customerPhone", "7588519473");
-			map.add("returnUrl", "http://192.168.2.12:8086/ck/returnUrl");
-			map.add("notifyUrl", "https://localhost:8443/CloudKitchen/notifyUrl");
+			map.add("returnUrl", "http://localhost:8086/ck/returnUrl");
+			map.add("notifyUrl", "http://localhost:8086/ck/notifyUrl");
 
 			Body res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/create", map,
 					Body.class);
@@ -1251,15 +1254,40 @@ public class OrderController {
 		try {
 
 			String orderId = request.getParameter("orderId");
+			String orderAmount = request.getParameter("orderAmount");
+			String referenceId = request.getParameter("referenceId");
 			String txStatus = request.getParameter("txStatus");
+			String paymentMode = request.getParameter("paymentMode");
+			String txMsg = request.getParameter("txMsg");
+			String txTime = request.getParameter("txTime");
+			String signature = request.getParameter("signature");
 
-			System.out.println("notifyUrl" + orderId);
-			System.out.println("notifyUrl" + txStatus);
+			int status = 1;
+			int paid = 1;
+
+			if (!txStatus.equals("SUCCESS")) {
+				status = 8;
+				paid = 0;
+			}
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("status", status);
+			map.add("paid", paid);
+			map.add("orderId", orderId);
+			map.add("txStatus", txStatus);
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "updatePaymentSuccessful", map,
+					Info.class);
+
+			System.out.println(txStatus);
+			System.out.println(status);
+			model.addAttribute("status", status);
+			model.addAttribute("paid", paid);
+			model.addAttribute("orderId", orderId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "notifyUrl";
+		return "returnUrl";
 	}
 
 	@RequestMapping(value = "/returnUrl", method = RequestMethod.POST)
@@ -1272,42 +1300,41 @@ public class OrderController {
 			String referenceId = request.getParameter("referenceId");
 			String txStatus = request.getParameter("txStatus");
 			String paymentMode = request.getParameter("paymentMode");
-			String txMsg = request.getParameter("paymentMode");
+			String txMsg = request.getParameter("txMsg");
 			String txTime = request.getParameter("txTime");
 			String signature = request.getParameter("signature");
 
-			System.out.println(orderId);
-			System.out.println(orderAmount);
-			System.out.println(referenceId);
+			int status = 1;
+			int paid = 1;
+
+			if (!txStatus.equals("SUCCESS")) {
+				status = 8;
+				paid = 0;
+			}
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("status", status);
+			map.add("paid", paid);
+			map.add("orderId", orderId);
+			map.add("txStatus", txStatus);
+			Info info = Constants.getRestTemplate().postForObject(Constants.url + "updatePaymentSuccessful", map,
+					Info.class);
+
 			System.out.println(txStatus);
-			System.out.println(paymentMode);
-			System.out.println(txMsg);
-			System.out.println(txTime);
-			System.out.println(signature);
-
-			/*
-			 * String uuid = request.getParameter("orderId");
-			 * 
-			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-			 * Object>();
-			 * 
-			 * map.add("appId", "27027a6652b91619aa1a8ad8172072"); map.add("secretKey",
-			 * "68bdc7d71b4ff20a294a8844c98fdb696510078d"); map.add("orderId", uuid);
-			 * 
-			 * String res = Constants.getRestTemplate().postForObject(
-			 * "https://test.cashfree.com/api/v1/order/info/status", map, String.class);
-			 * 
-			 * System.out.println(res);
-			 */
-
+			System.out.println(status);
+			
+			model.addAttribute("status", status);
+			model.addAttribute("paid", paid);
+			model.addAttribute("orderId", orderId);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/thankYou";
+		return "returnUrl";
 	}
 
 	@RequestMapping(value = "/thankYou", method = RequestMethod.GET)
-	public RedirectView thankYou(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String thankYou(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
 
@@ -1363,15 +1390,21 @@ public class OrderController {
 			// print result
 
 			// read this input
+
+			model.addAttribute("status", 1);
+			model.addAttribute("paid", 1);
+			model.addAttribute("orderId", "sdsdsddsds");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("https://madhvi.in/");
-		return redirectView;
+		/*
+		 * RedirectView redirectView = new RedirectView();
+		 * redirectView.setUrl("https://madhvi.in/"); return redirectView;
+		 */
 
-		// return "thankYou";
+		return "returnUrl";
 	}
 
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)

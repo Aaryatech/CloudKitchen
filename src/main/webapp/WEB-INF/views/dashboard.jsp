@@ -150,6 +150,16 @@
 			<!--dashboard 5 boxes -->
 			<div class="dashboard_count">
 				<ul>
+					<li><a href="javascript:void(0)" onclick="changeHeadName(5)">
+							<div class="dash_one dash_common">
+								<h3 class="dash_txt">
+									Online Payment Pending Order <span
+										id="online_payment_pending_order">0</span>
+
+								</h3>
+								<i class="fa fa-shopping-cart"></i>
+							</div>
+					</a></li>
 					<li><a href="javascript:void(0)" onclick="changeHeadName(0)">
 							<div class="dash_one dash_common">
 								<h3 class="dash_txt">
@@ -214,7 +224,7 @@
 								</h3>
 								<i class="fa fa-times" aria-hidden="true"></i>
 							</div></a></li>
-					<li>
+					<!-- <li>
 						<div class="dash_five dash_common">
 							<h3 class="dash_txt">
 								Grievences
@@ -229,7 +239,7 @@
 							</h3>
 							<i class="fa fa-repeat" aria-hidden="true"></i>
 						</div>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 
@@ -238,6 +248,49 @@
 
 				<div class="main-box padding-20 margin_bottom">
 
+
+					<div id="payment_pending_order_div" style="display: none;">
+						<div class="sec_title flt_lft">Online Payment Pending Order</div>
+						<div class="related_row_r right_serach">
+							<i class="fa fa-search" aria-hidden="true"></i> <input
+								name="paymentPendingOrderText" id="paymentPendingOrderText"
+								type="text" class="rel_search"
+								onkeyup="searchPaymentPendingOrder()" placeholder="Search">
+						</div>
+
+						<div class="component">
+							<table class="overflow-y" id="payment_pending_order_table">
+								<thead>
+									<tr>
+										<th style="text-align: center; width: 5%;"></th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 5%;">Order NO.</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Customer Name</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Shop Name</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center; width: 10%;">Date</th>
+										<th class="sorting_desc js-sort-date"
+											style="text-align: center; width: 5%;">Type</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 7%;">Total</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Payment Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 15%;">Order Status</th>
+										<th class="sorting_desc"
+											style="text-align: center; width: 10%;">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+
+
+						</div>
+					</div>
 
 					<div id="pending_order_div" style="display: none;">
 						<div class="sec_title flt_lft">Pending Order</div>
@@ -2072,6 +2125,8 @@
 					orderStatus = 'Return';
 				} else if (table[i].orderStatus == 8) {
 					orderStatus = 'Cancelled';
+				} else if (table[i].orderStatus == 9) {
+					orderStatus = 'Online Payment Pending';
 				} else {
 					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
@@ -2764,22 +2819,33 @@
 				document.getElementById("live_order_div").style.display = "none";
 				document.getElementById("delivered_order_div").style.display = "none";
 				document.getElementById("cancelled_order_div").style.display = "none";
+				document.getElementById("payment_pending_order_div").style.display = "none";
 			} else if (id == 2) {
 				document.getElementById("pending_order_div").style.display = "none";
 				document.getElementById("live_order_div").style.display = "none";
 				document.getElementById("delivered_order_div").style.display = "block";
 				document.getElementById("cancelled_order_div").style.display = "none";
+				document.getElementById("payment_pending_order_div").style.display = "none";
 			} else if (id == 3) {
 				document.getElementById("pending_order_div").style.display = "none";
 				document.getElementById("live_order_div").style.display = "none";
 				document.getElementById("delivered_order_div").style.display = "none";
 				document.getElementById("cancelled_order_div").style.display = "block";
-			} else {
+				document.getElementById("payment_pending_order_div").style.display = "none";
+			} else if (id == 4) {
 				document.getElementById("pending_order_div").style.display = "none";
 				document.getElementById("live_order_div").style.display = "block";
 				document.getElementById("delivered_order_div").style.display = "none";
 				document.getElementById("cancelled_order_div").style.display = "none";
+				document.getElementById("payment_pending_order_div").style.display = "none";
+			} else if (id == 5) {
+				document.getElementById("pending_order_div").style.display = "none";
+				document.getElementById("live_order_div").style.display = "none";
+				document.getElementById("delivered_order_div").style.display = "none";
+				document.getElementById("cancelled_order_div").style.display = "none";
+				document.getElementById("payment_pending_order_div").style.display = "block";
 			}
+
 			$('#pendingOrderText').val('');
 			$('#liveOrderText').val('');
 			$('#deliverdOrderText').val('');
@@ -2925,6 +2991,8 @@
 						orderStatus = 'Return';
 					} else if (list[i].orderStatus == 8) {
 						orderStatus = 'Cancelled';
+					} else if (list[i].orderStatus == 9) {
+						orderStatus = 'Online Payment Pending';
 					}
 
 					$("#order_status_view").html(orderStatus);
@@ -3068,6 +3136,8 @@
 						orderStatus = 'Return';
 					} else if (list[i].orderStatus == 8) {
 						orderStatus = 'Cancelled';
+					} else if (list[i].orderStatus == 9) {
+						orderStatus = 'Online Payment Pending';
 					}
 
 					$("#cancel_order_status_view").html(orderStatus);
@@ -3433,12 +3503,14 @@
 
 							$("#pending_order_table tbody").empty();
 							$("#live_order_table tbody").empty();
+							$("#payment_pending_order_table tbody").empty();
 
 							var park_count = 0;
 							var shop_pending_count = 0;
 							var accept_count = 0;
 							var process_count = 0;
 							var delivery_pending_count = 0;
+							var payment_pending_count = 0;
 
 							for (var i = 0; i < response.length; i++) {
 
@@ -3474,6 +3546,12 @@
 									orderStatus = 'Processing';
 								} else if (response[i].orderStatus == 4) {
 									orderStatus = 'Delivery Pending';
+								} else if (response[i].orderStatus == 9) {
+									orderStatus = 'Online Payment Pending';
+									actionBtn = '<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ response[i].orderId
+											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else {
 									actionBtn = '<a href="javascript:void(0)"'
 											+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
@@ -3531,20 +3609,24 @@
 								} else if (response[i].orderStatus == 4) {
 									delivery_pending_count = delivery_pending_count + 1;
 									$('#live_order_table').append(tr_data);
+								} else if (response[i].orderStatus == 9) {
+									payment_pending_count = payment_pending_count + 1;
+									$('#payment_pending_order_table').append(
+											tr_data);
 								} else {
 									park_count = park_count + 1;
 									$('#pending_order_table').append(tr_data);
 								}
 
-								$('#shop_pending_count').html(
-										shop_pending_count);
-								$('#accept_count').html(accept_count);
-								$('#process_count').html(process_count);
-								$('#delivery_pending_count').html(
-										delivery_pending_count);
-								$('#park_count').html(park_count);
 							}
-
+							$('#shop_pending_count').html(shop_pending_count);
+							$('#accept_count').html(accept_count);
+							$('#process_count').html(process_count);
+							$('#delivery_pending_count').html(
+									delivery_pending_count);
+							$('#park_count').html(park_count);
+							$('#online_payment_pending_order').html(
+									payment_pending_count);
 							// by date	
 
 							var delivered_count = 0;
@@ -3624,12 +3706,11 @@
 									$('#delivered_order_table').append(tr_data);
 								}
 
-								$('#delivered_count').html(delivered_count);
-								$('#cancelled_count').html(cancelled_count);
-								$('#return_count').html(return_count);
-								$('#rejected_count').html(rejected_count);
 							}
-
+							$('#delivered_count').html(delivered_count);
+							$('#cancelled_count').html(cancelled_count);
+							$('#return_count').html(return_count);
+							$('#rejected_count').html(rejected_count);
 							//alert(JSON.stringify(response))
 						},
 					});

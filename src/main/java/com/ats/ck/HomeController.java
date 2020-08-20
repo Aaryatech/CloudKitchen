@@ -416,7 +416,7 @@ public class HomeController {
 		try {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("status", "0,1,2,3,4");
+			map.add("status", "0,1,2,3,4,9");
 
 			orderListData = Constants.getRestTemplate().postForObject(Constants.url + "getOrderListByStatus", map,
 					OrderListData.class);

@@ -59,6 +59,9 @@
 			<c:when test="${getOrderHeaderList.orderStatus==8}">
 				<c:set var="orderStatus" value="Cancelled"></c:set>
 			</c:when>
+			<c:when test="${getOrderHeaderList.orderStatus==9}">
+				<c:set var="orderStatus" value="Online Payment Pending"></c:set>
+			</c:when>
 		</c:choose>
 
 
