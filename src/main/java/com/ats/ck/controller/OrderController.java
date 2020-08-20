@@ -667,12 +667,17 @@ public class OrderController {
 					try {
 						DecimalFormat df = new DecimalFormat("#.00");
 
+						MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+						map.add("orderId", orderResponse.getOrderId());
+						GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+								.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+						
 						orderResponse.setStatus(9);
 						CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
-						float totalAmt = Float.parseFloat(df.format(finaTotalAmt + deliveryCharges));
+						String totalAmt =  df.format(finaTotalAmt + deliveryCharges);
 
-						MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+						map = new LinkedMultiValueMap<String, Object>();
 
 						map.add("appId", "27027a6652b91619aa1a8ad8172072");
 						map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
@@ -711,7 +716,7 @@ public class OrderController {
 								+ "								align=\"center\" background=\"#000\" border=\"0\" style=\"padding: 0;\">\n"
 								+ "								<tr>\n"
 								+ "									<td align=\"center\" style=\"background: #2a3042;\"><img\n"
-								+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
+								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
 								+ "										alt=\"cloud_kitchen\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: none;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -729,7 +734,7 @@ public class OrderController {
 								+ "													style=\"text-align: center; padding: 0 0 15px 0; font-size: 13px; line-height: 22px; color: #3a3a3a;\"><strong\n"
 								+ "													style=\"color: #32b0de;\">Business Name</strong> has\n"
 								+ "													requested a payment of amount INR "
-								+ totalAmt + " for your order #" + uuid + ".\n"
+								+ totalAmt + " for your order #" + getOrderHeaderList.getOrderNo() + ".\n"
 								+ "													Please click on pay button below to make payment.</td>\n"
 								+ "											</tr>\n"
 								+ "											<tr>\n"
@@ -742,7 +747,7 @@ public class OrderController {
 								+ "										</table></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
 								+ "									<td><img\n"
-								+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
 								+ "										alt=\"seprator\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: left; padding: 0 0 28px 0;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -759,7 +764,8 @@ public class OrderController {
 								+ "												<td\n"
 								+ "													style=\"padding: 10px 15px; border-bottom: 1px solid #e3ebef; font-size: 14px; color: #3a3a3a;\"><strong\n"
 								+ "													style=\"font-size: 13px;\">Order / Invoice Number</strong>\n"
-								+ "													&nbsp; #" + uuid + "</td>\n"
+								+ "													&nbsp; #"
+								+ getOrderHeaderList.getOrderNo() + "</td>\n"
 								+ "											</tr>\n"
 								+ "											<tr>\n"
 								+ "												<td\n"
@@ -769,7 +775,7 @@ public class OrderController {
 								+ "										</table></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
 								+ "									<td><img\n"
-								+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
 								+ "										alt=\"seprator\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: left; padding: 28px 0;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -1492,7 +1498,7 @@ public class OrderController {
 					+ "								align=\"center\" background=\"#000\" border=\"0\" style=\"padding: 0;\">\n"
 					+ "								<tr>\n"
 					+ "									<td align=\"center\" style=\"background: #2a3042;\"><img\n"
-					+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
+					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
 					+ "										alt=\"cloud_kitchen\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: none;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
@@ -1520,7 +1526,7 @@ public class OrderController {
 					+ "											</tr>\n"
 					+ "										</table></td>\n" + "								</tr>\n"
 					+ "								<tr>\n" + "									<td><img\n"
-					+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
 					+ "										alt=\"seprator\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: left; padding: 0 0 28px 0;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
@@ -1546,7 +1552,7 @@ public class OrderController {
 					+ "											</tr>\n"
 					+ "										</table></td>\n" + "								</tr>\n"
 					+ "								<tr>\n" + "									<td><img\n"
-					+ "										src=\"https://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
 					+ "										alt=\"seprator\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: left; padding: 28px 0;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
