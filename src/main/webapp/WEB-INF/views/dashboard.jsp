@@ -2127,6 +2127,10 @@
 					orderStatus = 'Cancelled';
 				} else if (table[i].orderStatus == 9) {
 					orderStatus = 'Online Payment Pending';
+					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+							+ table[i].orderId
+							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ '</a>';
 				} else {
 					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId

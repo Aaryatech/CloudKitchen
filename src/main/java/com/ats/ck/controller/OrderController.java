@@ -1322,11 +1322,11 @@ public class OrderController {
 
 			System.out.println(txStatus);
 			System.out.println(status);
-			
+
 			model.addAttribute("status", status);
 			model.addAttribute("paid", paid);
 			model.addAttribute("orderId", orderId);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1338,18 +1338,16 @@ public class OrderController {
 
 		try {
 
-			/*
-			 * MultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
-			 * Object>(); map.add("appId", "27027a6652b91619aa1a8ad8172072");
-			 * map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
-			 * map.add("orderId", "204708b2-b7d2-42b1-b88c-b523ddc3c729");
-			 * 
-			 * System.out.println(map); String res =
-			 * Constants.getRestTemplate().postForObject(
-			 * "https://test.cashfree.com/api/v1/order/info/link", map, String.class);
-			 * 
-			 * System.out.println(res);
-			 */
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("appId", "27027a6652b91619aa1a8ad8172072");
+			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("orderId", "14fe9b98-af25-44ec-87e8-dc9430db58d1");
+
+			System.out.println(map);
+			String res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/info/link",
+					map, String.class);
+
+			System.out.println(res);
 
 			/*
 			 * String subject = "Order Payment Link"; String msg =

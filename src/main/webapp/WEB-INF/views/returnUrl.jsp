@@ -75,14 +75,12 @@
 		/* alert(status)
 		alert(paid)
 		alert(orderId) */
-		/* db.ref(today_date_temp + "/" + orderId + "/status").set(status);
+		db.ref(today_date_temp + "/" + orderId + "/status").set(status);
 		db.ref(today_date_temp + "/" + orderId + "/paymentStatus").set(paid);
 
 		setTimeout(function() {
 			window.location.replace("https://madhvi.in/");
-		}, 5000); */
-		
-		
+		}, 2000);
 	</script>
 </body>
 </html>
