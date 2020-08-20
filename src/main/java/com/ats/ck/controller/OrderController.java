@@ -657,7 +657,7 @@ public class OrderController {
 			}
 
 			orderResponse.setPaymentStatus(0);
-
+			orderResponse.setStatus(status);
 			// int status = Integer.parseInt(request.getParameter("status"));
 
 			if (status == 1) {
@@ -671,11 +671,11 @@ public class OrderController {
 						map.add("orderId", orderResponse.getOrderId());
 						GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
 								.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
-						
+
 						orderResponse.setStatus(9);
 						CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
-						String totalAmt =  df.format(finaTotalAmt + deliveryCharges);
+						String totalAmt = df.format(finaTotalAmt + deliveryCharges);
 
 						map = new LinkedMultiValueMap<String, Object>();
 
@@ -688,8 +688,8 @@ public class OrderController {
 						map.add("customerEmail", liveCustomer.getEmailId());
 						map.add("customerName", liveCustomer.getCustName());
 						map.add("customerPhone", liveCustomer.getPhoneNumber());
-						map.add("returnUrl", "http://localhost:8086/ck/returnUrl");
-						map.add("notifyUrl", "http://localhost:8086/ck/notifyUrl");
+						map.add("returnUrl", Constants.softPath + "returnUrl");
+						map.add("notifyUrl", Constants.softPath + "notifyUrl");
 
 						Body res = Constants.getRestTemplate()
 								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
@@ -716,7 +716,8 @@ public class OrderController {
 								+ "								align=\"center\" background=\"#000\" border=\"0\" style=\"padding: 0;\">\n"
 								+ "								<tr>\n"
 								+ "									<td align=\"center\" style=\"background: #2a3042;\"><img\n"
-								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
+								+ "										src=\"" + Constants.softPath
+								+ "resources/assets/img/cloud_kitchen.png\"\n"
 								+ "										alt=\"cloud_kitchen\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: none;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -747,7 +748,8 @@ public class OrderController {
 								+ "										</table></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
 								+ "									<td><img\n"
-								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+								+ "										src=\"" + Constants.softPath
+								+ "resources/assets/img/seprator.jpg\"\n"
 								+ "										alt=\"seprator\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: left; padding: 0 0 28px 0;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -775,7 +777,8 @@ public class OrderController {
 								+ "										</table></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
 								+ "									<td><img\n"
-								+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+								+ "										src=\"" + Constants.softPath
+								+ "resources/assets/img/seprator.jpg\"\n"
 								+ "										alt=\"seprator\"\n"
 								+ "										style=\"border: none; max-width: 100%; float: left; padding: 28px 0;\"></td>\n"
 								+ "								</tr>\n" + "								<tr>\n"
@@ -1498,7 +1501,8 @@ public class OrderController {
 					+ "								align=\"center\" background=\"#000\" border=\"0\" style=\"padding: 0;\">\n"
 					+ "								<tr>\n"
 					+ "									<td align=\"center\" style=\"background: #2a3042;\"><img\n"
-					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/cloud_kitchen.png\"\n"
+					+ "										src=\"" + Constants.softPath
+					+ "resources/assets/img/cloud_kitchen.png\"\n"
 					+ "										alt=\"cloud_kitchen\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: none;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
@@ -1526,7 +1530,8 @@ public class OrderController {
 					+ "											</tr>\n"
 					+ "										</table></td>\n" + "								</tr>\n"
 					+ "								<tr>\n" + "									<td><img\n"
-					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+					+ "										src=\"" + Constants.softPath
+					+ "resources/assets/img/seprator.jpg\"\n"
 					+ "										alt=\"seprator\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: left; padding: 0 0 28px 0;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
@@ -1552,7 +1557,8 @@ public class OrderController {
 					+ "											</tr>\n"
 					+ "										</table></td>\n" + "								</tr>\n"
 					+ "								<tr>\n" + "									<td><img\n"
-					+ "										src=\"http://107.180.88.121:8080/CloudKitchen/resources/assets/img/seprator.jpg\"\n"
+					+ "										src=\"" + Constants.softPath
+					+ "resources/assets/img/seprator.jpg\"\n"
 					+ "										alt=\"seprator\"\n"
 					+ "										style=\"border: none; max-width: 100%; float: left; padding: 28px 0;\"></td>\n"
 					+ "								</tr>\n" + "								<tr>\n"
