@@ -269,6 +269,27 @@
 	<!-- class="pop_btn_row"-->
 
 </div>
+<div class="modal fade kot-popup" id="confirmdiv">
+	<div class="modal-dialog modal-lg">
+		<!--modal-lg-->
+		<div class="modal-content kot_content">
+			<button type="button" class="close kot_close" data-dismiss="modal">
+				<img
+					src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+					alt="">
+			</button>
+
+			<div class="pop_signup" id="popupheadinggrv">Are you sure?</div>
+			<div>
+				<button type="button" data-dismiss="modal"
+					class="button_place submitmodel" id="submitOrder">Submit</button>
+				<button type="button" data-dismiss="modal" class="button_place"
+					id="cancelOrder">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
 <script>
 	function trim(el) {
 		el.value = el.value.replace(/(^\s*)|(\s*$)/gi, ""). // removes leading and trailing spaces
@@ -320,6 +341,19 @@
 											}
 
 											if (!isError) {
+
+												/* $('#popupheadinggrv').html(
+														"Submit Grievance ?");
+												$('#confirmdiv').modal({
+													backdrop : 'static',
+													keyboard : false
+												});
+
+												$(".submitmodel")
+														.unbind()
+														.click(
+																function() { */
+
 												document
 														.getElementById("loaderimg").style.display = "block";
 												var fd = new FormData();
@@ -377,6 +411,8 @@
 															},
 														});
 												return false;
+												/* });
+												return false; */
 											}
 											return false;
 

@@ -1320,7 +1320,7 @@
 						</div>
 						<div>
 							<input name="cancelOrderBtn" type="submit" value="Submit"
-								class="next_btn" />
+								class="next_btn" id="cancelOrderBtn" />
 						</div>
 						<!-- class="pop_btn_row"-->
 					</form>
@@ -2825,6 +2825,12 @@
 				document.getElementById("delivered_order_div").style.display = "none";
 				document.getElementById("cancelled_order_div").style.display = "none";
 				document.getElementById("payment_pending_order_div").style.display = "none";
+			} else if (id == 1) {
+				document.getElementById("pending_order_div").style.display = "none";
+				document.getElementById("live_order_div").style.display = "block";
+				document.getElementById("delivered_order_div").style.display = "none";
+				document.getElementById("cancelled_order_div").style.display = "none";
+				document.getElementById("payment_pending_order_div").style.display = "none";
 			} else if (id == 2) {
 				document.getElementById("pending_order_div").style.display = "none";
 				document.getElementById("live_order_div").style.display = "none";
@@ -3801,72 +3807,94 @@
 
 												if (!isError) {
 
-													var order_id = sessionStorage
-															.getItem("cancel_order_id");
-													document
-															.getElementById("loaderimg").style.display = "block";
-													var fd = new FormData();
-													fd.append("cancel_remark",
-															$("#cancel_remark")
-																	.val());
-													fd.append("order_id",
-															order_id);
-													$
-															.ajax({
-																url : '${pageContext.request.contextPath}/submitCancelOrder',
-																type : 'post',
-																dataType : 'json',
-																data : fd,
-																contentType : false,
-																processData : false,
-																success : function(
-																		response) {
+													$('#popupheading').html(
+															"Cancel Order ?");
+													$('#confirm').modal({
+														backdrop : 'static',
+														keyboard : false
+													});
 
-																	$(
-																			'#cancelOrder')
-																			.modal(
-																					'hide');
-																	if (response.error == false) {
+													$(".submitmodel")
+															.unbind()
+															.click(
+																	function() {
 
-																		var db = firebase
-																				.database();
-																		db
-																				.ref(
-																						today_date_temp
-																								+ "/"
-																								+ response.message
-																								+ "/status")
-																				.set(
-																						8);
-
+																		var order_id = sessionStorage
+																				.getItem("cancel_order_id");
 																		document
-																				.getElementById("finalsuccessmsgcontent").innerHTML = "Order Cancel Successfully";
-																		$(
-																				'#finalSuccessMsg')
-																				.show();
+																				.getElementById("loaderimg").style.display = "block";
+																		var fd = new FormData();
+																		fd
+																				.append(
+																						"cancel_remark",
+																						$(
+																								"#cancel_remark")
+																								.val());
+																		fd
+																				.append(
+																						"order_id",
+																						order_id);
+																		$
+																				.ajax({
+																					url : '${pageContext.request.contextPath}/submitCancelOrder',
+																					type : 'post',
+																					dataType : 'json',
+																					data : fd,
+																					contentType : false,
+																					processData : false,
+																					success : function(
+																							response) {
+																						$(
+																								'#confirm')
+																								.modal(
+																										'hide');
+																						$(
+																								'#cancelOrder')
+																								.modal(
+																										'hide');
+																						if (response.error == false) {
 
-																	} else {
-																		document
-																				.getElementById("finalFailedMsg").innerHTML = "Error while Canceling Order.";
-																		$(
-																				'#finalFailedMsg')
-																				.show();
-																	}
-																	document
-																			.getElementById("loaderimg").style.display = "none";
-																	setTimeout(
-																			function() {
-																				$(
-																						'#finalFailedMsg')
-																						.hide();
-																				$(
-																						'#finalSuccessMsg')
-																						.hide();
-																			},
-																			5000);
-																	return false;
-																},
-															});
+																							var db = firebase
+																									.database();
+																							db
+																									.ref(
+																											today_date_temp
+																													+ "/"
+																													+ response.message
+																													+ "/status")
+																									.set(
+																											8);
+
+																							document
+																									.getElementById("finalsuccessmsgcontent").innerHTML = "Order Cancel Successfully";
+																							$(
+																									'#finalSuccessMsg')
+																									.show();
+
+																						} else {
+																							document
+																									.getElementById("finalFailedMsg").innerHTML = "Error while Canceling Order.";
+																							$(
+																									'#finalFailedMsg')
+																									.show();
+																						}
+																						document
+																								.getElementById("loaderimg").style.display = "none";
+																						setTimeout(
+																								function() {
+																									$(
+																											'#finalFailedMsg')
+																											.hide();
+																									$(
+																											'#finalSuccessMsg')
+																											.hide();
+																								},
+																								5000);
+																						return false;
+																					},
+																				});
+																		return false;
+																	});
 													return false;
 												}
 												return false;
@@ -3987,7 +4015,7 @@
 				}
 			}
 		}
-		
+
 		function searchPaymentPendingOrder() {
 			var input, filter, table, tr, td, i, txtValue;
 			input = document.getElementById("paymentPendingOrderText");
@@ -4006,7 +4034,7 @@
 				}
 			}
 		}
-		
+
 		function sameMobileNo() {
 
 			if (document.getElementById("sameMoNo").checked == true) {

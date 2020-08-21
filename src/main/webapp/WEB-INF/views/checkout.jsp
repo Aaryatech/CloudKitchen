@@ -429,28 +429,7 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade kot-popup" id="confirm">
-		<div class="modal-dialog modal-lg">
-			<!--modal-lg-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
-
-				<div class="pop_signup">Are you sure?</div>
-				<div>
-					<button type="button" data-dismiss="modal" class="button_place"
-						id="submitOrder">Submit</button>
-					<button type="button" data-dismiss="modal" class="button_place">Cancel</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
+	
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
 	<script>
@@ -570,14 +549,15 @@
 				isError = true;
 				 alert("Select minimum one item.")
 			}
-			/* $('#confirm')
-	        .modal({ backdrop: 'static', keyboard: false })
-	        .on('click', '#submitOrder', function (e) {
-	           alert("yes");
-	        }); */
-			if (!isError) {
-				
-				document.getElementById("loaderimg").style.display = "block";
+			  
+			  if (!isError) {
+				  $('#popupheading').html("Confirm Order ?"); 
+				  $('#confirm')
+			        .modal({ backdrop: 'static', keyboard: false });
+			              
+				  $(".submitmodel").unbind().click(function() {
+					  
+				  document.getElementById("loaderimg").style.display = "block";
 				
 				var paymentMethod = $("#paymentMethod").val();
 				var homeDelivery = 1;
@@ -608,15 +588,9 @@
 							contentType : false,
 							processData : false,
 							success : function(response) {
-								//document.getElementById("loaderimg").style.display = "none";
 								 
 								if(response.error==false){
-									
-									
-								/* 	if(response.addEdit==2){
-										var db = firebase.database();
-										db.ref(today_date_temp+"/" + response.orderId + "/status").set(response.status);
-									}else{ */
+									 
 										var data_add = {
 												
 												"dateTime" : response.insertDateTime,
@@ -630,19 +604,17 @@
 
 											var key = firebase.database().ref().child(today_date_temp+"/"+response.uuidNo).update(
 													data_add).key;
-									//}
-									
-									
+									 
 									sessionStorage.removeItem("cartValue"); 
 									
 								}
 								var url = '${pageContext.request.contextPath}/dashboard';
 								window.location = url;
-								//alert(JSON.stringify(response))
 								 
 							},
-						});
-			}
+						}); 
+				  });
+			} 
 			
 
 		}
