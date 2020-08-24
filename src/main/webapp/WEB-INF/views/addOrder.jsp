@@ -404,11 +404,11 @@
 
 										<div class="one_order_r">
 
-											<div class="product-list-label text-center">
+											<!-- <div class="product-list-label text-center">
 												<span
 													class="rectangle-tag inline bg-gradient-red text-custom-white">Label</span>
 												<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
-											</div>
+											</div> -->
 											<!--price-->
 											<div class="offer_price">
 												<span>Rs.${itemList.mrpAmt}</span>
@@ -580,26 +580,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade kot-popup" id="confirmdivcart">
-		<div class="modal-dialog modal-lg">
-			<!--modal-lg-->
-			<div class="modal-content kot_content">
-				<button type="button" class="close kot_close" data-dismiss="modal">
-					<img
-						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
-						alt="">
-				</button>
 
-				<div class="pop_signup" id="popupheadingcart">Are you sure?</div>
-				<div style="text-align: center;">
-
-					<button type="button" data-dismiss="modal" class="button_place"
-						id="cancelOrder">OK</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
 
@@ -707,7 +688,7 @@
 				 
 				 $("#item_cart_list").append('<div class="item-total"> <div class="total-price border-0">'+
 						 '<span class="text-dark-white fw-700">Items subtotal:</span> <span class="text-dark-white fw-700">'+(subtotal).toFixed(2)+'</span>'+
-						 ' </div> <div class="empty-bag padding-15"> <a href="javascript:void(0)" onclick="clearCartList()">Empty bag</a> </div> </div>');
+						 ' </div> <div class="empty-bag padding-15"> <a href="javascript:void(0)" onclick="clearCartList()">Clear Cart</a> </div> </div>');
 				
 				 $("#cart_item_count").html(table.length);
 				 
@@ -725,10 +706,16 @@
 				
 		}
 		function clearCartList() {
-			 
-			var table =[];
-			sessionStorage.setItem("cartValue", JSON.stringify(table));
-			appendCartList();
+			 $('#popupheading').html("Clear Cart ?"); 
+			  $('#confirm')
+		        .modal({ backdrop: 'static', keyboard: false });
+		              
+			  $(".submitmodel").unbind().click(function() {
+				  var table =[];
+				sessionStorage.setItem("cartValue", JSON.stringify(table));
+				appendCartList();
+				});
+			
 				
 		}
 		
@@ -1027,8 +1014,15 @@
 			var headerFrId = $("#headerFrId").val();
 			var selectedFrId = $("#hiddenSelectedFrId").val();
 			
+			 
+			
 			if(headerFrId!=selectedFrId){
 				
+				$('#popupheading').html("You want to change shop?"); 
+				  $('#confirm')
+			        .modal({ backdrop: 'static', keyboard: false });
+			              
+				  $(".submitmodel").unbind().click(function() {
 				var cartValue = sessionStorage.getItem("cartValue");
 				var table = $.parseJSON(cartValue); 
 				
@@ -1053,6 +1047,12 @@
 								window.location.reload();
 							},
 						});
+				  });
+				  
+				  $("#cancelOrder").unbind().click(function() {
+					  $('#headerFrId').val(selectedFrId);
+						$("#headerFrId").trigger("change");
+				  });
 			}
 			
 

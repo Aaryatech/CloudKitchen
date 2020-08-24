@@ -14,10 +14,30 @@
 
 			<div class="pop_signup" id="popupheading">Are you sure?</div>
 			<div>
-				<button type="button" data-dismiss="modal" class="button_place submitmodel"
-					id="submitOrder">Submit</button>
+				<button type="button" data-dismiss="modal"
+					class="button_place submitmodel" id="submitOrder">Submit</button>
 				<button type="button" data-dismiss="modal" class="button_place"
 					id="cancelOrder">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal fade kot-popup" id="confirmdivcart">
+	<div class="modal-dialog modal-lg">
+		<!--modal-lg-->
+		<div class="modal-content kot_content">
+			<button type="button" class="close kot_close" data-dismiss="modal">
+				<img
+					src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+					alt="">
+			</button>
+
+			<div class="pop_signup" id="popupheadingcart">Are you sure?</div>
+			<div style="text-align: center;">
+
+				<button type="button" data-dismiss="modal" class="button_place"
+					id="cancelOrder">OK</button>
 			</div>
 
 		</div>

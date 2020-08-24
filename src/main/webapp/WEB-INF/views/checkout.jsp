@@ -429,7 +429,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<!--Plugin Initialization-->
 	<script>
@@ -547,7 +547,12 @@
 			
 			if (table.length<1) {
 				isError = true;
-				 alert("Select minimum one item.")
+				 //alert("Select minimum one item.")
+				$('#popupheadingcart').html("Select minimum one item.");
+				$('#confirmdivcart').modal({
+					backdrop : 'static',
+					keyboard : false
+				});
 			}
 			  
 			  if (!isError) {

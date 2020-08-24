@@ -349,7 +349,7 @@
 												<span class="text-dark-white fw-700">00.00</span>
 											</div>
 											<div class="empty-bag padding-15">
-												<a href="#">Empty bag</a>
+												<a href="#">Clear Cart</a>
 											</div>
 										</div>
 									</div>

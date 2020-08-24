@@ -668,6 +668,79 @@
 
 
 				<form action="" method="get">
+
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Delivery City/Village *</span>
+							<div class="search_multiple">
+								<select class="country" id="addcity" name="addcity"
+									onchange="getShopByCityId(this.value)">
+									<option value="">Select City</option>
+									<c:forEach items="${cityList}" var="cityList">
+										<c:set value="City" var="isCityValue"></c:set>
+										<c:choose>
+											<c:when test="${cityList.exInt1==1}">
+												<c:set value="Village" var="isCityValue"></c:set>
+											</c:when>
+										</c:choose>
+										<option value="${cityList.cityId}"
+											data-iscity="${cityList.exInt1}"
+											id="cityData${cityList.cityId}">${cityList.cityName}
+											- ${isCityValue}</option>
+									</c:forEach>
+
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addcity">* This field required.</span>
+					</div>
+					<div id="landmarkDiv">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Landmark *</span> <input name="txtPlaces" type="text"
+									class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
+									name="addLatitude" type="hidden" class="frm_inpt"
+									id="addLatitude" /><input name="addLongitude" type="hidden"
+									class="frm_inpt" id="addLongitude" />
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_txtPlaces">* This
+								field required.</span>
+						</div>
+					</div>
+					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Select Shop *</span>
+							<div class="search_multiple">
+								<select class="country" id="addShop" name="addShop"
+									onchange="getAgetListByShopId(this.value)">
+									<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+								</select>
+							</div>
+						</div>
+						<span style="color: red; display: none;" class="model_error_class"
+							id="error_addShop">* This field required.</span>
+					</div>
+					<div id="agentDiv">
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Agent *</span>
+								<div class="search_multiple">
+									<select class="country" id="addCustAgent" name="addCustAgent">
+										<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+									</select>
+								</div>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addCustAgent">* This
+								field required.</span>
+						</div>
+					</div>
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
@@ -726,40 +799,6 @@
 					</div> -->
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Select Delivery City/Village *</span>
-							<div class="search_multiple">
-								<select class="country" id="addcity" name="addcity"
-									onchange="getShopByCityId(this.value)">
-									<option value="">Select City</option>
-									<c:forEach items="${cityList}" var="cityList">
-										<option value="${cityList.cityId}"
-											data-iscity="${cityList.exInt1}"
-											id="cityData${cityList.cityId}">${cityList.cityName}</option>
-									</c:forEach>
-
-								</select>
-							</div>
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_addcity">* This field required.</span>
-					</div>
-
-					<div id="landmarkDiv">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Landmark *</span> <input name="txtPlaces" type="text"
-									class="frm_inpt" id="txtPlaces" placeholder="Landmark" /><input
-									name="addLatitude" type="hidden" class="frm_inpt"
-									id="addLatitude" /><input name="addLongitude" type="hidden"
-									class="frm_inpt" id="addLongitude" />
-							</div>
-							<span style="color: red; display: none;"
-								class="model_error_class" id="error_txtPlaces">* This
-								field required.</span>
-						</div>
-					</div>
-					<div class="single_row">
-						<div class="pop_frm_one">
 							<span>Delivery Address *</span>
 							<textarea name="address" id="address" type="text" maxlength="200"
 								class="frm_inpt" onchange="trim(this)"
@@ -784,38 +823,6 @@
 							id="error_language">* This field required.</span>
 					</div>
 
-					<div class="single_row">
-						<div class="pop_frm_one">
-							<span>Select Shop *</span>
-							<div class="search_multiple">
-								<select class="country" id="addShop" name="addShop"
-									onchange="getAgetListByShopId(this.value)">
-									<!-- <option value="">Select Area</option>
-									<option value="1" data-name="">Nashik Road</option>
-									<option value="2" data-name="">Canada Corner</option> -->
-								</select>
-							</div>
-						</div>
-						<span style="color: red; display: none;" class="model_error_class"
-							id="error_addShop">* This field required.</span>
-					</div>
-					<div id="agentDiv">
-						<div class="single_row">
-							<div class="pop_frm_one">
-								<span>Select Agent *</span>
-								<div class="search_multiple">
-									<select class="country" id="addCustAgent" name="addCustAgent">
-										<!-- <option value="">Select Area</option>
-									<option value="1" data-name="">Nashik Road</option>
-									<option value="2" data-name="">Canada Corner</option> -->
-									</select>
-								</div>
-							</div>
-							<span style="color: red; display: none;"
-								class="model_error_class" id="error_addCustAgent">* This
-								field required.</span>
-						</div>
-					</div>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Delivery Date *</span> <input type="text" id="regorderDate"
@@ -1513,16 +1520,23 @@
 						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
-								<span>Select Delivery City *</span>
+								<span>Select Delivery City/Village *</span>
 								<div class="search_multiple">
 									<select class="country" name="addAddressCity"
 										id="addAddressCity"
 										onchange="lanmarkValidationForAddAdress(this.value)">
 										<option value="">Select City</option>
+
 										<c:forEach items="${cityList}" var="cityList">
+											<c:set value="City" var="isCityValue"></c:set>
+
+											<c:if test="${cityList.exInt1==1}">
+												<c:set value="Village" var="isCityValue"></c:set>
+											</c:if>
 											<option value="${cityList.cityId}"
 												data-iscity="${cityList.exInt1}"
-												id="cityDataAddReg${cityList.cityId}">${cityList.cityName}</option>
+												id="cityDataAddReg${cityList.cityId}">${cityList.cityName}
+												- ${isCityValue}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -1606,12 +1620,12 @@
 					<table class="overflow-y" id="addressListtbl">
 						<thead>
 							<tr>
-								<th class="sorting_desc">Caption</th>
-								<th class="sorting_desc">City</th>
+								<th class="sorting_desc" style="width: 15%">Caption</th>
+								<th class="sorting_desc" style="width: 15%">City</th>
 								<!-- <th class="sorting_desc">Area</th> -->
-								<th class="sorting_desc">Landmark</th>
-								<th class="sorting_desc">Address</th>
-								<th class="sorting_desc">Action</th>
+								<th class="sorting_desc" style="width: 25%">Landmark</th>
+								<th class="sorting_desc" style="width: 25%">Address</th>
+								<th class="sorting_desc" style="width: 20%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -2241,9 +2255,15 @@
 								var action = '<a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
 										+ response[i].custAddressId
 										+ ')"><i class="fa fa-pencil" aria-hidden="true">'
-										+ '</i></a>&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Delete" onclick="deleteAddress('
-										+ response[i].custAddressId
-										+ ')"><i class="fa fa-times" aria-hidden="true"></i> </a>'
+										+ '</i></a> '
+
+								if (response.length > 1) {
+									action = action
+											+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Delete" onclick="deleteAddress('
+											+ response[i].custAddressId
+											+ ')"><i class="fa fa-times" aria-hidden="true"></i> </a>'
+								}
+
 								var tr_data = '<tr> <td class="user-name">'
 										+ response[i].addressCaption
 										+ '</td> <td class="user-name">'
@@ -2546,7 +2566,7 @@
 							processData : false,
 							success : function(response) {
 								document.getElementById("loaderimg").style.display = "none";
-								$('#addCustomer').modal('hide');
+								/* $('#addCustomer').modal('hide');
 								$('#otpModel').modal('show');
 
 								$('#otpFailedMsg').hide();
@@ -2560,9 +2580,8 @@
 									}, 5000);
 								} else {
 									$('#otpSuccessMsg').show();
-									/* var url = '${pageContext.request.contextPath}/addOrder';
-									window.location = url; */
-								}
+								} */
+								submitCustomerRegistration();
 
 							},
 						});
