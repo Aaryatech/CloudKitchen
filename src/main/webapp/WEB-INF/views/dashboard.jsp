@@ -1450,6 +1450,13 @@
 						</li>
 						<li></li>
 						<li>
+							<div class="pop_txt_l">Wallet AMT</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;" id="view_apply_wallet_amt">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
 							<div class="pop_txt_l">Delivery Charges</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
@@ -3077,6 +3084,8 @@
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
+					$("#view_apply_wallet_amt").html((list[i].exFloat1).toFixed(2));
+					
 
 					$("#order_view_trail tbody").empty();
 

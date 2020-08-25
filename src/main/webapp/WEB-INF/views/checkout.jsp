@@ -68,6 +68,44 @@
 								</tbody>
 							</table>
 
+							<%-- ${wallet} --%>
+
+							<div class="total-row">
+								<div class="total-row_l">
+									Wallet Balance : ${wallet.total}&nbsp;&nbsp;&nbsp; <input
+										type="checkbox" id="chkWallet" name="chkWallet"
+										onchange="applyWallet()" />
+								</div>
+								<div class="clr"></div>
+							</div>
+
+							<div class="total-row">
+								<div class="total-row_l" style="width: 100%">
+									<span style="color: red;">*</span> Note - Wallet amount will be
+									applicable only when order amount is greater than Rs.
+									${wallet.walletLimitRs}/-.
+								</div>
+								<div class="clr"></div>
+							</div>
+							<div class="total-row">
+								<div class="total-row_l" style="width: 100%">
+									<span style="color: red;">*</span> Note - Either
+									${wallet.walletPercent}% or minimum Rs.
+									${wallet.walletMinAmt}/- wallet amount will be applicable.
+								</div>
+								<div class="clr"></div>
+							</div>
+							<div class="total-row" id="divWalletMsg" style="display: none;">
+								<div class="total-row_l" style="width: 100%">
+									<span class="total_bx"
+										style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
+										for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/- more to use wallet</span>
+								</div>
+								<div class="clr"></div>
+							</div>
+
+
+
 							<!--checkout total box-->
 							<div class="check_total">
 								<div class="total-row">
@@ -86,6 +124,13 @@
 									<div class="total-row_r">00.00</div>
 									<div class="clr"></div>
 								</div>
+
+								<div class="total-row">
+									<div class="total-row_l">Applied Wallet AMT</div>
+									<div class="total-row_r" id="applyWalletAmt">00.00</div>
+									<div class="clr"></div>
+								</div>
+
 								<div class="total-row free">
 									<div class="total-row_l">Delivery Charges</div>
 									<div class="total-row_r">
@@ -102,7 +147,8 @@
 									<div class="total-row_l">Total</div>
 									<div class="total-row_r" id="bill_total">50.00</div>
 									<div class="clr"></div>
-
+									<input type="hidden" id="hideBillTotal" name="hideBillTotal"
+										value="0">
 								</div>
 								<span class="model_error_class"
 									style="color: red; display: none;" id="error_delivery_charges">*
@@ -522,6 +568,7 @@
 		function placeOrder(status) {
 
 			var deliveryCharges = $("#deliveryCharges").val();
+			var applyWalletAmt=document.getElementById("applyWalletAmt").innerHTML;
 			
 			$("#error_billingName").hide();
 			$("#error_billingAddress").hide();
@@ -584,6 +631,8 @@
 				fd.append("deliveryInstru",deliveryInstru);
 				fd.append("textDeliveryInstr",textDeliveryInstr);
 				fd.append("deliveryCharges",deliveryCharges);
+				fd.append("applyWalletAmt",applyWalletAmt);
+				
 				$
 						.ajax({
 							url : '${pageContext.request.contextPath}/placeOrder',
@@ -679,6 +728,43 @@
 			$("#item_tax_total").html(taxtotal.toFixed(2));
 			var deliveryCharges = parseFloat($("#deliveryCharges").val());
 			$("#bill_total").html((finaltotal + deliveryCharges).toFixed(2));
+			document.getElementById("hideBillTotal").value=(finaltotal + deliveryCharges).toFixed(2);
+			
+			var billTotal=parseFloat((finaltotal + deliveryCharges).toFixed(2));
+			
+			var reqAmtToAvailWallet=${wallet.walletLimitRs}-billTotal;
+			$("#shopMoreMsg").html(reqAmtToAvailWallet.toFixed(2));
+			
+			if(reqAmtToAvailWallet>0){
+				$("#divWalletMsg").show();
+			}else{
+				$("#divWalletMsg").hide();
+			}
+			
+			
+			if(${wallet.walletLimitRs} <= billTotal){
+				document.getElementById("chkWallet").checked=true;	
+				
+				var walletPerApplyAmt=(billTotal*${wallet.walletPercent})/100;
+				
+				//alert("per - "+walletPerApplyAmt+"      Amt - "+${wallet.walletMinAmt});
+				
+				if(walletPerApplyAmt <= ${wallet.walletMinAmt}){
+					billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
+					$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+				}else{
+					billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
+					$("#applyWalletAmt").html(${wallet.walletMinAmt});
+				}
+				
+				$("#bill_total").html(billTotal.toFixed(2));
+				
+				
+			}else{
+				document.getElementById("chkWallet").checked=false;
+				$("#applyWalletAmt").html("00.00");
+			}			
+			
 		}
 
 		function addToTable(itemId) {
@@ -875,6 +961,55 @@
 			replace(/\n +/, "\n"); // Removes spaces after newlines
 
 			return;
+		}
+		
+		function applyWallet(){
+			
+			var billTotal=document.getElementById("hideBillTotal").value;
+			
+			var reqAmtToAvailWallet=${wallet.walletLimitRs}-billTotal;
+			$("#shopMoreMsg").html(reqAmtToAvailWallet.toFixed(2));
+			
+			if(reqAmtToAvailWallet>0){
+				$("#divWalletMsg").show();
+			}else{
+				$("#divWalletMsg").hide();
+			}
+
+			
+			
+			if(document.getElementById("chkWallet").checked == true){
+				
+				if(${wallet.walletLimitRs} <= billTotal){
+					document.getElementById("chkWallet").checked=true;	
+					
+					var walletPerApplyAmt=(billTotal*${wallet.walletPercent})/100;
+					
+					//alert("per - "+walletPerApplyAmt+"      Amt - "+${wallet.walletMinAmt});
+					
+					if(walletPerApplyAmt <= ${wallet.walletMinAmt}){
+						billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
+						$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+					}else{
+						billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
+						$("#applyWalletAmt").html(${wallet.walletMinAmt});
+					}
+					
+					$("#bill_total").html(billTotal.toFixed(2));
+					
+					
+					
+				}else{
+					document.getElementById("chkWallet").checked=false;
+				}	
+				
+				
+			}else{
+				
+				document.getElementById("bill_total").innerHTML=billTotal;
+				document.getElementById("chkWallet").checked=false;
+				$("#applyWalletAmt").html("00.00");
+			}
 		}
 	</script>
 

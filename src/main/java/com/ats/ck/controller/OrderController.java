@@ -45,6 +45,7 @@ import com.ats.ck.common.DateConvertor;
 import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.PushNotification;
 import com.ats.ck.model.CategoryData;
+import com.ats.ck.model.CustWalletTotal;
 import com.ats.ck.model.CustomerAddressDisplay;
 import com.ats.ck.model.CustomerDisplay;
 import com.ats.ck.model.DeliveryInstruction;
@@ -76,6 +77,7 @@ import com.ats.ck.model.OrderTrail;
 import com.ats.ck.model.Setting;
 import com.ats.ck.model.SubCategoryData;
 import com.ats.ck.model.Tags;
+import com.ats.ck.model.Wallet;
 import com.ats.ck.model.gatwaymodel.Body;
 import com.ats.ck.model.gatwaymodel.Formdata;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -251,6 +253,16 @@ public class OrderController {
 					.postForObject(Constants.url + "getFranchiseByFrId", map, FranchiseData.class);
 			model.addAttribute("franchiseData", franchiseData);
 
+			try {
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", liveCustomer.getCustId());
+
+				CustWalletTotal wallet = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getCustomerWalletAmt", map, CustWalletTotal.class);
+				model.addAttribute("wallet", wallet);
+			} catch (Exception e) {
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -285,6 +297,13 @@ public class OrderController {
 			int frId = (int) session.getAttribute("frIdForOrder");
 			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+
+			float applyWalletAmt = 0;
+			try {
+				applyWalletAmt = Float.parseFloat(request.getParameter("applyWalletAmt"));
+			} catch (Exception e) {
+				applyWalletAmt = 0;
+			}
 
 			float finaTaxableAmt = 0;
 			float finaTaxAmt = 0;
@@ -373,6 +392,7 @@ public class OrderController {
 				order.setDeliveryInstText(textDeliveryInstr);
 				order.setDeliveryCharges(deliveryCharges);
 				order.setUuidNo(uuid);
+				order.setExFloat1(applyWalletAmt);// Wallet Amt
 
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
@@ -458,6 +478,18 @@ public class OrderController {
 						session.setAttribute("successMsg", "Order place successfully.");
 					}
 					orderResponse.setAddEdit(1);
+
+					try {
+						if (applyWalletAmt > 0) {
+							Wallet wallet = new Wallet(0, Integer.parseInt(info.getMessage()), 0, frId, paymentMethod,
+									0, 0, applyWalletAmt, 1, userObj.getUserId(), sf.format(ct), dttime.format(ct), 0,
+									0, "", "", 0, 0);
+							Constants.getRestTemplate().postForObject(Constants.url + "saveWallet", wallet,
+									Wallet.class);
+						}
+					} catch (Exception e) {
+					}
+
 				} else {
 					session.setAttribute("errorMsg", "Something wrong while placing order.");
 				}
@@ -512,6 +544,7 @@ public class OrderController {
 				getOrderHeaderList.setDeliveryDate(DateConvertor.convertToYMD(getOrderHeaderList.getDeliveryDate()));
 				getOrderHeaderList.setInsertDateTime(dttime.format(ct));
 				getOrderHeaderList.setInsertUserId(userObj.getUserId());
+				getOrderHeaderList.setExFloat1(applyWalletAmt);
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
@@ -1480,7 +1513,7 @@ public class OrderController {
 			 * 
 			 * System.out.println(res);
 			 */
-			  
+
 			/*
 			 * String url = "https://test.cashfree.com/api/v1/order/info/"; URL obj = new
 			 * URL(url); HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
@@ -1527,10 +1560,11 @@ public class OrderController {
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		/*RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("https://madhvi.in/");
-		return redirectView;*/
-		
+		/*
+		 * RedirectView redirectView = new RedirectView();
+		 * redirectView.setUrl("https://madhvi.in/"); return redirectView;
+		 */
+
 		return "thankYou";
 	}
 
