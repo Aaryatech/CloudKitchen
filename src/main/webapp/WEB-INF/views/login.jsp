@@ -6,6 +6,18 @@
 <%@ page import="java.math.BigInteger"%>
 
 <head>
+!-- Global site tag (gtag.js) - Google Analytics -->
+<script async
+	src="https://www.googletagmanager.com/gtag/js?id=UA-176076851-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-176076851-1');
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -94,8 +106,8 @@
 												class="logo_pic" alt="">
 										</center>
 									</div>
-									<h4 class="text-light-black fw-600 signin_title">Sign in with your
-										Cloud Kitchen account</h4>
+									<h4 class="text-light-black fw-600 signin_title">Sign in
+										with your Cloud Kitchen account</h4>
 									<!--with your Cloud Kitchen account-->
 									<div class="row">
 										<div class="col-12">
@@ -131,8 +143,8 @@
 												%>
 											</c:if>
 											<div class="form-group">
-												<label class="text-light-white fs-14" for="username">Username</label>
-												<input type="text" name="username"
+												<label class="text-light-white fs-14" for="username">Mobile
+													No.</label> <input type="text" name="username"
 													class="form-control form-control-submit"
 													placeholder="Username" maxlength="10" required>
 											</div>

@@ -9,9 +9,10 @@
 	z-index: 10000 !important;
 }
 </style>
-<%-- <link
-	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.css"
-	rel="stylesheet" type="text/css" /> --%>
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.min.css"
+	rel="stylesheet" />
+
 <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
@@ -94,7 +95,7 @@
 						<div class="input_one">
 							<form id="findCustomerByMobileNo">
 								<input name="mobileNoSearch" type="text"
-									class="input_no numbersOnly"
+									class="input_no numbersOnly  "
 									placeholder="Customer Mobile Number " id="mobileNoSearch"
 									maxlength="10" /> <i class="fa fa-mobile mobile"
 									aria-hidden="true"></i>
@@ -109,36 +110,33 @@
 
 
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
+					<!-- <div class="col-lg-3 col-md-6 col-sm-6"> -->
 
-						<!-- switch toggle -->
-						<!-- <label class="switch">
+					<!-- switch toggle -->
+					<!-- <label class="switch">
 							<input class="switch-input" type="checkbox" />
 							<span class="switch-label" data-on="On" data-off="Off"></span> 
 							<span class="switch-handle"></span> 
 						</label> -->
 
 
-						<div class="input_one">
-							<!-- <input name="" type="text" class="input_no"
+					<!-- <div class="input_one"> -->
+					<!-- <input name="" type="text" class="input_no"
 									placeholder="Search by Order Number" /> <i
 									class="fa fa-check mobile check" aria-hidden="true"></i>
 								<button type="submit" value="Submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button> -->
-						</div>
-						<!-- <span style="color: red;">* Order no. not found.</span> -->
-					</div>
+					<!-- </div> -->
+					<!-- <span style="color: red;">* Order no. not found.</span> -->
+					<!-- </div> -->
 
 					<div class="col-lg-3 col-md-6 col-sm-6" id="preferredLangDiv">
 						<label class="prefered fs-14">Preferred Language : <Span
 							id="showPreferredLang">${customer.langName}</Span></label>
 
-
-
-
 					</div>
-
+					<div class="col-lg-3 col-md-6 col-sm-6"></div>
 					<div class="col-lg-3 sec_title right_btn">
 						<a href="javascript:void(0)" onclick="addNewCustomerModel()"
 							class="order_btn"> New Customer Registration</a>
@@ -491,7 +489,7 @@
 					<div class="main-box padding-20 marg_mob">
 						<div class="edit_prof">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/profile_img.jpg"
+								src="${pageContext.request.contextPath}/resources/assets/img/default-user.jpg"
 								alt="">
 						</div>
 						<div class="profile_title">
@@ -814,7 +812,16 @@
 								<select class="country" name="language" id="language">
 									<option value="">Select Language</option>
 									<c:forEach items="${languageList}" var="languageList">
-										<option value="${languageList.langId}">${languageList.langName}</option>
+
+										<c:choose>
+											<c:when test="${langId==languageList.langId}">
+												<option value="${languageList.langId}" selected>${languageList.langName}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${languageList.langId}">${languageList.langName}</option>
+											</c:otherwise>
+										</c:choose>
+
 									</c:forEach>
 								</select>
 							</div>
@@ -827,7 +834,7 @@
 						<div class="pop_frm_one">
 							<span>Delivery Date *</span> <input type="text" id="regorderDate"
 								name="regorderDate" class="frm_inpt datepicker"
-								placeholder="Delivery Date">
+								data-date-format="dd-mm-yyyy" placeholder="Delivery Date">
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_regorderDate">* This field required.</span>
@@ -1084,7 +1091,7 @@
 							<div class="pop_frm_one">
 								<span>Delivery Date</span> <input type="text" id="orderDate"
 									placeholder="Delivery Date" name="orderDate"
-									class="frm_inpt datepicker">
+									class="frm_inpt datepicker" data-date-format="dd-mm-yyyy">
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderDate">* This
@@ -1450,13 +1457,6 @@
 						</li>
 						<li></li>
 						<li>
-							<div class="pop_txt_l">Wallet AMT</div>
-							<div class="pop_txt_r">
-								: <span style="float: right;" id="view_apply_wallet_amt">00.00</span>
-							</div>
-						</li>
-						<li></li>
-						<li>
 							<div class="pop_txt_l">Delivery Charges</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
@@ -1660,8 +1660,37 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script>
+	<!-- <script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
+
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"></script>
+	<!-- <script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script> -->
+	<style type="text/css">
+solution 1:
+        .datepicker {
+	font-size: 0.875em;
+}
+/* solution 2: the original datepicker use 20px so replace with the following:*/
+.datepicker td, .datepicker th {
+	width: 1.5em;
+	height: 1.5em;
+}
+</style>
+	<script type="text/javascript">
+		$('.datepicker').datepicker({
+			dateFormat : 'dd-mm-yy',
+			weekStart : 1,
+			daysOfWeekHighlighted : "6,0",
+			autoclose : true,
+			todayHighlight : true,
+		});
+		$('.datepicker').datepicker("setDate", new Date());
+	</script>
+
 	<script type="text/javascript">
 		function placeOrderProcess() {
 
@@ -3084,8 +3113,6 @@
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
-					$("#view_apply_wallet_amt").html((list[i].exFloat1).toFixed(2));
-					
 
 					$("#order_view_trail tbody").empty();
 
@@ -3460,11 +3487,11 @@
 						});
 	</script>
 	<script>
-		$(function() {
+		/* $(function() {
 			$('.datepicker').datepicker({
 				dateFormat : 'dd-mm-yy'
-			});
-		});
+			}).value;
+		}); */
 		$('.cleardiv').click(function(e) {
 			$('#error_cancel_remark').hide();
 			$('.model_error_class').hide();

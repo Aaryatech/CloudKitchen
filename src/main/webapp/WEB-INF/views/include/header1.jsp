@@ -149,13 +149,13 @@
 						</div>
 
 						<!-- user notification -->
-						<div class="cart-btn notification-btn">
+						<!-- <div class="cart-btn notification-btn">
 							<a href="#" class="text-custom-white fw-700"> <i
 								class="fas fa-bell"></i> <span class="user-alert-notification">10</span>
 							</a>
 							<div class="notification-dropdown">
 								<div class="product-detail">
-									<!--notification-->
+									notification
 									<ul class="new_notif">
 										<li>
 											<div class="not_one">
@@ -209,7 +209,7 @@
 								</div>
 
 							</div>
-						</div>
+						</div> -->
 						<!-- user notification -->
 
 						<!-- user account -->

@@ -32,6 +32,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.EmailUtility;
@@ -55,6 +56,7 @@ import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OrderListData;
+import com.ats.ck.model.Setting;
 import com.ats.ck.model.showCustomerInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -204,6 +206,11 @@ public class HomeController {
 
 					ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
 							userObj.getErrorMessage().getMessage());
+					
+					RestTemplate restTemplate = new RestTemplate();
+					//String sms = restTemplate.getForObject("https://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=pJMAaVPuGbh&MobileNo="+userObj.getUser().getUserMobileNo()+"&SenderID=MADHVI&Message="+msg+"&ServiceName=TEMPLATE_BASED", String.class);
+
+					
 					mav = "redirect:/";
 					session.setAttribute("successMsg", "Password send to your register Email.");
 
@@ -275,6 +282,13 @@ public class HomeController {
 			} catch (Exception e) {
 				session.removeAttribute("liveCustomer");
 			}
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("key", "lang_id");
+			Setting setting = Constants.getRestTemplate().postForObject(Constants.url + "getSettingByKey",
+					map, Setting.class);
+			model.addAttribute("langId", setting.getSettingValue());
+ 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

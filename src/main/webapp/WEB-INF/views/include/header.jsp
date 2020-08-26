@@ -2,6 +2,18 @@
 	pageEncoding="UTF-8"%>
 
 <head>
+!-- Global site tag (gtag.js) - Google Analytics -->
+<script async
+	src="https://www.googletagmanager.com/gtag/js?id=UA-176076851-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-176076851-1');
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -117,13 +129,13 @@
 						</div>
 
 						<!-- user notification -->
-						<div class="cart-btn notification-btn">
+						<!-- <div class="cart-btn notification-btn">
 							<a href="#" class="text-custom-white fw-700"> <i
 								class="fas fa-bell"></i> <span class="user-alert-notification">10</span>
 							</a>
 							<div class="notification-dropdown">
 								<div class="product-detail">
-									<!--notification-->
+									notification
 									<ul class="new_notif">
 										<li>
 											<div class="not_one">
@@ -177,7 +189,7 @@
 								</div>
 
 							</div>
-						</div>
+						</div> -->
 						<!-- user notification -->
 
 						<!-- user account -->
