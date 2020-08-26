@@ -2369,11 +2369,11 @@ solution 1:
 
 							for (var i = 0; i < response.length; i++) {
 
-								var action = '<a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
+								var action = ''
+									/* <a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
 										+ response[i].custAddressId
 										+ ')"><i class="fa fa-pencil" aria-hidden="true">'
-										+ '</i></a> '
-
+										+ '</i></a>  */
 								if (response.length > 1) {
 									action = action
 											+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Delete" onclick="deleteAddress('
