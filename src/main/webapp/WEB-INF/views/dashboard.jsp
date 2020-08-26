@@ -683,7 +683,8 @@
 										</c:choose>
 										<option value="${cityList.cityId}"
 											data-iscity="${cityList.exInt1}"
-											id="cityData${cityList.cityId}">${cityList.cityName}
+											id="cityData${cityList.cityId}"
+											data-cityname="${cityList.cityName}">${cityList.cityName}
 											- ${isCityValue}</option>
 									</c:forEach>
 
@@ -1542,7 +1543,8 @@
 											</c:if>
 											<option value="${cityList.cityId}"
 												data-iscity="${cityList.exInt1}"
-												id="cityDataAddReg${cityList.cityId}">${cityList.cityName}
+												id="cityDataAddReg${cityList.cityId}"
+												data-cityname="${cityList.cityName}">${cityList.cityName}
 												- ${isCityValue}</option>
 										</c:forEach>
 									</select>
@@ -1568,7 +1570,7 @@
 								This field required.</span>
 						</div> -->
 
-						<div id="addAddressLandMark">
+						<div id="addAddressLandMarkDiv">
 							<div class="single_row">
 								<div class="pop_frm_one">
 									<span>Landmark *</span> <input name="addAddressLandmark"
@@ -1660,8 +1662,8 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
-	<!-- <script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script> -->
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datepicker.min.js"></script>
@@ -1681,14 +1683,27 @@ solution 1:
 }
 </style>
 	<script type="text/javascript">
-		$('.datepicker').datepicker({
+		$(function() {
+
+			$('.datepicker').datepicker({
+				minDate : new Date(),
+				dateFormat : 'dd-mm-yy',
+				weekStart : 1,
+				daysOfWeekHighlighted : "6,0",
+				autoclose : true,
+				todayHighlight : true,
+			});
+			$('.datepicker').datepicker("setDate", new Date());
+		});
+		/* $('.datepicker').datepicker({
+			minDate : '0',
 			dateFormat : 'dd-mm-yy',
 			weekStart : 1,
 			daysOfWeekHighlighted : "6,0",
 			autoclose : true,
 			todayHighlight : true,
 		});
-		$('.datepicker').datepicker("setDate", new Date());
+		$('.datepicker').datepicker("setDate", new Date()); */
 	</script>
 
 	<script type="text/javascript">
@@ -2737,7 +2752,7 @@ solution 1:
 
 			$('#txtPlaces').val('');
 			document.getElementById("loaderimg").style.display = "block";
-			var iscity = $("#cityData" + cityId).data("iscity")
+			var iscity = $("#cityData" + cityId).data("iscity");
 			var fd = new FormData();
 			fd.append('cityId', cityId);
 			fd.append('iscity', iscity);
@@ -2774,6 +2789,10 @@ solution 1:
 							} else {
 								$("#landmarkDiv").show();
 								$("#agentDiv").hide();
+								var cityname = $("#cityData" + cityId).data(
+										"cityname");
+								$('#txtPlaces').val(cityname);
+								document.getElementById("txtPlaces").focus();
 							}
 						},
 					});
@@ -2781,11 +2800,15 @@ solution 1:
 
 		function lanmarkValidationForAddAdress(cityId) {
 			var iscity = $("#cityDataAddReg" + cityId).data("iscity")
-
+			$('#addAddressLandmark').val('');
 			if (iscity == 1) {
-				$('#addAddressLandMark').hide();
+				$('#addAddressLandMarkDiv').hide();
 			} else {
-				$('#addAddressLandMark').show();
+				$('#addAddressLandMarkDiv').show(); 
+				var cityname = $("#cityDataAddReg" + cityId).data("cityname"); 
+				$('#addAddressLandmark').val(cityname);
+				document.getElementById("addAddressLandmark").focus();
+				
 			}
 
 		}
@@ -3836,6 +3859,7 @@ solution 1:
 																						.hide();
 																			},
 																			5000);
+																	addNewCustomerModel();
 																}
 																displayCustomerInfo();
 																document
