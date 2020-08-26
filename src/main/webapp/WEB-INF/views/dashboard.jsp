@@ -2398,7 +2398,37 @@ solution 1:
 		}
 
 		function deleteAddress(id) {
-			if (confirm('Are you sure to delete address?')) {
+
+			$('#popupheading').html("Are you sure to delete address ?");
+			$('#confirm').modal({
+				backdrop : 'static',
+				keyboard : false
+			});
+
+			$(".submitmodel")
+					.unbind()
+					.click(
+							function() {
+
+								document.getElementById("loaderimg").style.display = "block";
+								var fd = new FormData();
+								fd.append('id', id);
+								$
+										.ajax({
+											url : '${pageContext.request.contextPath}/deleteAddress',
+											type : 'post',
+											dataType : 'json',
+											data : fd,
+											contentType : false,
+											processData : false,
+											success : function(response) {
+												document
+														.getElementById("loaderimg").style.display = "none";
+												customerAddList();
+											},
+										});
+							});
+			/* if (confirm('Are you sure to delete address?')) {
 				document.getElementById("loaderimg").style.display = "block";
 				var fd = new FormData();
 				fd.append('id', id);
@@ -2415,7 +2445,7 @@ solution 1:
 								customerAddList();
 							},
 						});
-			}
+			} */
 		}
 		function editAddress(id) {
 
