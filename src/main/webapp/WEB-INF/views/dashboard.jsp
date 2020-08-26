@@ -1517,7 +1517,7 @@
 				<!--form-->
 				<div class="form_one extra_marg">
 					<form action="" method="get">
-
+						<h6>Delivery Address</h6>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Address Caption * <a href="javascript:void(0)"
@@ -1627,6 +1627,8 @@
 									This field required.</span>
 							</div>
 						</div>
+						<hr>
+						<h6>Delivery Info</h6>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Address *</span>
