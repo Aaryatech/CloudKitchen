@@ -242,7 +242,7 @@
 					This field is required.</span>
 			</div>
 			<div>
-				<input name="grivnceSbmtbtn" type="submit" value="Submit"
+				<input name="grivnceSbmtbtn" type="submit" value="Submit Grievance"
 					class="next_btn" />
 			</div>
 		</form>
@@ -261,8 +261,8 @@
 					This field is required.</span>
 			</div>
 			<div>
-				<input name="grivnceSbmtbtn" type="submit" value="Submit"
-					class="next_btn" />
+				<input name="grivnceSbmtbtn" type="submit"
+					value="Submit Appreciation" class="next_btn" />
 			</div>
 		</form>
 	</div>

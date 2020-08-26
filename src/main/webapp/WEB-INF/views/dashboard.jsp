@@ -666,7 +666,7 @@
 
 
 				<form action="" method="get">
-
+					<h6>Customer Address</h6>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Select Delivery City/Village *</span>
@@ -740,6 +740,8 @@
 								field required.</span>
 						</div>
 					</div>
+					<hr>
+					<h6>Customer Info</h6>
 					<div class="single_row">
 						<div class="single_row_l">
 							<div class="pop_frm_one">
@@ -830,12 +832,14 @@
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_language">* This field required.</span>
 					</div>
-
+					<hr>
+					<h6>Delivery Info</h6>
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Delivery Date *</span> <input type="text" id="regorderDate"
 								name="regorderDate" class="frm_inpt datepicker"
-								data-date-format="dd-mm-yyyy" placeholder="Delivery Date">
+								data-date-format="dd-mm-yyyy" placeholder="Delivery Date"
+								autocomplete="off">
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_regorderDate">* This field required.</span>
@@ -1092,7 +1096,8 @@
 							<div class="pop_frm_one">
 								<span>Delivery Date</span> <input type="text" id="orderDate"
 									placeholder="Delivery Date" name="orderDate"
-									class="frm_inpt datepicker" data-date-format="dd-mm-yyyy">
+									class="frm_inpt datepicker" data-date-format="dd-mm-yyyy"
+									autocomplete="off">
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderDate">* This
@@ -1334,7 +1339,7 @@
 								field required.</span>
 						</div>
 						<div>
-							<input name="cancelOrderBtn" type="submit" value="Submit"
+							<input name="cancelOrderBtn" type="submit" value="Cancel Order"
 								class="next_btn" id="cancelOrderBtn" />
 						</div>
 						<!-- class="pop_btn_row"-->
@@ -1749,9 +1754,11 @@ solution 1:
 										+ '"  data-longitude="'
 										+ longitude
 										+ '" data-cityid="'
-										+ response[i].cityId + '">'
+										+ response[i].cityId + '" data-address="'
+										+ response[i].address + '">'
 										+ response[i].addressCaption
-										+ '</option>';
+										+ ' - '
+										+ response[i].address + '</option>';
 
 							}
 
@@ -1769,7 +1776,9 @@ solution 1:
 			document.getElementById("loaderimg").style.display = "block";
 			var cityId = $("#addressData" + addressId).data("cityid");
 			var iscity = $("#addressData" + addressId).data("iscity");
+			var address = $("#addressData" + addressId).data("address");
 
+			//alert(address)
 			var fd = new FormData();
 			fd.append('cityId', cityId);
 			fd.append('iscity', iscity);
@@ -2804,11 +2813,11 @@ solution 1:
 			if (iscity == 1) {
 				$('#addAddressLandMarkDiv').hide();
 			} else {
-				$('#addAddressLandMarkDiv').show(); 
-				var cityname = $("#cityDataAddReg" + cityId).data("cityname"); 
+				$('#addAddressLandMarkDiv').show();
+				var cityname = $("#cityDataAddReg" + cityId).data("cityname");
 				$('#addAddressLandmark').val(cityname);
 				document.getElementById("addAddressLandmark").focus();
-				
+
 			}
 
 		}

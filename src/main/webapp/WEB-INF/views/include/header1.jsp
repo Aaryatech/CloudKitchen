@@ -222,7 +222,7 @@
 									${sessionScope.userInfo.userName}</span>
 							</a>
 							<div class="user-dropdown">
-								<ul>
+								<!-- <ul>
 									<li><a href="order-details.html">
 											<div class="icon">
 												<i class="flaticon-rewind"></i>
@@ -263,7 +263,7 @@
 												<i class="flaticon-board-games-with-roles"></i>
 											</div> <span class="details">Help</span>
 									</a></li>
-								</ul>
+								</ul> -->
 								<div class="user-footer">
 									<span class="text-light-black">Not Jhon?</span> <a
 										href="${pageContext.request.contextPath}/">Sign Out</a>

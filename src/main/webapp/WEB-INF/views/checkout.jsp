@@ -98,8 +98,10 @@
 							<div class="total-row" id="divWalletMsg" style="display: none;">
 								<div class="total-row_l" style="width: 100%">
 									<span class="total_bx"
-										style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
-										for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/- more to use wallet</span>
+										style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i
+										class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
+										for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
+										more to use wallet</span>
 								</div>
 								<div class="clr"></div>
 							</div>
@@ -171,7 +173,7 @@
 									</div>
 									<br>
 									<div class="instrac_nm">
-										<h2>${franchiseData.frName}</h2>
+										<h2>${franchiseData.frName}&nbsp;(${franchiseData.frCode})</h2>
 										<h3>${franchiseData.frMob}</h3>
 										<p>${franchiseData.frAddress}</p>
 									</div>

@@ -23,7 +23,8 @@
 										data-iscity="${addressList.exInt1}"
 										data-latitude="${addressList.latitude}"
 										data-cityid="${addressList.cityId}"
-										data-longitude="${addressList.longitude}" selected>${addressList.addressCaption}</option>
+										data-longitude="${addressList.longitude}" selected>${addressList.addressCaption}
+										- ${addressList.address}</option>
 								</c:when>
 								<c:otherwise>
 									<option value="${addressList.custAddressId}"
@@ -31,7 +32,8 @@
 										data-iscity="${addressList.exInt1}"
 										data-latitude="${addressList.latitude}"
 										data-cityid="${addressList.cityId}"
-										data-longitude="${addressList.longitude}">${addressList.addressCaption}</option>
+										data-longitude="${addressList.longitude}">${addressList.addressCaption}
+										- ${addressList.address}</option>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -90,7 +92,8 @@
 		<div class="single_row">
 			<div class="pop_frm_one">
 				<span>Delivery Date</span> <input type="text" id="orderRepeatDate"
-					name="orderRepeatDate" class="frm_inpt datepicker">
+					name="orderRepeatDate" class="frm_inpt datepicker"
+					data-date-format="dd-mm-yyyy">
 			</div>
 			<span style="color: red; display: none;" class="model_error_class"
 				id="error_orderRepeatDate">* This field required.</span>
@@ -218,8 +221,14 @@
 
 	$(function() {
 		$('.datepicker').datepicker({
-			dateFormat : 'dd-mm-yy'
+			minDate : new Date(),
+			dateFormat : 'dd-mm-yy',
+			weekStart : 1,
+			daysOfWeekHighlighted : "6,0",
+			autoclose : true,
+			todayHighlight : true,
 		});
+		$('.datepicker').datepicker("setDate", new Date());
 	});
 	$(".country").select2({
 		placeholder : "Select Option",

@@ -280,7 +280,7 @@
 													class="curry_pop">${itemList.itemName}</a> <span>${itemList.itemDesc}</span>
 											</h3>
 											<div class="product-list-type hotel_nm">
-												<span class="text-light-white new">New</span>
+												<!-- <span class="text-light-white new">New</span> -->
 												<c:forEach items="${itemList.tasteList}" var="tasteList">
 													<span class="text-custom-white square-tag"><img
 														title="${tasteList.ingrediantName}"
@@ -397,7 +397,8 @@
 											<div class="product-list-time text-center">
 
 												<ul class="inline-r">
-													<li class="text-light-white">${itemList.preperationTime}</li>
+													<li class="text-light-white">Preparation Time -
+														${itemList.preperationTime}</li>
 												</ul>
 											</div>
 										</div>
@@ -490,8 +491,8 @@
 
 						<div class="product-list-type hotel_nm pop_disc"
 							id="discriptionTaste">
-							<span class="text-light-white new strong_fnt">New</span> <span
-								class="text-custom-white square-tag"><img
+							<!-- <span class="text-light-white new strong_fnt">New</span> -->
+							<span class="text-custom-white square-tag"><img
 								src="/ck/resources/assets/img/chilli_1.jpg" alt="tag"></span> <span
 								class="text-custom-white square-tag"><img
 								src="/ck/resources/assets/img/chilli_2.jpg" alt="tag"></span> <span
@@ -743,7 +744,7 @@
 			$("#discriptionCatName").html(obj.catName);
 			$("#discriptionItemShow").html(obj.itemDesc);
 			
-			var testIngradiant='<span class="text-light-white new strong_fnt">New</span>'; 
+			var testIngradiant=''; 
 			for(var i=0 ; i<obj.tasteList.length;i++){
 				testIngradiant += '<span class="text-custom-white square-tag"><img title="'+obj.tasteList[i].ingrediantName+'" '+
 				'src="${catImageUrl}'+obj.tasteList[i].ingrediantImage+'" alt="tag" onerror="imgErrorJavascript(this,1);"></span>';
@@ -993,11 +994,11 @@
 
 				if (selectedFrId == frList[i].frId) {
 					html += '<option value="' + frList[i].frId + '" selected>'
-							+ frList[i].frName + ' - ' + frList[i].km
+							+ frList[i].frName +' ( '+ frList[i].frCode+' ) ' + ' - ' + frList[i].km
 							+ ' KM</option>';
 				} else {
 					html += '<option value="' + frList[i].frId + '">'
-							+ frList[i].frName + ' - ' + frList[i].km
+							+ frList[i].frName +' ( '+ frList[i].frCode+' ) '+ ' - ' + frList[i].km
 							+ ' KM </option>';
 				}
 
