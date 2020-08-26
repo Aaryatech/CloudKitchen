@@ -1592,6 +1592,41 @@
 									This field required.</span>
 							</div>
 						</div>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Shop *</span>
+								<div class="search_multiple">
+									<select class="country" id="addAdressShop" name="addAdressShop"
+										onchange="getAgetListByShopIdAdd(this.value)">
+										<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+									</select>
+								</div>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addAdressShop">* This
+								field required.</span>
+						</div>
+						<div id="agentAddressDiv">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Select Agent *</span>
+									<div class="search_multiple">
+										<select class="country" id="addAddressAgent"
+											name="addAddressAgent">
+											<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+										</select>
+									</div>
+								</div>
+								<span style="color: red; display: none;"
+									class="model_error_class" id="error_addAddressAgent">*
+									This field required.</span>
+							</div>
+						</div>
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Address *</span>
@@ -1604,7 +1639,27 @@
 								This field required.</span>
 						</div>
 
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Date</span> <input type="text"
+									id="addAddressOrderDate" placeholder="Delivery Date"
+									name="addAddressOrderDate" class="frm_inpt datepicker"
+									data-date-format="dd-mm-yyyy" autocomplete="off">
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addAddressOrderDate">*
+								This field required.</span>
+						</div>
 
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Time</span> <input name="addAddressOrderTime"
+									id="addAddressOrderTime" type="time" class="frm_inpt" />
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_addAddressOrderTime">*
+								This field required.</span>
+						</div>
 						<div>
 							<input id="addAddressSubmit" onclick="submitAddNewAddress()"
 								type="button" value="Submit" class="next_btn" />
@@ -2408,8 +2463,23 @@ solution 1:
 			//$("#error_addAddressArea").hide();
 			$("#error_addAddressLandmark").hide();
 			$("#error_addAddressDeliveryAdd").hide();
+			$("#error_addAddressOrderTime").hide();
+			$("#error_addAddressOrderDate").hide();
+			$("#error_addAdressShop").hide();
+			$("#error_addAddressAgent").hide();
 
 			var isError = false;
+
+			var agentId = 0;
+
+			var iscity = $("#cityDataAddReg" + $("#addAddressCity").val())
+					.data("iscity");
+
+			if ($("#addAdressShop").val() == ""
+					|| $("#addAdressShop").val() == 0) {
+				isError = true;
+				$("#error_addAdressShop").show();
+			}
 			if (!$("#addressCation").val()) {
 				isError = true;
 				$("#error_addressCaption").show();
@@ -2419,10 +2489,14 @@ solution 1:
 				isError = true;
 				$("#error_addAddressCity").show();
 			}
-
-			var iscity = $("#cityDataAddReg" + $("#addAddressCity").val())
-					.data("iscity");
-
+			if (!$("#addAddressOrderTime").val()) {
+				isError = true;
+				$("#error_addAddressOrderTime").show();
+			}
+			if (!$("#addAddressOrderDate").val()) {
+				isError = true;
+				$("#error_addAddressOrderDate").show();
+			}
 			if (iscity == 0) {
 				if (!$("#addAddressLandmark").val()) {
 					isError = true;
@@ -2436,6 +2510,14 @@ solution 1:
 						$("#addAddressLandmark").val('');
 						$("#error_addAddressLandmark").show();
 					}
+				}
+			} else {
+				if (!$("#addAddressAgent").val()
+						|| $("#addAddressAgent").val() == 0) {
+					isError = true;
+					$("#error_addAddressAgent").show();
+				} else {
+					agentId = $("#addAddressAgent").val();
 				}
 			}
 
@@ -2467,21 +2549,47 @@ solution 1:
 							contentType : false,
 							processData : false,
 							success : function(response) {
-								document.getElementById("loaderimg").style.display = "none";
+
 								$('#addAddress').modal('hide');
 
 								$('#finalFailedMsg').hide();
 								$('#finalSuccessMsg').hide();
 
 								if (response.error == true) {
+									document.getElementById("loaderimg").style.display = "none";
 									document
 											.getElementById("finalerrormsgcontent").innerHTML = "Error while add new address";
 
 									$('#finalFailedMsg').show();
 								} else {
-									document
+									/* document
 											.getElementById("finalsuccessmsgcontent").innerHTML = "New address successfully added";
-									$('#finalSuccessMsg').show();
+									$('#finalSuccessMsg').show(); */
+
+									fd = new FormData();
+									fd.append('addressId', response.message);
+									fd.append('frIdForOrder', $(
+											"#addAdressShop").val());
+									fd.append('orderTime', $(
+											"#addAddressOrderTime").val());
+									fd.append('orderDate', $(
+											"#addAddressOrderDate").val());
+									fd.append('placeCustAgent', agentId);
+									fd.append('iscity', iscity);
+									$
+											.ajax({
+												url : '${pageContext.request.contextPath}/orderProcess',
+												type : 'post',
+												dataType : 'json',
+												data : fd,
+												contentType : false,
+												processData : false,
+												success : function(response) {
+													//document.getElementById("loaderimg").style.display = "none";
+													var url = '${pageContext.request.contextPath}/addOrder';
+													window.location = url;
+												},
+											});
 
 								}
 								//$("#addAddressDeliveryAdd").val('');
@@ -2812,14 +2920,128 @@ solution 1:
 			$('#addAddressLandmark').val('');
 			if (iscity == 1) {
 				$('#addAddressLandMarkDiv').hide();
+				$('#agentAddressDiv').show();
+
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('iscity', iscity);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getShopByCityId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+
+								var html = '<option value="0" selected>Select Shop</option>';
+
+								for (var i = 0; i < response.franchise.length; i++) {
+
+									html += '<option value="' + response.franchise[i].frId + '">'
+											+ response.franchise[i].frName
+											+ '</option>';
+
+								}
+
+								$('#addAdressShop').html(html);
+								$("#addAdressShop").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+
 			} else {
-				$('#addAddressLandMarkDiv').show();
-				var cityname = $("#cityDataAddReg" + cityId).data("cityname");
-				$('#addAddressLandmark').val(cityname);
-				document.getElementById("addAddressLandmark").focus();
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('iscity', iscity);
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getShopByCityId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+
+								var html = '<option value="0" selected>Select Shop</option>';
+
+								for (var i = 0; i < response.franchise.length; i++) {
+
+									html += '<option value="' + response.franchise[i].frId + '">'
+											+ response.franchise[i].frName
+											+ '</option>';
+
+								}
+
+								$('#addAdressShop').html(html);
+								$("#addAdressShop").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+								// will return the number 123
+								$('#addAddressLandMarkDiv').show();
+								$('#agentAddressDiv').hide();
+								var cityname = $("#cityDataAddReg" + cityId)
+										.data("cityname");
+								$('#addAddressLandmark').val(cityname);
+								document.getElementById("addAddressLandmark")
+										.focus();
+							},
+						});
 
 			}
 
+		}
+
+		function getAgetListByShopIdAdd(shopId) {
+
+			var cityId = $("#addAddressCity").val();
+			var iscity = $("#cityDataAddReg" + cityId).data("iscity");
+
+			if (iscity == 1) {
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('shopId', shopId);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getAgetListByShopId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								var html = '<option value="0" selected>Select Agent</option>';
+
+								for (var i = 0; i < response.length; i++) {
+
+									html += '<option value="' + response[i].agentId + '">'
+											+ response[i].agentName
+											+ '</option>';
+
+								}
+
+								$('#addAddressAgent').html(html);
+								$("#addAddressAgent").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+			}
 		}
 
 		function getAgetListByShopId(shopId) {
@@ -3411,6 +3633,9 @@ solution 1:
 										$('#frIdForRepeatOrder').html(html);
 										$("#frIdForRepeatOrder").trigger(
 												"change");
+									} else if (type == 4) {
+										$('#addAdressShop').html(html);
+										$("#addAdressShop").trigger("change");
 									}
 
 								}
@@ -3499,6 +3724,8 @@ solution 1:
 															.getElementById("addAddressLatitude").value = latitude;
 													document
 															.getElementById("addAddressLongitude").value = longitude;
+													calculateDistance(latitude,
+															longitude, 4);
 												} catch (err) {
 
 													document
