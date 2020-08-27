@@ -80,6 +80,11 @@
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/munchbox.js"
 	type="text/javascript"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
 <!-- /Place all Scripts Here -->
 
 

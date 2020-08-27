@@ -12,6 +12,11 @@
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datepicker.min.css"
 	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datetimepicker.css"
+	rel="stylesheet" />
+
+
 
 <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
@@ -838,8 +843,7 @@
 						<div class="pop_frm_one">
 							<span>Delivery Date *</span> <input type="text" id="regorderDate"
 								name="regorderDate" class="frm_inpt datepicker"
-								data-date-format="dd-mm-yyyy" placeholder="Delivery Date"
-								autocomplete="off">
+								placeholder="Delivery Date" autocomplete="off">
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_regorderDate">* This field required.</span>
@@ -1096,8 +1100,7 @@
 							<div class="pop_frm_one">
 								<span>Delivery Date</span> <input type="text" id="orderDate"
 									placeholder="Delivery Date" name="orderDate"
-									class="frm_inpt datepicker" data-date-format="dd-mm-yyyy"
-									autocomplete="off">
+									class="frm_inpt datepicker" autocomplete="off">
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderDate">* This
@@ -1107,7 +1110,7 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Time</span> <input name="orderTime"
-									id="orderTime" type="time" class="frm_inpt" />
+									id="orderTime" type="text" class="frm_inpt timepicker" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderTime">* This
@@ -1646,7 +1649,7 @@
 								<span>Delivery Date</span> <input type="text"
 									id="addAddressOrderDate" placeholder="Delivery Date"
 									name="addAddressOrderDate" class="frm_inpt datepicker"
-									data-date-format="dd-mm-yyyy" autocomplete="off">
+									autocomplete="off">
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_addAddressOrderDate">*
@@ -1746,26 +1749,25 @@ solution 1:
 </style>
 	<script type="text/javascript">
 		$(function() {
+			var date = new Date();
+			date.setDate(date.getDate());
 
 			$('.datepicker').datepicker({
-				minDate : new Date(),
-				dateFormat : 'dd-mm-yy',
+				startDate : date,
+				format : 'dd-mm-yyyy',
 				weekStart : 1,
 				daysOfWeekHighlighted : "6,0",
 				autoclose : true,
 				todayHighlight : true,
 			});
 			$('.datepicker').datepicker("setDate", new Date());
+
+			$('.timepicker').datetimepicker({
+				defaultDate : 'now',
+				ignoreReadonly : true,
+				format : 'LT'
+			});
 		});
-		/* $('.datepicker').datepicker({
-			minDate : '0',
-			dateFormat : 'dd-mm-yy',
-			weekStart : 1,
-			daysOfWeekHighlighted : "6,0",
-			autoclose : true,
-			todayHighlight : true,
-		});
-		$('.datepicker').datepicker("setDate", new Date()); */
 	</script>
 
 	<script type="text/javascript">
@@ -2370,10 +2372,10 @@ solution 1:
 							for (var i = 0; i < response.length; i++) {
 
 								var action = ''
-									/* <a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
-										+ response[i].custAddressId
-										+ ')"><i class="fa fa-pencil" aria-hidden="true">'
-										+ '</i></a>  */
+								/* <a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddress('
+									+ response[i].custAddressId
+									+ ')"><i class="fa fa-pencil" aria-hidden="true">'
+									+ '</i></a>  */
 								if (response.length > 1) {
 									action = action
 											+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Delete" onclick="deleteAddress('
@@ -3778,11 +3780,6 @@ solution 1:
 						});
 	</script>
 	<script>
-		/* $(function() {
-			$('.datepicker').datepicker({
-				dateFormat : 'dd-mm-yy'
-			}).value;
-		}); */
 		$('.cleardiv').click(function(e) {
 			$('#error_cancel_remark').hide();
 			$('.model_error_class').hide();
