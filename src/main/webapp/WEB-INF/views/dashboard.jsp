@@ -2196,6 +2196,43 @@ solution 1:
 			//document.getElementById("loaderimg").style.display = "none";
 		}
 
+		function sendPaymentLink(orderId) {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append("orderId", orderId);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/sendPaymentLink',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+
+							document.getElementById("loaderimg").style.display = "none";
+
+							if (response.error == true) {
+								document.getElementById("finalerrormsgcontent").innerHTML = response.message;
+								$('#finalFailedMsg').show();
+
+							} else {
+								document
+										.getElementById("finalsuccessmsgcontent").innerHTML = response.message;
+								$('#finalSuccessMsg').show();
+
+							}
+
+							setTimeout(function() {
+								$('#finalFailedMsg').hide();
+								$('#finalSuccessMsg').hide();
+							}, 5000);
+						},
+					});
+		}
+
 		function viewGrvDetailFun(grvId) {
 
 			//document.getElementById("loaderimg").style.display = "block";
@@ -3963,6 +4000,9 @@ solution 1:
 								} else if (response[i].orderStatus == 9) {
 									orderStatus = 'Online Payment Pending';
 									actionBtn = '<a href="javascript:void(0)"'
+											+ 'class="detail_btn_round" title="Send Payment Link" onclick="sendPaymentLink('
+											+ response[i].orderId
+											+ ',1)"><i class="fa fa-link"></i></a>&nbsp;<a href="javascript:void(0)"'
 											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';

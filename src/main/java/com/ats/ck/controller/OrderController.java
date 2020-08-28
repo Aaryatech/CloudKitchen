@@ -63,6 +63,7 @@ import com.ats.ck.model.GrievencesInstruction;
 import com.ats.ck.model.Info;
 import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.ItemJsonImportData;
+import com.ats.ck.model.LinkResponse;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OfferHeader;
@@ -279,18 +280,18 @@ public class OrderController {
 			 * Obj.writeValueAsString(itemList); model.addAttribute("jsonList", jsonStr);
 			 */
 
-			/*LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			HttpSession session = request.getSession();
-			int frId = (int) session.getAttribute("frIdForOrder");
-
-			map = new LinkedMultiValueMap<String, Object>();
-			map.add("frId", frId);
-			map.add("type", 2);
-			map.add("applicableFor", 1);
-			ItemDisplay[] itemDisplay = Constants.getRestTemplate().postForObject(Constants.url + "getAllItemListByFr",
-					map, ItemDisplay[].class);
-
-			itemList = new ArrayList<>(Arrays.asList(itemDisplay));*/
+			/*
+			 * LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
+			 * Object>(); HttpSession session = request.getSession(); int frId = (int)
+			 * session.getAttribute("frIdForOrder");
+			 * 
+			 * map = new LinkedMultiValueMap<String, Object>(); map.add("frId", frId);
+			 * map.add("type", 2); map.add("applicableFor", 1); ItemDisplay[] itemDisplay =
+			 * Constants.getRestTemplate().postForObject(Constants.url +
+			 * "getAllItemListByFr", map, ItemDisplay[].class);
+			 * 
+			 * itemList = new ArrayList<>(Arrays.asList(itemDisplay));
+			 */
 		} catch (Exception e) {
 		}
 		return itemList;
@@ -1284,6 +1285,184 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return itemJsonList;
+	}
+
+	@RequestMapping(value = "/sendPaymentLink", method = RequestMethod.POST)
+	@ResponseBody
+	public Info sendPaymentLink(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		Info info = new Info();
+
+		try {
+			HttpSession session = request.getSession();
+
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("orderId", orderId);
+			GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getOrderOrderId", map, GetOrderHeaderList.class);
+
+			map = new LinkedMultiValueMap<String, Object>();
+
+			map.add("appId", "27027a6652b91619aa1a8ad8172072");
+			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("orderId", getOrderHeaderList.getUuidNo());
+
+			LinkResponse linkResponse = Constants.getRestTemplate()
+					.postForObject("https://test.cashfree.com/api/v1/order/info/link", map, LinkResponse.class);
+
+			if (linkResponse.getStatus().equals("OK")) {
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", getOrderHeaderList.getCustId());
+				CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
+						map, CustomerDisplay.class);
+
+				DecimalFormat df = new DecimalFormat("#.00");
+				
+				String subject = "Order Payment Link";
+				String msg = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n"
+						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
+						+ "<title>cloud Kitchen :: Happiness is homemade</title>\n" + "</head>\n"
+						+ "<body leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\"\n"
+						+ "	yahoo=\"fix\"\n" + "	style=\"font-family: Arial, sans-serif; background: #e3ebef;\">\n"
+						+ "	<!-- Wrapper -->\n"
+						+ "	<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\n"
+						+ "		align=\"center\" style=\"margin-top: 10px; margin-bottom: 10px;\">\n" + "		<tr>\n"
+						+ "			<td width=\"100%\" valign=\"top\" bgcolor=\"#e3ebef\">\n"
+						+ "				<!-- Start Header--> <!--style=\"padding-top:20px; padding-bottom:20px;\"-->\n"
+						+ "\n"
+						+ "				<table width=\"700\" id=\"tborder\" class=\"deviceWidth\" bgcolor=\"#fff\"\n"
+						+ "					align=\"center\" cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "					style=\"position: relative; border: 2px solid #d8e0e4;\">\n"
+						+ "					<!--f07d00-->\n" + "					<tr>\n"
+						+ "						<td cellspacing=\"0\" cellpadding=\"0\" style=\"padding: 0;\"><table\n"
+						+ "								width=\"100%\" id=\"\" class=\"\" cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "								align=\"center\" background=\"#000\" border=\"0\" style=\"padding: 0;\">\n"
+						+ "								<tr>\n"
+						+ "									<td align=\"center\" style=\"background: #2a3042;\"><img\n"
+						+ "										src=\"" + Constants.softPath
+						+ "resources/assets/img/cloud_kitchen.png\"\n"
+						+ "										alt=\"cloud_kitchen\"\n"
+						+ "										style=\"border: none; max-width: 100%; float: none;\"></td>\n"
+						+ "								</tr>\n" + "								<tr>\n"
+						+ "									<td cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "										style=\"position: relative; padding: 30px 40px;\" border=\"0\"><table\n"
+						+ "											width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "											align=\"center\">\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"text-align: center; font-size: 12px; text-transform: uppercase; padding: 0 0 5px 0; color: #f26a90;\"><strong>Hey\n"
+						+ "														" + getOrderHeaderList.getCustName()
+						+ "</strong></td>\n" + "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"text-align: center; padding: 0 0 15px 0; font-size: 13px; line-height: 22px; color: #3a3a3a;\"><strong\n"
+						+ "													style=\"color: #32b0de;\">Business Name</strong> has\n"
+						+ "													requested a payment of amount INR "
+						+ df.format(getOrderHeaderList.getTotalAmt()) + " for your order #" + getOrderHeaderList.getOrderNo()
+						+ ".\n"
+						+ "													Please click on pay button below to make payment.</td>\n"
+						+ "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td style=\"text-align: center;\"><a\n"
+						+ "													href=" + linkResponse.getPaymentLink()
+						+ " target=\"_blank\"\n"
+						+ "													style=\"background: #9ccd2b; padding: 9px 30px; color: #FFF; font-size: 12px; text-transform: uppercase; font-weight: bold; text-decoration: none;\">Click\n"
+						+ "														to pay INR "
+						+ df.format(getOrderHeaderList.getTotalAmt()) + "</a></td>\n"
+						+ "											</tr>\n"
+						+ "										</table></td>\n"
+						+ "								</tr>\n" + "								<tr>\n"
+						+ "									<td><img\n" + "										src=\""
+						+ Constants.softPath + "resources/assets/img/seprator.jpg\"\n"
+						+ "										alt=\"seprator\"\n"
+						+ "										style=\"border: none; max-width: 100%; float: left; padding: 0 0 28px 0;\"></td>\n"
+						+ "								</tr>\n" + "								<tr>\n"
+						+ "									<td cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "										style=\"position: relative; padding: 0 50px;\" border=\"0\"><table\n"
+						+ "											width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "											style=\"border: 1px solid #e3ebef;\">\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"background: #32b0de; padding: 10px; color: #FFF; text-align: center; font-size: 13px; font-weight: bold;\">Order\n"
+						+ "													Details</td>\n"
+						+ "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"padding: 10px 15px; border-bottom: 1px solid #e3ebef; font-size: 14px; color: #3a3a3a;\"><strong\n"
+						+ "													style=\"font-size: 13px;\">Order / Invoice Number</strong>\n"
+						+ "													&nbsp; #" + getOrderHeaderList.getOrderNo()
+						+ "</td>\n" + "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"padding: 10px 15px; background: #ecf4f8; border-bottom: 1px solid #e3ebef; font-size: 14px; color: #3a3a3a;\"><strong\n"
+						+ "													style=\"font-size: 13px;\">Amount</strong> &nbsp; INR "
+						+ df.format(getOrderHeaderList.getTotalAmt()) + "</td>\n"
+						+ "											</tr>\n"
+						+ "										</table></td>\n"
+						+ "								</tr>\n" + "								<tr>\n"
+						+ "									<td><img\n" + "										src=\""
+						+ Constants.softPath + "resources/assets/img/seprator.jpg\"\n"
+						+ "										alt=\"seprator\"\n"
+						+ "										style=\"border: none; max-width: 100%; float: left; padding: 28px 0;\"></td>\n"
+						+ "								</tr>\n" + "								<tr>\n"
+						+ "									<td cellspacing=\"0\" cellpadding=\"0\"\n"
+						+ "										style=\"position: relative; padding: 0 30px 30px 30px;\"\n"
+						+ "										border=\"0\"><table width=\"100%\" border=\"0\" cellspacing=\"0\"\n"
+						+ "											cellpadding=\"0\">\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"font-size: 13px; padding: 0 0 8px 0; color: #262626;\"><strong>Merchant\n"
+						+ "														Contact</strong> - Email : <a href=\"mailto:akshay@cloudkitchen.in\"\n"
+						+ "													style=\"color: #4666b9; text-decoration: underline;\">akshay@cloudkitchen.in</a>\n"
+						+ "													| Phone : <a href=\"tel:123-456-7890\"\n"
+						+ "													style=\"color: #4666b9; text-decoration: underline;\">123-456-7890</a></td>\n"
+						+ "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"font-size: 13px; color: #262626; padding: 0 0 8px 0;\">(Hit\n"
+						+ "													'Reply' to send a query to merchant)</td>\n"
+						+ "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"color: #8f8b9f; font-size: 12px; padding: 10px 0; line-height: 20px;\">if\n"
+						+ "													you are not the intended receiver of his email or feel\n"
+						+ "													there has been a mistake, then please reach out to <a\n"
+						+ "													href=\"mailto:support@cloudkitchen.com\"\n"
+						+ "													style=\"color: #4666b9; text-decoration: underline;\">support@cloudkitchen.com</a>\n"
+						+ "												</td>\n"
+						+ "											</tr>\n"
+						+ "											<tr>\n"
+						+ "												<td\n"
+						+ "													style=\"color: #3a3a3a; font-size: 13px; line-height: 20px; font-weight: bold;\">Regards,<br>\n"
+						+ "													Team CloudKitchen\n"
+						+ "												</td>\n"
+						+ "											</tr>\n"
+						+ "										</table></td>\n"
+						+ "								</tr>\n"
+						+ "							</table> <!--bottom start---> <!--bottom end---></td>\n"
+						+ "					</tr>\n" + "				</table> <!--end-->\n" + "			</td>\n"
+						+ "		</tr>\n" + "	</table>\n"
+						+ "	<!-- End Wrapper https://www.mytatasky.com/delegate/EmailCampaignAction/CampaignAction?campaignID=liUFBUl1mbM=&vendor=oBEMvseSmG0= -->\n"
+						+ "</body>\n" + "</html>";
+
+				ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, customer.getEmailId());
+
+				info.setError(false);
+				info.setMessage("Link Send Successfully");
+			} else {
+				info.setError(true);
+				info.setMessage(linkResponse.getReason());
+			}
+
+		} catch (Exception e) {
+			info.setError(true);
+			info.setMessage("Error while sending mail");
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	@RequestMapping(value = "/tableScrollExample", method = RequestMethod.GET)
