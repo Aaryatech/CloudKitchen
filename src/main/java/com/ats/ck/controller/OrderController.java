@@ -312,6 +312,8 @@ public class OrderController {
 			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
 			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
 
+			String gstnNo = request.getParameter("gstnNo");
+
 			float applyWalletAmt = 0;
 			try {
 				applyWalletAmt = Float.parseFloat(request.getParameter("applyWalletAmt"));
@@ -407,7 +409,8 @@ public class OrderController {
 				order.setDeliveryCharges(deliveryCharges);
 				order.setUuidNo(uuid);
 				order.setExFloat1(applyWalletAmt);// Wallet Amt
-
+				order.setExVar1(gstnNo);
+				
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
 					order.setOrderDeliveredBy(addCustAgent);
@@ -560,6 +563,8 @@ public class OrderController {
 				getOrderHeaderList.setInsertDateTime(dttime.format(ct));
 				getOrderHeaderList.setInsertUserId(userObj.getUserId());
 				getOrderHeaderList.setExFloat1(applyWalletAmt);
+				getOrderHeaderList.setExVar1(gstnNo);
+				
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
@@ -1320,7 +1325,7 @@ public class OrderController {
 						map, CustomerDisplay.class);
 
 				DecimalFormat df = new DecimalFormat("#.00");
-				
+
 				String subject = "Order Payment Link";
 				String msg = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n"
 						+ "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
@@ -1361,8 +1366,8 @@ public class OrderController {
 						+ "													style=\"text-align: center; padding: 0 0 15px 0; font-size: 13px; line-height: 22px; color: #3a3a3a;\"><strong\n"
 						+ "													style=\"color: #32b0de;\">Business Name</strong> has\n"
 						+ "													requested a payment of amount INR "
-						+ df.format(getOrderHeaderList.getTotalAmt()) + " for your order #" + getOrderHeaderList.getOrderNo()
-						+ ".\n"
+						+ df.format(getOrderHeaderList.getTotalAmt()) + " for your order #"
+						+ getOrderHeaderList.getOrderNo() + ".\n"
 						+ "													Please click on pay button below to make payment.</td>\n"
 						+ "											</tr>\n"
 						+ "											<tr>\n"

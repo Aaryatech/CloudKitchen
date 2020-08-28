@@ -230,7 +230,10 @@
 												onchange="trim(this)" placeholder="Billing Address">${addressDetail.address}</textarea>
 											<span class="model_error_class"
 												style="color: red; display: none;" id="error_billingAddress">*
-												This field required.</span>
+												This field required.</span><br> <label
+												class="text-light-black fw-500 fs-14">GSTN No.</label> <input
+												name="gstnNo" class="form-control" placeholder="GSTN No."
+												id="gstnNo" />
 										</div>
 									</div>
 								</div>
@@ -634,6 +637,7 @@
 				fd.append("textDeliveryInstr",textDeliveryInstr);
 				fd.append("deliveryCharges",deliveryCharges);
 				fd.append("applyWalletAmt",applyWalletAmt);
+				fd.append("gstnNo",gstnNo);
 				
 				$
 						.ajax({
