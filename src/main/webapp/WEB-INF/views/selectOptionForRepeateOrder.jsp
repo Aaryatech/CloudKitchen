@@ -93,7 +93,7 @@
 			<div class="pop_frm_one">
 				<span>Delivery Date</span> <input type="text" id="orderRepeatDate"
 					name="orderRepeatDate" class="frm_inpt datepicker"
-					data-date-format="dd-mm-yyyy">
+					autocomplete="off">
 			</div>
 			<span style="color: red; display: none;" class="model_error_class"
 				id="error_orderRepeatDate">* This field required.</span>
@@ -101,8 +101,8 @@
 
 		<div class="single_row">
 			<div class="pop_frm_one">
-				<input name="orderRepeatTime" id="orderRepeatTime" type="time"
-					class="frm_inpt" />
+				<input name="orderRepeatTime" id="orderRepeatTime" type="text"
+					class="frm_inpt timepicker" autocomplete="off" />
 			</div>
 			<span style="color: red; display: none;" class="model_error_class"
 				id="error_orderRepeatTime">* This field required.</span>
@@ -220,15 +220,24 @@
 	}
 
 	$(function() {
+		var date = new Date();
+		date.setDate(date.getDate());
+
 		$('.datepicker').datepicker({
-			minDate : new Date(),
-			dateFormat : 'dd-mm-yy',
+			startDate : date,
+			format : 'dd-mm-yyyy',
 			weekStart : 1,
 			daysOfWeekHighlighted : "6,0",
 			autoclose : true,
 			todayHighlight : true,
 		});
 		$('.datepicker').datepicker("setDate", new Date());
+
+		$('.timepicker').datetimepicker({
+			defaultDate : 'now',
+			ignoreReadonly : true,
+			format : 'LT'
+		});
 	});
 	$(".country").select2({
 		placeholder : "Select Option",

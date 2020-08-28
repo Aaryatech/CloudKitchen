@@ -102,8 +102,8 @@
 								<input name="mobileNoSearch" type="text"
 									class="input_no numbersOnly  "
 									placeholder="Customer Mobile Number " id="mobileNoSearch"
-									maxlength="10" /> <i class="fa fa-mobile mobile"
-									aria-hidden="true"></i>
+									maxlength="10" autocomplete="off" /> <i
+									class="fa fa-mobile mobile" aria-hidden="true"></i>
 								<button type="submit" value="Submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
@@ -556,8 +556,11 @@
 										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-							<a href="javascript:void(0)" onclick="placeOrderProcess()"
-								class="order_btn">New Order Booking</a>
+							<a href="javascript:void(0)" class="order_btn"> <input
+								type="button" value="New Order Booking"
+								onclick="placeOrderProcess()" disabled class="next_btn"
+								id="newOrderbtn">
+							</a>
 						</div>
 						<div id="previousOrderTabDiv">
 							<div class="tab_row_top">
@@ -728,7 +731,7 @@
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_addShop">* This field required.</span>
 					</div>
-					<div id="agentDiv">
+					<div id="agentDiv" style="display: none;">
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Select Agent *</span>
@@ -851,8 +854,9 @@
 
 					<div class="single_row">
 						<div class="pop_frm_one">
-							<span>Delivery Time *</span><input name="regorderTime"
-								id="regorderTime" type="text" class="frm_inpt timepicker" />
+							<span>Delivery Time *</span><input autocomplete="off"
+								name="regorderTime" id="regorderTime" type="text"
+								class="frm_inpt timepicker" />
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_regorderTime">* This field required.</span>
@@ -1110,7 +1114,8 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Time</span> <input name="orderTime"
-									id="orderTime" type="text" class="frm_inpt timepicker" />
+									id="orderTime" type="text" class="frm_inpt timepicker"
+									autocomplete="off" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_orderTime">* This
@@ -1660,7 +1665,7 @@
 							<div class="pop_frm_one">
 								<span>Delivery Time</span> <input name="addAddressOrderTime"
 									id="addAddressOrderTime" type="text"
-									class="frm_inpt timepicker" />
+									class="frm_inpt timepicker" autocomplete="off" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_addAddressOrderTime">*
@@ -2107,7 +2112,7 @@ solution 1:
 										+ ''; /*</span>*/
 								document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
 								document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-
+								document.getElementById("newOrderbtn").disabled = false;
 								sessionStorage
 										.setItem(
 												"previous_order_history",
@@ -2119,6 +2124,7 @@ solution 1:
 												JSON
 														.stringify(response.grievienceList));
 							} else {
+								document.getElementById("newOrderbtn").disabled = true;
 								document.getElementById("finalerrormsgcontent").innerHTML = "Error while customer Registration";
 								document.getElementById("profileCustName").innerHTML = "-";
 								document.getElementById("profileMobileNo").innerHTML = "-";
