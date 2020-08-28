@@ -3679,6 +3679,20 @@ solution 1:
 	</script>
 	<!--Plugin Initialization-->
 	<script type="text/javascript">
+		function sortArray(array, property, direction) {
+			direction = direction || 1;
+			array.sort(function compare(a, b) {
+				let comparison = 0;
+				if (a[property] > b[property]) {
+					comparison = 1 * direction;
+				} else if (a[property] < b[property]) {
+					comparison = -1 * direction;
+				}
+				return comparison;
+			});
+			return array; // Chainable
+		}
+
 		function calculateDistance(latitude, longitude, type) {
 
 			var bounds = new google.maps.LatLngBounds;
@@ -3692,7 +3706,6 @@ solution 1:
 
 			var frList = sessionStorage.getItem("frList");
 			var list = $.parseJSON(frList);
-			var newFrList = [];
 
 			for (var i = 0; i < list.length; i++) {
 				var data_add = {
@@ -3729,6 +3742,7 @@ solution 1:
 									var destinationList = response.destinationAddresses;
 
 									var results = response.rows[0].elements;
+									var newFrList = [];
 
 									for (var j = 0; j < results.length; j++) {
 
@@ -3742,14 +3756,15 @@ solution 1:
 														+ ' - '
 														+ list[j].km
 														+ ' KM</option>';
+												newFrList.push(list[j]);
 											}
-											newFrList.push(list[j]);
 
 										} catch (err) {
 
 										}
 
 									}
+									sortArray(newFrList, "km");
 									sessionStorage.setItem("frList", JSON
 											.stringify(newFrList));
 									if (type == 1) {
