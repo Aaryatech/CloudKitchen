@@ -892,7 +892,8 @@
 					$("#discriptionCatName").html(obj.catName);
 					$("#discriptionItemShow").html(obj.itemDesc);
 
-					var testIngradiant = '<span class="text-light-white new strong_fnt">New</span>';
+					var testIngradiant = '';
+					try {
 					for (var i = 0; i < obj.tasteList.length; i++) {
 						testIngradiant += '<span class="text-custom-white square-tag"><img title="'
 								+ obj.tasteList[i].ingrediantName
@@ -900,6 +901,9 @@
 								+ 'src="${catImageUrl}'
 								+ obj.tasteList[i].ingrediantImage
 								+ '" alt="tag" onerror="imgErrorJavascript(this,1);"></span>';
+					}
+					} catch (err) {
+
 					}
 					$("#discriptionTaste").html(testIngradiant);
 					$("#discriptionRating").html(

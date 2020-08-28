@@ -278,6 +278,19 @@ public class OrderController {
 			 * ObjectMapper Obj = new ObjectMapper(); String jsonStr =
 			 * Obj.writeValueAsString(itemList); model.addAttribute("jsonList", jsonStr);
 			 */
+
+			/*LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			HttpSession session = request.getSession();
+			int frId = (int) session.getAttribute("frIdForOrder");
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frId);
+			map.add("type", 2);
+			map.add("applicableFor", 1);
+			ItemDisplay[] itemDisplay = Constants.getRestTemplate().postForObject(Constants.url + "getAllItemListByFr",
+					map, ItemDisplay[].class);
+
+			itemList = new ArrayList<>(Arrays.asList(itemDisplay));*/
 		} catch (Exception e) {
 		}
 		return itemList;
@@ -455,7 +468,7 @@ public class OrderController {
 				orderTrail.setStatus(status);
 				orderTrail.setExInt1(1);
 				orderTrail.setExVar1("-");
-				
+
 				OrderSaveData orderSaveData = new OrderSaveData();
 				orderSaveData.setOrderDetailList(orderDetailList);
 				orderSaveData.setOrderHeader(order);
@@ -665,7 +678,7 @@ public class OrderController {
 				orderTrail.setStatus(status);
 				orderTrail.setExInt1(1);
 				orderTrail.setExVar1("-");
-				
+
 				OrderHeader orderHeaderRes = Constants.getRestTemplate()
 						.postForObject(Constants.url + "updateOrderHeader", getOrderHeaderList, OrderHeader.class);
 
@@ -716,8 +729,10 @@ public class OrderController {
 
 						map.add("appId", "27027a6652b91619aa1a8ad8172072");
 						map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
-						/*map.add("appId", "7233535973c0dcc4f58af274653327");
-						map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");*/
+						/*
+						 * map.add("appId", "7233535973c0dcc4f58af274653327"); map.add("secretKey",
+						 * "44bb412ea48da2acb093573debfdd42306099612");
+						 */
 						map.add("orderId", uuid);
 						map.add("orderAmount", totalAmt);
 						map.add("orderCurrency", "INR");
@@ -730,8 +745,11 @@ public class OrderController {
 
 						Body res = Constants.getRestTemplate()
 								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
-						/*Body res = Constants.getRestTemplate()
-								.postForObject("https://api.cashfree.com/api/v1/order/create", map, Body.class);*/
+						/*
+						 * Body res = Constants.getRestTemplate()
+						 * .postForObject("https://api.cashfree.com/api/v1/order/create", map,
+						 * Body.class);
+						 */
 
 						String subject = "Order Payment Link";
 						String msg = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n"
@@ -1228,6 +1246,8 @@ public class OrderController {
 
 			itemList = new ArrayList<>(Arrays.asList(itemDisplay));
 
+			String str = "";
+
 			for (int i = 0; i < detailList.size(); i++) {
 
 				for (int j = 0; j < itemList.size(); j++) {
@@ -1244,11 +1264,15 @@ public class OrderController {
 						item.setIgstPer(itemList.get(j).getIgstPer());
 						item.setSpecialremark("");
 						itemJsonList.add(item);
+						str = str + itemList.get(j).getItemId() + ",";
 						break;
 					}
 				}
 
 			}
+
+			str = str.substring(0, str.length() - 1);
+			session.setAttribute("itemIdsForRelatedItem", str);
 
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("custId", getOrderHeaderList.getCustId());

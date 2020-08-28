@@ -852,7 +852,7 @@
 					<div class="single_row">
 						<div class="pop_frm_one">
 							<span>Delivery Time *</span><input name="regorderTime"
-								id="regorderTime" type="time" class="frm_inpt" />
+								id="regorderTime" type="text" class="frm_inpt timepicker" />
 						</div>
 						<span style="color: red; display: none;" class="model_error_class"
 							id="error_regorderTime">* This field required.</span>
@@ -1659,7 +1659,8 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Time</span> <input name="addAddressOrderTime"
-									id="addAddressOrderTime" type="time" class="frm_inpt" />
+									id="addAddressOrderTime" type="text"
+									class="frm_inpt timepicker" />
 							</div>
 							<span style="color: red; display: none;"
 								class="model_error_class" id="error_addAddressOrderTime">*
@@ -2266,7 +2267,11 @@ solution 1:
 							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
 				} else {
-					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+
+					action = '<a href="javascript:void(0)"'
+							+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
+							+ table[i].orderId
+							+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
 							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
@@ -3575,7 +3580,7 @@ solution 1:
 						success : function(response) {
 							sessionStorage.setItem("cartValue", JSON
 									.stringify(response));
-							var url = '${pageContext.request.contextPath}/addOrder';
+							var url = '${pageContext.request.contextPath}/checkout';
 							window.location = url;
 						},
 					});
