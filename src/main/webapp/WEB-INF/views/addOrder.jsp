@@ -420,10 +420,20 @@
 											<div class="hiddensubcategoryvalue" style="display: none;">${itemList.subCatName}</div>
 											<div class="hiddenItemNamevalue" style="display: none;">${itemList.itemName}</div>
 											<div class="hiddenItemTagvalue" style="display: none;">${itemList.tagName}</div>
-											<div class="order_now">
+											
+																					
+											<div class="plus_minus_bx">
+												<div class="input-group">
+												  <input type="button" value="-" class="button-minus" data-field="quantity">
+												  <input type="number" step="1" max="" value="1" name="quantity" class="quantity-field">
+												  <input type="button" value="+" class="button-plus" data-field="quantity">
+												</div>
+											</div>
+											
+											<%-- <div class="order_now">
 												<a href="javascript:void(0)"
 													onclick="addTocart(1,${itemList.itemId})">Order Now</a>
-											</div>
+											</div> --%>
 
 										</div>
 										<div class="clr"></div>
@@ -543,7 +553,9 @@
 						<!--related Causin-->
 						<div class="pop_cousin pop_disc">
 							<span class="pop_disc">Related Items </span>
-							<ul id="discriptionRelatedItem">
+							
+							<div class="related_pic_row">
+								<ul id="discriptionRelatedItem">
 								<li><a href="#"> <img
 										src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
 										class="rounded-circle" alt="categories"> Italian
@@ -569,6 +581,8 @@
 										class="rounded-circle" alt="categories"> Lebanese
 								</a></li>
 							</ul>
+							</div>
+							
 						</div>
 
 					</div>
@@ -1077,6 +1091,45 @@
 
 		}).call(this);
 	</script>
+
+
+	<script>
+	function incrementValue(e) {
+		  e.preventDefault();
+		  var fieldName = $(e.target).data('field');
+		  var parent = $(e.target).closest('div');
+		  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+		  if (!isNaN(currentVal)) {
+		    parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+		  } else {
+		    parent.find('input[name=' + fieldName + ']').val(0);
+		  }
+		}
+
+		function decrementValue(e) {
+		  e.preventDefault();
+		  var fieldName = $(e.target).data('field');
+		  var parent = $(e.target).closest('div');
+		  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+		  if (!isNaN(currentVal) && currentVal > 0) {
+		    parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+		  } else {
+		    parent.find('input[name=' + fieldName + ']').val(0);
+		  }
+		}
+
+		$('.input-group').on('click', '.button-plus', function(e) {
+		  incrementValue(e);
+		});
+
+		$('.input-group').on('click', '.button-minus', function(e) {
+		  decrementValue(e);
+		});
+
+	</script>
+
 </body>
 
 </html>
