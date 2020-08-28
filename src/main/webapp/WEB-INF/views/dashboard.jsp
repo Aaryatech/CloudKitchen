@@ -2513,6 +2513,9 @@ solution 1:
 			$("#error_addAdressShop").hide();
 			$("#error_addAddressAgent").hide();
 
+			var diff = dateTimeValidation($("#addAddressOrderDate").val(), $(
+					"#addAddressOrderTime").val());
+
 			var isError = false;
 
 			var agentId = 0;
@@ -2520,6 +2523,13 @@ solution 1:
 			var iscity = $("#cityDataAddReg" + $("#addAddressCity").val())
 					.data("iscity");
 
+			if (diff < 60) {
+				isError = true;
+				$("#error_addAddressOrderTime")
+						.html(
+								"* Delivery Date Time should be greter than 60 min from current date time");
+				$("#error_addAddressOrderTime").show();
+			}
 			if ($("#addAdressShop").val() == ""
 					|| $("#addAdressShop").val() == 0) {
 				isError = true;
@@ -2536,6 +2546,7 @@ solution 1:
 			}
 			if (!$("#addAddressOrderTime").val()) {
 				isError = true;
+				$("#error_addAddressOrderTime").html("* This field required.");
 				$("#error_addAddressOrderTime").show();
 			}
 			if (!$("#addAddressOrderDate").val()) {
@@ -2667,8 +2678,19 @@ solution 1:
 			$("#error_regorderDate").hide();
 			$("#error_regorderTime").hide();
 			$("#error_addShop").hide();
+
+			var diff = dateTimeValidation($("#regorderDate").val(), $(
+					"#regorderTime").val());
+
 			var isError = false;
 
+			if (diff < 60) {
+				isError = true;
+				$("#error_regorderTime")
+						.html(
+								"* Delivery Date Time should be greter than 60 min from current date time");
+				$("#error_regorderTime").show();
+			}
 			if ($("#addShop").val() == "" || $("#addShop").val() == 0) {
 				isError = true;
 				$("#error_addShop").show();
@@ -2680,6 +2702,7 @@ solution 1:
 			if (!$("#regorderTime").val()) {
 				isError = true;
 				$("#error_regorderTime").show();
+				$("#error_regorderTime").html("* This field required.");
 			}
 			if (!$("#custname").val()) {
 				isError = true;
@@ -3236,8 +3259,23 @@ solution 1:
 				document.getElementById("orderstep4").style.display = "none";
 			}
 		}
+
+		function dateTimeValidation(date, time) {
+			var start = time
+			var date = date;
+			var parts = date.split('-');
+			var timeStart = new Date();
+			var timeEnd = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]
+					+ " " + start);
+
+			var diff = (timeEnd - timeStart) / 60000;
+			return diff;
+		}
+
 		function changeStep(id) {
 
+			var diff = dateTimeValidation($("#orderDate").val(),
+					$("#orderTime").val());
 			var isError = false;
 
 			$("#error_addressListForOrder").hide();
@@ -3271,11 +3309,20 @@ solution 1:
 			}
 			if (!$("#orderTime").val()) {
 				isError = true;
+				$("#error_orderTime").html("* This field required.");
 				$("#error_orderTime").show();
 			}
 			if (!$("#orderDate").val()) {
 				isError = true;
 				$("#error_orderDate").show();
+			}
+
+			if (diff < 60) {
+				isError = true;
+				$("#error_orderTime")
+						.html(
+								"* Delivery Date Time should be greter than 60 min from current date time");
+				$("#error_orderTime").show();
 			}
 			if (!isError) {
 				document.getElementById("loaderimg").style.display = "block";
