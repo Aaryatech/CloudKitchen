@@ -556,11 +556,11 @@
 										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-							<a href="javascript:void(0)" class="order_btn"> <input
+							 <input
 								type="button" value="New Order Booking"
-								onclick="placeOrderProcess()" disabled class="next_btn"
+								onclick="placeOrderProcess()" disabled class="next_btn right"
 								id="newOrderbtn">
-							</a>
+							
 						</div>
 						<div id="previousOrderTabDiv">
 							<div class="tab_row_top">

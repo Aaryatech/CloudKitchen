@@ -74,7 +74,7 @@
   margin: 0;
 }
 .bootstrap-datetimepicker-widget a[data-action] {
-  padding: 6px 0;
+  padding: 2px 0 /* 6px */;
 }
 .bootstrap-datetimepicker-widget a[data-action]:active {
   box-shadow: none;
@@ -82,10 +82,10 @@
 .bootstrap-datetimepicker-widget .timepicker-hour,
 .bootstrap-datetimepicker-widget .timepicker-minute,
 .bootstrap-datetimepicker-widget .timepicker-second {
-  width: 54px;
+  width: 25px;
   font-weight: bold;
   font-size: 1.2em;
-  margin: 0;
+  margin: 0; font-size: 14px;
 }
 .bootstrap-datetimepicker-widget button[data-action] {
   padding: 6px;
@@ -211,8 +211,8 @@
   line-height: inherit;
 }
 .bootstrap-datetimepicker-widget .picker-switch td span {
-  line-height: 2.5;
-  height: 2.5em;
+  line-height: 25px /* 2.5 */;
+  height: 25px /* 2.5em */;
   width: 100%;
 }
 .bootstrap-datetimepicker-widget table {
@@ -267,20 +267,20 @@
   background: #eeeeee;
 }
 .bootstrap-datetimepicker-widget table td {
-  height: 54px;
-  line-height: 54px;
-  width: 54px;
+  height: 25px;
+  line-height: 25px;
+  width: 25px; padding: 5px; font-size: 14px;
 }
 .bootstrap-datetimepicker-widget table td.cw {
   font-size: .8em;
-  height: 20px;
-  line-height: 20px;
+  height: 25px;
+  line-height: 25px;
   color: #777777;
 }
 .bootstrap-datetimepicker-widget table td.day {
-  height: 20px;
-  line-height: 20px;
-  width: 20px;
+  height: 25px;
+  line-height: 25px;
+  width: 25px;
 }
 .bootstrap-datetimepicker-widget table td.day:hover,
 .bootstrap-datetimepicker-widget table td.hour:hover,
@@ -324,9 +324,9 @@
 }
 .bootstrap-datetimepicker-widget table td span {
   display: inline-block;
-  width: 54px;
-  height: 54px;
-  line-height: 54px;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
   margin: 2px 1.5px;
   cursor: pointer;
   border-radius: 4px;
