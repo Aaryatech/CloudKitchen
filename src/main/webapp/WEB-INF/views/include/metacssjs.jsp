@@ -36,11 +36,14 @@
 					src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
 					alt="">
 			</button>
-
+			<div class="pop_logo"><img
+							src="${pageContext.request.contextPath}/resources/assets/img/dashboard_logo.png"
+							class="img-fluid" alt="Logo"></div>
 			<div class="pop_signup" id="popupheadingcart">Are you sure?</div>
+			<p class="confirm_txt">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
 			<div class="pop_btn_cntr">
 
-				<button type="button" data-dismiss="modal" class="button_place"
+				<button type="button" data-dismiss="modal" class="button_place popup"
 					id="cancelOrder">OK</button>
 			</div>
 
