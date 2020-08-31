@@ -3,7 +3,7 @@
 
 <!-- jQuery -->
 <div class="modal fade kot-popup" id="confirm">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-md">
 		<!--modal-lg-->
 		<div class="modal-content kot_content">
 			<button type="button" class="close kot_close" data-dismiss="modal">
@@ -12,19 +12,23 @@
 					alt="">
 			</button>
 
+			<div class="pop_logo"><img
+							src="${pageContext.request.contextPath}/resources/assets/img/dashboard_logo.png"
+							class="img-fluid" alt="Logo"></div>
 			<div class="pop_signup" id="popupheading">Are you sure?</div>
-			<div>
+			<p class="confirm_txt">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
+			<div class="pop_btn_cntr">
 				<button type="button" data-dismiss="modal"
-					class="button_place submitmodel" id="submitOrder">Submit</button>
-				<button type="button" data-dismiss="modal" class="button_place"
-					id="cancelOrder">Cancel</button>
+					class="button_place  popup submitmodel" id="submitOrder">Submit </button>
+				<button type="button" data-dismiss="modal" class="button_place popup"
+					id="cancelOrder">Cancel </button>
 			</div>
 
 		</div>
 	</div>
 </div>
 <div class="modal fade kot-popup" id="confirmdivcart">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-md">
 		<!--modal-lg-->
 		<div class="modal-content kot_content">
 			<button type="button" class="close kot_close" data-dismiss="modal">
@@ -34,7 +38,7 @@
 			</button>
 
 			<div class="pop_signup" id="popupheadingcart">Are you sure?</div>
-			<div style="text-align: center;">
+			<div class="pop_btn_cntr">
 
 				<button type="button" data-dismiss="modal" class="button_place"
 					id="cancelOrder">OK</button>

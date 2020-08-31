@@ -4339,7 +4339,7 @@ width: 100%; font-size: 14px; color: #6b6b83; font-weight: 400;}
 td.user-name.menu_nm{color: #e84d7b; font-weight: 600;}
 .trash{text-align: center; display: block; font-size: 18px;}
 
-.check_total{background: #FFF; border: 1px solid #d8e0e4; width: 40%; float: right; padding: 15px;
+.check_total{background: #FFF; border: 1px solid #d8e0e4; width:100% /*40%*/; float: right; padding: 15px;
 margin: 15px 0 0 0;}
 .total_one{color: #797979; font-size: 15px; font-weight: 500; margin: 0 0 10px 0;}
 .total_one span{display: inline-block; width: 65%;}
@@ -4529,7 +4529,7 @@ padding: 7px 8px; border-radius: 5px; -webkit-transition: all ease 0.5s;-moz-tra
 
 
 /*dashboard signup pop css start here */
-.pop_signup{text-align: center; color: #333333; font-size: 20px; font-weight: 600; margin: 0 0 20px 0;}
+.pop_signup{text-align: center; color: #333333; font-size: 20px; font-weight: 600; margin: 0 0 10px 0; /*20px*/}
 .pop_signup img{display: block; margin:5px auto;}
 .pop_signup span{color: #6b6b83; font-size: 15px; font-weight: 500; letter-spacing: 1px; display: block;}
 
@@ -4569,8 +4569,13 @@ letter-spacing: 1px; position: absolute; bottom: 10px;}
 .pop_privacy a:hover{text-decoration: none; color: #f26a90;}
 
 /*add order new page css start here*/
-.order_row{background: #FFF;  -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
+
+
+
+.order_row{background: #FFF;} 
+  
+
+
 .one_order{border-bottom: 1px solid rgba(67, 41, 163, .2); padding: 30px; background: #FFF; position: relative; cursor: pointer;
 -webkit-transition: all ease 0.5s;-moz-transition: all ease 0.5s;-o-transition: all ease 0.5s;-ms-transition: all ease 0.5s;transition: all ease 0.5s;}
 .one_order:hover{background: #f2f2f2; -webkit-transition: all ease 0.5s;-moz-transition: all ease 0.5s;-o-transition: all ease 0.5s;-ms-transition: all ease 0.5s;transition: all ease 0.5s;}
@@ -4651,8 +4656,9 @@ font-weight: 600; letter-spacing: 0.5px; -webkit-transition: all ease 0.5s;-moz-
 .pop_disc{color: #6b6b83; font-size: 13px; line-height: 22px; font-weight: 400; margin: 0 0 15px 0;}
 .pop_disc span,.pop_ordered{font-weight: 600; font-size: 13px;}
 .pop_cousin{display: block; margin: 0 0 15px 0;}
-.pop_cousin ul{/* margin: 7px 0 0 0; padding: 0px; */
-margin: 7px 0 0 0; padding: 0px; width: 200%;}
+.pop_cousin ul{margin: 7px 0 0 0; padding: 0px;
+margin: 7px 0 0 0; padding: 0px;
+    width: 200%;}
 .pop_cousin ul li{list-style-type: none; float: left; margin: 0 18px 0 0; 
 font-size: 12px; font-weight: 600; text-align: center; width: 70px;
  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
@@ -4848,6 +4854,19 @@ input[type="number"] { -moz-appearance: textfield; -webkit-appearance: none;}
 .related_pic_row{overflow-x: auto; width: 100%;}
 
 
+
+/**/
+.chkout_divide{display: inline-block; width: 100%; padding: 20px 0 0 0;}
+.chkout_divide_l{width:60%; padding: 0 30px 0 0; float: left;}
+.chkout_divide_r{width:40%; float: right;}
+.chk_wallet{display: block;}
+.chk_wallet p{font-size: 14px; font-weight: 400; margin: 0 0 10px 0;}
+.chk_wallet p strong{font-weight: 600; font-size: 14px; color: #e84d7b;}
+
+.pop_logo{width: 100%; text-align: center; margin: 0 0 5px 0;}
+.pop_btn_cntr{text-align: center;}
+.button_place.popup{padding: 6px 30px; border-radius: 3px;}
+.confirm_txt{text-align: center; font-size: 14px; line-height: 22px; margin: 0 0 15px 0; color: #797979;}
 
 
 @media screen and (max-width: 1366px) {}
