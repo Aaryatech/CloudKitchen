@@ -556,11 +556,10 @@
 										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-							 <input
-								type="button" value="New Order Booking"
+							<input type="button" value="New Order Booking"
 								onclick="placeOrderProcess()" disabled class="next_btn right"
 								id="newOrderbtn">
-							
+
 						</div>
 						<div id="previousOrderTabDiv">
 							<div class="tab_row_top">
@@ -3751,11 +3750,6 @@ solution 1:
 													.toFixed(2);
 											list[j].km = km;
 											if (km <= parseFloat(list[j].kmAreaCovered)) {
-												html += '<option value="' + list[j].frId + '">'
-														+ list[j].frName
-														+ ' - '
-														+ list[j].km
-														+ ' KM</option>';
 												newFrList.push(list[j]);
 											}
 
@@ -3765,6 +3759,16 @@ solution 1:
 
 									}
 									sortArray(newFrList, "km");
+									for (var j = 0; j < newFrList.length; j++) {
+
+										html += '<option value="' + newFrList[j].frId + '">'
+												+ newFrList[j].frName
+												+ ' - '
+												+ newFrList[j].km
+												+ ' KM</option>';
+
+									}
+
 									sessionStorage.setItem("frList", JSON
 											.stringify(newFrList));
 									if (type == 1) {

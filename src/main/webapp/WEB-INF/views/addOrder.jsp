@@ -420,20 +420,24 @@
 											<div class="hiddensubcategoryvalue" style="display: none;">${itemList.subCatName}</div>
 											<div class="hiddenItemNamevalue" style="display: none;">${itemList.itemName}</div>
 											<div class="hiddenItemTagvalue" style="display: none;">${itemList.tagName}</div>
-											
-																					
-											<div class="plus_minus_bx">
+
+
+											<!-- <div class="plus_minus_bx">
 												<div class="input-group">
-												  <input type="button" value="-" class="button-minus" data-field="quantity">
-												  <input type="number" step="1" max="" value="1" name="quantity" class="quantity-field">
-												  <input type="button" value="+" class="button-plus" data-field="quantity">
+													<input type="button" value="-" class="button-minus"
+														data-field="quantity"> <input type="number"
+														step="1" max="" value="1" name="quantity"
+														class="quantity-field"> <input type="button"
+														value="+" class="button-plus" data-field="quantity">
+												</div>
+											</div> -->
+
+											<div class="order_now">
+												<div id="order_now_btn">
+													<a href="javascript:void(0)"
+														onclick="addTocart(1,${itemList.itemId})">Order Now</a>
 												</div>
 											</div>
-											
-											<%-- <div class="order_now">
-												<a href="javascript:void(0)"
-													onclick="addTocart(1,${itemList.itemId})">Order Now</a>
-											</div> --%>
 
 										</div>
 										<div class="clr"></div>
@@ -553,36 +557,36 @@
 						<!--related Causin-->
 						<div class="pop_cousin pop_disc">
 							<span class="pop_disc">Related Items </span>
-							
+
 							<div class="related_pic_row">
 								<ul id="discriptionRelatedItem">
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
-										class="rounded-circle" alt="categories"> Italian
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
-										class="rounded-circle" alt="categories"> Thai
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
-										class="rounded-circle" alt="categories"> Chinese
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
-										class="rounded-circle" alt="categories"> Maxican
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
-										class="rounded-circle" alt="categories"> Indian
-								</a></li>
-								<li><a href="#"> <img
-										src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
-										class="rounded-circle" alt="categories"> Lebanese
-								</a></li>
-							</ul>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/italian.jpg"
+											class="rounded-circle" alt="categories"> Italian
+									</a></li>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/thai.jpg"
+											class="rounded-circle" alt="categories"> Thai
+									</a></li>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
+											class="rounded-circle" alt="categories"> Chinese
+									</a></li>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/maxican.jpg"
+											class="rounded-circle" alt="categories"> Maxican
+									</a></li>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/indian.jpg"
+											class="rounded-circle" alt="categories"> Indian
+									</a></li>
+									<li><a href="#"> <img
+											src="${pageContext.request.contextPath}/resources/assets/img/lebenese.jpg"
+											class="rounded-circle" alt="categories"> Lebanese
+									</a></li>
+								</ul>
 							</div>
-							
+
 						</div>
 
 					</div>
