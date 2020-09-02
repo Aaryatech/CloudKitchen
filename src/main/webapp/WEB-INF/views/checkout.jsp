@@ -68,153 +68,154 @@
 								</tbody>
 							</table>
 
-							
 
-							
+
+
 							<div class="chkout_divide">
 								<!-- left form-- -->
 								<div class="chkout_divide_l">
 									<div class="form-group">
-											<label class="text-light-black fw-500 fs-14">Payment
-												Option</label><select class="form-control" id="paymentMethod"
-												name="paymentMethod">
-												<option value="1">COD</option>
-												<option value="2">Online Payment Link</option>
-											</select><span class="model_error_class"
-												style="color: red; display: none;" id="error_paymentMethod">*
-												This field required.</span><br> <label
-												class="text-light-black fw-500 fs-14">Delivery Date
-												& Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
-												${time}, Order Time : 50 MIN</label><br> <label
-												class="text-light-black fw-500 fs-14">Delivery
-												Option :&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
-												type="radio" id="homeDelivery" name="typeSelect"
-												class="option-input radio" checked>Home Delivery
-												&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
-												type="radio" class="option-input radio" id="takeaway"
-												name="typeSelect">Take Away</label><br> <label
-												class="text-light-black fw-500 fs-14">Select
-												Delivery Instruction</label><select class="form-control"
-												id="deliveryInstru" name="deliveryInstru">
-												<c:forEach items="${deliveryInstructionList}"
-													var="deliveryInstructionList">
-													<option value="${deliveryInstructionList.instruId}">${deliveryInstructionList.instructnCaption}</option>
-												</c:forEach>
-											</select><span class="model_error_class"
-												style="color: red; display: none;" id="error_deliveryInstru">*
-												This field required.</span><br> <label
-												class="text-light-black fw-500 fs-14">Delivery
-												Instructions</label>
-											<textarea name="textDeliveryInstr" cols="" rows="6"
-												class="form-control formcheck"
-												placeholder="Enter Your Delivery Instructions"
-												id="textDeliveryInstr"></textarea>
-											
-											
-											
-										</div>
-								
-								</div>
-								
-								<!-- right-side -->
-								<div class="chkout_divide_r">
-								
-								<div class="chk_wallet">
-									<%-- ${wallet} --%>
+										<label class="text-light-black fw-500 fs-14">Payment
+											Option</label><select class="form-control" id="paymentMethod"
+											name="paymentMethod">
+											<option value="1">COD</option>
+											<option value="2">Online Payment Link</option>
+										</select><span class="model_error_class"
+											style="color: red; display: none;" id="error_paymentMethod">*
+											This field required.</span><br> <label
+											class="text-light-black fw-500 fs-14">Delivery Date &
+											Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
+											${time}, Order Time : 50 MIN</label><br> <label
+											class="text-light-black fw-500 fs-14">Delivery Option
+											:&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
+											type="radio" id="homeDelivery" name="typeSelect"
+											class="option-input radio" checked>Home Delivery
+											&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
+											type="radio" class="option-input radio" id="takeaway"
+											name="typeSelect">Take Away</label><br> <label
+											class="text-light-black fw-500 fs-14">Select Delivery
+											Instruction</label><select class="form-control" id="deliveryInstru"
+											name="deliveryInstru">
+											<c:forEach items="${deliveryInstructionList}"
+												var="deliveryInstructionList">
+												<option value="${deliveryInstructionList.instruId}">${deliveryInstructionList.instructnCaption}</option>
+											</c:forEach>
+										</select><span class="model_error_class"
+											style="color: red; display: none;" id="error_deliveryInstru">*
+											This field required.</span><br> <label
+											class="text-light-black fw-500 fs-14">Delivery
+											Instructions</label>
+										<textarea name="textDeliveryInstr" cols="" rows="6"
+											class="form-control formcheck"
+											placeholder="Enter Your Delivery Instructions"
+											id="textDeliveryInstr"></textarea>
 
-							
-								<p>
-									Wallet Balance : <strong>${wallet.total}</strong>&nbsp;&nbsp;&nbsp; <input
-										type="checkbox" id="chkWallet" name="chkWallet"
-										onchange="applyWallet()" />
-								</p>
-								<div class="clr"></div>
-							
 
-							
-								<p>
-									<span style="color: #e84d7b;">*</span> Note - Wallet amount will be
-									applicable only when order amount is greater than Rs.
-									<strong>${wallet.walletLimitRs}/-</strong>.
-								</p>
-								
-							
-							
-								<p>
-									<span style="color: #e84d7b;">*</span> Note - Either
-									<strong>${wallet.walletPercent}%</strong> or minimum Rs.
-									<strong>${wallet.walletMinAmt}/-</strong> wallet amount will be applicable.
-								</p>
-								
-							
-							
-								<p id="divWalletMsg" style="display: none;">  
-									<span class="total_bx"
-										style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i
-										class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
-										for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
-										more to use wallet</span>
-								</p>
-								
-							
-								</div>
-								
-								
-								
-									<!--checkout total box-->
-							<div class="check_total">
-								<div class="total-row">
-									<div class="total-row_l">Items sub total</div>
-									<div class="total-row_r" id="item_sub_total">00.00</div>
-									<div class="clr"></div>
-								</div>
-								<div class="total-row">
-									<div class="total-row_l">Tax</div>
-									<div class="total-row_r" id="item_tax_total">00.00</div>
-									<div class="clr"></div>
-								</div>
 
-								<div class="total-row">
-									<div class="total-row_l" id="discAmt">Offer Disc AMT</div>
-									<div class="total-row_r">00.00</div>
-									<div class="clr"></div>
-								</div>
-
-								<div class="total-row">
-									<div class="total-row_l">Applied Wallet AMT</div>
-									<div class="total-row_r" id="applyWalletAmt">00.00</div>
-									<div class="clr"></div>
-								</div>
-
-								<div class="total-row free">
-									<div class="total-row_l">Delivery Charges</div>
-									<div class="total-row_r">
-										<input name="deliveryCharges" id="deliveryCharges" type="text"
-											class="table_inpt numbersOnly" placeholder=" Delivery Free"
-											value="50" onchange="appendTableList()"
-											style="text-align: right;" />
 									</div>
 
-									<div class="clr"></div>
+								</div>
 
-								</div>
-								<div class="total_bx">
-									<div class="total-row_l">Total</div>
-									<div class="total-row_r" id="bill_total">50.00</div>
-									<div class="clr"></div>
-									<input type="hidden" id="hideBillTotal" name="hideBillTotal"
-										value="0">
-								</div>
-								<span class="model_error_class"
-									style="color: red; display: none;" id="error_delivery_charges">*
-									Delivery charges required.</span>
-							</div>
+								<!-- right-side -->
+								<div class="chkout_divide_r">
+
+									<div class="chk_wallet">
+										<%-- ${wallet} --%>
+
+
+										<p>
+											Wallet Balance : <strong>${wallet.total}</strong>&nbsp;&nbsp;&nbsp;
+											<input type="checkbox" id="chkWallet" name="chkWallet"
+												onchange="applyWallet()" />
+										</p>
+										<div class="clr"></div>
+
+
+
+										<p>
+											<span style="color: #e84d7b;">*</span> Note - Wallet amount
+											will be applicable only when order amount is greater than Rs.
+											<strong>${wallet.walletLimitRs}/-</strong>.
+										</p>
+
+
+
+										<p>
+											<span style="color: #e84d7b;">*</span> Note - Either <strong>${wallet.walletPercent}%</strong>
+											or minimum Rs. <strong>${wallet.walletMinAmt}/-</strong>
+											wallet amount will be applicable.
+										</p>
+
+
+
+										<p id="divWalletMsg" style="display: none;">
+											<span class="total_bx"
+												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i
+												class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
+												for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
+												more to use wallet</span>
+										</p>
+
+
+									</div>
+
+
+
+									<!--checkout total box-->
+									<div class="check_total">
+										<div class="total-row">
+											<div class="total-row_l">Items sub total</div>
+											<div class="total-row_r" id="item_sub_total">00.00</div>
+											<div class="clr"></div>
+										</div>
+										<div class="total-row">
+											<div class="total-row_l">Tax</div>
+											<div class="total-row_r" id="item_tax_total">00.00</div>
+											<div class="clr"></div>
+										</div>
+
+										<div class="total-row">
+											<div class="total-row_l" id="discAmt">Offer Disc AMT</div>
+											<div class="total-row_r">00.00</div>
+											<div class="clr"></div>
+										</div>
+
+										<div class="total-row">
+											<div class="total-row_l">Applied Wallet AMT</div>
+											<div class="total-row_r" id="applyWalletAmt">00.00</div>
+											<div class="clr"></div>
+										</div>
+
+										<div class="total-row free">
+											<div class="total-row_l">Delivery Charges</div>
+											<div class="total-row_r">
+												<input name="deliveryCharges" id="deliveryCharges"
+													type="text" class="table_inpt numbersOnly"
+													placeholder=" Delivery Free" value="50"
+													onchange="appendTableList()" style="text-align: right;" />
+											</div>
+
+											<div class="clr"></div>
+
+										</div>
+										<div class="total_bx">
+											<div class="total-row_l">Total</div>
+											<div class="total-row_r" id="bill_total">50.00</div>
+											<div class="clr"></div>
+											<input type="hidden" id="hideBillTotal" name="hideBillTotal"
+												value="0">
+										</div>
+										<span class="model_error_class"
+											style="color: red; display: none;"
+											id="error_delivery_charges">* Delivery charges
+											required.</span>
+									</div>
 								</div>
 								<div class="clr"></div>
 							</div>
-							
 
-							
+
+
 
 						</div>
 						<div class="clr"></div>
@@ -227,7 +228,7 @@
 										<h2>${sessionScope.liveCustomer.custName}</h2>
 										<h3>${addressDetail.addressCaption}</h3>
 										<p>${addressDetail.address}
-											<br> (+91) 1234567890
+											<br>${sessionScope.liveCustomer.phoneNumber}
 										</p>
 									</div>
 									<br>
@@ -241,7 +242,7 @@
 								<div class="col-lg-8">
 									<div class="a">
 										<div class="form-group">
-										<label class="text-light-black fw-500 fs-14">Billing
+											<label class="text-light-black fw-500 fs-14">Billing
 												Name *</label> <input name="billingName" class="form-control"
 												onchange="trim(this)" placeholder="Billing Name"
 												value="${sessionScope.liveCustomer.custName}"
