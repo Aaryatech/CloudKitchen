@@ -762,8 +762,7 @@
 							$("#order_now_btn"+table[j].itemId).show();  
 							 
 					}
-				  
-				  
+				   
 				 table =[];
 				sessionStorage.setItem("cartValue", JSON.stringify(table));
 				appendCartList();
