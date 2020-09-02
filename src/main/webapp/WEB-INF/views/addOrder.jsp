@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="/WEB-INF/views/include/header1.jsp"></jsp:include>
-<body onload="appendCartList()">
+<body>
 	<%-- data-customvalueone='${jsonList}' --%>
 
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -249,7 +249,7 @@
 
 
 
-						<div class="inner_scroll">
+						<div class="inner_scroll" id="itemListDiv">
 							<!--1-->
 
 							<c:forEach items="${itemList}" var="itemList">
@@ -422,18 +422,24 @@
 											<div class="hiddenItemTagvalue" style="display: none;">${itemList.tagName}</div>
 
 
-											<!-- <div class="plus_minus_bx">
+											<div class="plus_minus_bx" style="display: none;"
+												id="numberDiv${itemList.itemId}">
 												<div class="input-group">
 													<input type="button" value="-" class="button-minus"
-														data-field="quantity"> <input type="number"
-														step="1" max="" value="1" name="quantity"
-														class="quantity-field"> <input type="button"
-														value="+" class="button-plus" data-field="quantity">
+														id="minus${itemList.itemId}" data-field="quantity"
+														onclick="decrementValue(${itemList.itemId})"> <input
+														type="number" step="1" max="" value="1" name="quantity"
+														class="quantity-field"
+														onchange="addTocart(1,${itemList.itemId})"
+														id="quantity${itemList.itemId}"> <input
+														type="button" value="+" class="button-plus"
+														data-field="quantity" id="plus${itemList.itemId}"
+														onclick="incrementValue(${itemList.itemId})">
 												</div>
-											</div> -->
+											</div>
 
 											<div class="order_now">
-												<div id="order_now_btn">
+												<div id="order_now_btn${itemList.itemId}">
 													<a href="javascript:void(0)"
 														onclick="addTocart(1,${itemList.itemId})">Order Now</a>
 												</div>
@@ -614,23 +620,34 @@
 		 
 		function addTocart(type,itemId) {
 			
+			
+			var isError = false; 
+			$("#qty_error").hide();
+			
 			var qty = 1;
 			
 			if(type==0){
-				qty = $('#itemQty').val();
+				qty = $('#itemQty').val(); 
+				if(qty<=0){
+					isError = true;
+					$("#qty_error").show();
+				}else{
+					$('#quantity'+itemId).val(qty);
+				}
+			}else{
+				qty = $('#quantity'+itemId).val();
+				
+				if(qty<=0){
+					$('#quantity'+itemId).val(1);
+					qty=1;
+				}
 			}
-			 
-			var isError = false;
-			
-			$("#qty_error").hide();
-			
-			if(qty<=0){
-				isError = true;
-				$("#qty_error").show();
-			}
+			  
 			
 			if (!isError) {
 				
+				$("#numberDiv"+itemId).show(); 
+				$("#order_now_btn"+itemId).hide(); 
 				$('#discription').modal('hide'); 
 				
 				var cartValue = sessionStorage.getItem("cartValue");
@@ -644,7 +661,7 @@
 					
 					if(table[i].itemId==itemId){
 						 
-						table[i].qty=parseFloat(table[i].qty)+parseFloat(qty);
+						table[i].qty=parseFloat(qty);
 						table[i].total=table[i].qty*table[i].price;
 						findItem=1;
 						break;
@@ -695,7 +712,7 @@
 						 $("#item_cart_list").append('<div class="cat-product-box" id=itemcartdiv'+i+'> <div class="cat-product"> <div class="cat-name">'+
 								 '<a href="javascript:void(0)" onclick="itemDetailDesc('+table[i].itemId+')" title="'+table[i].itemName+',Rate : '+table[i].price+'"> <p class="text-light-green"> <span class="text-dark-white">'+table[i].qty+'</span> '
 								 +table[i].itemName+'</p> </a> </div> <div class="delete-btn">'+
-								 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
+								 '<a href="javascript:void(0)" class="text-dark-white" onclick="deleteItemFromCart('+i+','+table[i].itemId+')"> <i class="far fa-trash-alt"></i> </a> </div> <div class="price">'+
 								 '<a href="javascript:void(0)" class="text-dark-white fw-500">'+(table[i].total).toFixed(2)+'</a> </div> </div> </div>');
 						 subtotal=parseFloat(subtotal)+parseFloat((table[i].total).toFixed(2));
 					 }
@@ -713,7 +730,7 @@
 				 
 		}
 		
-		function deleteItemFromCart(elem) {
+		function deleteItemFromCart(elem,itemId) {
 			 
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue); 
@@ -721,6 +738,11 @@
 			 
 			table.splice(elem, 1); 
 			sessionStorage.setItem("cartValue", JSON.stringify(table)); 
+			
+			$("#numberDiv"+itemId).hide(); 
+			$("#order_now_btn"+itemId).show(); 
+			$('#quantity'+itemId).val(0);
+			
 			appendCartList();
 				
 		}
@@ -730,7 +752,19 @@
 		        .modal({ backdrop: 'static', keyboard: false });
 		              
 			  $(".submitmodel").unbind().click(function() {
-				  var table =[];
+				  
+				  var cartValue = sessionStorage.getItem("cartValue");
+					var table = $.parseJSON(cartValue); 
+				  
+					for(var j=0; j<table.length ; j++){
+						 
+							$("#numberDiv"+table[j].itemId).hide(); 
+							$("#order_now_btn"+table[j].itemId).show();  
+							 
+					}
+				  
+				  
+				 table =[];
 				sessionStorage.setItem("cartValue", JSON.stringify(table));
 				appendCartList();
 				});
@@ -997,8 +1031,48 @@
 			});
 			$("#currentVal").html(500);
 			getFrList();
+			appendCartList();
+			getItemList(); 
 		});
 		 
+		function getItemList() {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/getItemList',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							document.getElementById("loaderimg").style.display = "none";
+							//alert(JSON.stringify(response))
+							sessionStorage.setItem("allItemList", JSON
+									.stringify(response));
+							
+							var cartValue = sessionStorage.getItem("cartValue");
+							var table = $.parseJSON(cartValue); 
+							
+							for(var i=0; i<response.length ; i++){
+								
+								for(var j=0; j<table.length ; j++){
+									
+									if(response[i].itemId==table[j].itemId){
+										$("#numberDiv"+table[j].itemId).show(); 
+										$("#order_now_btn"+table[j].itemId).hide(); 
+										$('#quantity'+table[j].itemId).val(table[i].qty);
+										break;
+									}
+								}
+								   		
+							}
+						},
+					});
+
+		}
 		function getFrList() {
 
 			var selectedFrId = $("#hiddenSelectedFrId").val();
@@ -1098,40 +1172,30 @@
 
 
 	<script>
-	function incrementValue(e) {
-		  e.preventDefault();
-		  var fieldName = $(e.target).data('field');
-		  var parent = $(e.target).closest('div');
-		  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-
+	function incrementValue(itemId) {
+		 
+		  var currentVal = parseFloat($('#quantity'+itemId).val()); 
+		  
 		  if (!isNaN(currentVal)) {
-		    parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+			  $('#quantity'+itemId).val(currentVal + 1);  
 		  } else {
-		    parent.find('input[name=' + fieldName + ']').val(0);
+			  $('#quantity'+itemId).val(1);   
 		  }
+		  addTocart(1,itemId);
 		}
 
-		function decrementValue(e) {
-		  e.preventDefault();
-		  var fieldName = $(e.target).data('field');
-		  var parent = $(e.target).closest('div');
-		  var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
-
+		function decrementValue(itemId) {
+		  
+		var currentVal = parseFloat($('#quantity'+itemId).val()); 
+		  
 		  if (!isNaN(currentVal) && currentVal > 0) {
-		    parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+			  $('#quantity'+itemId).val(currentVal - 1);  
 		  } else {
-		    parent.find('input[name=' + fieldName + ']').val(0);
+			  $('#quantity'+itemId).val(1);   
 		  }
+		  addTocart(1,itemId);
 		}
-
-		$('.input-group').on('click', '.button-plus', function(e) {
-		  incrementValue(e);
-		});
-
-		$('.input-group').on('click', '.button-minus', function(e) {
-		  decrementValue(e);
-		});
-
+ 
 	</script>
 
 </body>
