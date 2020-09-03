@@ -767,14 +767,15 @@
 			var reqAmtToAvailWallet=${wallet.walletLimitRs}-billTotal;
 			$("#shopMoreMsg").html(reqAmtToAvailWallet.toFixed(2));
 			
-			if(reqAmtToAvailWallet>0){
+			
+			if(reqAmtToAvailWallet>0 && ${wallet.total}>0){
 				$("#divWalletMsg").show();
 			}else{
 				$("#divWalletMsg").hide();
 			}
 			
 			
-			if(${wallet.walletLimitRs} <= billTotal){
+			if(${wallet.walletLimitRs} <= billTotal && ${wallet.total}>0) {
 				document.getElementById("chkWallet").checked=true;	
 				
 				var walletPerApplyAmt=(billTotal*${wallet.walletPercent})/100;
@@ -782,11 +783,25 @@
 				//alert("per - "+walletPerApplyAmt+"      Amt - "+${wallet.walletMinAmt});
 				
 				if(walletPerApplyAmt <= ${wallet.walletMinAmt}){
-					billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
-					$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+					
+					if(walletPerApplyAmt > ${wallet.total}){
+						billTotal=billTotal-parseFloat(${wallet.total});
+						$("#applyWalletAmt").html(${wallet.total});
+					}else{
+						billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
+						$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+					}
+					
 				}else{
-					billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
-					$("#applyWalletAmt").html(${wallet.walletMinAmt});
+					
+					if(${wallet.walletMinAmt} > ${wallet.total}){
+						billTotal=billTotal-parseFloat(${wallet.total});
+						$("#applyWalletAmt").html(${wallet.total});
+					}else{
+						billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
+						$("#applyWalletAmt").html(${wallet.walletMinAmt});
+					}
+					
 				}
 				
 				$("#bill_total").html(billTotal.toFixed(2));
@@ -1000,48 +1015,57 @@
 		}
 		
 		function applyWallet(){
-			
+					
 			var billTotal=document.getElementById("hideBillTotal").value;
-			
+					
 			var reqAmtToAvailWallet=${wallet.walletLimitRs}-billTotal;
 			$("#shopMoreMsg").html(reqAmtToAvailWallet.toFixed(2));
-			
-			if(reqAmtToAvailWallet>0){
+					
+			if(reqAmtToAvailWallet>0 && ${wallet.total}>0){
 				$("#divWalletMsg").show();
 			}else{
 				$("#divWalletMsg").hide();
 			}
-
-			
-			
+		
 			if(document.getElementById("chkWallet").checked == true){
-				
-				if(${wallet.walletLimitRs} <= billTotal){
+						
+				if(${wallet.walletLimitRs} <= billTotal && ${wallet.total} > 0){
 					document.getElementById("chkWallet").checked=true;	
-					
+								
 					var walletPerApplyAmt=(billTotal*${wallet.walletPercent})/100;
-					
-					//alert("per - "+walletPerApplyAmt+"      Amt - "+${wallet.walletMinAmt});
-					
+								
+								//alert("per - "+walletPerApplyAmt+"      Amt - "+${wallet.walletMinAmt});
+								
 					if(walletPerApplyAmt <= ${wallet.walletMinAmt}){
-						billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
-						$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+									
+						if(walletPerApplyAmt > ${wallet.total}){
+							billTotal=billTotal-parseFloat(${wallet.total});
+							$("#applyWalletAmt").html(${wallet.total});
+						}else{
+							billTotal=billTotal-parseFloat(walletPerApplyAmt.toFixed(2));
+							$("#applyWalletAmt").html(walletPerApplyAmt.toFixed(2));
+						}
+									
 					}else{
-						billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
-						$("#applyWalletAmt").html(${wallet.walletMinAmt});
+									
+						if(${wallet.walletMinAmt} > ${wallet.total}){
+							billTotal=billTotal-parseFloat(${wallet.total});
+							$("#applyWalletAmt").html(${wallet.total});
+						}else{
+							billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
+							$("#applyWalletAmt").html(${wallet.walletMinAmt});
+						}
+									
 					}
-					
+								
 					$("#bill_total").html(billTotal.toFixed(2));
-					
-					
-					
+								
 				}else{
 					document.getElementById("chkWallet").checked=false;
-				}	
-				
-				
+				}
+							
 			}else{
-				
+						
 				document.getElementById("bill_total").innerHTML=billTotal;
 				document.getElementById("chkWallet").checked=false;
 				$("#applyWalletAmt").html("00.00");

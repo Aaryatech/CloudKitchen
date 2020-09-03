@@ -902,7 +902,7 @@ public class OrderController {
 				List<String> tokenList = new ArrayList<>(Arrays.asList(list));
 
 				PushNotification.sendNotification(tokenList, "New Order", "You Have New Order.",
-						"https://107.180.88.121:8443/CloudKitchen/firebase",
+						"http://107.180.91.43:8080/pos/showCkOrders",
 						"https://107.180.88.121:8443/CloudKitchen");
 			}
 		} catch (Exception e) {
