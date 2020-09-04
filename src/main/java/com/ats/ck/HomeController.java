@@ -1,7 +1,6 @@
 package com.ats.ck;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
@@ -42,6 +41,7 @@ import com.ats.ck.model.Agent;
 import com.ats.ck.model.Area;
 import com.ats.ck.model.City;
 import com.ats.ck.model.CustWalletTotal;
+import com.ats.ck.model.CustWalletTransaction;
 import com.ats.ck.model.Customer;
 import com.ats.ck.model.CustomerAddress;
 import com.ats.ck.model.CustomerAddressDisplay;
@@ -52,24 +52,12 @@ import com.ats.ck.model.GetFranchiseData;
 import com.ats.ck.model.GetGrievienceList;
 import com.ats.ck.model.GetOrderHeaderList;
 import com.ats.ck.model.Info;
-import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.Language;
 import com.ats.ck.model.LoginResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.OrderListData;
 import com.ats.ck.model.Setting;
 import com.ats.ck.model.showCustomerInfo;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.Message;
-import com.google.firebase.messaging.Notification;
-import com.google.firebase.messaging.WebpushConfig;
-import com.google.firebase.messaging.WebpushNotification;
 
 /**
  * Handles requests for the application home page.
@@ -963,6 +951,28 @@ public class HomeController {
 			System.out.println(e);
 		}
 
+	}
+
+	@RequestMapping(value = "/displayCustWalletTransc", method = RequestMethod.GET)
+	@ResponseBody
+	public List<CustWalletTransaction> displayCustWalletTransc(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<CustWalletTransaction> res = new ArrayList<>();
+		try {
+
+			HttpSession session = request.getSession();
+			editcust = (CustomerDisplay) session.getAttribute("liveCustomer");
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", editcust.getCustId());
+			CustWalletTransaction[] transcArray = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustWalletTransc", map, CustWalletTransaction[].class);
+			res = new ArrayList<>(Arrays.asList(transcArray));
+
+		} catch (Exception e) {
+		}
+		return res;
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

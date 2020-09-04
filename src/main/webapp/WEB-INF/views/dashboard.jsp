@@ -34,6 +34,9 @@
 -->
 <script
 	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+<c:url var="displayCustWalletTransc" value="/displayCustWalletTransc"></c:url>
+
 <body>
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
@@ -528,12 +531,19 @@
 								<span>Preferred Language</span> : <span
 									id="profilepreferredLang">${customer.langName}</span>
 							</div>
-							
+
 							<div class="profile_one">
-								<span>Wallet Amount</span> : <span
-									id="profileWalletAmt">${wallet.total}</span>
+								<span>Wallet Amount</span> : <span id="profileWalletAmt"
+									style="width: auto;">${wallet.total} </span> &nbsp; <a
+									title="View Detail" class="detail_btn_round" id="walletDetail"
+									href="javascript:void(0)" onclick="walletTranscModal()"><i
+									class="fa fa-list" aria-hidden="true"></i></a>
+
+
 							</div>
-							 	
+
+							<input type="hidden" id="hiddenCustId" value="${customer.custId}">
+
 							<div class="profile_one">
 								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
 									<a title="Add New Address" class="detail_btn_round"
@@ -1508,6 +1518,13 @@
 						</li>
 						<li></li>
 						<li>
+							<div class="pop_txt_l">Wallet AMT</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;" id="view_wallet_total">00.00</span>
+							</div>
+						</li>
+						<li></li>
+						<li>
 							<div class="pop_txt_l">Delivery Charges</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
@@ -1678,9 +1695,10 @@
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Type *</span> <input type="radio"
-									id="rdHomeDeliveryNewAddr" name="radioTypeNewAddr" class="option-input radio"
-									value="1" checked onchange="deliveryTypeHideNewAddress(1)">Home
-								Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+									id="rdHomeDeliveryNewAddr" name="radioTypeNewAddr"
+									class="option-input radio" value="1" checked
+									onchange="deliveryTypeHideNewAddress(1)">Home Delivery
+								&nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
 									type="radio" class="option-input radio" id="rdTakeAwayNewAddr"
 									value="2" onchange="deliveryTypeHideNewAddress(2)"
 									name="radioTypeNewAddr">Take Away
@@ -1782,6 +1800,185 @@
 			</div>
 		</div>
 	</div>
+
+
+	<!-- WALLET TRANSACTION MODAL -->
+
+	<div class="modal fade kot-popup fetch_results" id="walletTransc"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					Wallet<a href="#"></a>
+				</div>
+
+
+				<div class="component">
+					<table class="overflow-y" id="wallet_tr_table">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Sr. No.</th>
+								<th class="sorting_desc">Order No</th>
+								<th class="sorting_desc">Order AMT</th>
+								<th class="sorting_desc">Bill No</th>
+								<th class="sorting_desc">Transaction AMT</th>
+								<th class="sorting_desc">Type</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- MODAL END -->
+
+	<!-- EDIT ADDRESS MODAL -->
+
+	<div class="modal fade kot-popup fetch_results" id="editAddressModal"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					<span id="add_address_lable">Edit Address</span>
+				</div>
+
+				<!--form-->
+				<div class="form_one extra_marg">
+					<form action="" method="get">
+						<h6>Delivery Address</h6>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Address Caption * </span> <input name="editAddressCaption"
+									id="editAddressCaption" placeholder="Address Caption"
+									type="text" class="frm_inpt" />
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_editAddressCaption">*
+								This field required.</span>
+						</div>
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Select Delivery City/Village *</span>
+								<div class="search_multiple">
+									<select class="country" name="editAddressCity"
+										id="editAddressCity"
+										onchange="lanmarkValidationForEditAddress(this.value)">
+										<option value="">Select City</option>
+
+										<c:forEach items="${cityList}" var="cityList">
+											<c:set value="City" var="isCityValue"></c:set>
+
+											<c:if test="${cityList.exInt1==1}">
+												<c:set value="Village" var="isCityValue"></c:set>
+											</c:if>
+											<option value="${cityList.cityId}"
+												data-iscity="${cityList.exInt1}"
+												id="cityDataEditReg${cityList.cityId}"
+												data-cityname="${cityList.cityName}">${cityList.cityName}
+												- ${isCityValue}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_editAddressCity">*
+								This field required.</span>
+						</div>
+
+
+						<div id="editAddressLandMarkDiv">
+							<div class="single_row">
+								<div class="pop_frm_one">
+									<span>Landmark *</span> <input name="editAddressLandmark"
+										id="editAddressLandmark" placeholder="Landmark" type="text"
+										class="frm_inpt" /><input name="editAddressLatitude"
+										type="hidden" class="frm_inpt" id="editAddressLatitude" /><input
+										name="editAddressLongitude" type="hidden" class="frm_inpt"
+										id="editAddressLongitude" /><input name="editAddressDetailId"
+										type="hidden" class="frm_inpt" id="editAddressDetailId"
+										value="0" />
+								</div>
+								<span style="color: red; display: none;"
+									class="model_error_class" id="error_editAddressLandmark">*
+									This field required.</span>
+							</div>
+						</div>
+
+						<div class="single_row" style="display: none;">
+							<div class="pop_frm_one">
+								<span>Select Shop *</span>
+								<div class="search_multiple">
+									<select class="country" id="editAddressShop"
+										name="editAddressShop">
+										<!-- <option value="">Select Area</option>
+									<option value="1" data-name="">Nashik Road</option>
+									<option value="2" data-name="">Canada Corner</option> -->
+									</select>
+								</div>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_editAddressShop">*
+								This field required.</span>
+						</div>
+
+						<input type="hidden" id="editAddr_shopCount" value="0">
+						<span style="color: red; display: none;" class="model_error_class"
+							id="editAddr_shopError">Sorry, No shop available for this location!</span>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Address *</span>
+								<textarea name="editAddressDeliveryAdd"
+									id="editAddressDeliveryAdd" class="frm_inpt"
+									placeholder="Delivery Address"></textarea>
+							</div>
+							<span style="color: red; display: none;"
+								class="model_error_class" id="error_editAddressDeliveryAdd">*
+								This field required.</span>
+						</div>
+
+
+
+
+						<div>
+							<input id="editAddressSubmit" onclick="submitEditAddress()"
+								type="button" value="Submit" class="next_btn" />
+						</div>
+						<!-- class="pop_btn_row"-->
+					</form>
+				</div>
+				<!--form close-->
+
+			</div>
+		</div>
+	</div>
+
+	<!-- END MODAL -->
 
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<script type="text/javascript"
@@ -2146,12 +2343,11 @@ solution 1:
 		}
 
 		function displayCustomerInfo(flag) {
-			
-			if(flag!=1){
+
+			if (flag != 1) {
 				document.getElementById("loaderimg").style.display = "block";
 			}
 
-			
 			var fd = new FormData();
 			$
 					.ajax({
@@ -2170,7 +2366,8 @@ solution 1:
 								document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
 								document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
 								document.getElementById("profileWalletAmt").innerHTML = response.walletAmt;
-								
+								document.getElementById("hiddenCustId").value = response.customerInfo.custId;
+
 								document.getElementById("profileDeliveryAdd").innerHTML = '' /*<span id="profileDeliveryAdd">*/
 										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
 										+ '<i class="fa fa-plus" aria-hidden="true"></i></a><a href="javascript:void(0)" title="Address List"'
@@ -2198,6 +2395,7 @@ solution 1:
 								document.getElementById("profileemail").innerHTML = "-";
 								document.getElementById("profilepreferredLang").innerHTML = "-";
 								document.getElementById("profileWalletAmt").innerHTML = "-";
+								document.getElementById("hiddenCustId").innerHTML = "0";
 								document.getElementById("profileDeliveryAdd").innerHTML = "-";
 								document.getElementById("showPreferredLang").innerHTML = "-";
 								document.getElementById("editCustomerSign").innerHTML = '';
@@ -2377,7 +2575,10 @@ solution 1:
 					orderStatus = 'Cancelled';
 				} else if (table[i].orderStatus == 9) {
 					orderStatus = 'Online Payment Pending';
-					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
+					action = '<a href="javascript:void(0)"'
+							+ 'class="detail_btn_round" title="Send Payment Link" onclick="sendPaymentLink('
+							+ table[i].orderId
+							+ ',1)"><i class="fa fa-link"></i></a>&nbsp;<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
 							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
@@ -2404,7 +2605,7 @@ solution 1:
 						+ '<a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
 						+ ')" class="detail_btn_round" title="Grievences">'
-						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a><a href="#" onclick=repeateOrder('
+						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
 						+ table[i].orderId + ',' + table[i].frId + ','
 						+ table[i].addressId
 						+ ') class="detail_btn_round" title="Repeat Order">'
@@ -2502,6 +2703,11 @@ solution 1:
 											+ response[i].custAddressId
 											+ ')"><i class="fa fa-times" aria-hidden="true"></i> </a>'
 								}
+
+								action = action
+										+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round" title="Edit" onclick="editAddressDash('
+										+ response[i].custAddressId
+										+ ')"><i class="fa fa-pencil" aria-hidden="true"></i> </a>'
 
 								var tr_data = '<tr> <td class="user-name">'
 										+ response[i].addressCaption
@@ -2691,38 +2897,14 @@ solution 1:
 				$("#error_addAddressDeliveryAdd").show();
 			}
 
-			if (!$("#addAddressLatitude").val()) {
-				isError = true;
-				document.getElementById("addAddressLandmark").value = "";
-				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
-				$("#error_addAddressLandmark").show();
-			}
-			if ($("#addAddressLatitude").val() == 0) {
-				isError = true;
-				document.getElementById("addAddressLandmark").value = "";
-				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
-				$("#error_addAddressLandmark").show();
-			}
-			if (!$("#addAddressLongitude").val()) {
-				isError = true;
-				document.getElementById("addAddressLandmark").value = "";
-				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
-				$("#error_addAddressLandmark").show();
-			}
-			if ($("#addAddressLongitude").val() == 0) {
-				isError = true;
-				document.getElementById("addAddressLandmark").value = "";
-				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
-				$("#error_addAddressLandmark").show();
-			}
 			
-			var deliveryType=1;
-			if(document.getElementById("rdHomeDeliveryNewAddr").checked==true){
-				deliveryType=1;
-			}else{
-				deliveryType=2;
+
+			var deliveryType = 1;
+			if (document.getElementById("rdHomeDeliveryNewAddr").checked == true) {
+				deliveryType = 1;
+			} else {
+				deliveryType = 2;
 			}
-			
 
 			if (!isError) {
 				document.getElementById("loaderimg").style.display = "block";
@@ -2936,19 +3118,18 @@ solution 1:
 				document.getElementById("txtPlaces").value = "";
 				$("#error_txtPlaces").show();
 			}
-			
+
 			var deliveryType = 1;
 			if (document.getElementById("rdHomeDelivery").checked == true) {
 				deliveryType = 1;
 			} else {
 				deliveryType = 2;
 			}
-			
 
 			if (!isError) {
-				
+
 				$("#error_mobileNo").hide();
-				
+
 				document.getElementById("loaderimg").style.display = "block";
 				var fd = new FormData();
 				fd.append('custname', $("#custname").val());
@@ -3007,7 +3188,7 @@ solution 1:
 		function submitCustomerRegistration(deliveryType) {
 			document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
-			fd.append('deliveryType', deliveryType);			
+			fd.append('deliveryType', deliveryType);
 			$
 					.ajax({
 						url : '${pageContext.request.contextPath}/submitCustomerRegistration',
@@ -3252,6 +3433,103 @@ solution 1:
 								$('#addAddressLandmark').val(cityname);
 								document.getElementById("addAddressLandmark")
 										.focus();
+							},
+						});
+
+			}
+
+		}
+
+		function lanmarkValidationForEditAddress(cityId) {
+			var iscity = $("#cityDataEditReg" + cityId).data("iscity")
+			//$('#editAddressLandmark').val('');
+
+			document.getElementById("editAddressLatitude").value = "0";
+			document.getElementById("editAddressLongitude").value = "0";
+
+			if (iscity == 1) {
+				$('#editAddressLandMarkDiv').hide();
+
+				document.getElementById("loaderimg").style.display = "block";
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('iscity', iscity);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getShopByCityId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+
+								var html = '<option value="0" selected>Select Shop</option>';
+
+								for (var i = 0; i < response.franchise.length; i++) {
+
+									html += '<option value="' + response.franchise[i].frId + '">'
+											+ response.franchise[i].frName
+											+ '</option>';
+
+								}
+
+								$('#editAdressShop').html(html);
+								$("#editAdressShop").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+
+			} else {
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', cityId);
+				fd.append('iscity', iscity);
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getShopByCityId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+
+								var html = '<option value="0" selected>Select Shop</option>';
+
+								for (var i = 0; i < response.franchise.length; i++) {
+
+									html += '<option value="' + response.franchise[i].frId + '">'
+											+ response.franchise[i].frName
+											+ '</option>';
+
+								}
+
+								$('#editAdressShop').html(html);
+								$("#editAdressShop").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+								// will return the number 123
+
+								$('#editAddressLandMarkDiv').show();
+								var cityname = $("#cityDataEditReg" + cityId)
+										.data("cityname");
+								//$('#editAddressLandmark').val(cityname);
+								document.getElementById("editAddressLandmark")
+										.focus();
+								
+								document.getElementById("editAddr_shopCount").value=response.franchise.length;
+								
+								
+								
 							},
 						});
 
@@ -3659,6 +3937,8 @@ solution 1:
 					$("#view_disc_total").html((list[i].discAmt).toFixed(2));
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
+					$("#view_wallet_total").html((list[i].exFloat1).toFixed(2));
+
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
 
 					$("#order_view_trail tbody").empty();
@@ -3937,6 +4217,8 @@ solution 1:
 												+ ' KM</option>';
 
 									}
+									
+									var shopCount=newFrList.length;
 
 									sessionStorage.setItem("frList", JSON
 											.stringify(newFrList));
@@ -3953,6 +4235,17 @@ solution 1:
 									} else if (type == 4) {
 										$('#addAdressShop').html(html);
 										$("#addAdressShop").trigger("change");
+									} else if (type == 5) {
+										$('#editAddressShop').html(html);
+										$("#editAddressShop").trigger("change");
+
+										document.getElementById("editAddr_shopCount").value=shopCount;
+										if(shopCount == 0){
+											$('#editAddr_shopError').show();
+										}else{
+											$('#editAddr_shopError').hide();
+										}
+										
 									}
 
 								}
@@ -4065,6 +4358,56 @@ solution 1:
 															.getElementById("error_addAddressLandmark").innerHTML = "* Invalid Address.";
 													document
 															.getElementById("error_addAddressLandmark").style.display = "block";
+
+												}
+
+											});
+
+							var editLandmark = new google.maps.places.Autocomplete(
+									document
+											.getElementById('editAddressLandmark'),
+									{
+										fields : [ "name", "geometry.location",
+												"place_id", "formatted_address" ]
+									});
+							editLandmark.setFields([ "name",
+									"geometry.location", "place_id",
+									"formatted_address" ]);
+							google.maps.event
+									.addListener(
+											editLandmark,
+											'place_changed',
+											function() {
+
+												document
+														.getElementById("error_editAddressLandmark").style.display = "none";
+												var pls = editLandmark
+														.getPlace();
+
+												try {
+													var address = pls.formatted_address;
+													var latitude = pls.geometry.location
+															.lat();
+													var longitude = pls.geometry.location
+															.lng();
+													document
+															.getElementById("editAddressLatitude").value = latitude;
+													document
+															.getElementById("editAddressLongitude").value = longitude;
+													calculateDistance(latitude,
+															longitude, 5);
+												} catch (err) {
+
+													document
+															.getElementById("editAddressLandmark").value = "";
+													document
+															.getElementById("editAddressLatitude").value = 0;
+													document
+															.getElementById("editAddressLongitude").value = 0;
+													document
+															.getElementById("error_editAddressLandmark").innerHTML = "* Invalid Address.";
+													document
+															.getElementById("error_editAddressLandmark").style.display = "block";
 
 												}
 
@@ -4219,7 +4562,14 @@ solution 1:
 										+ 'onclick="insertgrievences('
 										+ response[i].orderId
 										+ ')" class="detail_btn_round" title="Grievences">'
-										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>';
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
+										+ response[i].orderId
+										+ ','
+										+ response[i].frId
+										+ ','
+										+ response[i].addressId
+										+ ') class="detail_btn_round" title="Repeat Order">'
+										+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>';
 
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
@@ -4744,7 +5094,7 @@ solution 1:
 				document.getElementById("address").value = "Take Away";
 			}
 		}
-		
+
 		function deliveryTypeHideNewAddress(type) {
 			if (type == 1) {
 				document.getElementById("deliveryAddDiv").style.display = "block";
@@ -4754,6 +5104,239 @@ solution 1:
 				document.getElementById("addAddressDeliveryAdd").value = "Take Away";
 			}
 		}
+
+		function walletTranscModal() {
+
+			var custId = document.getElementById("hiddenCustId").value;
+
+			if (custId > 0) {
+				document.getElementById("loaderimg").style.display = "block";
+
+				$
+						.getJSON(
+								'${displayCustWalletTransc}',
+								{
+									custId : custId,
+									ajax : 'true'
+								},
+								function(data) {
+									//alert(JSON.stringify(data));
+									document.getElementById("loaderimg").style.display = "none";
+
+									if (data != "") {
+										$('#walletTransc').modal('show');
+									}
+
+									$('#wallet_tr_table td').remove();
+
+									$.each(data,
+											function(key, record) {
+
+												var tr = $('<tr></tr>');
+
+												tr.append($('<td></td>').html(
+														key + 1));
+												tr.append($('<td></td>').html(
+														record.orderNo));
+												tr.append($('<td></td>').html(
+														record.totalAmt));
+												tr.append($('<td></td>').html(
+														record.billNo));
+												tr.append($('<td></td>').html(
+														record.amount));
+												tr.append($('<td></td>').html(
+														record.transcType));
+
+												$('#wallet_tr_table tbody')
+														.append(tr);
+
+											});
+
+								});
+
+			}
+
+		}
+
+		function editAddressDash(id) {
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append('id', id);
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/editAddress',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							
+							//alert(JSON.stringify(response));
+
+							$('.model_error_class').hide();
+							$('.fetch_results').find('input:text').val('');
+							$('#addressllist').modal('hide');
+							$('#orderstep1').modal('hide');
+							$('#editAddressModal').modal('show');
+
+							$('#editAddressCity').val(response.cityId);
+							$("#editAddressCity").trigger("change");
+							$("#editAddressCaption").val(
+									response.addressCaption);
+							$("#editAddressLandmark").val(response.landmark);
+							$("#editAddressDeliveryAdd").val(response.address);
+							$("#editAddressLatitude").val(response.latitude);
+							$("#editAddressLongitude").val(response.longitude);
+							$("#editAddressDetailId").val(
+									response.custAddressId);
+
+							document.getElementById("loaderimg").style.display = "none";
+
+						},
+					});
+
+		}
+		
+		function submitEditAddress() {
+
+			$("#error_editAddressCaption").hide();
+			$("#error_editAddressCity").hide();
+			$("#error_editAddressLandmark").hide();
+			$("#error_editAddressDeliveryAdd").hide();
+			$("#error_editAddressShop").hide();
+
+			var isError = false;
+
+			var iscity = $("#cityDataEditReg" + $("#editAddressCity").val())
+					.data("iscity");
+
+		
+		
+			if (!$("#editAddressCaption").val()) {
+				isError = true;
+				$("#error_editAddressCaption").show();
+			}
+
+			if (!$("#editAddressCity").val()) {
+				isError = true;
+				$("#error_editAddressCity").show();
+			}
+			
+			
+			
+			if (iscity == 0) {
+				if (!$("#editAddressLandmark").val()) {
+					isError = true;
+					document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
+					$("#error_editAddressLandmark").show();
+				} else {
+					if ($("#editAddressLatitude").val() == 0
+							|| $("#editAddressLongitude").val() == 0) {
+						isError = true;
+						document.getElementById("error_editAddressLandmark").innerHTML = "* Invalid Address.";
+						$("#editAddressLandmark").val('');
+						$("#error_editAddressLandmark").show();
+					}
+					
+					
+					if (!$("#editAddressLatitude").val()) {
+						isError = true;
+						document.getElementById("editAddressLandmark").value = "";
+						document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
+						$("#error_editAddressLandmark").show();
+					}
+					if ($("#editAddressLatitude").val() == 0) {
+						isError = true;
+						document.getElementById("editAddressLandmark").value = "";
+						document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
+						$("#error_editAddressLandmark").show();
+					}
+					if (!$("#editAddressLongitude").val()) {
+						isError = true;
+						document.getElementById("editAddressLandmark").value = "";
+						document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
+						$("#error_editAddressLandmark").show();
+					}
+					if ($("#editAddressLongitude").val() == 0) {
+						isError = true;
+						document.getElementById("editAddressLandmark").value = "";
+						document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
+						$("#error_editAddressLandmark").show();
+					}
+					
+				}
+			} 
+
+			if (!$("#editAddressDeliveryAdd").val()) {
+				isError = true;
+				$("#error_editAddressDeliveryAdd").show();
+			}
+			
+			if($("#editAddr_shopCount").val() == 0){
+				isError = true;
+			}
+			
+
+			if (!isError) {
+				document.getElementById("loaderimg").style.display = "block";
+				
+				var fd = new FormData();
+				fd.append('addressCation', $("#editAddressCaption").val());
+				fd.append('addAddressCity', $("#editAddressCity").val());
+				fd.append('iscity', iscity);
+				fd.append('addAddressLandmark', $("#editAddressLandmark").val());
+				fd.append('addAddressDeliveryAdd', $("#editAddressDeliveryAdd")
+						.val());
+				fd.append('addAddressLatitude', $("#editAddressLatitude").val());
+				fd.append('addAddressLongitude', $("#editAddressLongitude")
+						.val());
+				fd.append('addAddressDetailId', $("#editAddressDetailId").val());
+
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/submitAddNewAddress',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								document.getElementById("loaderimg").style.display = "none";
+								$('#editAddressModal').modal('hide');
+
+								$('#finalFailedMsg').hide();
+								$('#finalSuccessMsg').hide();
+
+								if (response.error == true) {
+									document.getElementById("loaderimg").style.display = "none";
+									document
+											.getElementById("finalerrormsgcontent").innerHTML = "Error while add new address";
+
+									$('#finalFailedMsg').show();
+								} else {
+									 document
+											.getElementById("finalsuccessmsgcontent").innerHTML = "Address updated successfully";
+									$('#finalSuccessMsg').show(); 
+
+								}
+								//$("#addAddressDeliveryAdd").val('');
+								$('.fetch_results').find('textarea').val('');
+								$('.fetch_results').find('input:text').val('');
+								setTimeout(function() {
+									$('#finalFailedMsg').hide();
+									$('#finalSuccessMsg').hide();
+								}, 5000);
+							},
+						});
+
+		
+			}
+
+		}
+		
 		
 	</script>
 </body>
