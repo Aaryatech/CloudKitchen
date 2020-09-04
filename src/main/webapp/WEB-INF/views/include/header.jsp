@@ -244,7 +244,7 @@
 									</a></li>
 								</ul> -->
 								<div class="user-footer">
-									<span class="text-light-black">Not Jhon?</span> <a
+									<span class="text-light-black">Not ${sessionScope.userInfo.userName}?</span> <a
 										href="${pageContext.request.contextPath}/logout">Sign Out</a>
 								</div>
 							</div>

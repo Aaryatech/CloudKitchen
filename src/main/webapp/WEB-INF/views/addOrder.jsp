@@ -167,6 +167,7 @@
 										aria-hidden="true"></i>
 								</div>
 
+
 								<c:forEach items="${subcatList}" var="subcatList">
 									<div class="subcatclass">
 										<label class="custom-checkbox radio_one"> <input
@@ -246,7 +247,6 @@
 					</div>
 					<!--right product boxes -->
 					<div class="col-lg-9">
-
 
 
 						<div class="inner_scroll" id="itemListDiv">
@@ -924,8 +924,16 @@
 								
 								var combineString = hiddenItemNamevalue+' '+hiddensubcategoryvalue+' '+ hiddenItemTagvalue;
 								
-								if (hiddencategoryvalue.toUpperCase().indexOf(
+								
+								//alert(hiddencategoryvalue);
+								 //alert(catName);
+								 //alert(hiddenItemNamevalue);
+								 //alert(txt);
+								 
+								
+								if (hiddencategoryvalue.toUpperCase().replace("&AMP;","&").indexOf(
 										catName.toUpperCase()) != -1) { 
+									
 								if (hiddenItemNamevalue.toUpperCase().indexOf(
 										txt.toUpperCase()) != -1) {
 									if (list.length > 0) {
@@ -966,6 +974,7 @@
 
 			if(document.getElementById("searchByItem").checked==true){
 				var catName = $('.active_round').text().trim();
+				
 				if(catName=="All"){
 					catName="";
 				} 
@@ -975,9 +984,9 @@
 				$('.subcatclass').each(
 						function(index) {
 
-							var catnamehidn =  document
-									.getElementsByClassName("subcatdummyclass")[index].innerHTML; 
-							if (catnamehidn.toUpperCase().indexOf(
+							var catnamehidn =  document.getElementsByClassName("subcatdummyclass")[index].innerHTML; 
+							
+							if (catnamehidn.toUpperCase().replace("&AMP;","&").indexOf(
 									catName.toUpperCase()) != -1 ) {
 								$(this).show(); 
 							}
@@ -999,7 +1008,7 @@
 									.getElementsByClassName("subcatdummyclass")[index].innerHTML;
 							var subcatnamehidn =  document
 							.getElementsByClassName("subcatdummyclass1")[index].innerHTML; 
-							if (catnamehidn.toUpperCase().indexOf(
+							if (catnamehidn.toUpperCase().replace("&AMP;","&").indexOf(
 									catName.toUpperCase()) != -1 && subcatnamehidn.toUpperCase().indexOf(
 											txt.toUpperCase()) != -1) {
 								$(this).show(); 
@@ -1113,7 +1122,7 @@
 				$('#popupheading').html("You want to change shop?"); 
 				  $('#confirm')
 			        .modal({ backdrop: 'static', keyboard: false });
-			              
+				  
 				  $(".submitmodel").unbind().click(function() {
 				var cartValue = sessionStorage.getItem("cartValue");
 				var table = $.parseJSON(cartValue); 
@@ -1123,8 +1132,7 @@
 				fd.append('headerFrId', headerFrId);
 				fd.append('cartList', cartValue);
 				
-				$
-						.ajax({
+				$.ajax({
 							url : '${pageContext.request.contextPath}/changeFrId',
 							type : 'post',
 							dataType : 'json',
@@ -1142,6 +1150,11 @@
 				  });
 				  
 				  $("#cancelOrder").unbind().click(function() {
+					  $('#headerFrId').val(selectedFrId);
+						$("#headerFrId").trigger("change");
+				  });
+				  
+				  $(".kot_close").unbind().click(function() {
 					  $('#headerFrId').val(selectedFrId);
 						$("#headerFrId").trigger("change");
 				  });

@@ -68,9 +68,6 @@
 								</tbody>
 							</table>
 
-
-
-
 							<div class="chkout_divide">
 								<!-- left form-- -->
 								<div class="chkout_divide_l">
@@ -84,15 +81,16 @@
 											style="color: red; display: none;" id="error_paymentMethod">*
 											This field required.</span><br> <label
 											class="text-light-black fw-500 fs-14">Delivery Date &
-											Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14">${date}
-											${time}, Order Time : 50 MIN</label><br> <label
+											Time :&nbsp;</label> <label class="chk_txt fw-500 fs-14"
+											id="deliveryDateTimeLbl">${date} ${time}, Order Time
+											: 50 MIN</label><br> <label
 											class="text-light-black fw-500 fs-14">Delivery Option
 											:&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
 											type="radio" id="homeDelivery" name="typeSelect"
-											class="option-input radio" checked>Home Delivery
+											class="option-input radio" checked ${deliveryType =='1'?'checked':''}>Home Delivery
 											&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
 											type="radio" class="option-input radio" id="takeaway"
-											name="typeSelect">Take Away</label><br> <label
+											name="typeSelect"  ${deliveryType =='2'?'checked':''}>Take Away</label><br> <label
 											class="text-light-black fw-500 fs-14">Select Delivery
 											Instruction</label><select class="form-control" id="deliveryInstru"
 											name="deliveryInstru">
@@ -224,6 +222,7 @@
 						<div class="instruction_row">
 							<div class="row">
 								<div class="col-lg-4">
+									<div id="hiddenCustPhoneDiv" style="display: none;">${sessionScope.liveCustomer.phoneNumber}</div>
 									<div class="instrac_nm">
 										<h2>${sessionScope.liveCustomer.custName}</h2>
 										<h3>${addressDetail.addressCaption}</h3>
@@ -259,7 +258,11 @@
 												This field required.</span><br> <label
 												class="text-light-black fw-500 fs-14">GSTN No.</label> <input
 												name="gstnNo" class="form-control" placeholder="GSTN No."
-												id="gstnNo" />
+												id="gstnNo" value="${sessionScope.liveCustomer.gstNo}" /> <span
+												class="model_error_class" style="color: red; display: none;"
+												id="error_gstno">* This field required.</span> <span
+												class="model_error_class" style="color: red; display: none;"
+												id="error_gstno_invalid">* Invalid GSTN No.</span>
 										</div>
 									</div>
 								</div>
@@ -277,7 +280,6 @@
 									<i class="fa fa-angle-left" aria-hidden="true"></i> Back
 								</button></a>
 						</div>
-
 
 					</div>
 				</div>
@@ -597,7 +599,8 @@
 		}
 		
 		function placeOrder(status) {
-
+			
+			
 			var deliveryCharges = $("#deliveryCharges").val();
 			var applyWalletAmt=document.getElementById("applyWalletAmt").innerHTML;
 			
@@ -615,10 +618,25 @@
 				isError = true;
 				$("#error_billingAddress").show();
 			}
+			if (!$("#gstnNo").val().trim()) {
+				isError = true;
+				$("#error_gstno").show();
+				$("#error_gstno_invalid").hide();
+			}else if(checkGST($("#gstnNo").val().trim())==false){
+				isError = true;
+				$("#error_gstno_invalid").show();
+				$("#error_gstno").hide();
+			}else{
+				$("#error_gstno").hide();
+				$("#error_gstno_invalid").hide();
+			}
+			
 			if (deliveryCharges=="") {
 				isError = true;
 				$("#error_delivery_charges").show();
 			}
+			
+			
 			
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue);
@@ -635,12 +653,61 @@
 			  
 			  if (!isError) {
 				  $('#popupheading').html("Confirm Order ?"); 
+				  
+				  /*  */
+				  
+				  var dateTime=document.getElementById("deliveryDateTimeLbl").innerHTML;
+				  var payMode="";
+				  if($("#paymentMethod").val()==1){
+					  payMode="COD";
+				  }else{
+					  payMode="Online Payment Link";
+				  }
+				  
+				  var orderAmt=document.getElementById("bill_total").innerHTML;
+				  var phone=document.getElementById("hiddenCustPhoneDiv").innerHTML;
+				  
+				  var confirmText="<div class=col-md-12>"+
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Billing Name :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+$("#billingName").val()+"</label></div></div>"+
+					
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Contact No. :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+phone+"</label></div></div>"+
+					
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Billing Address :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+$("#billingAddress").val()+"</label></div></div>"+
+					
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>GSTN No. :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+$("#gstnNo").val()+"</label></div></div>"+
+		
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Order Total :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+orderAmt+"/-</label></div></div>"+
+		
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Payment Mode :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+payMode+"</label></div></div>"+
+		
+					"<div class=form-group style='display:flex; margin-bottom: 5px;'>"+
+					"<div class=col-md-5 style='text-align:left;'><label class='text-light-black fw-500 fs-14' ><span style='color:f26a90; font-size:small;'>Delivery Date & Time :</span></div>"+
+					"<div class=col-md-7 style='text-align:left;'>"+dateTime+"</label></div></div>"+
+					
+					"</div>";
+					$('.confirm_txt').html(confirmText); 
+				  
+				  /*  */
+				  
+				  
 				  $('#confirm')
 			        .modal({ backdrop: 'static', keyboard: false });
 			              
 				  $(".submitmodel").unbind().click(function() {
 					  
-				  document.getElementById("loaderimg").style.display = "block";
+				document.getElementById("loaderimg").style.display = "block";
 				
 				var paymentMethod = $("#paymentMethod").val();
 				var homeDelivery = 1;
@@ -1014,6 +1081,19 @@
 			return;
 		}
 		
+		function checkGST(g){
+		    let regTest = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/.test(g)
+		     if(regTest){
+		        let a=65,b=55,c=36;
+		        return Array['from'](g).reduce((i,j,k,g)=>{ 
+		           p=(p=(j.charCodeAt(0)<a?parseInt(j):j.charCodeAt(0)-b)*(k%2+1))>c?1+(p-c):p;
+		           return k<14?i+p:j==((c=(c-(i%c)))<10?c:String.fromCharCode(c+b));
+		        },0); 
+		    }
+		    return regTest
+		}
+		
+		
 		function applyWallet(){
 					
 			var billTotal=document.getElementById("hideBillTotal").value;
@@ -1025,7 +1105,7 @@
 				$("#divWalletMsg").show();
 			}else{
 				$("#divWalletMsg").hide();
-			}
+			} 
 		
 			if(document.getElementById("chkWallet").checked == true){
 						

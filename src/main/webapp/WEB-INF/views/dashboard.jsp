@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- Bootstrap -->
 
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
@@ -527,6 +528,12 @@
 								<span>Preferred Language</span> : <span
 									id="profilepreferredLang">${customer.langName}</span>
 							</div>
+							
+							<div class="profile_one">
+								<span>Wallet Amount</span> : <span
+									id="profileWalletAmt">${wallet.total}</span>
+							</div>
+							 	
 							<div class="profile_one">
 								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
 									<a title="Add New Address" class="detail_btn_round"
@@ -680,6 +687,7 @@
 							<div class="search_multiple">
 								<select class="country" id="addcity" name="addcity"
 									onchange="getShopByCityId(this.value)">
+
 									<option value="">Select City</option>
 									<c:forEach items="${cityList}" var="cityList">
 										<c:set value="City" var="isCityValue"></c:set>
@@ -715,7 +723,7 @@
 								field required.</span>
 						</div>
 					</div>
-					<div class="single_row">
+					<div class="single_row" id="selShopDiv">
 						<div class="pop_frm_one">
 							<span>Select Shop *</span>
 							<div class="search_multiple">
@@ -805,7 +813,22 @@
 							<textarea name="" type="text" class="frm_inpt"></textarea>
 						</div>
 					</div> -->
+
+
 					<div class="single_row">
+						<div class="pop_frm_one">
+							<span>Delivery Type *</span> <input type="radio"
+								id="rdHomeDelivery" name="radioType" class="option-input radio"
+								value="1" checked onchange="deliveryTypeHideAddress(1)">Home
+							Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+								type="radio" class="option-input radio" id="rdTakeAway"
+								value="2" onchange="deliveryTypeHideAddress(2)" name="radioType">Take
+								Away
+							</label>
+						</div>
+					</div>
+
+					<div class="single_row" id="addressDiv">
 						<div class="pop_frm_one">
 							<span>Delivery Address *</span>
 							<textarea name="address" id="address" type="text" maxlength="200"
@@ -905,7 +928,7 @@
 
 					<div class="pop_btn_row">
 						<input name="" type="button"
-							onclick="submitCustomerRegistration()" value="Submit"
+							onclick="submitCustomerRegistration(1)" value="Submit"
 							class="next_btn" /> <input name="" type="button"
 							value="Resend OTP" onclick="resendOTPregistration()"
 							class="next_btn" />
@@ -1047,6 +1070,18 @@
 
 						<div class="single_row">
 							<div class="pop_frm_one">
+								<span>Delivery Type *</span> <input type="radio"
+									id="rdHomeDeliveryNewOrd" name="radioTypeNewOrd"
+									class="option-input radio" value="1" checked>Home
+								Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+									type="radio" class="option-input radio" id="rdTakeAwayNewOrd"
+									value="2" name="radioTypeNewOrd">Take Away
+								</label>
+							</div>
+						</div>
+
+						<div class="single_row">
+							<div class="pop_frm_one">
 								<span>Select Address* <a href="javascript:void(0)"
 									style="float: right;" class="detail_btn_round"
 									title="Add New Address" onclick="addCustomerAdd()"><i
@@ -1110,9 +1145,12 @@
 								field required.</span>
 						</div>
 
+						<c:set var="today" value="<%=new java.util.Date()%>" />
+
 						<div class="single_row">
 							<div class="pop_frm_one">
 								<span>Delivery Time</span> <input name="orderTime"
+									value="<fmt:formatDate type="time" value="${today}" />"
 									id="orderTime" type="text" class="frm_inpt timepicker"
 									autocomplete="off" />
 							</div>
@@ -1636,7 +1674,21 @@
 						</div>
 						<hr>
 						<h6>Delivery Info</h6>
+
 						<div class="single_row">
+							<div class="pop_frm_one">
+								<span>Delivery Type *</span> <input type="radio"
+									id="rdHomeDeliveryNewAddr" name="radioTypeNewAddr" class="option-input radio"
+									value="1" checked onchange="deliveryTypeHideNewAddress(1)">Home
+								Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+									type="radio" class="option-input radio" id="rdTakeAwayNewAddr"
+									value="2" onchange="deliveryTypeHideNewAddress(2)"
+									name="radioTypeNewAddr">Take Away
+								</label>
+							</div>
+						</div>
+
+						<div class="single_row" id="deliveryAddDiv">
 							<div class="pop_frm_one">
 								<span>Delivery Address *</span>
 								<textarea name="addAddressDeliveryAdd"
@@ -1833,6 +1885,10 @@ solution 1:
 						},
 					});
 
+			document.getElementById("orderDate").value = getCurrentDate();
+
+			document.getElementById("orderTime").value = getCurrentTime();
+
 		}
 
 		function getShopByAddress(addressId) {
@@ -1867,7 +1923,9 @@ solution 1:
 
 									html += '<option value="' + response.franchise[i].frId + '">'
 											+ response.franchise[i].frName
-											+ '</option>';
+											+ ' ('
+											+ response.franchise[i].frCode
+											+ ')' + '</option>';
 
 								}
 
@@ -2077,6 +2135,9 @@ solution 1:
 								document.getElementById("error_mobileNo").innerHTML = "* "
 										+ mobileNo + " is already register.";
 								$("#mobileNo").val('');
+								$("#whatappno").val('');
+								document.getElementById("sameMoNo").checked = false;
+
 							}
 							document.getElementById("loaderimg").style.display = "none";
 						},
@@ -2084,9 +2145,13 @@ solution 1:
 
 		}
 
-		function displayCustomerInfo() {
+		function displayCustomerInfo(flag) {
+			
+			if(flag!=1){
+				document.getElementById("loaderimg").style.display = "block";
+			}
 
-			document.getElementById("loaderimg").style.display = "block";
+			
 			var fd = new FormData();
 			$
 					.ajax({
@@ -2104,6 +2169,8 @@ solution 1:
 								document.getElementById("profilewhatappNo").innerHTML = response.customerInfo.whatsappNo;
 								document.getElementById("profileemail").innerHTML = response.customerInfo.emailId;
 								document.getElementById("profilepreferredLang").innerHTML = response.customerInfo.langName;
+								document.getElementById("profileWalletAmt").innerHTML = response.walletAmt;
+								
 								document.getElementById("profileDeliveryAdd").innerHTML = '' /*<span id="profileDeliveryAdd">*/
 										+ '<a title="Add New Address" class="detail_btn_round" href="javascript:void(0)" onclick="addCustomerAdd()">'
 										+ '<i class="fa fa-plus" aria-hidden="true"></i></a><a href="javascript:void(0)" title="Address List"'
@@ -2130,6 +2197,7 @@ solution 1:
 								document.getElementById("profilewhatappNo").innerHTML = "-";
 								document.getElementById("profileemail").innerHTML = "-";
 								document.getElementById("profilepreferredLang").innerHTML = "-";
+								document.getElementById("profileWalletAmt").innerHTML = "-";
 								document.getElementById("profileDeliveryAdd").innerHTML = "-";
 								document.getElementById("showPreferredLang").innerHTML = "-";
 								document.getElementById("editCustomerSign").innerHTML = '';
@@ -2154,6 +2222,10 @@ solution 1:
 			$("#add_address_lable").html("Add Address");
 			$("#addAddressDetailId").val(0);
 			$('#addAddress').modal('show');
+
+			document.getElementById("addAddressOrderDate").value = getCurrentDate();
+
+			document.getElementById("addAddressOrderTime").value = getCurrentTime();
 
 		}
 
@@ -2259,6 +2331,7 @@ solution 1:
 					$('#finalSuccessMsg').hide();
 				}, 5000);
 			});
+
 			//document.getElementById("loaderimg").style.display = "none";
 		}
 		function getpreviousorderlist() {
@@ -2559,11 +2632,11 @@ solution 1:
 			var iscity = $("#cityDataAddReg" + $("#addAddressCity").val())
 					.data("iscity");
 
-			if (diff < 60) {
+			if (diff < 0) {
 				isError = true;
 				$("#error_addAddressOrderTime")
 						.html(
-								"* Delivery Date Time should be greter than 60 min from current date time");
+								"* Delivery Date Time should be greater than current date time");
 				$("#error_addAddressOrderTime").show();
 			}
 			if ($("#addAdressShop").val() == ""
@@ -2618,6 +2691,39 @@ solution 1:
 				$("#error_addAddressDeliveryAdd").show();
 			}
 
+			if (!$("#addAddressLatitude").val()) {
+				isError = true;
+				document.getElementById("addAddressLandmark").value = "";
+				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
+				$("#error_addAddressLandmark").show();
+			}
+			if ($("#addAddressLatitude").val() == 0) {
+				isError = true;
+				document.getElementById("addAddressLandmark").value = "";
+				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
+				$("#error_addAddressLandmark").show();
+			}
+			if (!$("#addAddressLongitude").val()) {
+				isError = true;
+				document.getElementById("addAddressLandmark").value = "";
+				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
+				$("#error_addAddressLandmark").show();
+			}
+			if ($("#addAddressLongitude").val() == 0) {
+				isError = true;
+				document.getElementById("addAddressLandmark").value = "";
+				document.getElementById("error_addAddressLandmark").innerHTML = "* This filed required.";
+				$("#error_addAddressLandmark").show();
+			}
+			
+			var deliveryType=1;
+			if(document.getElementById("rdHomeDeliveryNewAddr").checked==true){
+				deliveryType=1;
+			}else{
+				deliveryType=2;
+			}
+			
+
 			if (!isError) {
 				document.getElementById("loaderimg").style.display = "block";
 				var fd = new FormData();
@@ -2668,6 +2774,8 @@ solution 1:
 											"#addAddressOrderDate").val());
 									fd.append('placeCustAgent', agentId);
 									fd.append('iscity', iscity);
+									fd.append('deliveryType', deliveryType);
+
 									$
 											.ajax({
 												url : '${pageContext.request.contextPath}/orderProcess',
@@ -2720,11 +2828,11 @@ solution 1:
 
 			var isError = false;
 
-			if (diff < 60) {
+			if (diff < 0) {
 				isError = true;
 				$("#error_regorderTime")
 						.html(
-								"* Delivery Date Time should be greter than 60 min from current date time");
+								"* Delivery Date Time should be greater than current date time");
 				$("#error_regorderTime").show();
 			}
 			if ($("#addShop").val() == "" || $("#addShop").val() == 0) {
@@ -2808,7 +2916,39 @@ solution 1:
 				$("#error_language").show();
 			}
 
+			if (!$("#addLatitude").val()) {
+				isError = true;
+				document.getElementById("txtPlaces").value = "";
+				$("#error_txtPlaces").show();
+			}
+			if ($("#addLatitude").val() == 0) {
+				isError = true;
+				document.getElementById("txtPlaces").value = "";
+				$("#error_txtPlaces").show();
+			}
+			if (!$("#addLongitude").val()) {
+				isError = true;
+				document.getElementById("txtPlaces").value = "";
+				$("#error_txtPlaces").show();
+			}
+			if ($("#addLongitude").val() == 0) {
+				isError = true;
+				document.getElementById("txtPlaces").value = "";
+				$("#error_txtPlaces").show();
+			}
+			
+			var deliveryType = 1;
+			if (document.getElementById("rdHomeDelivery").checked == true) {
+				deliveryType = 1;
+			} else {
+				deliveryType = 2;
+			}
+			
+
 			if (!isError) {
+				
+				$("#error_mobileNo").hide();
+				
 				document.getElementById("loaderimg").style.display = "block";
 				var fd = new FormData();
 				fd.append('custname', $("#custname").val());
@@ -2853,7 +2993,7 @@ solution 1:
 								} else {
 									$('#otpSuccessMsg').show();
 								} */
-								submitCustomerRegistration();
+								submitCustomerRegistration(deliveryType);
 
 							},
 						});
@@ -2864,9 +3004,10 @@ solution 1:
 
 		}
 
-		function submitCustomerRegistration() {
+		function submitCustomerRegistration(deliveryType) {
 			document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
+			fd.append('deliveryType', deliveryType);			
 			$
 					.ajax({
 						url : '${pageContext.request.contextPath}/submitCustomerRegistration',
@@ -2987,6 +3128,9 @@ solution 1:
 						processData : false,
 						success : function(response) {
 
+							document.getElementById("addLongitude").value = "0";
+							document.getElementById("addLatitude").value = "0";
+
 							sessionStorage.setItem("frList", JSON
 									.stringify(response.franchise));
 
@@ -2996,6 +3140,9 @@ solution 1:
 
 								html += '<option value="' + response.franchise[i].frId + '">'
 										+ response.franchise[i].frName
+										+ ' ('
+										+ response.franchise[i].frCode
+										+ ')'
 										+ '</option>';
 
 							}
@@ -3022,6 +3169,10 @@ solution 1:
 		function lanmarkValidationForAddAdress(cityId) {
 			var iscity = $("#cityDataAddReg" + cityId).data("iscity")
 			$('#addAddressLandmark').val('');
+
+			document.getElementById("addAddressLatitude").value = "0";
+			document.getElementById("addAddressLongitude").value = "0";
+
 			if (iscity == 1) {
 				$('#addAddressLandMarkDiv').hide();
 				$('#agentAddressDiv').show();
@@ -3220,8 +3371,13 @@ solution 1:
 
 		}
 		function addNewCustomerModel() {
+			$("#error_mobileNo").hide();
 			$('#addCustomer').modal('show');
 			$('#mobileNo').val($('#mobileNoSearch').val()).trigger('change');
+
+			document.getElementById("regorderDate").value = getCurrentDate();
+
+			document.getElementById("regorderTime").value = getCurrentTime();
 
 		}
 		function changeHeadName(id) {
@@ -3353,13 +3509,21 @@ solution 1:
 				$("#error_orderDate").show();
 			}
 
-			if (diff < 60) {
+			if (diff < 0) {
 				isError = true;
 				$("#error_orderTime")
 						.html(
-								"* Delivery Date Time should be greter than 60 min from current date time");
+								"* Delivery Date Time should be greater than current date time");
 				$("#error_orderTime").show();
 			}
+
+			var deliveryType = 1;
+			if (document.getElementById("rdHomeDeliveryNewOrd").checked == true) {
+				deliveryType = 1;
+			} else {
+				deliveryType = 2;
+			}
+
 			if (!isError) {
 				document.getElementById("loaderimg").style.display = "block";
 				var fd = new FormData();
@@ -3369,6 +3533,7 @@ solution 1:
 				fd.append('orderDate', $("#orderDate").val());
 				fd.append('placeCustAgent', agentId);
 				fd.append('iscity', iscity);
+				fd.append('deliveryType', deliveryType);
 				$
 						.ajax({
 							url : '${pageContext.request.contextPath}/orderProcess',
@@ -3763,6 +3928,10 @@ solution 1:
 
 										html += '<option value="' + newFrList[j].frId + '">'
 												+ newFrList[j].frName
+												+ ' ('
+												+ newFrList[j].frCode
+												+ ') '
+												+ newFrList[j].frAddress
 												+ ' - '
 												+ newFrList[j].km
 												+ ' KM</option>';
@@ -3809,6 +3978,7 @@ solution 1:
 											places,
 											'place_changed',
 											function() {
+
 												document
 														.getElementById("error_txtPlaces").style.display = "none";
 												var place = places.getPlace();
@@ -3827,6 +3997,12 @@ solution 1:
 													calculateDistance(latitude,
 															longitude, 1);
 
+													/* if(latitude != 0 && longitude != 0){
+														$("#selShopDiv").show();
+													}else{
+														$("#selShopDiv").hide();	
+													} */
+
 												} catch (err) {
 
 													document
@@ -3839,6 +4015,8 @@ solution 1:
 															.getElementById("error_txtPlaces").innerHTML = "* Invalid Address.";
 													document
 															.getElementById("error_txtPlaces").style.display = "block";
+
+													//$("#selShopDiv").hide();
 
 												}
 
@@ -3858,6 +4036,7 @@ solution 1:
 											landmark,
 											'place_changed',
 											function() {
+
 												document
 														.getElementById("error_addAddressLandmark").style.display = "none";
 												var pls = landmark.getPlace();
@@ -3947,7 +4126,7 @@ solution 1:
 		});
 
 		dbrefObject.on('value', function(snapshot) {
-			displayCustomerInfo();
+			displayCustomerInfo(1);
 			getLiveList();
 		});
 
@@ -4506,6 +4685,76 @@ solution 1:
 			}
 
 		}
+
+		function getCurrentDate() {
+
+			var today = new Date();
+			var dd = today.getDate();
+
+			var mm = today.getMonth() + 1;
+			var yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd;
+			}
+
+			if (mm < 10) {
+				mm = '0' + mm;
+			}
+			today = dd + '-' + mm + '-' + yyyy;
+
+			return today;
+		}
+
+		function getCurrentTime() {
+			var d1 = new Date();
+			var d = new Date(d1);
+			d.setMinutes(d1.getMinutes() + 40);//add 40 min extra
+
+			//var d = new Date();
+			var hour = d.getHours();
+			var minute = d.getMinutes();
+			var fulltime = "";
+
+			// create a 24 elements(0-23) array containing following values
+			const arrayHrs = [ 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2,
+					3, 4, 5, 6, 7, 8, 9, 10, 11 ];
+
+			// since getMinutes() returns 0 to 9 for upto 9 minutes, not 00 to 09, we can do this
+			if (minute < 10) {
+				minute = "0" + minute;
+			}
+
+			if (hour < 12) {
+				// Just for an example, if hour = 11 and minute = 29
+				fulltime = arrayHrs[hour] + ":" + minute + " AM"; // fulltime = 11:29 AM
+			} else {
+				// similarly, if hour = 22 and minute = 8
+				fulltime = arrayHrs[hour] + ":" + minute + " PM"; // fulltime = 10:08 PM
+			}
+
+			return fulltime;
+		}
+
+		function deliveryTypeHideAddress(type) {
+			if (type == 1) {
+				document.getElementById("addressDiv").style.display = "block";
+				document.getElementById("address").value = "";
+			} else {
+				document.getElementById("addressDiv").style.display = "none";
+				document.getElementById("address").value = "Take Away";
+			}
+		}
+		
+		function deliveryTypeHideNewAddress(type) {
+			if (type == 1) {
+				document.getElementById("deliveryAddDiv").style.display = "block";
+				document.getElementById("addAddressDeliveryAdd").value = "";
+			} else {
+				document.getElementById("deliveryAddDiv").style.display = "none";
+				document.getElementById("addAddressDeliveryAdd").value = "Take Away";
+			}
+		}
+		
 	</script>
 </body>
 

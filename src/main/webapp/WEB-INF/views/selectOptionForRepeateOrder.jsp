@@ -91,7 +91,7 @@
 		</div>
 		<div class="single_row">
 			<div class="pop_frm_one">
-				<span>Delivery Date</span> <input type="text" id="orderRepeatDate"
+				<span>Delivery Date</span> <input type="text" id="orderRepeatDate" value="${currDate}"
 					name="orderRepeatDate" class="frm_inpt datepicker"
 					autocomplete="off">
 			</div>
@@ -101,11 +101,13 @@
 
 		<div class="single_row">
 			<div class="pop_frm_one">
-				<input name="orderRepeatTime" id="orderRepeatTime" type="text"
+				<input name="orderRepeatTime" id="orderRepeatTime" type="text" value="${currTime}"
 					class="frm_inpt timepicker" autocomplete="off" />
 			</div>
 			<span style="color: red; display: none;" class="model_error_class"
 				id="error_orderRepeatTime">* This field required.</span>
+			<span style="color: red; display: none;" class="model_error_class"
+				id="error_orderRepeatTime2">* Delivery Date Time should be greater than current date time.</span>
 		</div>
 
 		<div class="pop_btn_row">
@@ -152,11 +154,11 @@
 
 								if (selectedFrId == response.franchise[i].frId) {
 									html += '<option value="' + response.franchise[i].frId + '" selected>'
-											+ response.franchise[i].frName
+											+ response.franchise[i].frName + ' ('+response.franchise[i].frCode+')'
 											+ '</option>';
 								} else {
 									html += '<option value="' + response.franchise[i].frId + '">'
-											+ response.franchise[i].frName
+											+ response.franchise[i].frName + ' ('+response.franchise[i].frCode+')'
 											+ '</option>';
 								}
 
@@ -268,26 +270,17 @@
 											$("#error_frIdForRepeatOrder")
 													.hide();
 											$("#error_orderRepeatTime").hide();
+											$("#error_orderRepeatTime2").hide();
 											$("#error_orderRepeatDate").hide();
 											$("#error_repeatOrderAgent").hide();
 
-											if (iscity == 1
-													&& ($("#repeatOrderAgent")
-															.val() == 0 || $(
-															"#repeatOrderAgent")
-															.val() == "")) {
-												$("#error_repeatOrderAgent")
-														.show();
-											}
-											if (!$("#addressListForRepeatOrder")
-													.val()
-													|| $(
-															"#addressListForRepeatOrder")
-															.val() == 0) {
+											if (iscity == 1 && ($("#repeatOrderAgent").val() == 0 || $("#repeatOrderAgent").val() == "")) {
 												isError = true;
-												$(
-														"#error_addressListForRepeatOrder")
-														.show();
+												$("#error_repeatOrderAgent").show();
+											}
+											if (!$("#addressListForRepeatOrder").val() || $("#addressListForRepeatOrder").val() == 0) {
+												isError = true;
+												$("#error_addressListForRepeatOrder").show();
 											}
 											if (!$("#frIdForRepeatOrder").val()
 													|| $("#frIdForRepeatOrder")
@@ -296,16 +289,25 @@
 												$("#error_frIdForRepeatOrder")
 														.show();
 											}
-											if (!$("#orderRepeatTime").val()) {
-												isError = true;
-												$("#error_orderRepeatTime")
-														.show();
-											}
+											
 											if (!$("#orderRepeatDate").val()) {
 												isError = true;
 												$("#error_orderRepeatDate")
 														.show();
 											}
+											
+											var diff = dateTimeValidation($("#orderRepeatDate").val(), $(
+											"#orderRepeatTime").val());
+											
+											if (!$("#orderRepeatTime").val()) {
+												isError = true;
+												$("#error_orderRepeatTime").show();
+											}
+											if(diff < 0){
+												isError = true;
+												$("#error_orderRepeatTime2").show();
+											}
+											
 
 											if (!isError) {
 
@@ -361,4 +363,23 @@
 										});
 
 					});
+
+	
+	
+
+	function dateTimeValidation(date, time) {
+		var start = time
+		var date = date;
+		var parts = date.split('-');
+		var timeStart = new Date();
+		var timeEnd = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]
+				+ " " + start);
+
+		var diff = (timeEnd - timeStart) / 60000;
+		return diff;
+	}
+	
+	
 </script>
+
+

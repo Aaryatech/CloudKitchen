@@ -41,6 +41,7 @@ import com.ats.ck.common.RandomString;
 import com.ats.ck.model.Agent;
 import com.ats.ck.model.Area;
 import com.ats.ck.model.City;
+import com.ats.ck.model.CustWalletTotal;
 import com.ats.ck.model.Customer;
 import com.ats.ck.model.CustomerAddress;
 import com.ats.ck.model.CustomerAddressDisplay;
@@ -206,11 +207,12 @@ public class HomeController {
 
 					ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
 							userObj.getErrorMessage().getMessage());
-					
-					RestTemplate restTemplate = new RestTemplate();
-					//String sms = restTemplate.getForObject("https://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=pJMAaVPuGbh&MobileNo="+userObj.getUser().getUserMobileNo()+"&SenderID=MADHVI&Message="+msg+"&ServiceName=TEMPLATE_BASED", String.class);
 
-					
+					RestTemplate restTemplate = new RestTemplate();
+					// String sms =
+					// restTemplate.getForObject("https://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=pJMAaVPuGbh&MobileNo="+userObj.getUser().getUserMobileNo()+"&SenderID=MADHVI&Message="+msg+"&ServiceName=TEMPLATE_BASED",
+					// String.class);
+
 					mav = "redirect:/";
 					session.setAttribute("successMsg", "Password send to your register Email.");
 
@@ -248,9 +250,11 @@ public class HomeController {
 
 		try {
 
-			/*String invoiceNo = String.format("%0" + 5 + "d", 101);
-
-			System.out.println(invoiceNo);*/
+			/*
+			 * String invoiceNo = String.format("%0" + 5 + "d", 101);
+			 * 
+			 * System.out.println(invoiceNo);
+			 */
 
 			City[] city = Constants.getRestTemplate().getForObject(Constants.url + "getAllCities", City[].class);
 			cityList = new ArrayList<>(Arrays.asList(city));
@@ -279,16 +283,24 @@ public class HomeController {
 				model.addAttribute("customer", customer);
 
 				session.setAttribute("liveCustomer", customer);
+
+				map = new LinkedMultiValueMap<String, Object>();
+				map.add("custId", liveCustomer.getCustId());
+
+				CustWalletTotal wallet = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getCustomerWalletAmt", map, CustWalletTotal.class);
+				model.addAttribute("wallet", wallet);
+
 			} catch (Exception e) {
 				session.removeAttribute("liveCustomer");
 			}
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("key", "lang_id");
-			Setting setting = Constants.getRestTemplate().postForObject(Constants.url + "getSettingByKey",
-					map, Setting.class);
+			Setting setting = Constants.getRestTemplate().postForObject(Constants.url + "getSettingByKey", map,
+					Setting.class);
 			model.addAttribute("langId", setting.getSettingValue());
- 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -614,6 +626,9 @@ public class HomeController {
 	public Customer submitCustomerRegistration(HttpServletRequest request, HttpServletResponse response) {
 		Customer res = new Customer();
 		try {
+
+			String deliveryType = request.getParameter("deliveryType");
+
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("mobileNo", newcust.getPhoneNumber());
 			CustomerDisplay[] customerDisplay = Constants.getRestTemplate()
@@ -648,6 +663,7 @@ public class HomeController {
 
 						session.setAttribute("addressId", Integer.parseInt(info.getMessage()));
 						session.setAttribute("allowOrderandCheckoutPage", 1);
+						session.setAttribute("deliveryType", deliveryType);
 					} else {
 						res.setError(true);
 					}
@@ -811,8 +827,7 @@ public class HomeController {
 			GetOrderHeaderList[] getOrderHeaderList = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getOrderListByCustomerId", map, GetOrderHeaderList[].class);
 			List<GetOrderHeaderList> list = new ArrayList<>(Arrays.asList(getOrderHeaderList));
-			
-			
+
 			GetGrievienceList[] getGrievienceList = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getGrievienceListByCustomerId", map, GetGrievienceList[].class);
 			List<GetGrievienceList> grievienceList = new ArrayList<>(Arrays.asList(getGrievienceList));
@@ -820,6 +835,17 @@ public class HomeController {
 			info.setGrievienceList(grievienceList);
 			info.setOrderListByStatus(list);
 			info.setCustomerInfo(editcust);
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", editcust.getCustId());
+
+			try {
+				CustWalletTotal wallet = Constants.getRestTemplate()
+						.postForObject(Constants.url + "getCustomerWalletAmt", map, CustWalletTotal.class);
+				info.setWalletAmt(wallet.getTotal());
+			} catch (Exception e) {
+			}
+
 		} catch (Exception e) {
 			CustomerDisplay editcust = new CustomerDisplay();
 			List<GetOrderHeaderList> list = new ArrayList<>();

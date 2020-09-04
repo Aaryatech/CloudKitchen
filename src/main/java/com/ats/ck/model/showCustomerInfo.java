@@ -7,6 +7,7 @@ public class showCustomerInfo {
 	private CustomerDisplay customerInfo;
 	private List<GetOrderHeaderList> orderListByStatus;
 	private List<GetGrievienceList> grievienceList;
+	private float walletAmt;
 
 	public CustomerDisplay getCustomerInfo() {
 		return customerInfo;
@@ -32,10 +33,18 @@ public class showCustomerInfo {
 		this.grievienceList = grievienceList;
 	}
 
+	public float getWalletAmt() {
+		return walletAmt;
+	}
+
+	public void setWalletAmt(float walletAmt) {
+		this.walletAmt = walletAmt;
+	}
+
 	@Override
 	public String toString() {
 		return "showCustomerInfo [customerInfo=" + customerInfo + ", orderListByStatus=" + orderListByStatus
-				+ ", grievienceList=" + grievienceList + "]";
+				+ ", grievienceList=" + grievienceList + ", walletAmt=" + walletAmt + "]";
 	}
 
 }

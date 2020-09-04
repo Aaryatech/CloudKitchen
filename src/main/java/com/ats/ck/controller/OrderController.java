@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -165,12 +166,14 @@ public class OrderController {
 			int frIdForOrder = Integer.parseInt(request.getParameter("frIdForOrder"));
 			String orderTime = request.getParameter("orderTime");
 			String orderDate = request.getParameter("orderDate");
+			String deliveryType = request.getParameter("deliveryType");
 
 			session.setAttribute("addressId", addressId);
 			session.setAttribute("frIdForOrder", frIdForOrder);
 			session.setAttribute("orderTime", orderTime);
 			session.setAttribute("orderDate", orderDate);
 			session.setAttribute("allowOrderandCheckoutPage", 1);
+			session.setAttribute("deliveryType", deliveryType);
 
 			if (iscity == 0) {
 				session.setAttribute("addCustAgent", 0);
@@ -263,6 +266,8 @@ public class OrderController {
 				model.addAttribute("wallet", wallet);
 			} catch (Exception e) {
 			}
+			System.err.println("deliveryType ---------------- "+session.getAttribute("deliveryType"));
+			model.addAttribute("deliveryType", session.getAttribute("deliveryType"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -410,7 +415,7 @@ public class OrderController {
 				order.setUuidNo(uuid);
 				order.setExFloat1(applyWalletAmt);// Wallet Amt
 				order.setExVar1(gstnNo);
-				
+
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
 					order.setOrderDeliveredBy(addCustAgent);
@@ -564,7 +569,7 @@ public class OrderController {
 				getOrderHeaderList.setInsertUserId(userObj.getUserId());
 				getOrderHeaderList.setExFloat1(applyWalletAmt);
 				getOrderHeaderList.setExVar1(gstnNo);
-				
+
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
@@ -902,8 +907,7 @@ public class OrderController {
 				List<String> tokenList = new ArrayList<>(Arrays.asList(list));
 
 				PushNotification.sendNotification(tokenList, "New Order", "You Have New Order.",
-						"http://107.180.91.43:8080/pos/showCkOrders",
-						"https://107.180.88.121:8443/CloudKitchen");
+						"http://pos.madhvi.in/pos/showCkOrders", "https://107.180.88.121:8443/CloudKitchen");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1099,6 +1103,9 @@ public class OrderController {
 			int orderId = Integer.parseInt(request.getParameter("orderId"));
 			int frId = Integer.parseInt(request.getParameter("frId"));
 
+			String currDate = request.getParameter("currDate");
+			String currTime = request.getParameter("currTime");
+
 			/*
 			 * GetFranchiseData frData =
 			 * Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
@@ -1118,6 +1125,14 @@ public class OrderController {
 			model.addAttribute("addressId", addressId);
 
 			session.setAttribute("repeatOrderReferenceOrderId", orderId);
+
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm a");
+
+			model.addAttribute("currDate", sdf.format(Calendar.getInstance().getTime()));
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MINUTE, 40);
+			model.addAttribute("currTime", sdfTime.format(cal.getTime()));
 
 			/*
 			 * LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,
