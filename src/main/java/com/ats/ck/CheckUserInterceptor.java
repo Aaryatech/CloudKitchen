@@ -62,13 +62,13 @@ public class CheckUserInterceptor extends HandlerInterceptorAdapter {
 						|| request.getServletPath().equals("/forgotPassword")
 						|| request.getServletPath().equals("/submitResetPassword")
 						|| request.getServletPath().equals("/thankYou") || request.getServletPath().equals("/returnUrl")
-						|| request.getServletPath().equals("/notifyUrl")) { // ||request.getServletPath().equals("/logout"))
+						|| request.getServletPath().equals("/notifyUrl") || request.getServletPath().equals("/checkSessionAjax")) { // ||request.getServletPath().equals("/logout"))
 					// { //
 					// ||request.getServletPath().equals("/logout")
 					// System.out.println("Login request");
 					return true;
 				} else if (userObj == null) {
-					// System.out.println("Session Expired");
+					//System.out.println("Session Expired - " + userObj);
 
 					// request.setAttribute("emassage", "login failed");
 					response.sendRedirect(request.getContextPath() + "/sessionTimeOut");

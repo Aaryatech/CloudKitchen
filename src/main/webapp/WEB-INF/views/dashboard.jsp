@@ -38,8 +38,7 @@
 <c:url var="displayCustWalletTransc" value="/displayCustWalletTransc"></c:url>
 <c:url var="publishAllFrData" value="/publishAllFrData"></c:url>
 <c:url var="getSession" value="/getSession"></c:url>
-
-
+<c:url var="checkSessionAjax" value="/checkSessionAjax"></c:url>
 
 <body>
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -1995,6 +1994,8 @@
 
 	<!-- END MODAL -->
 
+
+
 	<jsp:include page="/WEB-INF/views/include/metacssjs.jsp"></jsp:include>
 	<script type="text/javascript"
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBahlnISPYhetj3q50ADqVE6SECypRGe4A&libraries=places"></script>
@@ -2367,18 +2368,9 @@ solution 1:
 		}
 
 		function displayCustomerInfo(flag) {
+			
+			checkSession();
 
-			alert("hi - " + flag);
-			//location.reload();
-			if('@Session["userInfo"]' != null){
-				alert("Sess-----")
-			}else{
-				alert("Ok")
-				
-				location.reload();
-			}
-			
-			
 			if (flag != 1) {
 				document.getElementById("loaderimg").style.display = "block";
 			}
@@ -2445,7 +2437,7 @@ solution 1:
 							getpreviousorderlist();
 							document.getElementById("loaderimg").style.display = "none";
 						},
-						
+
 					});
 
 		}
@@ -4521,6 +4513,8 @@ solution 1:
 		});
 
 		function getLiveList() {
+			
+			checkSession();
 
 			var fd = new FormData();
 
@@ -4775,7 +4769,7 @@ solution 1:
 									.submit(
 											function(e) {
 
-												//alert("hi");
+												checkSession();
 
 												$(
 														'#error_findCustomerByMobileNo')
@@ -5385,6 +5379,8 @@ solution 1:
 		}
 
 		function publishData() {
+			
+			checkSession();
 
 			document.getElementById("loaderimg").style.display = "block";
 			$.getJSON('${publishAllFrData}', {
@@ -5396,6 +5392,17 @@ solution 1:
 					alert("Data Publish Successfully");
 				} else {
 					alert("Oops Something went wrong! try again. ");
+				}
+			});
+		}
+
+		function checkSession() {
+			$.getJSON('${checkSessionAjax}', {
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				if (data.error == true) {
+					location.reload();
 				}
 			});
 		}

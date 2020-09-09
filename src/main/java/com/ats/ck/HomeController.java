@@ -1026,10 +1026,10 @@ public class HomeController {
 		Cookie cUserName = new Cookie("cookuser", null);
 		Cookie cPassword = new Cookie("cookpass", null);
 		Cookie cRemember = new Cookie("cookrem", null);
-		cUserName.setMaxAge(0);
+		cUserName.setMaxAge(0);  
 		cPassword.setMaxAge(0);
 		cRemember.setMaxAge(0);
-		response.addCookie(cUserName);
+		response.addCookie(cUserName); 
 		response.addCookie(cPassword);
 		response.addCookie(cRemember); 
 		  
@@ -1054,6 +1054,26 @@ public class HomeController {
 		Info info = new Info();
 		try {
 			info = Constants.getRestTemplate().getForObject(Constants.url + "publishAllFrData", Info.class);
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();      
+		}
+		return info;  
+	}
+	
+	@RequestMapping(value = "/checkSessionAjax", method = RequestMethod.GET)
+	@ResponseBody
+	public Info checkSessionAjax(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+			HttpSession session = request.getSession();
+			if(session.getAttribute("userInfo")!=null){
+				info.setError(false);
+			}else {
+				info.setError(true);
+			}
+			
 		} catch (Exception e) {
 			info.setError(true);
 			e.printStackTrace();
