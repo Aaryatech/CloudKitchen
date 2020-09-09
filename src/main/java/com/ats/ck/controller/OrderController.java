@@ -34,6 +34,7 @@ import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.PushNotification;
 import com.ats.ck.common.SMSUtility;
 import com.ats.ck.model.CategoryData;
+import com.ats.ck.model.CkDeliveryCharges;
 import com.ats.ck.model.CustWalletTotal;
 import com.ats.ck.model.CustomerAddressDisplay;
 import com.ats.ck.model.CustomerDisplay;
@@ -94,9 +95,10 @@ public class OrderController {
 			// http://107.180.91.43:8080/uploads/ckjson/
 			// C:/Users/MAXADMIN/Desktop/Report/"+frId+".json
 			/// opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/
-			//BufferedReader br = new BufferedReader(
-			//		new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"));
-			//GetAllDataByFr getAllDataByFr = new Gson().fromJson(br, GetAllDataByFr.class);
+			// BufferedReader br = new BufferedReader(
+			// new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"));
+			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(br,
+			// GetAllDataByFr.class);
 
 			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
 
@@ -267,6 +269,31 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "checkout";
+	}
+
+	@RequestMapping(value = "/getDeliveryChargesByKm", method = RequestMethod.GET)
+	@ResponseBody
+	public CkDeliveryCharges getDeliveryChargesByKm(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
+
+		CkDeliveryCharges charges = null;
+		try {
+			float km = 0;
+			if (request.getParameter("km") != null) {
+				km = Float.parseFloat(request.getParameter("km"));
+			}
+			System.err.println("KM - "+km);
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("km", km);
+
+			charges = Constants.getRestTemplate().postForObject(Constants.url + "getDeliveryCharges", map,
+					CkDeliveryCharges.class);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return charges;
 	}
 
 	@RequestMapping(value = "/getItemList", method = RequestMethod.POST)

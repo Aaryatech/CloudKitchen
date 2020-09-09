@@ -1071,7 +1071,7 @@ public class HomeController {
 			if(session.getAttribute("userInfo")!=null){
 				info.setError(false);
 			}else {
-				info.setError(true);
+				info.setError(true); 
 			}
 			
 		} catch (Exception e) {
