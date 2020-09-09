@@ -618,17 +618,15 @@
 				isError = true;
 				$("#error_billingAddress").show();
 			}
-			if (!$("#gstnNo").val().trim()) {
-				isError = true;
-				$("#error_gstno").show();
-				$("#error_gstno_invalid").hide();
-			}else if(checkGST($("#gstnNo").val().trim())==false){
-				isError = true;
-				$("#error_gstno_invalid").show();
-				$("#error_gstno").hide();
-			}else{
-				$("#error_gstno").hide();
-				$("#error_gstno_invalid").hide();
+			if ($("#gstnNo").val().trim()) {
+				if(checkGST($("#gstnNo").val().trim())==false){
+					isError = true;
+					$("#error_gstno_invalid").show();
+					$("#error_gstno").hide();
+				}else{
+					$("#error_gstno").hide();
+					$("#error_gstno_invalid").hide();
+				}
 			}
 			
 			if (deliveryCharges=="") {

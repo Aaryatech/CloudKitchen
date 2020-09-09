@@ -36,6 +36,10 @@
 	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 
 <c:url var="displayCustWalletTransc" value="/displayCustWalletTransc"></c:url>
+<c:url var="publishAllFrData" value="/publishAllFrData"></c:url>
+<c:url var="getSession" value="/getSession"></c:url>
+
+
 
 <body>
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -144,8 +148,18 @@
 						<label class="prefered fs-14">Preferred Language : <Span
 							id="showPreferredLang">${customer.langName}</Span></label>
 
+
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6"></div>
+
+					<div class="col-lg-3 col-md-6 col-sm-6">
+
+						<a href="javascript:void(0)" onclick="publishData()"
+							style="display: none;" class="order_btn">Publish</a>
+
+					</div>
+
+
+
 					<div class="col-lg-3 sec_title right_btn">
 						<a href="javascript:void(0)" onclick="addNewCustomerModel()"
 							class="order_btn"> New Customer Registration</a>
@@ -1946,9 +1960,10 @@
 								This field required.</span>
 						</div>
 
-						<input type="hidden" id="editAddr_shopCount" value="0">
-						<span style="color: red; display: none;" class="model_error_class"
-							id="editAddr_shopError">Sorry, No shop available for this location!</span>
+						<input type="hidden" id="editAddr_shopCount" value="0"> <span
+							style="color: red; display: none;" class="model_error_class"
+							id="editAddr_shopError">Sorry, No shop available for this
+							location!</span>
 
 						<div class="single_row">
 							<div class="pop_frm_one">
@@ -2118,11 +2133,20 @@ solution 1:
 
 								for (var i = 0; i < response.franchise.length; i++) {
 
+									var frType = "";
+									if (response.franchise[i].frType == 1) {
+										frType = "Dairy";
+									} else if (response.franchise[i].frType == 2) {
+										frType = "Cloud Kitchen";
+									} else if (response.franchise[i].frType == 3) {
+										frType = "Dairy & Cloud Kitchen";
+									}
+
 									html += '<option value="' + response.franchise[i].frId + '">'
 											+ response.franchise[i].frName
 											+ ' ('
 											+ response.franchise[i].frCode
-											+ ')' + '</option>';
+											+ ') - ' + frType + '</option>';
 
 								}
 
@@ -2344,6 +2368,17 @@ solution 1:
 
 		function displayCustomerInfo(flag) {
 
+			alert("hi - " + flag);
+			//location.reload();
+			if('@Session["userInfo"]' != null){
+				alert("Sess-----")
+			}else{
+				alert("Ok")
+				
+				location.reload();
+			}
+			
+			
 			if (flag != 1) {
 				document.getElementById("loaderimg").style.display = "block";
 			}
@@ -2410,6 +2445,7 @@ solution 1:
 							getpreviousorderlist();
 							document.getElementById("loaderimg").style.display = "none";
 						},
+						
 					});
 
 		}
@@ -2896,8 +2932,6 @@ solution 1:
 				isError = true;
 				$("#error_addAddressDeliveryAdd").show();
 			}
-
-			
 
 			var deliveryType = 1;
 			if (document.getElementById("rdHomeDeliveryNewAddr").checked == true) {
@@ -3525,11 +3559,9 @@ solution 1:
 								//$('#editAddressLandmark').val(cityname);
 								document.getElementById("editAddressLandmark")
 										.focus();
-								
-								document.getElementById("editAddr_shopCount").value=response.franchise.length;
-								
-								
-								
+
+								document.getElementById("editAddr_shopCount").value = response.franchise.length;
+
 							},
 						});
 
@@ -4206,19 +4238,30 @@ solution 1:
 									sortArray(newFrList, "km");
 									for (var j = 0; j < newFrList.length; j++) {
 
+										var frType = "";
+										if (newFrList[j].frType == 1) {
+											frType = "Dairy";
+										} else if (newFrList[j].frType == 2) {
+											frType = "Cloud Kitchen";
+										} else if (newFrList[j].frType == 3) {
+											frType = "Dairy & Cloud Kitchen";
+										}
+
 										html += '<option value="' + newFrList[j].frId + '">'
 												+ newFrList[j].frName
 												+ ' ('
 												+ newFrList[j].frCode
-												+ ') '
+												+ ' - '
+												+ frType
+												+ ') - '
 												+ newFrList[j].frAddress
 												+ ' - '
 												+ newFrList[j].km
 												+ ' KM</option>';
 
 									}
-									
-									var shopCount=newFrList.length;
+
+									var shopCount = newFrList.length;
 
 									sessionStorage.setItem("frList", JSON
 											.stringify(newFrList));
@@ -4239,13 +4282,14 @@ solution 1:
 										$('#editAddressShop').html(html);
 										$("#editAddressShop").trigger("change");
 
-										document.getElementById("editAddr_shopCount").value=shopCount;
-										if(shopCount == 0){
+										document
+												.getElementById("editAddr_shopCount").value = shopCount;
+										if (shopCount == 0) {
 											$('#editAddr_shopError').show();
-										}else{
+										} else {
 											$('#editAddr_shopError').hide();
 										}
-										
+
 									}
 
 								}
@@ -4464,6 +4508,9 @@ solution 1:
 
 			sessionStorage.removeItem("cartValue");
 			sessionStorage.removeItem("allItemList");
+
+			//alert("Anmol - "+window.location.href);
+
 			displayCustomerInfo();
 			//getLiveList();
 		});
@@ -4728,6 +4775,8 @@ solution 1:
 									.submit(
 											function(e) {
 
+												//alert("hi");
+
 												$(
 														'#error_findCustomerByMobileNo')
 														.hide();
@@ -4750,9 +4799,8 @@ solution 1:
 															processData : false,
 															success : function(
 																	response) {
+																// alert(JSON.stringify(response));
 
-																/* alert(JSON
-																		.stringify(response)) */
 																if (response.error == true) {
 																	$(
 																			'#tableDive')
@@ -5172,7 +5220,7 @@ solution 1:
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							
+
 							//alert(JSON.stringify(response));
 
 							$('.model_error_class').hide();
@@ -5198,7 +5246,7 @@ solution 1:
 					});
 
 		}
-		
+
 		function submitEditAddress() {
 
 			$("#error_editAddressCaption").hide();
@@ -5212,8 +5260,6 @@ solution 1:
 			var iscity = $("#cityDataEditReg" + $("#editAddressCity").val())
 					.data("iscity");
 
-		
-		
 			if (!$("#editAddressCaption").val()) {
 				isError = true;
 				$("#error_editAddressCaption").show();
@@ -5223,9 +5269,7 @@ solution 1:
 				isError = true;
 				$("#error_editAddressCity").show();
 			}
-			
-			
-			
+
 			if (iscity == 0) {
 				if (!$("#editAddressLandmark").val()) {
 					isError = true;
@@ -5239,8 +5283,7 @@ solution 1:
 						$("#editAddressLandmark").val('');
 						$("#error_editAddressLandmark").show();
 					}
-					
-					
+
 					if (!$("#editAddressLatitude").val()) {
 						isError = true;
 						document.getElementById("editAddressLandmark").value = "";
@@ -5265,34 +5308,39 @@ solution 1:
 						document.getElementById("error_editAddressLandmark").innerHTML = "* This filed required.";
 						$("#error_editAddressLandmark").show();
 					}
-					
+
 				}
-			} 
+			}
 
 			if (!$("#editAddressDeliveryAdd").val()) {
 				isError = true;
 				$("#error_editAddressDeliveryAdd").show();
 			}
-			
-			if($("#editAddr_shopCount").val() == 0){
+
+			if ($("#editAddr_shopCount").val() == 0) {
 				isError = true;
 			}
-			
 
 			if (!isError) {
 				document.getElementById("loaderimg").style.display = "block";
-				
+
 				var fd = new FormData();
 				fd.append('addressCation', $("#editAddressCaption").val());
 				fd.append('addAddressCity', $("#editAddressCity").val());
 				fd.append('iscity', iscity);
-				fd.append('addAddressLandmark', $("#editAddressLandmark").val());
+				fd
+						.append('addAddressLandmark', $("#editAddressLandmark")
+								.val());
 				fd.append('addAddressDeliveryAdd', $("#editAddressDeliveryAdd")
 						.val());
-				fd.append('addAddressLatitude', $("#editAddressLatitude").val());
+				fd
+						.append('addAddressLatitude', $("#editAddressLatitude")
+								.val());
 				fd.append('addAddressLongitude', $("#editAddressLongitude")
 						.val());
-				fd.append('addAddressDetailId', $("#editAddressDetailId").val());
+				fd
+						.append('addAddressDetailId', $("#editAddressDetailId")
+								.val());
 
 				$
 						.ajax({
@@ -5317,9 +5365,9 @@ solution 1:
 
 									$('#finalFailedMsg').show();
 								} else {
-									 document
+									document
 											.getElementById("finalsuccessmsgcontent").innerHTML = "Address updated successfully";
-									$('#finalSuccessMsg').show(); 
+									$('#finalSuccessMsg').show();
 
 								}
 								//$("#addAddressDeliveryAdd").val('');
@@ -5332,12 +5380,25 @@ solution 1:
 							},
 						});
 
-		
 			}
 
 		}
-		
-		
+
+		function publishData() {
+
+			document.getElementById("loaderimg").style.display = "block";
+			$.getJSON('${publishAllFrData}', {
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				document.getElementById("loaderimg").style.display = "none";
+				if (data.error == false) {
+					alert("Data Publish Successfully");
+				} else {
+					alert("Oops Something went wrong! try again. ");
+				}
+			});
+		}
 	</script>
 </body>
 

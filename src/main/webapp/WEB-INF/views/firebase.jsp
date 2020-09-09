@@ -146,15 +146,15 @@ body {
 		//reove event
 		dbrefObject.on('child_removed', function(snapshot) {
 			console.log('child_removed	. ', snapshot.val());
-		}); */
+		}); 
 		// show all data on each event
 		dbrefObject
 				.on(
 						'value',
 						function(snapshot) {
 							//console.log('Message received. ', snapshot.val());
-							var audio = new Audio('https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
-							audio.play();
+							  var audio = new Audio('https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
+							audio.play();  
 							$("#printtable3 tbody").empty();
 							snapshot
 									.forEach(function(childSnapshot) {
@@ -181,10 +181,7 @@ body {
 
 		messaging
 				.onMessage(function(payload) {
-
-					/* var audio = new Audio(
-							'https://notificationsounds.com/notification-sounds/for-sure-576/download/mp3');
-					audio.play(); */
+ 
 					console.log('onMessage', payload);
 					const notificationTitle = payload.data.title;
 					const notificationOptions = {

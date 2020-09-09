@@ -1,5 +1,7 @@
 package com.ats.ck.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -9,12 +11,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -27,6 +32,7 @@ import com.ats.ck.common.Constants;
 import com.ats.ck.common.DateConvertor;
 import com.ats.ck.common.EmailUtility;
 import com.ats.ck.common.PushNotification;
+import com.ats.ck.common.SMSUtility;
 import com.ats.ck.model.CategoryData;
 import com.ats.ck.model.CustWalletTotal;
 import com.ats.ck.model.CustomerAddressDisplay;
@@ -45,6 +51,7 @@ import com.ats.ck.model.ItemDisplay;
 import com.ats.ck.model.ItemJsonImportData;
 import com.ats.ck.model.LinkResponse;
 import com.ats.ck.model.MnUser;
+import com.ats.ck.model.NewSetting;
 import com.ats.ck.model.OfferHeader;
 import com.ats.ck.model.OrderDetail;
 import com.ats.ck.model.OrderFeedback;
@@ -59,6 +66,7 @@ import com.ats.ck.model.Tags;
 import com.ats.ck.model.Wallet;
 import com.ats.ck.model.gatwaymodel.Body;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @Controller
 @Scope("session")
@@ -83,6 +91,15 @@ public class OrderController {
 			 */
 			// model.addAttribute("franchiseList", franchiseList);
 
+			// http://107.180.91.43:8080/uploads/ckjson/
+			// C:/Users/MAXADMIN/Desktop/Report/"+frId+".json
+			/// opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/
+			//BufferedReader br = new BufferedReader(
+			//		new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"));
+			//GetAllDataByFr getAllDataByFr = new Gson().fromJson(br, GetAllDataByFr.class);
+
+			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
 			map.add("type", 2);
@@ -90,6 +107,7 @@ public class OrderController {
 			map.add("compId", 1);
 			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
 					map, GetAllDataByFr.class);
+
 			List<CategoryData> catList = getAllDataByFr.getCategoryData();
 			model.addAttribute("catList", catList);
 			model.addAttribute("catImageUrl", Constants.imageShowUrl);
@@ -242,7 +260,7 @@ public class OrderController {
 				model.addAttribute("wallet", wallet);
 			} catch (Exception e) {
 			}
-			System.err.println("deliveryType ---------------- "+session.getAttribute("deliveryType"));
+			System.err.println("deliveryType ---------------- " + session.getAttribute("deliveryType"));
 			model.addAttribute("deliveryType", session.getAttribute("deliveryType"));
 
 		} catch (Exception e) {
@@ -1448,6 +1466,30 @@ public class OrderController {
 
 				info.setError(false);
 				info.setMessage("Link Send Successfully");
+
+				try {
+
+					try {
+
+						NewSetting val = new NewSetting();
+
+						map = new LinkedMultiValueMap<String, Object>();
+						map.add("key", "msg_payment_link");
+						map.add("orderId", orderId);
+
+						val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey", map,
+								NewSetting.class);
+
+						SMSUtility.sendSMS(val.getSettingValue2(), val.getSettingValue1());
+
+					} catch (Exception e) {
+					}
+
+					// linkResponse.getPaymentLink()
+
+				} catch (Exception e) {
+				}
+
 			} else {
 				info.setError(true);
 				info.setMessage(linkResponse.getReason());

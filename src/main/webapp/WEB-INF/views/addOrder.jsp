@@ -1091,16 +1091,30 @@
 			var html = '';
 			
 			for (var i = 0; i < frList.length; i++) {
+				
+				var frType="";
+				if(frList[i].frType == 1) {
+					frType="Dairy";
+				}else if(frList[i].frType == 2) {
+					frType="Cloud Kitchen";
+				}else if(frList[i].frType == 3) {
+					frType="Dairy & Cloud Kitchen";
+				}
 
 				if (selectedFrId == frList[i].frId) {
 					html += '<option value="' + frList[i].frId + '" selected>'
-							+ frList[i].frName +' ( '+ frList[i].frCode+' ) ' + ' - ' + frList[i].km
+							+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - ' + frList[i].km
 							+ ' KM</option>';
 				} else {
 					html += '<option value="' + frList[i].frId + '">'
-							+ frList[i].frName +' ( '+ frList[i].frCode+' ) '+ ' - ' + frList[i].km
+							+ frList[i].frName +' ( '+ frList[i].frCode+' - '+frType+') - ' + frList[i].km
 							+ ' KM </option>';
 				}
+				
+				
+/* 				html += '<option value="' + frList[i].frId + '" selected>'
+				+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - '+frList[i].frAddress + ' - ' + frList[i].km
+				+ ' KM</option>'; */
 
 			}
 

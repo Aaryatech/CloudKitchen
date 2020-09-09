@@ -77,6 +77,26 @@
 </head>
 
 <body>
+
+
+<%
+	    Cookie[] cookies=request.getCookies();
+	    String userName = "", password = "",rememberVal="";
+	    if (cookies != null) {
+	         for (Cookie cookie : cookies) {
+	           if(cookie.getName().equals("cookuser")) {
+	             userName = cookie.getValue();
+	           }
+	           if(cookie.getName().equals("cookpass")){
+	             password = cookie.getValue();
+	           }
+	           if(cookie.getName().equals("cookrem")){
+	             rememberVal = cookie.getValue();
+	           }
+	        }
+	    }
+	%>
+
 	<div class="inner-wrapper">
 		<div class="container-fluid no-padding">
 			<div class="row no-gutters overflow-auto">
@@ -145,21 +165,22 @@
 											<div class="form-group">
 												<label class="text-light-white fs-14" for="username">Mobile
 													No.</label> <input type="text" name="username"
-													class="form-control form-control-submit"
-													placeholder="Username" maxlength="10" required>
+													class="form-control form-control-submit" value="<%=userName%>"
+													placeholder="Username" maxlength="10" required autocomplete="off">
 											</div>
 											<div class="form-group">
 												<label class="text-light-white fs-14">Password</label> <input
 													type="password" id="password-field" name="password"
-													class="form-control form-control-submit"
-													placeholder="Password" required>
+													class="form-control form-control-submit"  autocomplete="off"
+													placeholder="Password" required value="<%=password%>">
 												<div data-name="#password-field"
 													class="fa fa-fw fa-eye field-icon toggle-password"></div>
 											</div>
 											<div class="form-group checkbox-reset">
 												<label class="custom-checkbox mb-0"> <input
-													type="checkbox" name="#"> <span class="checkmark"></span>
-													Keep me signed in
+													type="checkbox" name="remember" 
+													value="1" <%= "1".equals(rememberVal.trim()) ? "checked=\"checked\"" : "" %> > <span class="checkmark"></span>
+													Keep me signed in ${rememberVal}
 												</label>
 
 											</div>
@@ -226,6 +247,8 @@
 			}, 3000);
 		});
 	</script>
+
+	
 </body>
 
 </html>

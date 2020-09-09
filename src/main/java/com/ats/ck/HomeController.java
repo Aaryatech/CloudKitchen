@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ats.ck.common.Constants;
 import com.ats.ck.common.EmailUtility;
@@ -95,6 +97,8 @@ public class HomeController {
 			String sessiongeneratedkey = (String) session.getAttribute("tokenKey");
 			String token = request.getParameter("token").trim();
 
+			response.setContentType("text/html");
+
 			String name = request.getParameter("username");
 			String password = request.getParameter("password");
 
@@ -119,13 +123,31 @@ public class HomeController {
 				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "login", map,
 						LoginResponse.class);
 
-				if (userObj.getErrorMessage().isError() == false) {
+				if (userObj.getErrorMessage().isError() == false) { 
 
 					mav = "redirect:/dashboard";
 					session.setAttribute("userInfo", userObj.getUser());
-					session.setAttribute("profilePicUrl", Constants.imageShowUrl);
+					session.setAttribute("profilePicUrl", Constants.imageShowUrl);  
 					session.setAttribute("allowOrderandCheckoutPage", 0);
 					session.removeAttribute("liveCustomer");
+
+					if (request.getParameter("remember") != null) {
+						String remember = request.getParameter("remember");
+						// String remember = request.getParameter("remember");
+						System.out.println("remember : " + remember);
+						Cookie cUserName = new Cookie("cookuser", name.trim());
+						Cookie cPassword = new Cookie("cookpass", password.trim());
+						Cookie cRemember = new Cookie("cookrem", remember.trim());
+						
+						cUserName.setMaxAge(60 * 60 * 24 * 15);// 15 days
+						cPassword.setMaxAge(60 * 60 * 24 * 15);
+						cRemember.setMaxAge(60 * 60 * 24 * 15);
+						response.addCookie(cUserName);
+						response.addCookie(cPassword);
+						response.addCookie(cRemember);
+						
+					}
+
 				} else {
 					mav = "redirect:/";
 					session.setAttribute("errorMsg", "Login Failed");
@@ -334,7 +356,7 @@ public class HomeController {
 					GetFranchiseData.class);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return getFranchiseData;
 	}
@@ -975,19 +997,68 @@ public class HomeController {
 		return res;
 	}
 
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+//
+//		Cookie cUserName = new Cookie("cookuser", null);
+//		Cookie cPassword = new Cookie("cookpass", null);
+//		Cookie cRemember = new Cookie("cookrem", null);
+//		cUserName.setMaxAge(0);
+//		cPassword.setMaxAge(0);
+//		cRemember.setMaxAge(0);
+//		response.addCookie(cUserName);
+//		response.addCookie(cPassword);
+//		response.addCookie(cRemember);
+//
+//		session.invalidate();
+//		return "redirect:/";
+//	}
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 
+		ModelAndView model = new ModelAndView("login");
+
+		logger.info("/logout request mapping.");
+
+		HttpSession session = request.getSession();
+		
+		Cookie cUserName = new Cookie("cookuser", null);
+		Cookie cPassword = new Cookie("cookpass", null);
+		Cookie cRemember = new Cookie("cookrem", null);
+		cUserName.setMaxAge(0);
+		cPassword.setMaxAge(0);
+		cRemember.setMaxAge(0);
+		response.addCookie(cUserName);
+		response.addCookie(cPassword);
+		response.addCookie(cRemember); 
+		  
 		session.invalidate();
-		return "redirect:/";
-	}
+		
+		return model;
+
+	} 
 
 	@RequestMapping(value = "/sessionTimeOut", method = RequestMethod.GET)
 	public String sessionTimeOut(HttpSession session) {
 		System.out.println("User Logout");
-
+		
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/";  
+	}
+
+	@RequestMapping(value = "/publishAllFrData", method = RequestMethod.GET)
+	@ResponseBody
+	public Info publishAllFrData(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+			info = Constants.getRestTemplate().getForObject(Constants.url + "publishAllFrData", Info.class);
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
 	}
 
 	/*
