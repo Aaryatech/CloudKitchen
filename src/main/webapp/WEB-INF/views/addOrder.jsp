@@ -620,7 +620,7 @@
 		 
 		function addTocart(type,itemId) {
 			
-			
+		
 			var isError = false; 
 			$("#qty_error").hide();
 			
@@ -685,6 +685,21 @@
 				
 				 sessionStorage.setItem("cartValue", JSON.stringify(table)); 
 				 appendCartList();
+				 
+				var km=0;
+				var selectedFrId = $("#hiddenSelectedFrId").val();
+				var fr = sessionStorage.getItem("frList");
+				var frList = $.parseJSON(fr);
+					
+				for (var i = 0; i < frList.length; i++) {
+					if (selectedFrId == frList[i].frId) {
+						km= frList[i].km;
+						break;
+					}
+				}
+				sessionStorage.setItem("frKm", km); 
+				 
+				 
 			}
 			 
 				
@@ -1103,12 +1118,12 @@
 
 				if (selectedFrId == frList[i].frId) {
 					html += '<option value="' + frList[i].frId + '" selected>'
-							+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - ' + frList[i].km
-							+ ' KM</option>';
+					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - '+frList[i].frAddress + ' - ' + frList[i].km
+					+ ' KM</option>';
 				} else {
-					html += '<option value="' + frList[i].frId + '">'
-							+ frList[i].frName +' ( '+ frList[i].frCode+' - '+frType+') - ' + frList[i].km
-							+ ' KM </option>';
+					html += '<option value="' + frList[i].frId + '" >'
+					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - '+frList[i].frAddress + ' - ' + frList[i].km
+					+ ' KM</option>';
 				}
 				
 				

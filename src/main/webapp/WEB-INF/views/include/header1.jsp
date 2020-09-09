@@ -265,7 +265,8 @@
 									</a></li>
 								</ul> -->
 								<div class="user-footer">
-									<span class="text-light-black">Not ${sessionScope.userInfo.userName}?</span> <a
+									<span class="text-light-black">Not
+										${sessionScope.userInfo.userName}?</span> <a
 										href="${pageContext.request.contextPath}/">Sign Out</a>
 								</div>
 							</div>
@@ -444,7 +445,6 @@
 						success : function(response) {
 							var url = '${pageContext.request.contextPath}/checkout';
 							window.location = url;
-
 						},
 					});
 

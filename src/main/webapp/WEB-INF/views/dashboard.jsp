@@ -111,7 +111,7 @@
 									placeholder="Customer Mobile Number " id="mobileNoSearch"
 									maxlength="10" autocomplete="off" /> <i
 									class="fa fa-mobile mobile" aria-hidden="true"></i>
-								<button type="submit" value="Submit">
+								<button type="submit" value="Submit" class="session-chk">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
 							</form>
@@ -161,7 +161,7 @@
 
 					<div class="col-lg-3 sec_title right_btn">
 						<a href="javascript:void(0)" onclick="addNewCustomerModel()"
-							class="order_btn"> New Customer Registration</a>
+							class="order_btn session-chk"> New Customer Registration</a>
 					</div>
 				</div>
 
@@ -548,7 +548,7 @@
 							<div class="profile_one">
 								<span>Wallet Amount</span> : <span id="profileWalletAmt"
 									style="width: auto;">${wallet.total} </span> &nbsp; <a
-									title="View Detail" class="detail_btn_round" id="walletDetail"
+									title="View Detail" class="detail_btn_round session-chk" id="walletDetail"
 									href="javascript:void(0)" onclick="walletTranscModal()"><i
 									class="fa fa-list" aria-hidden="true"></i></a>
 
@@ -559,11 +559,11 @@
 
 							<div class="profile_one">
 								<span>Delivery Address</span> : <span id="profileDeliveryAdd">
-									<a title="Add New Address" class="detail_btn_round"
+									<a title="Add New Address" class="detail_btn_round session-chk"
 									href="javascript:void(0)" onclick="addCustomerAdd()"><i
 										class="fa fa-plus" aria-hidden="true"></i></a> <a
 									href="javascript:void(0)" title="Address List"
-									class="detail_btn_round" onclick="customerAddList()"><i
+									class="detail_btn_round session-chk" onclick="customerAddList()"><i
 										class="fa fa-list" aria-hidden="true"></i></a>
 								</span>
 
@@ -587,7 +587,7 @@
 								</ul>
 							</div>
 							<input type="button" value="New Order Booking"
-								onclick="placeOrderProcess()" disabled class="next_btn right"
+								onclick="placeOrderProcess()" disabled class="next_btn right session-chk"
 								id="newOrderbtn">
 
 						</div>
@@ -2368,12 +2368,17 @@ solution 1:
 		}
 
 		function displayCustomerInfo(flag) {
-			
-			checkSession();
 
-			if (flag != 1) {
+			checkSession();
+			
+			
+			if(flag == undefined ){
 				document.getElementById("loaderimg").style.display = "block";
 			}
+
+			/* if (flag != 1) {
+				document.getElementById("loaderimg").style.display = "block";
+			} */
 
 			var fd = new FormData();
 			$
@@ -2581,13 +2586,13 @@ solution 1:
 					orderStatus = 'Shop Confirmation Pending';
 					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
-							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ ',3)" class="detail_btn_round session-chk" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
 				} else if (table[i].orderStatus == 2) {
 					orderStatus = 'Accept by shop';
 					action = '<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
-							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ ',3)" class="detail_btn_round session-chk" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
 				} else if (table[i].orderStatus == 3) {
 					orderStatus = 'Processing';
@@ -2604,18 +2609,18 @@ solution 1:
 				} else if (table[i].orderStatus == 9) {
 					orderStatus = 'Online Payment Pending';
 					action = '<a href="javascript:void(0)"'
-							+ 'class="detail_btn_round" title="Send Payment Link" onclick="sendPaymentLink('
+							+ 'class="detail_btn_round session-chk" title="Send Payment Link" onclick="sendPaymentLink('
 							+ table[i].orderId
 							+ ',1)"><i class="fa fa-link"></i></a>&nbsp;<a href="javascript:void(0)" onclick="cancelOrderFun('
 							+ table[i].orderId
-							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ ',3)" class="detail_btn_round session-chk" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
 				} else {
 
 					action = '<a href="javascript:void(0)"'
-							+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
+							+ 'class="detail_btn_round session-chk" title="Place Order" onclick="placeOrderFun('
 							+ table[i].orderId
-							+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)" onclick="cancelOrderFun('
+							+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)" class="session-chk" onclick="cancelOrderFun('
 							+ table[i].orderId
 							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
@@ -2632,15 +2637,15 @@ solution 1:
 				action = action
 						+ '<a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
-						+ ')" class="detail_btn_round" title="Grievences">'
+						+ ')" class="detail_btn_round session-chk" title="Grievences">'
 						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
 						+ table[i].orderId + ',' + table[i].frId + ','
 						+ table[i].addressId
-						+ ') class="detail_btn_round" title="Repeat Order">'
+						+ ') class="detail_btn_round session-chk" title="Repeat Order">'
 						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
 				var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> <img '+
 				'src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" class="rounded-circle" alt="userimg">'
-						+ '</a></td> <td class="user-name"><strong><a href="javascript:void(0)" onclick="viewOrderFun('
+						+ '</a></td> <td class="user-name"><strong><a href="javascript:void(0)" class="session-chk" onclick="viewOrderFun('
 						+ table[i].orderId
 						+ ',3)">'
 						+ table[i].orderNo
@@ -2678,12 +2683,12 @@ solution 1:
 					currentSts = 'Damage';
 				}
 
-				var tr_data = '<tr> <td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" onclick="viewGrvDetailFun('
+				var tr_data = '<tr> <td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" class="session-chk" onclick="viewGrvDetailFun('
 						+ griviencehistory[i].grieveId
 						+ ')">'
 						+ griviencehistory[i].grievencceNo
 						+ '</a></strong></td>'
-						+ '<td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" onclick="viewOrderFun('
+						+ '<td class="user-name" style="text-align: center;"><strong><a href="javascript:void(0)" class="session-chk" onclick="viewOrderFun('
 						+ griviencehistory[i].orderId
 						+ ',3)">'
 						+ griviencehistory[i].orderNo
@@ -4500,6 +4505,7 @@ solution 1:
 
 			sessionStorage.removeItem("cartValue");
 			sessionStorage.removeItem("allItemList");
+			sessionStorage.removeItem("frKm");
 
 			//alert("Anmol - "+window.location.href);
 
@@ -4513,7 +4519,7 @@ solution 1:
 		});
 
 		function getLiveList() {
-			
+
 			checkSession();
 
 			var fd = new FormData();
@@ -4566,13 +4572,13 @@ solution 1:
 								if (response[i].orderStatus == 1) {
 									orderStatus = 'Shop Confirmation Pending';
 									actionBtn = '<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ 'class="detail_btn_round session-chk" title="Cancel Order" onclick="cancelOrderFun('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else if (response[i].orderStatus == 2) {
 									orderStatus = 'Accept by shop';
 									actionBtn = '<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ 'class="detail_btn_round session-chk" title="Cancel Order" onclick="cancelOrderFun('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else if (response[i].orderStatus == 3) {
@@ -4582,18 +4588,18 @@ solution 1:
 								} else if (response[i].orderStatus == 9) {
 									orderStatus = 'Online Payment Pending';
 									actionBtn = '<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Send Payment Link" onclick="sendPaymentLink('
+											+ 'class="detail_btn_round session-chk" title="Send Payment Link" onclick="sendPaymentLink('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-link"></i></a>&nbsp;<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ 'class="detail_btn_round session-chk" title="Cancel Order" onclick="cancelOrderFun('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								} else {
 									actionBtn = '<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Place Order" onclick="placeOrderFun('
+											+ 'class="detail_btn_round session-chk" title="Place Order" onclick="placeOrderFun('
 											+ response[i].orderId
 											+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)"'
-											+ 'class="detail_btn_round" title="Cancel Order" onclick="cancelOrderFun('
+											+ 'class="detail_btn_round session-chk" title="Cancel Order" onclick="cancelOrderFun('
 											+ response[i].orderId
 											+ ',1)"><i class="fa fa-times" aria-hidden="true"></i> </a>&nbsp;';
 								}
@@ -4602,20 +4608,20 @@ solution 1:
 										+ '<a href="javascript:void(0)" '
 										+ 'onclick="insertgrievences('
 										+ response[i].orderId
-										+ ')" class="detail_btn_round" title="Grievences">'
+										+ ')" class="detail_btn_round session-chk" title="Grievences">'
 										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
 										+ response[i].orderId
 										+ ','
 										+ response[i].frId
 										+ ','
 										+ response[i].addressId
-										+ ') class="detail_btn_round" title="Repeat Order">'
+										+ ') class="detail_btn_round session-chk" title="Repeat Order">'
 										+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>';
 
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
 								'class="rounded-circle user_pic_round" alt="userimg"> </a></td> <td class="user-name"><strong>'
-										+ '<a href="javascript:void(0)" onclick="viewOrderFun('
+										+ '<a href="javascript:void(0)" class="session-chk" onclick="viewOrderFun('
 										+ response[i].orderId
 										+ ',1)">'
 										+ response[i].orderNo
@@ -5379,7 +5385,7 @@ solution 1:
 		}
 
 		function publishData() {
-			
+
 			checkSession();
 
 			document.getElementById("loaderimg").style.display = "block";
@@ -5406,7 +5412,20 @@ solution 1:
 				}
 			});
 		}
+
+		$(".session-chk").click(function() {
+			$.getJSON('${checkSessionAjax}', {
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				if (data.error == true) {
+					location.reload();
+				}
+			});
+		});
+		
 	</script>
+	
 </body>
 
 </html>

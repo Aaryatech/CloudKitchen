@@ -18,6 +18,9 @@
 <script
 	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 
+<c:url var="getDeliveryChargesByKm" value="/getDeliveryChargesByKm"></c:url>
+
+
 <body onload="appendTableList();getItemList();"
 	data-customvalueone='${jsonList}'>
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -87,13 +90,13 @@
 											class="text-light-black fw-500 fs-14">Delivery Option
 											:&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
 											type="radio" id="homeDelivery" name="typeSelect"
-											class="option-input radio" checked ${deliveryType =='1'?'checked':''}>Home Delivery
-											&nbsp; </label><label class="chk_txt fw-500 fs-14"><input
+											class="option-input radio" checked ${deliveryType=='1'?'checked':''}>Home
+											Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"><input
 											type="radio" class="option-input radio" id="takeaway"
-											name="typeSelect"  ${deliveryType =='2'?'checked':''}>Take Away</label><br> <label
-											class="text-light-black fw-500 fs-14">Select Delivery
-											Instruction</label><select class="form-control" id="deliveryInstru"
-											name="deliveryInstru">
+											name="typeSelect" ${deliveryType =='2'?'checked':''}>Take
+											Away</label><br> <label class="text-light-black fw-500 fs-14">Select
+											Delivery Instruction</label><select class="form-control"
+											id="deliveryInstru" name="deliveryInstru">
 											<c:forEach items="${deliveryInstructionList}"
 												var="deliveryInstructionList">
 												<option value="${deliveryInstructionList.instruId}">${deliveryInstructionList.instructnCaption}</option>
@@ -190,7 +193,7 @@
 												<input name="deliveryCharges" id="deliveryCharges"
 													type="text" class="table_inpt numbersOnly"
 													placeholder=" Delivery Free" value="50"
-													onchange="appendTableList()" style="text-align: right;" />
+													onchange="appendTableList();" style="text-align: right;" />
 											</div>
 
 											<div class="clr"></div>
@@ -270,16 +273,25 @@
 						</div>
 
 
+
 						<div class="three_btn">
 							<button type="submit" value="Submit" class="button_place"
-								onclick="placeOrder(1)">Place Order</button>
+								id="placeBtn" onclick="placeOrder(1)">Place Order</button>
 							<button type="submit" value="Submit" class="button_park"
-								onclick="placeOrder(0)">Park Order</button>
+								id="parkBtn" onclick="placeOrder(0)">Park Order</button>
 							<a href="${pageContext.request.contextPath}/addOrder"><button
 									type="submit" value="Submit" class="button_back">
 									<i class="fa fa-angle-left" aria-hidden="true"></i> Back
 								</button></a>
 						</div>
+
+
+
+						<p id="minOrderMsgDiv" style="display: none; text-align: center;">
+							<br> <span class="total_bx"
+								style="background: #cd2b2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal; text-align: center;"
+								id="minOrderMsg"></span>
+						</p>
 
 					</div>
 				</div>
@@ -600,6 +612,8 @@
 		
 		function placeOrder(status) {
 			
+			checkSession();
+			
 			
 			var deliveryCharges = $("#deliveryCharges").val();
 			var applyWalletAmt=document.getElementById("applyWalletAmt").innerHTML;
@@ -770,12 +784,14 @@
 
 		}
 
-		function appendTableList() {
+		function appendTableList(flag) {
 
 			if (sessionStorage.getItem("cartValue") == null) {
 				var table = [];
 				sessionStorage.setItem("cartValue", JSON.stringify(table));
 			}
+			
+			
 
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue);
@@ -866,7 +882,7 @@
 						billTotal=billTotal-parseFloat(${wallet.walletMinAmt});
 						$("#applyWalletAmt").html(${wallet.walletMinAmt});
 					}
-					
+					 
 				}
 				
 				$("#bill_total").html(billTotal.toFixed(2));
@@ -875,7 +891,11 @@
 			}else{
 				document.getElementById("chkWallet").checked=false;
 				$("#applyWalletAmt").html("00.00");
-			}			
+			}
+			
+			if(flag!=1){
+				getDeliveryCharges();	
+			}
 			
 		}
 
@@ -1149,6 +1169,84 @@
 				$("#applyWalletAmt").html("00.00");
 			}
 		}
+		
+		function getDeliveryCharges(){
+			
+			checkSession();
+			
+			document.getElementById("loaderimg").style.display = "block";
+			var km=sessionStorage.getItem("frKm");
+			//alert(km);
+			
+			$.getJSON('${getDeliveryChargesByKm}', {
+				km : km,
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				document.getElementById("loaderimg").style.display = "none";
+				
+				var itemSubTotal=$("#item_sub_total").val();
+				var taxTotal=document.getElementById("item_tax_total").innerHtml;
+				
+				
+				var cartValue = sessionStorage.getItem("cartValue");
+				var table = $.parseJSON(cartValue);
+
+				$("#printtable1 tbody").empty();
+				var subtotal = 0;
+				var taxtotal = 0;
+				var billTotal = 0;
+				
+				for (var i = 0; i < table.length; i++) {
+					var baseValue = (parseFloat(table[i].total)*100)/(100+parseFloat(table[i].igstPer)).toFixed(2);
+					var taxAmt = parseFloat(table[i].total)-parseFloat(baseValue).toFixed(2); 
+					subtotal = parseFloat(subtotal)+parseFloat(baseValue);
+					taxtotal = parseFloat(taxtotal)+parseFloat(taxAmt); 
+				}
+				billTotal=subtotal+taxtotal;
+				
+				$('#placeBtn').show();
+				$('#parkBtn').show();
+				
+				if(billTotal > data.minAmt && billTotal <= data.freeDelvLimit){
+					document.getElementById("deliveryCharges").value=data.amt1;
+					
+					document.getElementById("minOrderMsgDiv").style.display="none";
+					
+				}else if(billTotal > data.freeDelvLimit){
+					document.getElementById("deliveryCharges").value=data.amt2;
+					
+					document.getElementById("minOrderMsgDiv").style.display="none";
+					
+				}else{
+					
+					document.getElementById("deliveryCharges").value=0;
+				
+					$('#placeBtn').hide();
+					$('#parkBtn').hide();
+					
+					document.getElementById("minOrderMsgDiv").style.display="block";
+					document.getElementById("minOrderMsg").innerHTML="Minimum order amount should be "+data.minAmt+"/-";
+					
+				}
+				
+				appendTableList(1);
+			
+			});
+			 
+		}
+		
+		function checkSession() {
+			$.getJSON('${checkSessionAjax}', {
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				if (data.error == true) {
+					location.reload();
+				}
+			});
+		}
+		
 	</script>
 
 

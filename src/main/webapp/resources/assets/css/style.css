@@ -1020,7 +1020,7 @@ span.type-tag{
     justify-content: center;
     max-width: 220px /*160px*/;
 }
-.header .main-search {
+.header .main-search { width:50%;
     flex: 1;
 }
 .header .right-side,
