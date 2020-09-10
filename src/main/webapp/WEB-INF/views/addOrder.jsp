@@ -441,7 +441,7 @@
 											<div class="order_now">
 												<div id="order_now_btn${itemList.itemId}">
 													<a href="javascript:void(0)"
-														onclick="addTocart(1,${itemList.itemId})">Order Now</a>
+														onclick="addTocart(2,${itemList.itemId})">Order Now</a>
 												</div>
 											</div>
 
@@ -634,25 +634,38 @@
 				}else{
 					$('#quantity'+itemId).val(qty);
 				}
-			}else{
+			}else if(type==1){
+				
 				qty = $('#quantity'+itemId).val();
 				
-				if(qty<=0){
-					$('#quantity'+itemId).val(1);
-					qty=1;
-				}
+				 if(qty<=0){
+					$('#quantity'+itemId).val(0);
+					qty=0;
+				} 
+			}else if(type==2){
+				qty=1;
+				$('#quantity'+itemId).val(qty);
 			}
 			  
 			
 			if (!isError) {
 				
-				$("#numberDiv"+itemId).show(); 
-				$("#order_now_btn"+itemId).hide(); 
+				if(qty>0){
+					$("#numberDiv"+itemId).show(); 
+					$("#order_now_btn"+itemId).hide();
+				}else{
+					$("#numberDiv"+itemId).hide(); 
+					$("#order_now_btn"+itemId).show();
+				}
+				
+				 
+				
 				$('#discription').modal('hide'); 
 				
 				var cartValue = sessionStorage.getItem("cartValue");
 				var table = $.parseJSON(cartValue);
 				var findItem=0;
+				var findItemPosition="";
 				 
 				var data = $("#detail"+itemId).attr("data-id");
 				var obj = $.parseJSON(data); 
@@ -660,13 +673,20 @@
 				for(var i = 0 ; i<table.length ; i++){
 					
 					if(table[i].itemId==itemId){
-						 
-						table[i].qty=parseFloat(qty);
-						table[i].total=table[i].qty*table[i].price;
+						findItemPosition=i;
+						if(qty>0){
+							table[i].qty=parseFloat(qty);
+							table[i].total=table[i].qty*table[i].price;
+						}
 						findItem=1;
 						break;
 					}
 				}
+				
+				if(qty==0 && findItem == 1){
+					table.splice(findItemPosition, 1);
+				}
+				
 				
 				if(findItem==0){
 					var total = obj.spRateAmt*qty;
@@ -1118,11 +1138,11 @@
 
 				if (selectedFrId == frList[i].frId) {
 					html += '<option value="' + frList[i].frId + '" selected>'
-					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - '+frList[i].frAddress + ' - ' + frList[i].km
+					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - ' + frList[i].km
 					+ ' KM</option>';
 				} else {
 					html += '<option value="' + frList[i].frId + '" >'
-					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - '+frList[i].frAddress + ' - ' + frList[i].km
+					+ frList[i].frName +' ( '+ frList[i].frCode+' - '+ frType+ ') - ' + frList[i].km
 					+ ' KM</option>';
 				}
 				
@@ -1214,9 +1234,9 @@
 
 	<script>
 	function incrementValue(itemId) {
-		 
-		  var currentVal = parseFloat($('#quantity'+itemId).val()); 
 		  
+		  var currentVal = parseFloat($('#quantity'+itemId).val()); 
+		
 		  if (!isNaN(currentVal)) {
 			  $('#quantity'+itemId).val(currentVal + 1);  
 		  } else {
@@ -1226,13 +1246,26 @@
 		}
 
 		function decrementValue(itemId) {
-		  
+			
 		var currentVal = parseFloat($('#quantity'+itemId).val()); 
 		  
 		  if (!isNaN(currentVal) && currentVal > 0) {
-			  $('#quantity'+itemId).val(currentVal - 1);  
+			  if(currentVal == 1){
+				  //alert("hi");
+				  $('#quantity'+itemId).val(0);  
+				  $('#order_now_btn'+itemId).show();  
+				  $('#numberDiv'+itemId).hide();  
+			  }else{
+				  $('#quantity'+itemId).val(currentVal - 1);  
+			  }
+			    
 		  } else {
-			  $('#quantity'+itemId).val(1);   
+			 
+			  $('#quantity'+itemId).val(0);  
+			  $('#order_now_btn'+itemId).show();  
+			  $('#numberDiv'+itemId).hide();  
+			  //numberDiv
+			  //order_now_btn
 		  }
 		  addTocart(1,itemId);
 		}
