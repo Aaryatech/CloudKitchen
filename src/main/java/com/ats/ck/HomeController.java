@@ -9,6 +9,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -167,87 +168,143 @@ public class HomeController {
 		return mav;
 	}
 
+	
+	Instant start = null;
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		return "forgotPassword";
-	}
-
-	@RequestMapping(value = "/submitResetPassword", method = RequestMethod.POST)
-	public String submitResetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-		String mav = new String();
-		HttpSession session = request.getSession();
-
-		try {
-
-			String name = request.getParameter("username");
-
-			if (name.equalsIgnoreCase("") || name == null) {
-
-				mav = "redirect:/";
-				session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-			} else {
-
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-				map.add("username", name);
-				map.add("type", 1);
-				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "forgotPassword", map,
-						LoginResponse.class);
-
-				if (userObj.getErrorMessage().isError() == false) {
-
-					RandomString randomString = new RandomString();
-					String password = randomString.nextString();
-					MessageDigest md = MessageDigest.getInstance("MD5");
-					byte[] messageDigest = md.digest(password.getBytes());
-					BigInteger number = new BigInteger(1, messageDigest);
-					String hashtext = number.toString(16);
-
-					map = new LinkedMultiValueMap<String, Object>();
-					map.add("username", hashtext);
-					map.add("userId", userObj.getUser().getUserId());
-					ErrorMessage updatepass = Constants.getRestTemplate()
-							.postForObject(Constants.url + "updatePassword", map, ErrorMessage.class);
-
-					String subject = "Reset Password";
-					String msg = "Hello, \n Your Credential, \n Username : " + userObj.getUser().getUserMobileNo()
-							+ "\n Password : " + password;
-
-					ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
-							userObj.getErrorMessage().getMessage());
-
-					RestTemplate restTemplate = new RestTemplate();
-					// String sms =
-					// restTemplate.getForObject("https://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=pJMAaVPuGbh&MobileNo="+userObj.getUser().getUserMobileNo()+"&SenderID=MADHVI&Message="+msg+"&ServiceName=TEMPLATE_BASED",
-					// String.class);
-
-					mav = "redirect:/";
-					session.setAttribute("successMsg", "Password send to your register Email.");
-
-				} else {
-
-					mav = "redirect:/forgotPassword";
-					session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-				}
-
-			}
-
-		} catch (Exception e) {
-			mav = "redirect:/";
-			session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-			e.printStackTrace();
+		public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+			
+			return "forgotPassword";
 		}
 
-		return mav;
-	}
+		@RequestMapping(value = "/submitResetPassword", method = RequestMethod.POST)
+		public String submitResetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-	@RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
-	public String resetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
+			String mav = new String();
+			HttpSession session = request.getSession();
 
-		return "resetPassword";
-	}
+			try {
+
+				String name = request.getParameter("username");
+
+				if (name.equalsIgnoreCase("") || name == null) {
+
+					mav = "redirect:/";
+					session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+				} else {
+
+					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+					map.add("username", name);
+					map.add("type", 1);
+					LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "forgotPassword", map,
+							LoginResponse.class);
+					System.err.println("Get User----------"+userObj);
+					if (userObj.getErrorMessage().isError() == false) {
+						
+						mav = "otp";
+						model.addAttribute("contact", userObj.getUser().getUserMobileNo());
+						start = Instant.now();
+						;
+					} else {
+
+						mav = "redirect:/forgotPassword";
+						session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+					}
+
+				}
+
+			} catch (Exception e) {
+				mav = "redirect:/";
+				session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+				e.printStackTrace();
+			}
+
+			return mav;
+		}
+
+		
+		@RequestMapping(value = "/otpVerification", method = RequestMethod.POST)
+		public String OTPVerificationByContact(HttpServletRequest request, HttpServletResponse response, Model model) {
+			
+			System.err.println("Hiii  OTPVerification  ");
+			String mav = new String();
+			try {
+				HttpSession session = request.getSession();
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+				String otp = request.getParameter("otp");
+
+				map.add("otp", otp);
+
+				MnUser user = Constants.getRestTemplate().postForObject(Constants.url + "verifyOTP", map, MnUser.class);
+
+				if (user.getUserId() == 0) {
+					
+					session.setAttribute("errorMsg", "Invalid OTP.");
+					mav = "forgotPassword";
+					model.addAttribute("msg", "Incorrect OTP");
+
+				} else {				
+					System.err.println("User" + user);
+					mav = "resetPassword";
+					model.addAttribute("userId", user.getUserId());
+					
+				}
+
+			} catch (Exception e) {
+				System.err.println("Exce in otpVerification  " + e.getMessage());
+				e.printStackTrace();
+			}
+
+			return mav;
+
+		}
+		
+		@RequestMapping(value = "/changeToNewPassword", method = RequestMethod.POST)
+		public String changeToNewPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
+			Info info = new Info();
+			HttpSession session = request.getSession();
+			String mav = new String();
+			try {
+
+				int userId = Integer.parseInt(request.getParameter("userId"));
+				
+				String pass = request.getParameter("new-password");
+				String password = pass;
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				byte[] messageDigest = md.digest(password.getBytes());
+				BigInteger number = new BigInteger(1, messageDigest);
+				String hashtext = number.toString(16); 
+				
+				
+				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+				map.add("userId", userId);
+				map.add("newPass", hashtext);
+
+				Info inf = Constants.getRestTemplate().postForObject(Constants.url + "updateToNewPassword", map, Info.class);
+
+				if (inf.getError()) {
+					mav = "redirect:/";
+					
+					session.setAttribute("errorMsg", "Password Not Change");
+					info.setError(true);
+					info.setMessage("User Not Found");
+					System.err.println(info);
+				} else {
+					mav = "redirect:/";	
+					session.setAttribute("successMsg", "Password Change Sucessfully");
+					info.setError(false);
+					info.setMessage("User Found");
+					System.err.println(info);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return mav;
+
+		}
 
 	List<City> cityList = new ArrayList<>();
 

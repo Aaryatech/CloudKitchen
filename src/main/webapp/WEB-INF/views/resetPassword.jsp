@@ -78,7 +78,8 @@
 					<div class="section-2 user-page main-padding">
 						<div class="login-sec">
 							<div class="login-box">
-								<form>
+								<form action="${pageContext.request.contextPath}/changeToNewPassword"
+									method="post">
 									<div class="form-group">
 										<center>
 											<img
@@ -96,44 +97,69 @@
 											<div class="form-froup">
 												<!-- <div class="info-msg"><i class="fa fa-info-circle"></i> This is an info message.</div> -->
 												<!-- <div class="warning-msg"><i class="fa fa-warning"></i> This is a warning message.</div> -->
-												<div class="success-msg">
-													<i class="fa fa-check"></i> Reset Password Link Sent to
-													your registered email - XXXXXXXXX@gmail.com
-												</div>
-												<div class="error-msg">
-													<i class="fa fa-times-circle"></i> Entered email id /
-													mobile no not registered with system. Please contact system
-													administrator.
-												</div>
+												
+												
+												<%
+													if (session.getAttribute("successMsg") != null) {
+												%>
+													<div class="success-msg">
+														<i class="fa fa-check"></i><% out.println(session.getAttribute("successMsg")); %>
+													</div>
+													<%
+														session.removeAttribute("successMsg");
+														}
+													%>
+											
+												
+												
+												
+												<%
+													if (session.getAttribute("errorMsg") != null) {
+												%>
+													<div class="error-msg">
+														<i class="fa fa-times-circle"></i> <% out.println(session.getAttribute("errorMsg")); %>
+													</div>
+													<%
+														session.removeAttribute("errorMsg");
+														}
+													%>
+												
+												
 											</div>
 
 											<div class="form-group">
-												<h4 class="welcone_pass">
+												<!-- <h4 class="welcone_pass">
 													Welcome to, <span>Ansari Mohsin </span>
-												</h4>
+												</h4> -->
 												<p class="text-light-white dont_worry">Don't worry, Well
 													send the account details to your email Address.</p>
 											</div>
-
+												
+												<input type="hidden" id="userId" name="userId" value="${userId}">
+												
 											<div class="form-group">
 												<label class="text-light-white fs-14">New Password</label> <input
-													type="password" id="new-password" name="#"
+													type="password" id="password" name="new-password"
 													class="form-control form-control-submit"
-													value="New Password" placeholder="New Password" required>
+													placeholder="New Password" required>
 												<div data-name="#new-password"
 													class="fa fa-fw fa-eye field-icon toggle-password"></div>
+													
 											</div>
 
 											<div class="form-group" name="frmCheckPassword"
 												id="frmCheckPassword">
 												<label class="text-light-white fs-14">Confirm
-													Password</label> <input type="password" name="password"
-													id="password" class="form-control form-control-submit"
-													onKeyUp="checkPasswordStrength();" value="Confirm Password"
+													Password</label> <input type="password" name="confrmPass"
+													id="confrmPass" class="form-control form-control-submit"
+													onKeyUp="checkPasswordStrength();" 
 													placeholder="Confirm Password" required />
 												<div data-name="#password"
 													class="fa fa-fw fa-eye field-icon toggle-password"></div>
 												<div id="password-strength-status"></div>
+												
+												<span class="error_form" id="error_match"
+													style="display: none;">Password not matched.</span>
 											</div>
 
 											<!-- <div name="frmCheckPassword" id="frmCheckPassword">
@@ -144,17 +170,13 @@
 
 
 											<div class="form-group">
-												<button type="submit"
+												<button type="submit" id="pass_btn"
 													class="btn-second btn-submit full-width">
-													<img
+													<%-- <img
 														src="${pageContext.request.contextPath}/resources/assets/img/M.png"
-														alt="btn logo">Sign in
+														alt="btn logo"> --%>Sign in
 												</button>
 											</div>
-
-
-
-
 										</div>
 									</div>
 								</form>
@@ -223,6 +245,27 @@
 							.html(
 									"Medium (should include alphabets, numbers and special characters.)");
 				}
+			}
+			checkPassword();
+		}
+		
+		
+		function checkPassword(){
+			var npass= $("#password").val();
+			var cpass = $("#confrmPass").val();
+			//alert("---"+npass+" "+cpass)
+		if (npass != cpass) {   
+			
+				$("#error_match")
+				.show()
+				document.getElementById("pass_btn").disabled = true;
+				return false;
+			}else {
+				$("#error_match")
+					.hide()
+					document.getElementById("pass_btn").disabled = false;
+					return true;
+					
 			}
 		}
 	</script>
