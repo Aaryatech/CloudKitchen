@@ -1,6 +1,7 @@
 package com.ats.ck.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -95,20 +96,29 @@ public class OrderController {
 			// http://107.180.91.43:8080/uploads/ckjson/
 			// C:/Users/MAXADMIN/Desktop/Report/"+frId+".json
 			/// opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/
-			// BufferedReader br = new BufferedReader(
-			// new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"));
-			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(br,
-			// GetAllDataByFr.class);
+			
+			
+			//BufferedReader br = new BufferedReader(new FileReader("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/" + frId + ".json"));
+			//GetAllDataByFr getAllDataByFr = new Gson().fromJson(br, GetAllDataByFr.class);
+			
+			System.err.println("url - "+"C:/Users/MAXADMIN/Desktop/Report/"+frId+".json");
+			//Gson
+			GetAllDataByFr getAllDataByFr = new Gson().fromJson(new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"), GetAllDataByFr.class);
 
-			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+			//Jackson
+			//ObjectMapper mapper = new ObjectMapper();
+			//GetAllDataByFr getAllDataByFr = mapper.readValue(new File("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/"+ frId + ".json"), GetAllDataByFr.class);
 
-			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			map.add("frId", frId);
-			map.add("type", 2);
-			map.add("applicableFor", 1);
-			map.add("compId", 1);
-			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
-					map, GetAllDataByFr.class);
+
+			//System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+
+//			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+//			map.add("frId", frId);
+//			map.add("type", 2);
+//			map.add("applicableFor", 1);
+//			map.add("compId", 1);
+//			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
+//					map, GetAllDataByFr.class);
 
 			List<CategoryData> catList = getAllDataByFr.getCategoryData();
 			model.addAttribute("catList", catList);
@@ -128,12 +138,12 @@ public class OrderController {
 
 			ObjectMapper Obj = new ObjectMapper();
 
-			try {
-
-				String jsonStr = Obj.writeValueAsString(itemList);
-				model.addAttribute("jsonList", jsonStr);
-			} catch (IOException e) {
-			}
+//			try {
+//
+//				String jsonStr = Obj.writeValueAsString(itemList);
+//				model.addAttribute("jsonList", jsonStr);
+//			} catch (IOException e) {
+//			}
 
 			// System.out.println("sdf" + session.getAttribute("frIdForOrder"));
 			// model.addAttribute("frIdForOrder", session.getAttribute("frIdForOrder"));

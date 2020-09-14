@@ -40,6 +40,8 @@
 <c:url var="getSession" value="/getSession"></c:url>
 <c:url var="checkSessionAjax" value="/checkSessionAjax"></c:url>
 
+<c:url var="getMissedCallList" value="/getMissedCallList"></c:url>
+
 <body>
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
@@ -153,7 +155,16 @@
 					<div class="col-lg-3 col-md-6 col-sm-6">
 
 						<a href="javascript:void(0)" onclick="publishData()"
-							style="display: none;" class="order_btn">Publish</a>
+							style="display: none;" class="order_btn">Publish</a> <a
+							href="javascript:void(0)" onclick="getAllMissedCalls()"
+							class="order_btn">Missed Calls</a>
+							
+							<a href="javascript:void(0)" onclick="getLiveCalls()" style="margin-right: 5px;"
+							class="order_btn">Live Customer</a>  <a href="javascript:void(0)"
+							onclick="readFile()" style="display: none;"
+							style="display: none;" class="order_btn">READ</a>
+
+
 
 					</div>
 
@@ -531,7 +542,12 @@
 								<span>Name</span> : <span id="profileCustName">${customer.custName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Mobile No.</span> : <span id="profileMobileNo">${customer.phoneNumber}</span>
+								<span>Mobile No.</span> : <span id="profileMobileNo"
+									style="width: auto;">${customer.phoneNumber}</span> <a
+									title="Call" class="detail_btn_round session-chk" id="callCust"
+									href="javascript:void(0)"
+									onclick="clickToCall('${customer.phoneNumber}')"><i
+									class="fa fa-phone" aria-hidden="true"></i></a>
 							</div>
 							<div class="profile_one">
 								<span>Whats App No.</span> : <span id="profilewhatappNo">${customer.whatsappNo}</span>
@@ -546,11 +562,12 @@
 							</div>
 
 							<div class="profile_one">
-								<span>Wallet Amount</span> : <span id="profileWalletAmt"
+								<span>Madhvi Credit</span> : <span id="profileWalletAmt"
 									style="width: auto;">${wallet.total} </span> &nbsp; <a
-									title="View Detail" class="detail_btn_round session-chk" id="walletDetail"
-									href="javascript:void(0)" onclick="walletTranscModal()"><i
-									class="fa fa-list" aria-hidden="true"></i></a>
+									title="View Detail" class="detail_btn_round session-chk"
+									id="walletDetail" href="javascript:void(0)"
+									onclick="walletTranscModal()"><i class="fa fa-list"
+									aria-hidden="true"></i></a>
 
 
 							</div>
@@ -563,8 +580,9 @@
 									href="javascript:void(0)" onclick="addCustomerAdd()"><i
 										class="fa fa-plus" aria-hidden="true"></i></a> <a
 									href="javascript:void(0)" title="Address List"
-									class="detail_btn_round session-chk" onclick="customerAddList()"><i
-										class="fa fa-list" aria-hidden="true"></i></a>
+									class="detail_btn_round session-chk"
+									onclick="customerAddList()"><i class="fa fa-list"
+										aria-hidden="true"></i></a>
 								</span>
 
 							</div>
@@ -587,8 +605,8 @@
 								</ul>
 							</div>
 							<input type="button" value="New Order Booking"
-								onclick="placeOrderProcess()" disabled class="next_btn right session-chk"
-								id="newOrderbtn">
+								onclick="placeOrderProcess()" disabled
+								class="next_btn right session-chk" id="newOrderbtn">
 
 						</div>
 						<div id="previousOrderTabDiv">
@@ -1531,7 +1549,7 @@
 						</li>
 						<li></li>
 						<li>
-							<div class="pop_txt_l">Wallet AMT</div>
+							<div class="pop_txt_l">Madhvi Credit AMT</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_wallet_total">00.00</span>
 							</div>
@@ -1830,7 +1848,7 @@
 				</button>
 
 				<div class="pop_signup">
-					Wallet<a href="#"></a>
+					Madhvi Credit<a href="#"></a>
 				</div>
 
 
@@ -1987,6 +2005,106 @@
 					</form>
 				</div>
 				<!--form close-->
+
+			</div>
+		</div>
+	</div>
+
+	<!-- END MODAL -->
+
+
+	<!-- MISSED CALL MODAL -->
+
+	<div class="modal fade kot-popup fetch_results" id="missedCallModal"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					Missed Calls<a href="#"></a>
+				</div>
+
+
+				<div class="component">
+					<table class="overflow-y" id="missed_call_table">
+						<thead>
+							<tr>
+								<th class="sorting_desc">Sr. No.</th>
+								<th class="sorting_desc">Customer No.</th>
+								<th class="sorting_desc">Date & Time</th>
+								<th class="sorting_desc">Department</th>
+								<th class="sorting_desc">Agent</th>
+								<th class="sorting_desc">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- END MODAL -->
+
+
+	<!-- CALL CONFIRMATION MODAL -->
+
+	<div class="modal fade kot-popup" id="confirmCall">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close" data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_logo">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/dashboard_logo.png"
+						class="img-fluid" alt="Logo">
+				</div>
+				<div class="pop_signup" id="popupheading">Confirmation</div>
+				<p class="confirm_txt" id="callText"></p>
+				<div class="pop_btn_cntr">
+					<button type="button" data-dismiss="modal"
+						class="button_place  popup submitmodel" id="submitCall">Call
+					</button>
+					<button type="button" data-dismiss="modal"
+						class="button_place popup" id="cancelCall">Cancel</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- END CALL MODAL -->
+
+	<!-- MODAL CALL LOADER -->
+
+	<div class="modal fade kot-popup" id="CallLoader">
+		<div class="modal-dialog modal-md">
+			<!--modal-lg-->
+			<div class="kot_content"
+				style="position: relative; width: 100%; pointer-events: auto; background-color: #fff; background-clip: padding-box; border: 1px solid rgba(0, 0, 0, .2); border-radius: .3rem; outline: 0; text-align: center;">
+
+				<img style="width: fit-content;"
+					src="${pageContext.request.contextPath}/resources/assets/img/svg/call_loader.gif"
+					alt="">
 
 			</div>
 		</div>
@@ -2370,9 +2488,8 @@ solution 1:
 		function displayCustomerInfo(flag) {
 
 			checkSession();
-			
-			
-			if(flag == undefined ){
+
+			if (flag == undefined) {
 				document.getElementById("loaderimg").style.display = "block";
 			}
 
@@ -2639,10 +2756,19 @@ solution 1:
 						+ table[i].orderId
 						+ ')" class="detail_btn_round session-chk" title="Grievences">'
 						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
-						+ table[i].orderId + ',' + table[i].frId + ','
+						+ table[i].orderId
+						+ ','
+						+ table[i].frId
+						+ ','
 						+ table[i].addressId
 						+ ') class="detail_btn_round session-chk" title="Repeat Order">'
 						+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
+
+				action = action
+						+ "<a href=javascript:void(0) class='detail_btn_round session-chk' title=Call onclick=clickToCall('"
+						+ table[i].areaName
+						+ "')><i class='fa fa-phone' aria-hidden=true></i> </a>"
+
 				var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> <img '+
 				'src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" class="rounded-circle" alt="userimg">'
 						+ '</a></td> <td class="user-name"><strong><a href="javascript:void(0)" class="session-chk" onclick="viewOrderFun('
@@ -4609,14 +4735,17 @@ solution 1:
 										+ 'onclick="insertgrievences('
 										+ response[i].orderId
 										+ ')" class="detail_btn_round session-chk" title="Grievences">'
-										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" onclick=repeateOrder('
 										+ response[i].orderId
 										+ ','
 										+ response[i].frId
 										+ ','
 										+ response[i].addressId
 										+ ') class="detail_btn_round session-chk" title="Repeat Order">'
-										+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>';
+										+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
+										+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round session-chk" title="Call" onclick="clickToCall('
+										+ response[i].areaName
+										+ ')"><i class="fa fa-phone" aria-hidden="true"></i> </a>';
 
 								var tr_data = '<tr> <td class="user-name"><a href="javascript:void(0)" class="text-custom-white fw-500"> '
 										+ '<img src="${pageContext.request.contextPath}/resources/assets/img/profile_pic.jpg" '+
@@ -4771,64 +4900,12 @@ solution 1:
 				.ready(
 						function($) {
 
-							$("#findCustomerByMobileNo")
-									.submit(
-											function(e) {
+							$("#findCustomerByMobileNo").submit(function(e) {
 
-												checkSession();
+								mobileNoSearch();
 
-												$(
-														'#error_findCustomerByMobileNo')
-														.hide();
-												var mobileNo = $(
-														"#mobileNoSearch")
-														.val();
-
-												document
-														.getElementById("loaderimg").style.display = "block";
-												var fd = new FormData();
-												fd.append("mobileNo", mobileNo);
-
-												$
-														.ajax({
-															url : '${pageContext.request.contextPath}/findCustomerByMobileNo',
-															type : 'post',
-															dataType : 'json',
-															data : fd,
-															contentType : false,
-															processData : false,
-															success : function(
-																	response) {
-																// alert(JSON.stringify(response));
-
-																if (response.error == true) {
-																	$(
-																			'#tableDive')
-																			.hide();
-
-																} else {
-
-																	$(
-																			'#error_findCustomerByMobileNo')
-																			.show();
-																	setTimeout(
-																			function() {
-																				$(
-																						'#error_findCustomerByMobileNo')
-																						.hide();
-																			},
-																			5000);
-																	addNewCustomerModel();
-																}
-																displayCustomerInfo();
-																document
-																		.getElementById("loaderimg").style.display = "none";
-
-																return false;
-															},
-														});
-												return false;
-											});
+								return false;
+							});
 
 							$("#submitCancelForm")
 									.submit(
@@ -5423,9 +5500,300 @@ solution 1:
 				}
 			});
 		});
-		
+
+		function getCallAccessToken(val, mob) {
+
+			document.getElementById("loaderimg").style.display = "block";
+
+			var params = {
+				"email" : "madhvidairy@gmail.com",
+				"password" : "Madhvi#2014",
+			}
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+
+				if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					//alert(res.success);
+					if (res.success == true) {
+						//alert(res.success);
+						if (val == 1) {
+							getLiveCalls(res.access_token);
+						} else if (val == 2) {
+							getAllMissedCalls(res.access_token);
+						} else if (val == 3) {
+							clickToCall(mob);
+						}
+
+					}
+				} else {
+					document.getElementById("loaderimg").style.display = "none";
+				}
+			};
+			xhttp.open("POST", "https://api.servetel.in/v1/auth/login", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(JSON.stringify(params));
+
+		}
+
+		function getLiveCalls() {
+
+			var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEwOTQyLCJpc3MiOiJodHRwczpcL1wvY3VzdG9tZXIuc2VydmV0ZWwuaW5cL3Rva2VuXC9nZW5lcmF0ZSIsImlhdCI6MTYwMDA2MTAzOCwiZXhwIjoxOTAwMDYxMDM4LCJuYmYiOjE2MDAwNjEwMzgsImp0aSI6ImlFcTlYVjVGTGtNVHpUalIifQ.XwFAV0__xVQQL6kACPJv2wA8s2YrmxLjyqjgjKM8L8o";
+			var agentMob = document.getElementById("callAgentMob").value;
+			//alert(agentMob);
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				document.getElementById("loaderimg").style.display = "none";
+				if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					//alert(this.responseText);
+					if (res != '') {
+						for (var i = 0; i < res.length; i++) {
+							if ((res[i].destination == agentMob)
+									|| (res[i].destination == '91' + agentMob)
+									|| (res[i].destination == '+91' + agentMob)
+									&& res[i].state == 'Answered') {
+
+								var mob = res[i].source
+										.substr(res[i].source.length - 10);
+
+								document.getElementById("mobileNoSearch").value = mob;
+								mobileNoSearch();
+								break;
+							}
+						}
+					} else {
+						//alert("No Live Calls!");
+						//document.getElementById("mobileNoSearch").value="9881168350";
+						//document.getElementById("findCustomerByMobileNo").submit();
+						//mobileNoSearch();
+					}
+				}
+			};
+			xhttp.open("GET", "https://api.servetel.in/v1/live_calls", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.setRequestHeader("authorization", token);
+			xhttp.send();
+
+			document.getElementById("loaderimg").style.display = "block";
+
+		}
+
+		function mobileNoSearch() {
+
+			checkSession();
+
+			$('#error_findCustomerByMobileNo').hide();
+			var mobileNo = $("#mobileNoSearch").val();
+
+			document.getElementById("loaderimg").style.display = "block";
+			var fd = new FormData();
+			fd.append("mobileNo", mobileNo);
+
+			$
+					.ajax({
+						url : '${pageContext.request.contextPath}/findCustomerByMobileNo',
+						type : 'post',
+						dataType : 'json',
+						data : fd,
+						contentType : false,
+						processData : false,
+						success : function(response) {
+							// alert(JSON.stringify(response));
+
+							if (response.error == true) {
+								$('#tableDive').hide();
+
+							} else {
+
+								$('#error_findCustomerByMobileNo').show();
+								setTimeout(function() {
+									$('#error_findCustomerByMobileNo').hide();
+								}, 5000);
+								addNewCustomerModel();
+							}
+							displayCustomerInfo();
+							document.getElementById("loaderimg").style.display = "none";
+
+							return false;
+						},
+					});
+
+		}
+
+		function todaysDate() {
+			var d = new Date(), month = '' + (d.getMonth() + 1), day = ''
+					+ d.getDate(), year = d.getFullYear();
+
+			if (month.length < 2)
+				month = '0' + month;
+			if (day.length < 2)
+				day = '0' + day;
+
+			return [ year, month, day ].join('-');
+		}
+
+		function tomorrowsDate() {
+			var d = new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000)), month = ''
+					+ (d.getMonth() + 1), day = '' + d.getDate(), year = d
+					.getFullYear();
+
+			if (month.length < 2)
+				month = '0' + month;
+			if (day.length < 2)
+				day = '0' + day;
+
+			return [ year, month, day ].join('-');
+		}
+
+		function getAllMissedCalls() {
+
+			var date = todaysDate();
+			var nextDate = tomorrowsDate();
+
+			var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEwOTQyLCJpc3MiOiJodHRwczpcL1wvY3VzdG9tZXIuc2VydmV0ZWwuaW5cL3Rva2VuXC9nZW5lcmF0ZSIsImlhdCI6MTYwMDA2MTAzOCwiZXhwIjoxOTAwMDYxMDM4LCJuYmYiOjE2MDAwNjEwMzgsImp0aSI6ImlFcTlYVjVGTGtNVHpUalIifQ.XwFAV0__xVQQL6kACPJv2wA8s2YrmxLjyqjgjKM8L8o";
+			var url = "https://api.servetel.in/v1/call/records?from_date="
+					+ date + "&to_date=" + nextDate + "&call_type=m";
+			//var url = "https://api.servetel.in/v1/call/records"
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				document.getElementById("loaderimg").style.display = "none";
+				if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					//alert(this.responseText);
+					if (res != '') {
+						$('#missedCallModal').modal('show');
+
+						$('#missed_call_table td').remove();
+
+						for (var i = 0; i < res.results.length; i++) {
+
+							var tr = $('<tr></tr>');
+
+							tr.append($('<td></td>').html(i + 1));
+							tr.append($('<td></td>').html(
+									res.results[i].client_number));
+
+							var fromDate = res.results[i].date;
+							var datearray = fromDate.split("-");
+							fromDate = datearray[2] + '-' + datearray[1] + '-'
+									+ datearray[0];
+
+							tr.append($('<td></td>').html(
+									fromDate + " " + res.results[i].time));
+
+							tr.append($('<td></td>').html(
+									res.results[i].department_name));
+
+							tr.append($('<td></td>').html(
+									res.results[i].agent_name));
+
+							var mob = res.results[i].client_number
+									.substr(res.results[i].client_number.length - 10);
+							var actionBtn = "<a href=javascript:void(0) class='detail_btn_round session-chk' title=Call onclick=clickToCall('"
+									+ mob
+									+ "')><i class='fa fa-phone' aria-hidden=true></i> </a>";
+
+							tr.append($('<td></td>').html(actionBtn));
+
+							$('#missed_call_table tbody').append(tr);
+
+						} 
+						
+						
+						 /*  var result = res.results.reduce(function (r, a) {
+						        r[a.client_number] = r[a.client_number] || [];
+						        r[a.client_number].push(a);
+						        return r;
+						    }, Object.create(null));
+						 
+						var arr=Object.keys(result);
+						console.log(Object.keys(result));  */
+						 //alert(JSON.stringify(result));
+						 
+					
+						 
+						 
+						
+					}
+				}
+			};
+			xhttp.open("GET", "https://cors-anywhere.herokuapp.com/" + url,
+					true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.setRequestHeader("authorization", token);
+			xhttp.send();
+
+			document.getElementById("loaderimg").style.display = "block";
+
+		}
+
+		function clickToCall(mobile) {
+			//alert(mobile);
+
+			$('#missedCallModal').modal('hide');
+			$('#confirmCall').modal('show');
+
+			document.getElementById("callText").innerHTML = "Cloud Kitchen will now connect you with customer number <b>"
+					+ mobile + "</b>."
+
+			document.getElementById("submitCall").onclick = function() {
+				proceedCall(mobile)
+			};
+
+			document.getElementById("cancelCall").onclick = function() {
+				$('#confirmCall').modal('hide');
+				document.getElementById("callText").innerHTML = "";
+			};
+
+		}
+
+		function proceedCall(mobile) {
+
+			//alert(mobile);
+
+			var api_key = document.getElementById("callApiKey").value;
+			//alert(api_key);
+
+			var params = {
+				"customer_number" : mobile,
+				"api_key" : api_key,
+			};
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+
+				if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					//alert(res.success);
+					if (res.success == true) {
+						//alert(res.success);
+					}
+					//$('#CallLoader').modal('hide');
+					document.getElementById("loaderimg").style.display = "none";
+				} else {
+					//$('#CallLoader').modal('hide');
+					document.getElementById("loaderimg").style.display = "none";
+				}
+			};
+			xhttp
+					.open(
+							"POST",
+							"https://cors-anywhere.herokuapp.com/https://api.servetel.in/v1/click_to_call_support",
+							true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(JSON.stringify(params));
+
+			document.getElementById("loaderimg").style.display = "block";
+			//$('#CallLoader').modal('show');
+
+		}
 	</script>
-	
+
+
 </body>
 
 </html>

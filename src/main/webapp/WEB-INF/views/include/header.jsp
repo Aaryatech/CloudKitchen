@@ -200,6 +200,10 @@
 								onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/default-user.jpg';">
 								<span>Hi, ${sessionScope.userInfo.userName}</span>
 							</a>
+							
+							<input type="hidden" id="callApiKey" name="callApiKey" value="${sessionScope.userInfo.exVar1}">
+							<input type="hidden" id="callAgentMob" name="callAgentMob" value="${sessionScope.userInfo.userMobileNo}">
+							
 							<div class="user-dropdown">
 								<!-- <ul>
 									<li><a href="order-details.html">

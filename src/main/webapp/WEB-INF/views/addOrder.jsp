@@ -252,7 +252,7 @@
 						<div class="inner_scroll" id="itemListDiv">
 							<!--1-->
 
-							<c:forEach items="${itemList}" var="itemList">
+						 <c:forEach items="${itemList}" var="itemList">
 
 								<div class="order_row">
 									<div class="one_order">
@@ -383,7 +383,7 @@
 												</div>
 												<div class="rating-text">
 													<p class="text-light-white fs-12">
-														<%-- ${itemList.rating} --%>
+														${itemList.rating}
 													</p>
 												</div>
 											</div>
@@ -1080,7 +1080,7 @@
 		 
 		function getItemList() {
 
-			document.getElementById("loaderimg").style.display = "block";
+			//document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
 			$
 					.ajax({
@@ -1091,7 +1091,8 @@
 						contentType : false,
 						processData : false,
 						success : function(response) {
-							document.getElementById("loaderimg").style.display = "none";
+						
+							//document.getElementById("loaderimg").style.display = "none";
 							//alert(JSON.stringify(response))
 							sessionStorage.setItem("allItemList", JSON
 									.stringify(response));
@@ -1269,7 +1270,8 @@
 		  }
 		  addTocart(1,itemId);
 		}
- 
+		
+		
 	</script>
 
 </body>

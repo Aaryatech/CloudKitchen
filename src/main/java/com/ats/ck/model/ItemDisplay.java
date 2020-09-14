@@ -1,9 +1,9 @@
 package com.ats.ck.model;
 
 import java.util.List;
- 
+
 public class ItemDisplay {
-	
+
 	private int itemId;
 	private String itemName;
 	private int catId;
@@ -34,221 +34,358 @@ public class ItemDisplay {
 	private float igstPer;
 	private String hsncd;
 	private String relItemIds;
+
+	private float discPer;
+	private float mrpDiscAmt;
+	private float spDiscAmt;
+	private String offerIds;
+	private float freqOrderedQty;
+
+	private int isAvailable;
+
 	private String jsonStr;
-	List<Tags> tagList; 
-	List<Ingrediant> tasteList; 
-	List<Images> imageList; 
+	List<Tags> tagList;
+	List<Ingrediant> tasteList;
+	List<Images> imageList;
 	List<ItemDisplay> relItemList;
+	List<ItemWiseOfferHeaderDisplay> offerList;
+
 	public int getItemId() {
 		return itemId;
 	}
+
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
+
 	public String getItemName() {
 		return itemName;
 	}
+
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
+
 	public int getCatId() {
 		return catId;
 	}
+
 	public void setCatId(int catId) {
 		this.catId = catId;
 	}
+
 	public String getCatName() {
 		return catName;
 	}
+
 	public void setCatName(String catName) {
 		this.catName = catName;
 	}
+
 	public float getItemSortId() {
 		return itemSortId;
 	}
+
 	public void setItemSortId(float itemSortId) {
 		this.itemSortId = itemSortId;
 	}
+
 	public int getIsDecimal() {
 		return isDecimal;
 	}
+
 	public void setIsDecimal(int isDecimal) {
 		this.isDecimal = isDecimal;
 	}
+
 	public String getItemUom() {
 		return itemUom;
 	}
+
 	public void setItemUom(String itemUom) {
 		this.itemUom = itemUom;
 	}
+
 	public int getUomId() {
 		return uomId;
 	}
+
 	public void setUomId(int uomId) {
 		this.uomId = uomId;
 	}
+
 	public String getItemDesc() {
 		return itemDesc;
 	}
+
 	public void setItemDesc(String itemDesc) {
 		this.itemDesc = itemDesc;
 	}
+
 	public int getProductType() {
 		return productType;
 	}
+
 	public void setProductType(int productType) {
 		this.productType = productType;
 	}
+
 	public String getProductStatus() {
 		return productStatus;
 	}
+
 	public void setProductStatus(String productStatus) {
 		this.productStatus = productStatus;
 	}
+
 	public int getProductCategory() {
 		return productCategory;
 	}
+
 	public void setProductCategory(int productCategory) {
 		this.productCategory = productCategory;
 	}
+
 	public String getProductCategoryName() {
 		return productCategoryName;
 	}
+
 	public void setProductCategoryName(String productCategoryName) {
 		this.productCategoryName = productCategoryName;
 	}
+
 	public String getPreperationTime() {
 		return preperationTime;
 	}
+
 	public void setPreperationTime(String preperationTime) {
 		this.preperationTime = preperationTime;
 	}
+
 	public int getShowInOrder() {
 		return showInOrder;
 	}
+
 	public void setShowInOrder(int showInOrder) {
 		this.showInOrder = showInOrder;
 	}
+
 	public float getRating() {
 		return rating;
 	}
+
 	public void setRating(float rating) {
 		this.rating = rating;
 	}
+
 	public String getTagIds() {
 		return tagIds;
 	}
+
 	public void setTagIds(String tagIds) {
 		this.tagIds = tagIds;
 	}
+
 	public String getTasteTypeIds() {
 		return tasteTypeIds;
 	}
+
 	public void setTasteTypeIds(String tasteTypeIds) {
 		this.tasteTypeIds = tasteTypeIds;
 	}
+
 	public String getTagName() {
 		return tagName;
 	}
+
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
+
 	public String getTasteName() {
 		return tasteName;
 	}
+
 	public void setTasteName(String tasteName) {
 		this.tasteName = tasteName;
 	}
+
 	public float getRateAmt() {
 		return rateAmt;
 	}
+
 	public void setRateAmt(float rateAmt) {
 		this.rateAmt = rateAmt;
 	}
+
 	public float getMrpAmt() {
 		return mrpAmt;
 	}
+
 	public void setMrpAmt(float mrpAmt) {
 		this.mrpAmt = mrpAmt;
 	}
+
 	public float getSpRateAmt() {
 		return spRateAmt;
 	}
+
 	public void setSpRateAmt(float spRateAmt) {
 		this.spRateAmt = spRateAmt;
 	}
+
 	public float getCgstPer() {
 		return cgstPer;
 	}
+
 	public void setCgstPer(float cgstPer) {
 		this.cgstPer = cgstPer;
 	}
+
 	public float getSgstPer() {
 		return sgstPer;
 	}
+
 	public void setSgstPer(float sgstPer) {
 		this.sgstPer = sgstPer;
 	}
+
 	public float getIgstPer() {
 		return igstPer;
 	}
+
 	public void setIgstPer(float igstPer) {
 		this.igstPer = igstPer;
 	}
+
 	public String getHsncd() {
 		return hsncd;
 	}
+
 	public void setHsncd(String hsncd) {
 		this.hsncd = hsncd;
 	}
+
 	public String getRelItemIds() {
 		return relItemIds;
 	}
+
 	public void setRelItemIds(String relItemIds) {
 		this.relItemIds = relItemIds;
 	}
+
 	public List<Tags> getTagList() {
 		return tagList;
 	}
+
 	public void setTagList(List<Tags> tagList) {
 		this.tagList = tagList;
 	}
+
 	public List<Ingrediant> getTasteList() {
 		return tasteList;
 	}
+
 	public void setTasteList(List<Ingrediant> tasteList) {
 		this.tasteList = tasteList;
 	}
+
 	public List<Images> getImageList() {
 		return imageList;
 	}
+
 	public void setImageList(List<Images> imageList) {
 		this.imageList = imageList;
 	}
+
 	public List<ItemDisplay> getRelItemList() {
 		return relItemList;
 	}
+
 	public void setRelItemList(List<ItemDisplay> relItemList) {
 		this.relItemList = relItemList;
 	}
+
 	public int getSubCatId() {
 		return subCatId;
 	}
+
 	public void setSubCatId(int subCatId) {
 		this.subCatId = subCatId;
 	}
+
 	public String getSubCatName() {
 		return subCatName;
 	}
+
 	public void setSubCatName(String subCatName) {
 		this.subCatName = subCatName;
 	}
+
 	public String getJsonStr() {
 		return jsonStr;
 	}
+
 	public void setJsonStr(String jsonStr) {
 		this.jsonStr = jsonStr;
 	}
+
+	public float getDiscPer() {
+		return discPer;
+	}
+
+	public void setDiscPer(float discPer) {
+		this.discPer = discPer;
+	}
+
+	public float getMrpDiscAmt() {
+		return mrpDiscAmt;
+	}
+
+	public void setMrpDiscAmt(float mrpDiscAmt) {
+		this.mrpDiscAmt = mrpDiscAmt;
+	}
+
+	public float getSpDiscAmt() {
+		return spDiscAmt;
+	}
+
+	public void setSpDiscAmt(float spDiscAmt) {
+		this.spDiscAmt = spDiscAmt;
+	}
+
+	public String getOfferIds() {
+		return offerIds;
+	}
+
+	public void setOfferIds(String offerIds) {
+		this.offerIds = offerIds;
+	}
+
+	public float getFreqOrderedQty() {
+		return freqOrderedQty;
+	}
+
+	public void setFreqOrderedQty(float freqOrderedQty) {
+		this.freqOrderedQty = freqOrderedQty;
+	}
+
+	public int getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(int isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public List<ItemWiseOfferHeaderDisplay> getOfferList() {
+		return offerList;
+	}
+
+	public void setOfferList(List<ItemWiseOfferHeaderDisplay> offerList) {
+		this.offerList = offerList;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemDisplay [itemId=" + itemId + ", itemName=" + itemName + ", catId=" + catId + ", catName=" + catName
@@ -259,11 +396,11 @@ public class ItemDisplay {
 				+ preperationTime + ", showInOrder=" + showInOrder + ", rating=" + rating + ", tagIds=" + tagIds
 				+ ", tasteTypeIds=" + tasteTypeIds + ", tagName=" + tagName + ", tasteName=" + tasteName + ", rateAmt="
 				+ rateAmt + ", mrpAmt=" + mrpAmt + ", spRateAmt=" + spRateAmt + ", cgstPer=" + cgstPer + ", sgstPer="
-				+ sgstPer + ", igstPer=" + igstPer + ", hsncd=" + hsncd + ", relItemIds=" + relItemIds + ", jsonStr="
-				+ jsonStr + ", tagList=" + tagList + ", tasteList=" + tasteList + ", imageList=" + imageList
-				+ ", relItemList=" + relItemList + "]";
+				+ sgstPer + ", igstPer=" + igstPer + ", hsncd=" + hsncd + ", relItemIds=" + relItemIds + ", discPer="
+				+ discPer + ", mrpDiscAmt=" + mrpDiscAmt + ", spDiscAmt=" + spDiscAmt + ", offerIds=" + offerIds
+				+ ", freqOrderedQty=" + freqOrderedQty + ", isAvailable=" + isAvailable + ", jsonStr=" + jsonStr
+				+ ", tagList=" + tagList + ", tasteList=" + tasteList + ", imageList=" + imageList + ", relItemList="
+				+ relItemList + ", offerList=" + offerList + "]";
 	}
-	
-	
 
 }

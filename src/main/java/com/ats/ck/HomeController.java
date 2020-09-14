@@ -26,6 +26,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -124,11 +128,11 @@ public class HomeController {
 				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "login", map,
 						LoginResponse.class);
 
-				if (userObj.getErrorMessage().isError() == false) { 
+				if (userObj.getErrorMessage().isError() == false) {
 
 					mav = "redirect:/dashboard";
 					session.setAttribute("userInfo", userObj.getUser());
-					session.setAttribute("profilePicUrl", Constants.imageShowUrl);  
+					session.setAttribute("profilePicUrl", Constants.imageShowUrl);
 					session.setAttribute("allowOrderandCheckoutPage", 0);
 					session.removeAttribute("liveCustomer");
 
@@ -139,14 +143,14 @@ public class HomeController {
 						Cookie cUserName = new Cookie("cookuser", name.trim());
 						Cookie cPassword = new Cookie("cookpass", password.trim());
 						Cookie cRemember = new Cookie("cookrem", remember.trim());
-						
+
 						cUserName.setMaxAge(60 * 60 * 24 * 15);// 15 days
 						cPassword.setMaxAge(60 * 60 * 24 * 15);
 						cRemember.setMaxAge(60 * 60 * 24 * 15);
 						response.addCookie(cUserName);
 						response.addCookie(cPassword);
 						response.addCookie(cRemember);
-						
+
 					}
 
 				} else {
@@ -168,143 +172,142 @@ public class HomeController {
 		return mav;
 	}
 
-	
 	Instant start = null;
+
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-		public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
-			
-			return "forgotPassword";
-		}
+	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		@RequestMapping(value = "/submitResetPassword", method = RequestMethod.POST)
-		public String submitResetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "forgotPassword";
+	}
 
-			String mav = new String();
-			HttpSession session = request.getSession();
+	@RequestMapping(value = "/submitResetPassword", method = RequestMethod.POST)
+	public String submitResetPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-			try {
+		String mav = new String();
+		HttpSession session = request.getSession();
 
-				String name = request.getParameter("username");
+		try {
 
-				if (name.equalsIgnoreCase("") || name == null) {
+			String name = request.getParameter("username");
 
-					mav = "redirect:/";
-					session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-				} else {
+			if (name.equalsIgnoreCase("") || name == null) {
 
-					MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-
-					map.add("username", name);
-					map.add("type", 1);
-					LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "forgotPassword", map,
-							LoginResponse.class);
-					System.err.println("Get User----------"+userObj);
-					if (userObj.getErrorMessage().isError() == false) {
-						
-						mav = "otp";
-						model.addAttribute("contact", userObj.getUser().getUserMobileNo());
-						start = Instant.now();
-						;
-					} else {
-
-						mav = "redirect:/forgotPassword";
-						session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-					}
-
-				}
-
-			} catch (Exception e) {
 				mav = "redirect:/";
 				session.setAttribute("errorMsg", "Invalid Moble number or Email.");
-				e.printStackTrace();
-			}
+			} else {
 
-			return mav;
-		}
-
-		
-		@RequestMapping(value = "/otpVerification", method = RequestMethod.POST)
-		public String OTPVerificationByContact(HttpServletRequest request, HttpServletResponse response, Model model) {
-			
-			System.err.println("Hiii  OTPVerification  ");
-			String mav = new String();
-			try {
-				HttpSession session = request.getSession();
-				
 				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-				String otp = request.getParameter("otp");
+				map.add("username", name);
+				map.add("type", 1);
+				LoginResponse userObj = Constants.getRestTemplate().postForObject(Constants.url + "forgotPassword", map,
+						LoginResponse.class);
+				System.err.println("Get User----------" + userObj);
+				if (userObj.getErrorMessage().isError() == false) {
 
-				map.add("otp", otp);
-
-				MnUser user = Constants.getRestTemplate().postForObject(Constants.url + "verifyOTP", map, MnUser.class);
-
-				if (user.getUserId() == 0) {
-					
-					session.setAttribute("errorMsg", "Invalid OTP.");
-					mav = "forgotPassword";
-					model.addAttribute("msg", "Incorrect OTP");
-
-				} else {				
-					System.err.println("User" + user);
-					mav = "resetPassword";
-					model.addAttribute("userId", user.getUserId());
-					
-				}
-
-			} catch (Exception e) {
-				System.err.println("Exce in otpVerification  " + e.getMessage());
-				e.printStackTrace();
-			}
-
-			return mav;
-
-		}
-		
-		@RequestMapping(value = "/changeToNewPassword", method = RequestMethod.POST)
-		public String changeToNewPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
-			Info info = new Info();
-			HttpSession session = request.getSession();
-			String mav = new String();
-			try {
-
-				int userId = Integer.parseInt(request.getParameter("userId"));
-				
-				String pass = request.getParameter("new-password");
-				String password = pass;
-				MessageDigest md = MessageDigest.getInstance("MD5");
-				byte[] messageDigest = md.digest(password.getBytes());
-				BigInteger number = new BigInteger(1, messageDigest);
-				String hashtext = number.toString(16); 
-				
-				
-				MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-				map.add("userId", userId);
-				map.add("newPass", hashtext);
-
-				Info inf = Constants.getRestTemplate().postForObject(Constants.url + "updateToNewPassword", map, Info.class);
-
-				if (inf.getError()) {
-					mav = "redirect:/";
-					
-					session.setAttribute("errorMsg", "Password Not Change");
-					info.setError(true);
-					info.setMessage("User Not Found");
-					System.err.println(info);
+					mav = "otp";
+					model.addAttribute("contact", userObj.getUser().getUserMobileNo());
+					start = Instant.now();
+					;
 				} else {
-					mav = "redirect:/";	
-					session.setAttribute("successMsg", "Password Change Sucessfully");
-					info.setError(false);
-					info.setMessage("User Found");
-					System.err.println(info);
+
+					mav = "redirect:/forgotPassword";
+					session.setAttribute("errorMsg", "Invalid Moble number or Email.");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+
 			}
 
-			return mav;
-
+		} catch (Exception e) {
+			mav = "redirect:/";
+			session.setAttribute("errorMsg", "Invalid Moble number or Email.");
+			e.printStackTrace();
 		}
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/otpVerification", method = RequestMethod.POST)
+	public String OTPVerificationByContact(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		System.err.println("Hiii  OTPVerification  ");
+		String mav = new String();
+		try {
+			HttpSession session = request.getSession();
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+
+			String otp = request.getParameter("otp");
+
+			map.add("otp", otp);
+
+			MnUser user = Constants.getRestTemplate().postForObject(Constants.url + "verifyOTP", map, MnUser.class);
+
+			if (user.getUserId() == 0) {
+
+				session.setAttribute("errorMsg", "Invalid OTP.");
+				mav = "forgotPassword";
+				model.addAttribute("msg", "Incorrect OTP");
+
+			} else {
+				System.err.println("User" + user);
+				mav = "resetPassword";
+				model.addAttribute("userId", user.getUserId());
+
+			}
+
+		} catch (Exception e) {
+			System.err.println("Exce in otpVerification  " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/changeToNewPassword", method = RequestMethod.POST)
+	public String changeToNewPassword(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Info info = new Info();
+		HttpSession session = request.getSession();
+		String mav = new String();
+		try {
+
+			int userId = Integer.parseInt(request.getParameter("userId"));
+
+			String pass = request.getParameter("new-password");
+			String password = pass;
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(password.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+
+			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map.add("userId", userId);
+			map.add("newPass", hashtext);
+
+			Info inf = Constants.getRestTemplate().postForObject(Constants.url + "updateToNewPassword", map,
+					Info.class);
+
+			if (inf.getError()) {
+				mav = "redirect:/";
+
+				session.setAttribute("errorMsg", "Password Not Change");
+				info.setError(true);
+				info.setMessage("User Not Found");
+				System.err.println(info);
+			} else {
+				mav = "redirect:/";
+				session.setAttribute("successMsg", "Password Change Sucessfully");
+				info.setError(false);
+				info.setMessage("User Found");
+				System.err.println(info);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return mav;
+
+	}
 
 	List<City> cityList = new ArrayList<>();
 
@@ -1070,7 +1073,7 @@ public class HomeController {
 //		session.invalidate();
 //		return "redirect:/";
 //	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 
@@ -1079,29 +1082,29 @@ public class HomeController {
 		logger.info("/logout request mapping.");
 
 		HttpSession session = request.getSession();
-		
+
 		Cookie cUserName = new Cookie("cookuser", null);
 		Cookie cPassword = new Cookie("cookpass", null);
 		Cookie cRemember = new Cookie("cookrem", null);
-		cUserName.setMaxAge(0);  
+		cUserName.setMaxAge(0);
 		cPassword.setMaxAge(0);
 		cRemember.setMaxAge(0);
-		response.addCookie(cUserName); 
+		response.addCookie(cUserName);
 		response.addCookie(cPassword);
-		response.addCookie(cRemember); 
-		  
+		response.addCookie(cRemember);
+
 		session.invalidate();
-		
+
 		return model;
 
-	} 
+	}
 
 	@RequestMapping(value = "/sessionTimeOut", method = RequestMethod.GET)
 	public String sessionTimeOut(HttpSession session) {
 		System.out.println("User Logout");
-		
+
 		session.invalidate();
-		return "redirect:/";  
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/publishAllFrData", method = RequestMethod.GET)
@@ -1113,11 +1116,11 @@ public class HomeController {
 			info = Constants.getRestTemplate().getForObject(Constants.url + "publishAllFrData", Info.class);
 		} catch (Exception e) {
 			info.setError(true);
-			e.printStackTrace();      
+			e.printStackTrace();
 		}
-		return info;  
+		return info;
 	}
-	
+
 	@RequestMapping(value = "/checkSessionAjax", method = RequestMethod.GET)
 	@ResponseBody
 	public Info checkSessionAjax(HttpServletRequest request, HttpServletResponse response) {
@@ -1125,12 +1128,44 @@ public class HomeController {
 		Info info = new Info();
 		try {
 			HttpSession session = request.getSession();
-			if(session.getAttribute("userInfo")!=null){
+			if (session.getAttribute("userInfo") != null) {
 				info.setError(false);
-			}else {
-				info.setError(true); 
+			} else {
+				info.setError(true);
 			}
+
+		} catch (Exception e) {
+			info.setError(true);
+			e.printStackTrace();
+		}
+		return info;
+	}
+
+	@RequestMapping(value = "/getMissedCallList", method = RequestMethod.GET)
+	@ResponseBody
+	public Info getMissedCallList(HttpServletRequest request, HttpServletResponse response) {
+
+		Info info = new Info();
+		try {
+
+			String token = request.getParameter("token");
+			System.err.println("TOKEN : "+token);
+
+			RestTemplate restTemplate = new RestTemplate();
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("authorization", token);
+			headers.set("Content-Type", "application/json");
+			headers.set("accept", "application/json");
 			
+
+			HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+			ResponseEntity<JSONObject> res = restTemplate.exchange("https://api.servetel.in/v1/call/records",
+					HttpMethod.GET, entity, JSONObject.class);
+
+			System.err.println("OUTPUT - " + res);
+
 		} catch (Exception e) {
 			info.setError(true);
 			e.printStackTrace();

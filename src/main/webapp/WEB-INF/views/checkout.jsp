@@ -125,7 +125,7 @@
 
 
 										<p>
-											Wallet Balance : <strong>${wallet.total}</strong>&nbsp;&nbsp;&nbsp;
+											Madhvi Credit Balance : <strong>${wallet.total}</strong>&nbsp;&nbsp;&nbsp;
 											<input type="checkbox" id="chkWallet" name="chkWallet"
 												onchange="applyWallet()" />
 										</p>
@@ -182,7 +182,7 @@
 										</div>
 
 										<div class="total-row">
-											<div class="total-row_l">Applied Wallet AMT</div>
+											<div class="total-row_l">Applied Madhvi Credit AMT</div>
 											<div class="total-row_r" id="applyWalletAmt">00.00</div>
 											<div class="clr"></div>
 										</div>
