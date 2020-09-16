@@ -85,30 +85,37 @@ public class OrderController {
 
 			model.addAttribute("frId", frId);
 
-			
-			 // GetFranchiseData frData = Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList", GetFranchiseData.class); 
-			 // List<FranchiseData> franchiseList = frData.getFranchise();
-			 
+			// GetFranchiseData frData =
+			// Constants.getRestTemplate().getForObject(Constants.url + "getFranchiseList",
+			// GetFranchiseData.class);
+			// List<FranchiseData> franchiseList = frData.getFranchise();
+
 			// model.addAttribute("franchiseList", franchiseList);
 
 			// http://107.180.91.43:8080/uploads/ckjson/
 			// C:/Users/MAXADMIN/Desktop/Report/"+frId+".json
 			/// opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/
-			
-			
-			//BufferedReader br = new BufferedReader(new FileReader("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/" + frId + ".json"));
-			//GetAllDataByFr getAllDataByFr = new Gson().fromJson(br, GetAllDataByFr.class);
-			
-			//System.err.println("url - "+"C:/Users/MAXADMIN/Desktop/Report/"+frId+".json");
-			//Gson
-			//GetAllDataByFr getAllDataByFr = new Gson().fromJson(new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"), GetAllDataByFr.class);
 
-			//Jackson
-			//ObjectMapper mapper = new ObjectMapper();
-			//GetAllDataByFr getAllDataByFr = mapper.readValue(new File("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/"+ frId + ".json"), GetAllDataByFr.class);
+			// BufferedReader br = new BufferedReader(new
+			// FileReader("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/" + frId +
+			// ".json"));
+			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(br,
+			// GetAllDataByFr.class);
 
+			// System.err.println("url -
+			// "+"C:/Users/MAXADMIN/Desktop/Report/"+frId+".json");
+			// Gson
+			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(new
+			// FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"),
+			// GetAllDataByFr.class);
 
-			//System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+			// Jackson
+			// ObjectMapper mapper = new ObjectMapper();
+			// GetAllDataByFr getAllDataByFr = mapper.readValue(new
+			// File("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/"+ frId + ".json"),
+			// GetAllDataByFr.class);
+
+			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
@@ -134,7 +141,7 @@ public class OrderController {
 			List<OfferHeader> offerList = getAllDataByFr.getOfferData();
 			model.addAttribute("offerList", offerList);
 
-			//ObjectMapper Obj = new ObjectMapper();
+			// ObjectMapper Obj = new ObjectMapper();
 
 //			try {
 //
@@ -272,8 +279,8 @@ public class OrderController {
 			}
 			System.err.println("deliveryType ---------------- " + session.getAttribute("deliveryType"));
 			model.addAttribute("deliveryType", session.getAttribute("deliveryType"));
-			
-			//int addCustAgent = (int) session.getAttribute("addCustAgent");
+
+			// int addCustAgent = (int) session.getAttribute("addCustAgent");
 			model.addAttribute("agent", session.getAttribute("addCustAgent"));
 
 		} catch (Exception e) {
@@ -290,10 +297,14 @@ public class OrderController {
 		CkDeliveryCharges charges = null;
 		try {
 			float km = 0;
-			if (request.getParameter("km") != null) {
-				km = Float.parseFloat(request.getParameter("km"));
+			try {
+				if (request.getParameter("km") != null) {
+					km = Float.parseFloat(request.getParameter("km"));
+				}
+
+			} catch (Exception e) {
 			}
-			System.err.println("KM - "+km);
+			//System.err.println("KM - " + km);
 
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("km", km);

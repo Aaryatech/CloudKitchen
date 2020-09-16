@@ -157,10 +157,9 @@
 						<a href="javascript:void(0)" onclick="publishData()"
 							style="display: none;" class="order_btn">Publish</a> <a
 							href="javascript:void(0)" onclick="getAllMissedCalls()"
-							class="order_btn">Missed Calls</a>
-							
-							<a href="javascript:void(0)" onclick="getLiveCalls()" style="margin-right: 5px;"
-							class="order_btn">Live Customer</a>  <a href="javascript:void(0)"
+							class="order_btn">Missed Calls</a> <a href="javascript:void(0)"
+							onclick="getLiveCalls()" style="margin-right: 5px;"
+							class="order_btn">Live Customer</a> <a href="javascript:void(0)"
 							onclick="readFile()" style="display: none;"
 							style="display: none;" class="order_btn">READ</a>
 
@@ -530,7 +529,14 @@
 							<div class="profile_title_r" id="editCustomerSign">
 								<c:if test="${customer.phoneNumber!=null}">
 									<a href="javascript:void(0)" onclick="editCustomer()"><i
-										class="fa fa-pencil" aria-hidden="true"></i></a>
+										style="font-size: larger;" class="fa fa-pencil"
+										aria-hidden="true"></i></a>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+									<a href="javascript:void(0)" onclick="callRecordingModal()"><i
+										style="color: #f26a90; font-size: larger;"
+										class="fa fa-microphone " aria-hidden="true"></i></a>
 								</c:if>
 
 							</div>
@@ -542,12 +548,19 @@
 								<span>Name</span> : <span id="profileCustName">${customer.custName}</span>
 							</div>
 							<div class="profile_one">
-								<span>Mobile No.</span> : <span id="profileMobileNo"
-									style="width: auto;">${customer.phoneNumber}</span> <a
-									title="Call" class="detail_btn_round session-chk" id="callCust"
-									href="javascript:void(0)"
-									onclick="clickToCall('${customer.phoneNumber}')"><i
-									class="fa fa-phone" aria-hidden="true"></i></a>
+								<span>Mobile No.</span> :
+								<div style="display: inline-flex;">
+									<span id="profileMobileNo" style="width: auto;">${customer.phoneNumber}</span>
+									<div id="callCustDiv">
+										<c:if test="${customer.phoneNumber!=null}">
+											<a title="Call" class="detail_btn_round session-chk"
+												id="callCust" href="javascript:void(0)"
+												onclick="clickToCall('${customer.phoneNumber}')"><i
+												class="fa fa-phone" aria-hidden="true"></i></a>
+										</c:if>
+									</div>
+								</div>
+
 							</div>
 							<div class="profile_one">
 								<span>Whats App No.</span> : <span id="profilewhatappNo">${customer.whatsappNo}</span>
@@ -2017,7 +2030,7 @@
 
 	<div class="modal fade kot-popup fetch_results" id="missedCallModal"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="max-width: 90%;">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close cleardiv"
@@ -2107,6 +2120,53 @@
 					alt="">
 
 			</div>
+		</div>
+	</div>
+
+	<!-- END MODAL -->
+
+
+	<!-- CALL RECORDINGS MODAL -->
+
+	<div class="modal fade kot-popup fetch_results" id="callRecModal"
+		data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-lg" style="max-width: 90%;">
+			<!--modal-lg-->
+			<div class="modal-content kot_content">
+				<button type="button" class="close kot_close cleardiv"
+					data-dismiss="modal">
+					<img
+						src="${pageContext.request.contextPath}/resources/assets/img/popup_close.png"
+						alt="">
+				</button>
+
+				<div class="pop_signup">
+					Calls Recordings<a href="#"></a>
+				</div>
+
+
+				<div class="component">
+					<table class="overflow-y" id="call_rec_table">
+						<thead>
+							<tr>
+								<th style="text-align: center;">Sr. No.</th>
+								<th style="text-align: center;">Date & Time</th>
+								<th style="text-align: center;">Department</th>
+								<th style="text-align: center;">Agent</th>
+								<th style="text-align: center;">Recording</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+
+				</div>
+
+			</div>
+
+
 		</div>
 	</div>
 
@@ -2523,8 +2583,18 @@ solution 1:
 										+ 'class="detail_btn_round" onclick="customerAddList()"><i class="fa fa-list" aria-hidden="true"></i></a>'
 										+ ''; /*</span>*/
 								document.getElementById("showPreferredLang").innerHTML = response.customerInfo.langName;
-								document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+
+								var callReordModal = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title='Call Recordings' href='javascript:void(0)' onclick='callRecordingModal()'><i class='fa fa-microphone' aria-hidden=true style='color: #f26a90; font-size: larger;'></i></a>	"
+
+								document.getElementById("editCustomerSign").innerHTML = '<a href="javascript:void(0)" onclick="editCustomer()"><i class="fa fa-pencil" aria-hidden="true" style="font-size: larger;"></i></a>'
+										+ callReordModal;
 								document.getElementById("newOrderbtn").disabled = false;
+
+								var callDiv = "<a title=Call class='detail_btn_round session-chk' id=callCust href='javascript:void(0)' onclick=clickToCall('"
+										+ response.customerInfo.phoneNumber
+										+ "')><i class='fa fa-phone' aria-hidden=true></i></a>";
+								document.getElementById("callCustDiv").innerHTML = callDiv;
+
 								sessionStorage
 										.setItem(
 												"previous_order_history",
@@ -2548,6 +2618,8 @@ solution 1:
 								document.getElementById("profileDeliveryAdd").innerHTML = "-";
 								document.getElementById("showPreferredLang").innerHTML = "-";
 								document.getElementById("editCustomerSign").innerHTML = '';
+								document.getElementById("callCustDiv").innerHTML = '';
+
 								var list = [];
 								sessionStorage.setItem(
 										"previous_order_history", JSON
@@ -2737,9 +2809,9 @@ solution 1:
 					action = '<a href="javascript:void(0)"'
 							+ 'class="detail_btn_round session-chk" title="Place Order" onclick="placeOrderFun('
 							+ table[i].orderId
-							+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)" class="session-chk" onclick="cancelOrderFun('
+							+ ')"><i class="fa fa-shopping-cart"></i></a>&nbsp;<a href="javascript:void(0)" class="detail_btn_round session-chk" onclick="cancelOrderFun('
 							+ table[i].orderId
-							+ ',3)" class="detail_btn_round" title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
+							+ ',3)"  title="Cancel Order"><i class="fa fa-times" aria-hidden="true"></i>'
 							+ '</a>';
 				}
 
@@ -2755,7 +2827,7 @@ solution 1:
 						+ '<a href="javascript:void(0)" onclick="insertgrievences('
 						+ table[i].orderId
 						+ ')" class="detail_btn_round session-chk" title="Grievences">'
-						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="#" onclick=repeateOrder('
+						+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a><a href="#" onclick=repeateOrder('
 						+ table[i].orderId
 						+ ','
 						+ table[i].frId
@@ -2787,7 +2859,7 @@ solution 1:
 						+ '</td>'
 						+ '<td class="user-name"> <span class="paid">'
 						+ orderStatus
-						+ '</span></td> <td class="user-name" style="text-align: center; padding:0;">'
+						+ '</span></td> <td class="user-name" style="text-align: center; padding:15px 0 15px 0; display:flex;">'
 						+ action + '</td> </tr>';
 				$('#previousOrderTabl').append(tr_data);
 			}
@@ -3148,8 +3220,6 @@ solution 1:
 		}
 
 		function sendOtpForCustomerRegistration() {
-			
-			
 
 			$("#error_addcity").hide();
 			$("#error_custname").hide();
@@ -3228,14 +3298,13 @@ solution 1:
 
 			}
 			if (!$("#addcity").val()) {
-				
+
 				isError = true;
 				$("#error_addcity").show();
 				$("#error_addCustAgent").show();
 				$("#error_txtPlaces").show();
 			} else {
-				
-				
+
 				if ($("#cityData" + $("#addcity").val()).data("iscity") == 1) {
 
 					if ($("#addCustAgent").val() == ""
@@ -3244,7 +3313,7 @@ solution 1:
 						$("#error_addCustAgent").show();
 					}
 				} else {
-					
+
 					if (!$("#txtPlaces").val()) {
 						isError = true;
 						$("#error_txtPlaces").show();
@@ -3280,8 +3349,6 @@ solution 1:
 				isError = true;
 				$("#error_language").show();
 			}
-
-			
 
 			var deliveryType = 1;
 			if (document.getElementById("rdHomeDelivery").checked == true) {
@@ -4779,7 +4846,7 @@ solution 1:
 										+ '</td>'
 										+ '<td class="user-name"><span class="paid">'
 										+ orderStatus
-										+ '</span></td> <td class="user-name" style="text-align: center;">'
+										+ '</span></td> <td class="user-name" style="text-align: center; display:flex;">'
 										+ actionBtn + '</td> </tr>';
 
 								if (response[i].orderStatus == 1) {
@@ -5708,28 +5775,21 @@ solution 1:
 
 							$('#missed_call_table tbody').append(tr);
 
-						} 
+						}
+
+						/*  var result = res.results.reduce(function (r, a) {
+						       r[a.client_number] = r[a.client_number] || [];
+						       r[a.client_number].push(a);
+						       return r;
+						   }, Object.create(null));
 						
-						
-						 /*  var result = res.results.reduce(function (r, a) {
-						        r[a.client_number] = r[a.client_number] || [];
-						        r[a.client_number].push(a);
-						        return r;
-						    }, Object.create(null));
-						 
 						var arr=Object.keys(result);
 						console.log(Object.keys(result));  */
-						 //alert(JSON.stringify(result));
-						 
-					
-						 
-						 
-						
+						//alert(JSON.stringify(result));
 					}
 				}
 			};
-			xhttp.open("GET", url,
-					true);
+			xhttp.open("GET", url, true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.setRequestHeader("authorization", token);
 			xhttp.send();
@@ -5786,16 +5846,72 @@ solution 1:
 					document.getElementById("loaderimg").style.display = "none";
 				}
 			};
-			xhttp
-					.open(
-							"POST",
-							"https://api.servetel.in/v1/click_to_call_support",
-							true);
+			xhttp.open("POST",
+					"https://api.servetel.in/v1/click_to_call_support", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(JSON.stringify(params));
 
 			document.getElementById("loaderimg").style.display = "block";
 			//$('#CallLoader').modal('show');
+
+		}
+
+		function callRecordingModal() {
+
+			//$('#callRecModal').modal('show');
+
+			var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEwOTQyLCJpc3MiOiJodHRwczpcL1wvY3VzdG9tZXIuc2VydmV0ZWwuaW5cL3Rva2VuXC9nZW5lcmF0ZSIsImlhdCI6MTYwMDA2MTAzOCwiZXhwIjoxOTAwMDYxMDM4LCJuYmYiOjE2MDAwNjEwMzgsImp0aSI6ImlFcTlYVjVGTGtNVHpUalIifQ.XwFAV0__xVQQL6kACPJv2wA8s2YrmxLjyqjgjKM8L8o";
+			var url = "https://api.servetel.in/v1/call/records?call_type=c&callerid=+919881168357";
+			//var url = "https://cors-anywhere.herokuapp.com/"
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				document.getElementById("loaderimg").style.display = "none";
+				if (this.readyState == 4 && this.status == 200) {
+					var res = JSON.parse(this.responseText);
+					//alert(this.responseText);
+					if (res != '') {
+						$('#callRecModal').modal('show');
+
+						$('#call_rec_table td').remove();
+
+						for (var i = 0; i < res.results.length; i++) {
+
+							var tr = $('<tr></tr>');
+
+							tr.append($('<td></td>').html(i + 1));
+
+							var fromDate = res.results[i].date;
+							var datearray = fromDate.split("-");
+							fromDate = datearray[2] + '-' + datearray[1] + '-'
+									+ datearray[0];
+
+							tr.append($('<td style="text-align:center;"></td>').html(
+									fromDate + " " + res.results[i].time));
+
+							tr.append($('<td></td>').html(
+									res.results[i].department_name));
+
+							tr.append($('<td></td>').html(
+									res.results[i].agent_name));
+
+							var audio = "<audio controls><source src='"+res.results[i].recording_url+"' /></audio>"
+
+							tr.append($('<td style="text-align:center;"></td>').html(audio));
+
+							$('#call_rec_table tbody').append(tr);
+
+						}
+
+					}
+				}
+			};
+			xhttp.open("GET", url, true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.setRequestHeader("authorization", token);
+			xhttp.send();
+
+			document.getElementById("loaderimg").style.display = "block";
 
 		}
 	</script>

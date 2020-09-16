@@ -641,7 +641,8 @@ public class HomeController {
 			newcust.setWhatsappNo(whatappno);
 			newcust.setLangId(Integer.parseInt(language));
 			newcust.setAddress(address);
-
+			newcust.setCustAddPlatform(1);
+			
 			customerAddress = new CustomerAddress();
 			customerAddress.setAddress(address);
 			customerAddress.setCityId(Integer.parseInt(addcity));
@@ -710,6 +711,7 @@ public class HomeController {
 				Date dt = new Date();
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+				newcust.setCustAddPlatform(1);
 				newcust.setAddedFormType(2);
 				newcust.setCustAddDatetime(sf.format(dt));
 				newcust.setUserId(userInfo.getUserId());

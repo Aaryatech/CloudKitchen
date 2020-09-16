@@ -1186,13 +1186,13 @@
 			
 			document.getElementById("loaderimg").style.display = "block";
 			var km=sessionStorage.getItem("frKm");
-			alert(km);
+			//alert(km);
 			
 			$.getJSON('${getDeliveryChargesByKm}', {
 				km : km,
 				ajax : 'true'
 			}, function(data) {
-				alert(JSON.stringify(data));
+				//alert(JSON.stringify(data));
 				document.getElementById("loaderimg").style.display = "none";
 				
 				var itemSubTotal=$("#item_sub_total").val();
