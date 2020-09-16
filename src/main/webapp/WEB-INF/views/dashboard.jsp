@@ -3148,6 +3148,8 @@ solution 1:
 		}
 
 		function sendOtpForCustomerRegistration() {
+			
+			
 
 			$("#error_addcity").hide();
 			$("#error_custname").hide();
@@ -3226,11 +3228,14 @@ solution 1:
 
 			}
 			if (!$("#addcity").val()) {
+				
 				isError = true;
 				$("#error_addcity").show();
 				$("#error_addCustAgent").show();
 				$("#error_txtPlaces").show();
 			} else {
+				
+				
 				if ($("#cityData" + $("#addcity").val()).data("iscity") == 1) {
 
 					if ($("#addCustAgent").val() == ""
@@ -3239,8 +3244,29 @@ solution 1:
 						$("#error_addCustAgent").show();
 					}
 				} else {
+					
 					if (!$("#txtPlaces").val()) {
 						isError = true;
+						$("#error_txtPlaces").show();
+					}
+					if (!$("#addLatitude").val()) {
+						isError = true;
+						document.getElementById("txtPlaces").value = "";
+						$("#error_txtPlaces").show();
+					}
+					if ($("#addLatitude").val() == 0) {
+						isError = true;
+						document.getElementById("txtPlaces").value = "";
+						$("#error_txtPlaces").show();
+					}
+					if (!$("#addLongitude").val()) {
+						isError = true;
+						document.getElementById("txtPlaces").value = "";
+						$("#error_txtPlaces").show();
+					}
+					if ($("#addLongitude").val() == 0) {
+						isError = true;
+						document.getElementById("txtPlaces").value = "";
 						$("#error_txtPlaces").show();
 					}
 				}
@@ -3255,26 +3281,7 @@ solution 1:
 				$("#error_language").show();
 			}
 
-			if (!$("#addLatitude").val()) {
-				isError = true;
-				document.getElementById("txtPlaces").value = "";
-				$("#error_txtPlaces").show();
-			}
-			if ($("#addLatitude").val() == 0) {
-				isError = true;
-				document.getElementById("txtPlaces").value = "";
-				$("#error_txtPlaces").show();
-			}
-			if (!$("#addLongitude").val()) {
-				isError = true;
-				document.getElementById("txtPlaces").value = "";
-				$("#error_txtPlaces").show();
-			}
-			if ($("#addLongitude").val() == 0) {
-				isError = true;
-				document.getElementById("txtPlaces").value = "";
-				$("#error_txtPlaces").show();
-			}
+			
 
 			var deliveryType = 1;
 			if (document.getElementById("rdHomeDelivery").checked == true) {
@@ -5656,7 +5663,7 @@ solution 1:
 			var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEwOTQyLCJpc3MiOiJodHRwczpcL1wvY3VzdG9tZXIuc2VydmV0ZWwuaW5cL3Rva2VuXC9nZW5lcmF0ZSIsImlhdCI6MTYwMDA2MTAzOCwiZXhwIjoxOTAwMDYxMDM4LCJuYmYiOjE2MDAwNjEwMzgsImp0aSI6ImlFcTlYVjVGTGtNVHpUalIifQ.XwFAV0__xVQQL6kACPJv2wA8s2YrmxLjyqjgjKM8L8o";
 			var url = "https://api.servetel.in/v1/call/records?from_date="
 					+ date + "&to_date=" + nextDate + "&call_type=m";
-			//var url = "https://api.servetel.in/v1/call/records"
+			//var url = "https://cors-anywhere.herokuapp.com/"
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -5721,7 +5728,7 @@ solution 1:
 					}
 				}
 			};
-			xhttp.open("GET", "https://cors-anywhere.herokuapp.com/" + url,
+			xhttp.open("GET", url,
 					true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.setRequestHeader("authorization", token);
@@ -5782,7 +5789,7 @@ solution 1:
 			xhttp
 					.open(
 							"POST",
-							"https://cors-anywhere.herokuapp.com/https://api.servetel.in/v1/click_to_call_support",
+							"https://api.servetel.in/v1/click_to_call_support",
 							true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(JSON.stringify(params));

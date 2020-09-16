@@ -134,7 +134,7 @@
 
 
 										<p>
-											<span style="color: #e84d7b;">*</span> Note - Wallet amount
+											<span style="color: #e84d7b;">*</span> Note - Madhvi credit amount
 											will be applicable only when order amount is greater than Rs.
 											<strong>${wallet.walletLimitRs}/-</strong>.
 										</p>
@@ -144,7 +144,7 @@
 										<p>
 											<span style="color: #e84d7b;">*</span> Note - Either <strong>${wallet.walletPercent}%</strong>
 											or minimum Rs. <strong>${wallet.walletMinAmt}/-</strong>
-											wallet amount will be applicable.
+											madhvi credit amount will be applicable.
 										</p>
 
 
@@ -154,7 +154,7 @@
 												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i
 												class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
 												for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
-												more to use wallet</span>
+												more to use madhvi credit</span>
 										</p>
 
 
@@ -228,7 +228,16 @@
 									<div id="hiddenCustPhoneDiv" style="display: none;">${sessionScope.liveCustomer.phoneNumber}</div>
 									<div class="instrac_nm">
 										<h2>${sessionScope.liveCustomer.custName}</h2>
-										<h3>${addressDetail.addressCaption}</h3>
+										<c:set value="" var="typeVal"></c:set>
+										<c:choose>
+										<c:when test="${agent > 0}">
+										<c:set value=" (Village)" var="typeVal"></c:set>
+										</c:when>
+										<c:otherwise>
+										<c:set value=" (City)" var="typeVal"></c:set>
+										</c:otherwise>
+										</c:choose>
+										<h3>${addressDetail.addressCaption}${typeVal}</h3>
 										<p>${addressDetail.address}
 											<br>${sessionScope.liveCustomer.phoneNumber}
 										</p>
@@ -893,6 +902,7 @@
 				$("#applyWalletAmt").html("00.00");
 			}
 			
+			
 			if(flag!=1){
 				getDeliveryCharges();	
 			}
@@ -1176,13 +1186,13 @@
 			
 			document.getElementById("loaderimg").style.display = "block";
 			var km=sessionStorage.getItem("frKm");
-			//alert(km);
+			alert(km);
 			
 			$.getJSON('${getDeliveryChargesByKm}', {
 				km : km,
 				ajax : 'true'
 			}, function(data) {
-				//alert(JSON.stringify(data));
+				alert(JSON.stringify(data));
 				document.getElementById("loaderimg").style.display = "none";
 				
 				var itemSubTotal=$("#item_sub_total").val();

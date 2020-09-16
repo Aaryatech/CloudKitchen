@@ -620,6 +620,7 @@
 		 
 		function addTocart(type,itemId) {
 			
+			
 		
 			var isError = false; 
 			$("#qty_error").hide();
@@ -666,9 +667,12 @@
 				var table = $.parseJSON(cartValue);
 				var findItem=0;
 				var findItemPosition="";
+				
+				
 				 
 				var data = $("#detail"+itemId).attr("data-id");
 				var obj = $.parseJSON(data); 
+				
 				
 				for(var i = 0 ; i<table.length ; i++){
 					
@@ -1164,8 +1168,6 @@
 
 			var headerFrId = $("#headerFrId").val();
 			var selectedFrId = $("#hiddenSelectedFrId").val();
-			
-			 
 			
 			if(headerFrId!=selectedFrId){
 				
