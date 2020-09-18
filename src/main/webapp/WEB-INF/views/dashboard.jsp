@@ -718,7 +718,7 @@
 
 	<div class="modal fade kot-popup fetch_results" id="addCustomer"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-md" style="max-width: 90%;">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close cleardiv"
@@ -1091,7 +1091,7 @@
 	</div>
 
 	<div class="modal fade kot-popup fetch_results" id="orderstep1">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-md" style="max-width: 90%">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close cleardiv"

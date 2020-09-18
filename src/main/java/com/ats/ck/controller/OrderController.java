@@ -1753,6 +1753,9 @@ public class OrderController {
 	public String returnUrl(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
+			
+			System.err.println("PAYMENT - 1");
+
 
 			String orderId = request.getParameter("orderId");
 			String orderAmount = request.getParameter("orderAmount");
@@ -1766,9 +1769,14 @@ public class OrderController {
 			int status = 1;
 			int paid = 1;
 
+			System.err.println("PAYMENT - 2");
+
+			
 			if (!txStatus.equals("SUCCESS")) {
 				status = 8;
 				paid = 0;
+				System.err.println("PAYMENT - 3");
+
 			}
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
@@ -1778,6 +1786,8 @@ public class OrderController {
 			map.add("txStatus", txStatus);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "updatePaymentSuccessful", map,
 					Info.class);
+			
+			System.err.println("PAYMENT - "+status+"   /    "+paid+"    /    "+orderId+"    /    "+txStatus+"    => "+info);
 
 			System.out.println(txStatus);
 			System.out.println(status);

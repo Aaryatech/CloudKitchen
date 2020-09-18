@@ -72,9 +72,10 @@
 		var orderId = '${orderId}';
 		var paid = '${paid}';
 
-		/* alert(status)
-		alert(paid)
-		alert(orderId) */
+/* 		alert(status);
+		alert(paid);
+		alert(orderId);
+ */		
 		db.ref(today_date_temp + "/" + orderId + "/status").set(status);
 		db.ref(today_date_temp + "/" + orderId + "/paymentStatus").set(paid);
 

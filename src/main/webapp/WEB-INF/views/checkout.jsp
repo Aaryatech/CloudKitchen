@@ -149,9 +149,9 @@
 
 
 
-										<p id="divWalletMsg" style="display: none;">
-											<span class="total_bx"
-												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal;"><i
+										<p id="divWalletMsg" class="total_bx" style="display: none; background: white; text-align: center;">
+											<span 
+												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal; width:100%"><i
 												class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
 												for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
 												more to use madhvi credit</span>
@@ -190,9 +190,9 @@
 										<div class="total-row free">
 											<div class="total-row_l">Delivery Charges</div>
 											<div class="total-row_r">
-												<input name="deliveryCharges" id="deliveryCharges"
+												<input name="deliveryCharges" id="deliveryCharges" readonly="readonly"
 													type="text" class="table_inpt numbersOnly"
-													placeholder=" Delivery Free" value="50"
+													placeholder=" Delivery Free" value="0"
 													onchange="appendTableList();" style="text-align: right;" />
 											</div>
 
@@ -201,7 +201,7 @@
 										</div>
 										<div class="total_bx">
 											<div class="total-row_l">Total</div>
-											<div class="total-row_r" id="bill_total">50.00</div>
+											<div class="total-row_r" id="bill_total">00.00</div>
 											<div class="clr"></div>
 											<input type="hidden" id="hideBillTotal" name="hideBillTotal"
 												value="0">
@@ -268,8 +268,8 @@
 											<span class="model_error_class"
 												style="color: red; display: none;" id="error_billingAddress">*
 												This field required.</span><br> <label
-												class="text-light-black fw-500 fs-14">GSTN No.</label> <input
-												name="gstnNo" class="form-control" placeholder="GSTN No."
+												class="text-light-black fw-500 fs-14">GSTIN No.</label> <input
+												name="gstnNo" class="form-control" placeholder="GSTIN No."
 												id="gstnNo" value="${sessionScope.liveCustomer.gstNo}" /> <span
 												class="model_error_class" style="color: red; display: none;"
 												id="error_gstno">* This field required.</span> <span
