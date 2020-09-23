@@ -19,10 +19,13 @@
 	src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 
 <c:url var="getDeliveryChargesByKm" value="/getDeliveryChargesByKm"></c:url>
+<c:url var="getOfferDetailListAjax" value="/getOfferDetailListAjax"></c:url>
+<c:url var="getOfferHeaderListAjax" value="/getOfferHeaderListAjax"></c:url>
+<c:url var="checkIsValidOffer" value="/checkIsValidOffer"></c:url>
 
+<body onload="appendTableList();getItemList();">
+	<!-- <body onload="getData();" -->
 
-<body onload="appendTableList();getItemList();"
-	data-customvalueone='${jsonList}'>
 	<div class="loader" id="loaderimg" style="display: none;">
 		<img
 			src="${pageContext.request.contextPath}/resources/assets/img/svg/loader.svg"
@@ -71,7 +74,50 @@
 								</tbody>
 							</table>
 
+
 							<div class="chkout_divide">
+								<div class="chkout_divide_l">
+
+									<label class="text-light-black fw-500 fs-14">Applicable
+										Discount Offers </label><select class="form-control" id="offer"
+										onchange="getOfferDetails(this.value)" name="offer">
+										<option value="0">Select Offer</option>
+										<c:forEach items="${offerList}" var="offer">
+											<option value="${offer.offerId}">${offer.offerName}</option>
+										</c:forEach>
+									</select>
+
+								</div>
+
+								<div class="chkout_divide_r">
+									<label class="text-light-black fw-500 fs-14">Coupon/Promo
+										Codes </label><select class="form-control" id="offerCoupon1"
+										style="display: none;" onchange="setOfferDiscAmt()"
+										name="offerCoupon1">
+										<option value="0">Select Coupon/Promo Code</option>
+									</select> <input type="text" list="coupons" id="offerCoupon"
+										placeholder="Select Coupon/Promo Code"
+										onchange="setOfferDiscAmt()" name="offerCoupon"
+										class="form-control chosen"
+										style="width: 100%; text-align: left;" autocomplete="off">
+									<datalist id="coupons">
+									</datalist>
+
+									<span class="model_error_class"
+										style="color: red; display: none;" id="error_offercoupon">*
+										This field required.</span>
+
+								</div>
+
+								<input type="hidden" value="0" id="tempDiscPer"
+									name="tempDiscPer" /> <input type="hidden" value="0"
+									id="tempOfferLimit" name="tempOfferLimit" /> <input
+									type="hidden" value="0" id="tempOfferType" name="tempOfferType" />
+
+							</div>
+
+							<div class="chkout_divide">
+
 								<!-- left form-- -->
 								<div class="chkout_divide_l">
 									<div class="form-group">
@@ -89,12 +135,14 @@
 											: 50 MIN</label><br> <label
 											class="text-light-black fw-500 fs-14">Delivery Option
 											:&nbsp;</label> <label class="chk_txt fw-500 fs-14"><input
-											type="radio" id="homeDelivery" name="typeSelect"
-											class="option-input radio" checked ${deliveryType=='1'?'checked':''}>Home
+											onchange="setDeliveryType(1)" type="radio" id="homeDelivery"
+											name="typeSelect" class="option-input radio"
+											checked ${deliveryType=='1'?'checked':''}>Home
 											Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"><input
-											type="radio" class="option-input radio" id="takeaway"
-											name="typeSelect" ${deliveryType =='2'?'checked':''}>Take
-											Away</label><br> <label class="text-light-black fw-500 fs-14">Select
+											onchange="setDeliveryType(2)" type="radio"
+											class="option-input radio" id="takeaway" name="typeSelect"
+											${deliveryType =='2'?'checked':''}>Take Away</label><br>
+										<label class="text-light-black fw-500 fs-14">Select
 											Delivery Instruction</label><select class="form-control"
 											id="deliveryInstru" name="deliveryInstru">
 											<c:forEach items="${deliveryInstructionList}"
@@ -134,9 +182,9 @@
 
 
 										<p>
-											<span style="color: #e84d7b;">*</span> Note - Madhvi credit amount
-											will be applicable only when order amount is greater than Rs.
-											<strong>${wallet.walletLimitRs}/-</strong>.
+											<span style="color: #e84d7b;">*</span> Note - Madhvi credit
+											amount will be applicable only when order amount is greater
+											than Rs. <strong>${wallet.walletLimitRs}/-</strong>.
 										</p>
 
 
@@ -149,9 +197,10 @@
 
 
 
-										<p id="divWalletMsg" class="total_bx" style="display: none; background: white; text-align: center;">
-											<span 
-												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal; width:100%"><i
+										<p id="divWalletMsg" class="total_bx"
+											style="display: none; background: white; text-align: center;">
+											<span
+												style="background: #9ccd2b; padding: 3px 20px 3px 20px; color: #FFF; text-transform: none; border-radius: 25px; font-size: 14px; font-weight: normal; width: 100%"><i
 												class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Shop
 												for Rs. <span style="width: auto;" id="shopMoreMsg"></span>/-
 												more to use madhvi credit</span>
@@ -164,20 +213,26 @@
 
 									<!--checkout total box-->
 									<div class="check_total">
-										<div class="total-row">
+										<div class="total-row" style="display: none;">
 											<div class="total-row_l">Items sub total</div>
 											<div class="total-row_r" id="item_sub_total">00.00</div>
 											<div class="clr"></div>
 										</div>
-										<div class="total-row">
+										<div class="total-row" style="display: none;">
 											<div class="total-row_l">Tax</div>
 											<div class="total-row_r" id="item_tax_total">00.00</div>
 											<div class="clr"></div>
 										</div>
 
 										<div class="total-row">
-											<div class="total-row_l" id="discAmt">Offer Disc AMT</div>
-											<div class="total-row_r">00.00</div>
+											<div class="total-row_l">Items sub Total</div>
+											<div class="total-row_r" id="item_total">00.00</div>
+											<div class="clr"></div>
+										</div>
+
+										<div class="total-row">
+											<div class="total-row_l">Offer Disc AMT</div>
+											<div class="total-row_r" id="discAmt">00.00</div>
 											<div class="clr"></div>
 										</div>
 
@@ -188,13 +243,23 @@
 										</div>
 
 										<div class="total-row free">
-											<div class="total-row_l">Delivery Charges</div>
+											<div class="total-row_l">Delivery & Additional Charges</div>
 											<div class="total-row_r">
-												<input name="deliveryCharges" id="deliveryCharges" readonly="readonly"
-													type="text" class="table_inpt numbersOnly"
-													placeholder=" Delivery Free" value="0"
-													onchange="appendTableList();" style="text-align: right;" />
+												<input name="deliveryCharges" id="deliveryCharges"
+													readonly="readonly" type="text"
+													class="table_inpt numbersOnly" placeholder=" Delivery Free"
+													value="0" onchange="appendTableList();"
+													style="text-align: right;" />
+													
+													
 											</div>
+
+											<!-- Additional Charges -->
+											<input name="addCh" id="addCh" type="hidden"
+												class="table_inpt numbersOnly" value="${addCh}"
+												style="text-align: right;" /> <input name="disc" id="disc"
+												type="hidden" class="table_inpt numbersOnly" value="0"
+												style="text-align: right;" />
 
 											<div class="clr"></div>
 
@@ -230,12 +295,12 @@
 										<h2>${sessionScope.liveCustomer.custName}</h2>
 										<c:set value="" var="typeVal"></c:set>
 										<c:choose>
-										<c:when test="${agent > 0}">
-										<c:set value=" (Village)" var="typeVal"></c:set>
-										</c:when>
-										<c:otherwise>
-										<c:set value=" (City)" var="typeVal"></c:set>
-										</c:otherwise>
+											<c:when test="${agent > 0}">
+												<c:set value=" (Village)" var="typeVal"></c:set>
+											</c:when>
+											<c:otherwise>
+												<c:set value=" (City)" var="typeVal"></c:set>
+											</c:otherwise>
 										</c:choose>
 										<h3>${addressDetail.addressCaption}${typeVal}</h3>
 										<p>${addressDetail.address}
@@ -601,7 +666,7 @@
 
 			document.getElementById("loaderimg").style.display = "block";
 			var fd = new FormData();
-			$
+			 $
 					.ajax({
 						url : '${pageContext.request.contextPath}/getItemList',
 						type : 'post',
@@ -615,23 +680,40 @@
 							sessionStorage.setItem("allItemList", JSON
 									.stringify(response));
 						},
-					});
+					}); 
+			
+			
+			
+	
 
 		}
 		
 		function placeOrder(status) {
 			
+		
+			
 			checkSession();
 			
-			
+			var discAmt = document.getElementById("discAmt").innerHTML;
 			var deliveryCharges = $("#deliveryCharges").val();
 			var applyWalletAmt=document.getElementById("applyWalletAmt").innerHTML;
+			
+			var offerId = document.getElementById("offer").value;
+			var coupon = document.getElementById("offerCoupon").value;
+			var offerType=document.getElementById("tempOfferType").value;
 			
 			$("#error_billingName").hide();
 			$("#error_billingAddress").hide();
 			$("#error_delivery_charges").hide();
 			
 			var isError = false;
+			
+			if($("#offer").val()>0){
+				if ($("#offerCoupon").val()=='') {
+					isError = true;
+					$("#error_offercoupon").show();
+				}
+			}
 			
 			if (!$("#billingName").val().trim()) {
 				isError = true;
@@ -656,8 +738,6 @@
 				isError = true;
 				$("#error_delivery_charges").show();
 			}
-			
-			
 			
 			var cartValue = sessionStorage.getItem("cartValue");
 			var table = $.parseJSON(cartValue);
@@ -752,6 +832,9 @@
 				fd.append("deliveryCharges",deliveryCharges);
 				fd.append("applyWalletAmt",applyWalletAmt);
 				fd.append("gstnNo",gstnNo);
+				fd.append("discAmt",discAmt);
+				fd.append("offerId",offerId);
+				fd.append("coupon",coupon);
 				
 				$
 						.ajax({
@@ -809,6 +892,8 @@
 			var subtotal = 0;
 			var taxtotal = 0;
 			var finaltotal = 0;
+			var discPer=0;
+			var discAmt=0;
 			
 			for (var i = 0; i < table.length; i++) {
 
@@ -845,14 +930,34 @@
 				taxtotal = parseFloat(taxtotal)+parseFloat(taxAmt); 
 				finaltotal = parseFloat(finaltotal)+parseFloat(table[i].total);
 			}
-
+			
+			//alert(finaltotal);
+			discPer=document.getElementById("disc").value;
+			discAmt=(parseFloat(discPer)*parseFloat(finaltotal.toFixed(2)))/100;
+			$("#discAmt").html(discAmt);
+			
+			
+			
+			
+			$("#item_total").html(finaltotal.toFixed(2));
 			$("#item_sub_total").html(subtotal.toFixed(2));
 			$("#item_tax_total").html(taxtotal.toFixed(2));
+			$("#discAmt").html(discAmt.toFixed(2));
 			var deliveryCharges = parseFloat($("#deliveryCharges").val());
-			$("#bill_total").html((finaltotal + deliveryCharges).toFixed(2));
-			document.getElementById("hideBillTotal").value=(finaltotal + deliveryCharges).toFixed(2);
 			
-			var billTotal=parseFloat((finaltotal + deliveryCharges).toFixed(2));
+			var billTotal=finaltotal-discAmt+deliveryCharges;
+			if(document.getElementById("takeaway").checked==true){
+				billTotal=finaltotal-discAmt;
+			}
+			
+			
+			$("#bill_total").html(billTotal.toFixed(2));
+			document.getElementById("hideBillTotal").value=billTotal.toFixed(2);
+			
+			//$("#bill_total").html((finaltotal + deliveryCharges).toFixed(2));
+			//document.getElementById("hideBillTotal").value=(finaltotal + deliveryCharges).toFixed(2);
+			
+			//var billTotal=parseFloat((finaltotal + deliveryCharges).toFixed(2));
 			
 			var reqAmtToAvailWallet=${wallet.walletLimitRs}-billTotal;
 			$("#shopMoreMsg").html(reqAmtToAvailWallet.toFixed(2));
@@ -904,7 +1009,10 @@
 			
 			
 			if(flag!=1){
-				getDeliveryCharges();	
+				if(document.getElementById("homeDelivery").checked==true){
+					getDeliveryCharges();
+				}
+					
 			}
 			
 		}
@@ -1188,6 +1296,8 @@
 			var km=sessionStorage.getItem("frKm");
 			//alert(km);
 			
+			//getOrderCheckoutData
+			//getDeliveryChargesByKm
 			$.getJSON('${getDeliveryChargesByKm}', {
 				km : km,
 				ajax : 'true'
@@ -1218,19 +1328,22 @@
 				$('#placeBtn').show();
 				$('#parkBtn').show();
 				
+				var addCh=document.getElementById("addCh").value;
+				
 				if(billTotal > data.minAmt && billTotal <= data.freeDelvLimit){
-					document.getElementById("deliveryCharges").value=data.amt1;
+					
+					document.getElementById("deliveryCharges").value=data.amt1+parseFloat(addCh);
 					
 					document.getElementById("minOrderMsgDiv").style.display="none";
 					
 				}else if(billTotal > data.freeDelvLimit){
-					document.getElementById("deliveryCharges").value=data.amt2;
+					document.getElementById("deliveryCharges").value=data.amt2+parseFloat(addCh);
 					
 					document.getElementById("minOrderMsgDiv").style.display="none";
 					
 				}else{
 					
-					document.getElementById("deliveryCharges").value=0;
+					document.getElementById("deliveryCharges").value=0+parseFloat(addCh);
 				
 					$('#placeBtn').hide();
 					$('#parkBtn').hide();
@@ -1245,6 +1358,204 @@
 			});
 			 
 		}
+		
+		function getOfferDetails(id){
+			
+			checkSession();
+			
+			
+			
+			
+			$.getJSON('${getOfferHeaderListAjax}', {
+				ajax : 'true'
+			}, function(data) {
+				//alert(JSON.stringify(data));
+				var discPer=0;
+				var offerType=0;
+				var offerLimit=0;
+				
+				var len = data.length;
+				for (var i = 0; i < len; i++) {
+					if(data[i].offerId==id){
+						discPer=data[i].offerDetailList[0].discPer;
+						offerType=data[i].exInt1;
+						offerLimit=data[i].offerDetailList[0].offerLimit;
+						break;
+					}
+				}
+				
+				document.getElementById("tempDiscPer").value=discPer;
+				document.getElementById("tempOfferLimit").value=offerLimit;
+				document.getElementById("tempOfferType").value=offerType;
+				
+				document.getElementById("disc").value=0;
+				appendTableList();
+				document.getElementById("offerCoupon").value="";
+				document.getElementById('offerCoupon').focus();
+				
+			});
+			
+
+				$.getJSON('${getOfferDetailListAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					//alert(JSON.stringify(data));
+
+						var len = data.length;
+
+						$('#coupons').find('option').remove().end()
+
+						/* $("#coupons").append(
+								$("<option selected></option>").attr("value", 0)
+										.text("Select Coupon/Promo Code")); */
+
+						for (var i = 0; i < len; i++) {
+							
+							if(data[i].offerId==id){
+								
+								var coupons = data[i].couponCode.split(',');
+								for(var c = 0; c < coupons.length; c++){
+									$("#coupons").append(
+											$("<option></option>").attr("value",
+													coupons[c]).text(
+															coupons[c]));
+								}
+								
+							}
+						}
+
+						$("#coupons").trigger("chosen:updated");
+				
+				});
+				
+		
+			
+			
+			
+			
+	
+		}
+		
+		function setOfferDiscAmt(){
+			
+			var billTotal=document.getElementById("bill_total").innerHTML;
+			var offerLimit=document.getElementById("tempOfferLimit").value;
+			
+			if(parseFloat(billTotal) >= parseFloat(offerLimit)){
+
+				
+				checkValidOffer();
+
+			}else{
+				alert("To use offer bill should be greater than "+offerLimit+"/-");
+				//document.getElementById('offerCoupon').selectedIndex = 0;
+				//$("#offerCoupon").trigger("chosen:updated");
+				document.getElementById('offerCoupon').value = '';
+			}
+			
+	
+		}
+		
+		function checkValidOffer(){
+			
+			var offerId=document.getElementById("offer").value;
+			var coupon=document.getElementById("offerCoupon").value;
+			var custId=${sessionScope.liveCustomer.custId};
+			
+			if(offerId!=0){
+				
+				if(coupon==0){
+					alert("Please select coupon/promo code");
+					document.getElementById("offerCoupon").focus();
+					document.getElementById("disc").value=0;
+					appendTableList();
+				}else{
+					
+					document.getElementById("loaderimg").style.display = "block";
+					
+					$.getJSON('${checkIsValidOffer}', {
+						offerId : offerId,
+						coupon : coupon,
+						custId : custId,
+						ajax : 'true'
+					}, function(data) {
+						alert(JSON.stringify(data));
+						document.getElementById("loaderimg").style.display = "none";
+						if (data.error == true) {
+							res = true;
+							alert("Coupon/Promo code expires!");
+							//document.getElementById('offerCoupon').selectedIndex = 0;
+							//$("#offerCoupon").trigger("chosen:updated");
+							document.getElementById('offerCoupon').value = '';
+						}else{
+							var discPer=document.getElementById("tempDiscPer").value;
+							document.getElementById("disc").value=discPer;
+							
+							appendTableList();
+							$("#error_offercoupon").hide();
+						}
+					});
+					
+				}
+		
+			}
+			
+		}
+		
+		/* 
+		function checkValidOffer(status){
+			
+			var offerId=document.getElementById("offer").value;
+			var coupon=document.getElementById("offerCoupon").value;
+			var custId=${sessionScope.liveCustomer.custId};
+			
+			if(offerId!=0){
+				
+				if(coupon==0){
+					alert("Please select coupon/promo code");
+					document.getElementById("offerCoupon").focus();
+				}else{
+					
+					document.getElementById("loaderimg").style.display = "block";
+					
+					$.getJSON('${checkIsValidOffer}', {
+						offerId : offerId,
+						coupon : coupon,
+						custId : custId,
+						ajax : 'true'
+					}, function(data) {
+						//alert(JSON.stringify(data));
+						document.getElementById("loaderimg").style.display = "none";
+						if (data.error == true) {
+							res = true;
+							alert("Coupon/Promo code expires!");
+						}else{
+							placeOrder(status);
+						}
+					});
+					
+				}
+				
+		
+			}else{
+				placeOrder(status)
+			}
+			
+		}
+		*/
+		
+		function setDeliveryType(val){
+			if(val==1){
+				getDeliveryCharges();
+			}else if(val==2){
+				
+				document.getElementById("deliveryCharges").value=0;
+				//document.getElementById("addCh").value=0;
+				appendTableList(1);
+				
+			}
+		}
+		
 		
 		function checkSession() {
 			$.getJSON('${checkSessionAjax}', {

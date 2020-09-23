@@ -7,7 +7,7 @@ public class GetAllDataByFr {
 	private Info info;
 	private List<CategoryData> categoryData;
 	private List<SubCategoryData> subCategoryData;
-	private List<OfferHeader> offerData;
+	private List<OfferList> offerData;
 	private List<Tags> tagsData;
 	private List<ItemDisplay> itemData;
 	public Info getInfo() {
@@ -28,10 +28,10 @@ public class GetAllDataByFr {
 	public void setSubCategoryData(List<SubCategoryData> subCategoryData) {
 		this.subCategoryData = subCategoryData;
 	}
-	public List<OfferHeader> getOfferData() {
+	public List<OfferList> getOfferData() {
 		return offerData;
 	}
-	public void setOfferData(List<OfferHeader> offerData) {
+	public void setOfferData(List<OfferList> offerData) {
 		this.offerData = offerData;
 	}
 	public List<Tags> getTagsData() {

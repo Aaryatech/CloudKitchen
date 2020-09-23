@@ -1,9 +1,5 @@
 package com.ats.ck.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,15 +8,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.CacheControl;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -54,7 +47,9 @@ import com.ats.ck.model.ItemJsonImportData;
 import com.ats.ck.model.LinkResponse;
 import com.ats.ck.model.MnUser;
 import com.ats.ck.model.NewSetting;
-import com.ats.ck.model.OfferHeader;
+import com.ats.ck.model.OfferDetail;
+import com.ats.ck.model.OfferList;
+import com.ats.ck.model.OrderCheckoutData;
 import com.ats.ck.model.OrderDetail;
 import com.ats.ck.model.OrderFeedback;
 import com.ats.ck.model.OrderGrievance;
@@ -68,7 +63,6 @@ import com.ats.ck.model.Tags;
 import com.ats.ck.model.Wallet;
 import com.ats.ck.model.gatwaymodel.Body;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 @Controller
 @Scope("session")
@@ -138,7 +132,7 @@ public class OrderController {
 			itemList = getAllDataByFr.getItemData();
 			model.addAttribute("itemList", itemList);
 
-			List<OfferHeader> offerList = getAllDataByFr.getOfferData();
+			List<OfferList> offerList = getAllDataByFr.getOfferData();
 			model.addAttribute("offerList", offerList);
 
 			// ObjectMapper Obj = new ObjectMapper();
@@ -197,6 +191,9 @@ public class OrderController {
 		}
 		return info;
 	}
+
+	List<OfferDetail> offerDetailList = new ArrayList<>();
+	List<OfferList> offerHeaderList = new ArrayList<>();
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
 	public String checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -267,6 +264,7 @@ public class OrderController {
 			FranchiseData franchiseData = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getFranchiseByFrId", map, FranchiseData.class);
 			model.addAttribute("franchiseData", franchiseData);
+			// System.err.println("franchiseData " + franchiseData);
 
 			try {
 				map = new LinkedMultiValueMap<String, Object>();
@@ -275,19 +273,88 @@ public class OrderController {
 				CustWalletTotal wallet = Constants.getRestTemplate()
 						.postForObject(Constants.url + "getCustomerWalletAmt", map, CustWalletTotal.class);
 				model.addAttribute("wallet", wallet);
+
+				// System.err.println("Wallet " + wallet);
+
 			} catch (Exception e) {
 			}
-			System.err.println("deliveryType ---------------- " + session.getAttribute("deliveryType"));
+
+			// System.err.println("deliveryType ---------Anmol------- " +
+			// session.getAttribute("deliveryType"));
 			model.addAttribute("deliveryType", session.getAttribute("deliveryType"));
 
 			// int addCustAgent = (int) session.getAttribute("addCustAgent");
 			model.addAttribute("agent", session.getAttribute("addCustAgent"));
+
+			// checkout data -
+			float km = 0;
+			int frId = (int) session.getAttribute("frIdForOrder");
+
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frId);
+			map.add("km", km);
+
+			// System.err.println("FR - "+frId+" KM - "+km);
+
+			OrderCheckoutData data = Constants.getRestTemplate().postForObject(Constants.url + "getOrderCheckoutData",
+					map, OrderCheckoutData.class);
+			if (data != null) {
+				model.addAttribute("checkoutData", data);
+				model.addAttribute("FrCharges", data.getAdditionalCharges());
+				model.addAttribute("offerList", data.getOfferList());
+				offerDetailList = data.getOfferDetailList();
+				offerHeaderList = data.getOfferList();
+
+				float addCh = 0;
+				try {
+					addCh = data.getAdditionalCharges().getSurchargeFee() + data.getAdditionalCharges().getHandlingChg()
+							+ data.getAdditionalCharges().getPackingChg() + data.getAdditionalCharges().getRoundOffAmt()
+							+ data.getAdditionalCharges().getExtraChg();
+				} catch (Exception e) {
+				}
+				model.addAttribute("addCh", addCh);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "checkout";
 	}
+
+	@RequestMapping(value = "/getOfferDetailListAjax", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OfferDetail> getOfferDetailListAjax(HttpServletRequest request, HttpServletResponse response) {
+		return offerDetailList;
+	}
+
+	@RequestMapping(value = "/getOfferHeaderListAjax", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OfferList> getOfferHeaderListAjax(HttpServletRequest request, HttpServletResponse response) {
+		return offerHeaderList;
+	}
+	
+	@RequestMapping(value = "/checkIsValidOffer", method = RequestMethod.GET)
+	@ResponseBody
+	public Info checkIsValidOffer(HttpServletRequest request, HttpServletResponse response) {
+		
+		Info info=new Info();
+		
+		int offerId=Integer.parseInt(request.getParameter("offerId"));
+		String coupon=request.getParameter("coupon");
+		int custId=Integer.parseInt(request.getParameter("custId"));
+		
+		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+		map.add("offerId", offerId);
+		map.add("coupon", coupon);
+		map.add("custId", custId);
+
+		info = Constants.getRestTemplate().postForObject(Constants.url + "checkIsValidOffer", map,
+				Info.class);
+		
+		return info;
+	}
+	
+	
 
 	@RequestMapping(value = "/getDeliveryChargesByKm", method = RequestMethod.GET)
 	@ResponseBody
@@ -304,7 +371,7 @@ public class OrderController {
 
 			} catch (Exception e) {
 			}
-			//System.err.println("KM - " + km);
+			// System.err.println("KM - " + km);
 
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("km", km);
@@ -316,6 +383,48 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return charges;
+	}
+
+	@RequestMapping(value = "/getOrderCheckoutData", method = RequestMethod.GET)
+	public @ResponseBody OrderCheckoutData getOrderCheckoutData(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		OrderCheckoutData data = new OrderCheckoutData();
+		try {
+
+			float km = 0;
+			try {
+				if (request.getParameter("km") != null) {
+					km = Float.parseFloat(request.getParameter("km"));
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			HttpSession session = request.getSession();
+			int frId = (int) session.getAttribute("frIdForOrder");
+
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("frId", frId);
+			map.add("km", km);
+
+			System.err.println("FR - " + frId + "    KM - " + km);
+
+			data = Constants.getRestTemplate().postForObject(Constants.url + "getOrderCheckoutData", map,
+					OrderCheckoutData.class);
+
+			if (data == null) {
+				data = new OrderCheckoutData();
+			}
+
+			System.err.println("DATA -------------------- " + data);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 
 	@RequestMapping(value = "/getItemList", method = RequestMethod.POST)
@@ -358,7 +467,18 @@ public class OrderController {
 			int status = Integer.parseInt(request.getParameter("status"));
 			int frId = (int) session.getAttribute("frIdForOrder");
 			int paymentMethod = Integer.parseInt(request.getParameter("paymentMethod"));
-			float deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+
+			float deliveryCharges = 0;
+			try {
+				deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
+			} catch (Exception e) {
+			}
+
+			float discAmt = 0;
+			try {
+				discAmt = Float.parseFloat(request.getParameter("discAmt"));
+			} catch (Exception e) {
+			}
 
 			String gstnNo = request.getParameter("gstnNo");
 
@@ -366,7 +486,20 @@ public class OrderController {
 			try {
 				applyWalletAmt = Float.parseFloat(request.getParameter("applyWalletAmt"));
 			} catch (Exception e) {
-				applyWalletAmt = 0;
+			}
+			
+			discAmt=discAmt+applyWalletAmt;
+
+			int offerId = 0;
+			try {
+				offerId = Integer.parseInt(request.getParameter("offerId"));
+			} catch (Exception e) {
+			}
+
+			String coupon = "";
+			try {
+				coupon = request.getParameter("coupon");
+			} catch (Exception e) {
 			}
 
 			float finaTaxableAmt = 0;
@@ -454,16 +587,25 @@ public class OrderController {
 				order.setDeliveryType(homeDelivery);
 				order.setDeliveryInstId(deliveryInstru);
 				order.setDeliveryInstText(textDeliveryInstr);
-				order.setDeliveryCharges(deliveryCharges);
+				//order.setDeliveryCharges(deliveryCharges);//Delivery and additional charges
 				order.setUuidNo(uuid);
 				order.setExFloat1(applyWalletAmt);// Wallet Amt
 				order.setExVar1(gstnNo);
+				order.setExVar2(coupon);
+				order.setOfferId(offerId);
 
 				if (addCustAgent > 0) {
 					order.setIsAgent(1);
 					order.setOrderDeliveredBy(addCustAgent);
 				}
 				List<OrderDetail> orderDetailList = new ArrayList<>();
+				
+				float grandTotal=0;
+				for (int i = 0; i < itemJsonImportData.length; i++) {
+					grandTotal = grandTotal + itemJsonImportData[i].getTotal();
+				}
+				
+				float totalDiscAmt=0,totalAddChargesAmt=0;
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
 
@@ -476,16 +618,46 @@ public class OrderController {
 					orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
 					orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
 
-					float taxableAmt = Float.parseFloat(df.format(
-							(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
-					float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
-					orderDetail.setTaxableAmt(taxableAmt);
+//					float taxableAmt = Float.parseFloat(df.format(
+//							(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
+//					float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+					
+					float detailDiscPer = 0;
+					float detailDiscAmt = 0;
+					
+					if(discAmt > 0) {
+						detailDiscPer = ((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+						detailDiscAmt = ((detailDiscPer * discAmt) / 100);
+						totalDiscAmt=totalDiscAmt+detailDiscAmt;
+					}
+					
+					float chPer=0,chAmt=0;
+					if(deliveryCharges>0) {
+						chPer=((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+						chAmt = ((chPer * deliveryCharges) / 100);
+						totalAddChargesAmt=totalAddChargesAmt+chAmt;
+					}
+					
+					float detailTotal=itemJsonImportData[i].getTotal()-detailDiscAmt+chAmt;
+					
+					float baseRate=(detailTotal*100)/(100 + itemJsonImportData[i].getIgstPer());
+					float taxAmt = Float.parseFloat(df.format(detailTotal - baseRate)); 
+					
+					float taxableAmt=detailTotal-taxAmt;
+					
+					orderDetail.setTaxableAmt(Float.parseFloat(df.format(taxableAmt)));
 					orderDetail.setTaxAmt(taxAmt);
-					orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+					//orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+					orderDetail.setTotalAmt(Float.parseFloat(df.format(detailTotal)));
 
-					orderDetail.setCgstAmt(taxAmt / 2);
-					orderDetail.setSgstAmt(taxAmt / 2);
+					float cgstAmt=Float.parseFloat(df.format(taxAmt / 2)); 
+					
+					orderDetail.setCgstAmt(cgstAmt);
+					orderDetail.setSgstAmt(cgstAmt);
 					orderDetail.setIgstAmt(taxAmt);
+					
+					orderDetail.setDiscAmt(detailDiscAmt);
+					orderDetail.setExFloat1(chAmt);
 
 					finalCgstAmt = Float.parseFloat(df.format(finalCgstAmt + (taxAmt / 2)));
 					finalsgstAmt = Float.parseFloat(df.format(finalsgstAmt + (taxAmt / 2)));
@@ -493,8 +665,8 @@ public class OrderController {
 
 					finaTaxableAmt = Float.parseFloat(df.format(finaTaxableAmt + taxableAmt));
 					finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + taxAmt));
-					finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
-
+					//finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+					
 					for (int j = 0; j < itemList.size(); j++) {
 
 						if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
@@ -506,10 +678,16 @@ public class OrderController {
 					orderDetailList.add(orderDetail);
 
 				}
+				
+				finaTotalAmt=finaTaxableAmt+finaTaxAmt;
 
+				order.setDiscAmt(totalDiscAmt-applyWalletAmt);
+				order.setDeliveryCharges(totalAddChargesAmt);//Delivery and additional charges
+				
 				order.setTaxableAmt(finaTaxableAmt);
 				order.setTaxAmt(finaTaxAmt);
-				order.setTotalAmt(finaTotalAmt + deliveryCharges);
+				//order.setTotalAmt(finaTotalAmt + deliveryCharges);
+				order.setTotalAmt(Float.parseFloat(df.format(finaTotalAmt)));
 				order.setSgstAmt(finalsgstAmt);
 				order.setCgstAmt(finalCgstAmt);
 				order.setIgstAmt(finalIgstAmt);
@@ -614,6 +792,13 @@ public class OrderController {
 				getOrderHeaderList.setExVar1(gstnNo);
 
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
+				
+				float grandTotal=0;
+				for (int i = 0; i < itemJsonImportData.length; i++) {
+					grandTotal = grandTotal + itemJsonImportData[i].getTotal();
+				}
+				
+				float totalDiscAmt=0,totalAddChargesAmt=0;
 
 				for (int i = 0; i < itemJsonImportData.length; i++) {
 
@@ -629,15 +814,47 @@ public class OrderController {
 							orderDetailList.get(j).setIgstPer(itemJsonImportData[i].getIgstPer());
 							orderDetailList.get(j).setSgstPer(itemJsonImportData[i].getSgstPer());
 							orderDetailList.get(j).setRemark(itemJsonImportData[i].getSpecialremark());
-							float taxableAmt = Float.parseFloat(df.format((itemJsonImportData[i].getTotal() * 100)
-									/ (100 + itemJsonImportData[i].getIgstPer())));
-							float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
-							orderDetailList.get(j).setTaxableAmt(taxableAmt);
+							
+//							float taxableAmt = Float.parseFloat(df.format((itemJsonImportData[i].getTotal() * 100)
+//									/ (100 + itemJsonImportData[i].getIgstPer())));
+//							float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+							
+							
+							float detailDiscPer = 0;
+							float detailDiscAmt = 0;
+							
+							if(discAmt > 0) {
+								detailDiscPer = ((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+								detailDiscAmt = ((detailDiscPer * discAmt) / 100);
+								totalDiscAmt=totalDiscAmt+detailDiscAmt;
+							}
+							
+							float chPer=0,chAmt=0;
+							if(deliveryCharges>0) {
+								chPer=((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+								chAmt = ((chPer * deliveryCharges) / 100);
+								totalAddChargesAmt=totalAddChargesAmt+chAmt;
+							}
+							
+							float detailTotal=itemJsonImportData[i].getTotal()-detailDiscAmt+chAmt;
+							
+							float baseRate=(detailTotal*100)/(100 + itemJsonImportData[i].getIgstPer());
+							float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - baseRate)); 
+							
+							float taxableAmt=detailTotal-taxAmt;
+							
+							orderDetailList.get(j).setDiscAmt(detailDiscAmt);
+							orderDetailList.get(j).setExFloat1(chAmt);
+							
+							orderDetailList.get(j).setTaxableAmt(Float.parseFloat(df.format(taxableAmt)));
 							orderDetailList.get(j).setTaxAmt(taxAmt);
-							orderDetailList.get(j).setTotalAmt(itemJsonImportData[i].getTotal());
+							//orderDetailList.get(j).setTotalAmt(itemJsonImportData[i].getTotal());
+							orderDetailList.get(j).setTotalAmt(Float.parseFloat(df.format(detailTotal)));
 
-							orderDetailList.get(j).setCgstAmt(taxAmt / 2);
-							orderDetailList.get(j).setSgstAmt(taxAmt / 2);
+							float cgstAmt=Float.parseFloat(df.format(taxAmt / 2));
+							
+							orderDetailList.get(j).setCgstAmt(cgstAmt);
+							orderDetailList.get(j).setSgstAmt(cgstAmt);
 							orderDetailList.get(j).setIgstAmt(taxAmt);
 
 							for (int k = 0; k < itemList.size(); k++) {
@@ -665,16 +882,46 @@ public class OrderController {
 						orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
 						orderDetail.setRemark(itemJsonImportData[i].getSpecialremark());
 
-						float taxableAmt = Float.parseFloat(df.format(
-								(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
-						float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
+//						float taxableAmt = Float.parseFloat(df.format(
+//								(itemJsonImportData[i].getTotal() * 100) / (100 + itemJsonImportData[i].getIgstPer())));
+//						float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - taxableAmt));
 
-						orderDetail.setTaxableAmt(taxableAmt);
+						float detailDiscPer = 0;
+						float detailDiscAmt = 0;
+						
+						if(discAmt > 0) {
+							detailDiscPer = ((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+							detailDiscAmt = ((detailDiscPer * discAmt) / 100);
+							totalDiscAmt=totalDiscAmt+detailDiscAmt;
+						}
+						
+						float chPer=0,chAmt=0;
+						if(deliveryCharges>0) {
+							chPer=((itemJsonImportData[i].getTotal() * 100) / grandTotal);
+							chAmt = ((chPer * deliveryCharges) / 100);
+							totalAddChargesAmt=totalAddChargesAmt+chAmt;
+						}
+						
+						orderDetail.setDiscAmt(detailDiscAmt);
+						orderDetail.setExFloat1(chAmt);
+						
+						float detailTotal=itemJsonImportData[i].getTotal()-detailDiscAmt+chAmt;
+						
+						float baseRate=(detailTotal*100)/(100 + itemJsonImportData[i].getIgstPer());
+						float taxAmt = Float.parseFloat(df.format(itemJsonImportData[i].getTotal() - baseRate)); 
+						
+						float taxableAmt=detailTotal-taxAmt;
+						
+						
+						orderDetail.setTaxableAmt(Float.parseFloat(df.format(taxableAmt)));
 						orderDetail.setTaxAmt(taxAmt);
-						orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+						//orderDetail.setTotalAmt(itemJsonImportData[i].getTotal());
+						orderDetail.setTotalAmt(Float.parseFloat(df.format(detailTotal)));
+						
+						float cgstAmt=Float.parseFloat(df.format(taxAmt / 2));
 
-						orderDetail.setCgstAmt(taxAmt / 2);
-						orderDetail.setSgstAmt(taxAmt / 2);
+						orderDetail.setCgstAmt(cgstAmt);
+						orderDetail.setSgstAmt(cgstAmt);
 						orderDetail.setIgstAmt(taxAmt);
 
 						for (int j = 0; j < itemList.size(); j++) {
@@ -707,11 +954,19 @@ public class OrderController {
 							finaTaxableAmt = Float
 									.parseFloat(df.format(finaTaxableAmt + orderDetailList.get(i).getTaxableAmt()));
 							finaTaxAmt = Float.parseFloat(df.format(finaTaxAmt + orderDetailList.get(i).getTaxAmt()));
-							finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+							//finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt + itemJsonImportData[i].getTotal()));
+							
+							totalDiscAmt=Float.parseFloat(df.format(totalDiscAmt + orderDetailList.get(i).getDiscAmt()));
+							totalAddChargesAmt=Float.parseFloat(df.format(totalAddChargesAmt + orderDetailList.get(i).getExFloat1()));
+							
+							
+							
 							findItem = 1;
 							break;
 						}
 					}
+					
+					finaTotalAmt=finaTaxableAmt+finaTaxAmt;
 
 					if (findItem == 0) {
 						orderDetailList.get(j).setDelStatus(1);
@@ -724,6 +979,12 @@ public class OrderController {
 				getOrderHeaderList.setSgstAmt(finalsgstAmt);
 				getOrderHeaderList.setCgstAmt(finalCgstAmt);
 				getOrderHeaderList.setIgstAmt(finalIgstAmt);
+				
+				getOrderHeaderList.setDiscAmt(totalDiscAmt-applyWalletAmt);
+				getOrderHeaderList.setDeliveryCharges(totalAddChargesAmt);
+				getOrderHeaderList.setOfferId(offerId);
+				getOrderHeaderList.setExVar2(coupon);
+				
 
 				OrderTrail orderTrail = new OrderTrail();
 				orderTrail.setOrderId(parkOrderToPlaceOrderOrderId);
@@ -777,7 +1038,8 @@ public class OrderController {
 						orderResponse.setStatus(9);
 						CustomerDisplay liveCustomer = (CustomerDisplay) session.getAttribute("liveCustomer");
 
-						String totalAmt = df.format(finaTotalAmt + deliveryCharges);
+						//String totalAmt = df.format(finaTotalAmt + deliveryCharges);
+						String totalAmt = df.format(getOrderHeaderList.getTotalAmt());
 
 						map = new LinkedMultiValueMap<String, Object>();
 
@@ -1753,9 +2015,8 @@ public class OrderController {
 	public String returnUrl(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		try {
-			
-			System.err.println("PAYMENT - 1");
 
+			System.err.println("PAYMENT - 1");
 
 			String orderId = request.getParameter("orderId");
 			String orderAmount = request.getParameter("orderAmount");
@@ -1771,7 +2032,6 @@ public class OrderController {
 
 			System.err.println("PAYMENT - 2");
 
-			
 			if (!txStatus.equals("SUCCESS")) {
 				status = 8;
 				paid = 0;
@@ -1786,8 +2046,9 @@ public class OrderController {
 			map.add("txStatus", txStatus);
 			Info info = Constants.getRestTemplate().postForObject(Constants.url + "updatePaymentSuccessful", map,
 					Info.class);
-			
-			System.err.println("PAYMENT - "+status+"   /    "+paid+"    /    "+orderId+"    /    "+txStatus+"    => "+info);
+
+			System.err.println("PAYMENT - " + status + "   /    " + paid + "    /    " + orderId + "    /    "
+					+ txStatus + "    => " + info);
 
 			System.out.println(txStatus);
 			System.out.println(status);

@@ -1540,42 +1540,49 @@
 					<!-- <h3 class="order_head">View Order Details</h3> -->
 					<ul>
 						<li></li>
-						<li>
+						<li style="display: none;">
 							<div class="pop_txt_l">Item Total</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_item_total">440.00</span>
 							</div>
 						</li>
 						<li></li>
-						<li>
+						<li style="display: none;">
 							<div class="pop_txt_l">Tax</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_tax_total">00.00</span>
 							</div>
 						</li>
 						<li></li>
-						<li>
+						<li style="margin: 0px 0 3px 0;">
+							<div class="pop_txt_l">Items sub Total</div>
+							<div class="pop_txt_r">
+								: <span style="float: right;" id="view_itemsub_total">00.00</span>
+							</div>
+						</li>
+						<li style="margin: 0px 0 3px 0;" id="viewDiscDiv1"></li>
+						<li style="margin: 0px 0 3px 0;" id="viewDiscDiv2">
 							<div class="pop_txt_l">Offer Disc AMT</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_disc_total">00.00</span>
 							</div>
 						</li>
-						<li></li>
-						<li>
+						<li style="margin: 0px 0 3px 0;" id="viewWalletDiv1"></li>
+						<li style="margin: 0px 0 3px 0;" id="viewWalletDiv2">
 							<div class="pop_txt_l">Madhvi Credit AMT</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_wallet_total">00.00</span>
 							</div>
 						</li>
-						<li></li>
-						<li>
-							<div class="pop_txt_l">Delivery Charges</div>
+						<li style="margin: 0px 0 3px 0;" id="viewChDiv1"></li>
+						<li style="margin: 0px 0 3px 0;" id="viewChDiv2">
+							<div class="pop_txt_l">Delivery & Additional Charges</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
 							</div>
 						</li>
-						<li></li>
-						<li class="total">
+						<li style="margin: 0px 0 3px 0;"></li>
+						<li class="total" style="margin: 0px 0 3px 0;">
 							<div class="pop_txt_l">Total</div>
 							<div class="pop_txt_r">
 								: <span style="float: right;" id="view_fianl_total">440.00</span>
@@ -4123,7 +4130,9 @@ solution 1:
 					var platform = 'Web';
 					var paymentSts = 'PENDING';
 
-					if (list[i].orderPlatform == 2) {
+					if (list[i].orderPlatform == 1) {
+						platform = 'Executive';
+					}else if (list[i].orderPlatform == 2) {
 						platform = 'Mobile App';
 					} else if (list[i].orderPlatform == 3) {
 						platform = 'Website';
@@ -4145,6 +4154,8 @@ solution 1:
 
 					$("#order_view_detail tbody").empty();
 
+					var tot=0;
+					
 					for (var j = 0; j < list[i].detailList.length; j++) {
 						var tr_data = '<tr> <td class="user-name">'
 								+ list[i].detailList[j].itemName
@@ -4157,15 +4168,49 @@ solution 1:
 								+ list[i].detailList[j].qty
 								+ '</td>'
 								+ ' <td class="user-name" style="text-align: right;">'
-								+ (list[i].detailList[j].totalAmt).toFixed(2)
+								+ (parseFloat(list[i].detailList[j].qty)*parseFloat(list[i].detailList[j].rate)).toFixed(2)
 								+ '</td> </tr>';
 						$('#order_view_detail').append(tr_data);
+						
+						tot=tot+(parseFloat(list[i].detailList[j].qty)*parseFloat(list[i].detailList[j].rate));
 					}
+					
+					
+					$("#view_itemsub_total").html(tot.toFixed(2));
+					
 					$("#view_item_total").html((list[i].taxableAmt).toFixed(2));
 					$("#view_tax_total").html((list[i].taxAmt).toFixed(2));
+					
+					if(list[i].discAmt>0){
+						$("#viewDiscDiv1").show();
+						$("#viewDiscDiv2").show();
+					}else{
+						$("#viewDiscDiv1").hide();
+						$("#viewDiscDiv2").hide();
+					}
+					
 					$("#view_disc_total").html((list[i].discAmt).toFixed(2));
+					
+					if(list[i].deliveryCharges>0){
+						$("#viewChDiv1").show();
+						$("#viewChDiv2").show();
+					}else{
+						$("#viewChDiv1").hide();
+						$("#viewChDiv2").hide();
+					}
+					
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
+					
+					if(list[i].exFloat1>0){
+						$("#viewWalletDiv1").show();
+						$("#viewWalletDiv2").show();
+					}else{
+						$("#viewWalletDiv1").hide();
+						$("#viewWalletDiv2").hide();
+					}
+
+					
 					$("#view_wallet_total").html((list[i].exFloat1).toFixed(2));
 
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
