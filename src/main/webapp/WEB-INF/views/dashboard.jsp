@@ -1512,6 +1512,14 @@
 							<div class="pop_txt_l">Order Type :</div>
 							<div class="pop_txt_r" id="order_type">: Web</div>
 						</li>
+						<li>
+							<div class="pop_txt_l">Delivery Type :</div>
+							<div class="pop_txt_r" id="delivery_type">: </div>
+						</li>
+						<li style="width: 100%">
+							<div class="pop_txt_l" style="width: auto;">Delivery Instructions :&nbsp;&nbsp;</div>
+							<div class="pop_txt_r" id="delivery_inst" style="width: auto;">: </div>
+						</li>
 					</ul>
 				</div>
 				<br>
@@ -1555,36 +1563,36 @@
 						</li>
 						<li></li>
 						<li style="margin: 0px 0 3px 0;">
-							<div class="pop_txt_l">Items sub Total</div>
-							<div class="pop_txt_r">
+							<div class="pop_txt_l" style="width: 65%">Items sub Total</div>
+							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_itemsub_total">00.00</span>
 							</div>
 						</li>
 						<li style="margin: 0px 0 3px 0;" id="viewDiscDiv1"></li>
 						<li style="margin: 0px 0 3px 0;" id="viewDiscDiv2">
-							<div class="pop_txt_l">Offer Disc AMT</div>
-							<div class="pop_txt_r">
+							<div class="pop_txt_l" style="width: 65%">Offer Disc AMT</div>
+							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_disc_total">00.00</span>
 							</div>
 						</li>
 						<li style="margin: 0px 0 3px 0;" id="viewWalletDiv1"></li>
 						<li style="margin: 0px 0 3px 0;" id="viewWalletDiv2">
-							<div class="pop_txt_l">Madhvi Credit AMT</div>
-							<div class="pop_txt_r">
+							<div class="pop_txt_l" style="width: 65%">Madhvi Credit AMT</div>
+							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_wallet_total">00.00</span>
 							</div>
 						</li>
 						<li style="margin: 0px 0 3px 0;" id="viewChDiv1"></li>
 						<li style="margin: 0px 0 3px 0;" id="viewChDiv2">
-							<div class="pop_txt_l">Delivery & Additional Charges</div>
-							<div class="pop_txt_r">
+							<div class="pop_txt_l" style="width: 65%">Delivery & Additional Charges</div>
+							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
 							</div>
 						</li>
 						<li style="margin: 0px 0 3px 0;"></li>
 						<li class="total" style="margin: 0px 0 3px 0;">
-							<div class="pop_txt_l">Total</div>
-							<div class="pop_txt_r">
+							<div class="pop_txt_l" style="width: 65%">Total</div>
+							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_fianl_total">440.00</span>
 							</div>
 						</li>
@@ -4151,6 +4159,18 @@ solution 1:
 					$("#order_payment_Status").html(paymentSts);
 					$("#order_payment_method").html(paymentMethod);
 					$("#order_type").html(platform);
+					
+					var deliveryType="";
+					if (list[i].deliveryType == 1) {
+						deliveryType = 'Home Delivery';
+					}else if (list[i].deliveryType == 2){
+						deliveryType = 'Take Away';
+					}
+					$("#delivery_type").html(deliveryType);
+					
+					$("#delivery_inst").html(list[i].deliveryInstText);
+					//deliveryInstText
+					
 
 					$("#order_view_detail tbody").empty();
 

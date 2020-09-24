@@ -22,8 +22,11 @@
 <c:url var="getOfferDetailListAjax" value="/getOfferDetailListAjax"></c:url>
 <c:url var="getOfferHeaderListAjax" value="/getOfferHeaderListAjax"></c:url>
 <c:url var="checkIsValidOffer" value="/checkIsValidOffer"></c:url>
+<c:url var="getCouponOfferListAjax" value="/getCouponOfferListAjax"></c:url>
+<c:url var="getCustomerOfferListAjax" value="/getCustomerOfferListAjax"></c:url>
 
-<body onload="appendTableList();getItemList();">
+
+<body onload="appendTableList();getItemList();setOfferList(1);getAgetList();">
 	<!-- <body onload="getData();" -->
 
 	<div class="loader" id="loaderimg" style="display: none;">
@@ -77,14 +80,20 @@
 
 							<div class="chkout_divide">
 								<div class="chkout_divide_l">
-
 									<label class="text-light-black fw-500 fs-14">Applicable
-										Discount Offers </label><select class="form-control" id="offer"
+										Discount Offers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <label
+										class="chk_txt fw-500 fs-14"><input
+										onchange="setOfferList(1)" type="radio" id="couponWise"
+										name="rdOfferType" class="option-input radio" checked>Coupon
+										Wise &nbsp; </label><label class="chk_txt fw-500 fs-14"><input
+										onchange="setOfferList(2)" type="radio"
+										class="option-input radio" id="custWise" name="rdOfferType">Customer
+										Wise</label><br> <select class="form-control" id="offer"
 										onchange="getOfferDetails(this.value)" name="offer">
 										<option value="0">Select Offer</option>
-										<c:forEach items="${offerList}" var="offer">
+										<%-- <c:forEach items="${offerList}" var="offer">
 											<option value="${offer.offerId}">${offer.offerName}</option>
-										</c:forEach>
+										</c:forEach> --%>
 									</select>
 
 								</div>
@@ -250,8 +259,8 @@
 													class="table_inpt numbersOnly" placeholder=" Delivery Free"
 													value="0" onchange="appendTableList();"
 													style="text-align: right;" />
-													
-													
+
+
 											</div>
 
 											<!-- Additional Charges -->
@@ -285,6 +294,10 @@
 
 						</div>
 						<div class="clr"></div>
+						
+						<input type="hidden" id="frId" name="frId" value="${frId}">
+						<input type="hidden" id="cityId" name="cityId" value="${cityId}">
+						<input type="hidden" id="agentId" name="agentId" value="${agent}">
 
 						<!-- Delivery Instructions box-->
 						<div class="instruction_row">
@@ -312,6 +325,14 @@
 										<h2>${franchiseData.frName}&nbsp;(${franchiseData.frCode})</h2>
 										<h3>${franchiseData.frMob}</h3>
 										<p>${franchiseData.frAddress}</p>
+									</div>
+									<br>
+									<div class="instrac_nm" style="display: none;" id="agentDiv">
+										<h2>Agent</h2>
+										<select class="form-control" id="agentSel"
+											 name="agentSel">
+										</select>
+										<br>
 									</div>
 								</div>
 
@@ -701,6 +722,7 @@
 			var offerId = document.getElementById("offer").value;
 			var coupon = document.getElementById("offerCoupon").value;
 			var offerType=document.getElementById("tempOfferType").value;
+			var agentId=document.getElementById("agentSel").value;
 			
 			$("#error_billingName").hide();
 			$("#error_billingAddress").hide();
@@ -835,6 +857,7 @@
 				fd.append("discAmt",discAmt);
 				fd.append("offerId",offerId);
 				fd.append("coupon",coupon);
+				fd.append("agentId",agentId);
 				
 				$
 						.ajax({
@@ -1479,7 +1502,7 @@
 						custId : custId,
 						ajax : 'true'
 					}, function(data) {
-						alert(JSON.stringify(data));
+						//alert(JSON.stringify(data));
 						document.getElementById("loaderimg").style.display = "none";
 						if (data.error == true) {
 							res = true;
@@ -1556,6 +1579,64 @@
 			}
 		}
 		
+		function setOfferList(type){
+		
+			var custId=${sessionScope.liveCustomer.custId};
+			
+			if(type == 1){
+				
+				$.getJSON('${getCouponOfferListAjax}', {
+					ajax : 'true'
+				}, function(data) {
+					//alert(JSON.stringify(data));
+
+						var len = data.length;
+
+						$('#offer').find('option').remove().end()
+
+						$("#offer").append($("<option selected></option>").attr("value", 0).text("Select Offer"));
+
+						for (var i = 0; i < len; i++) {
+							$("#offer").append( $("<option></option>").attr("value", data[i].offerId).text(data[i].offerName));
+						}
+
+						$("#offer").trigger("chosen:updated");
+					
+				});
+				
+			}else if(type == 2){
+				
+				$.getJSON('${getCustomerOfferListAjax}', {
+					custId : custId,
+					ajax : 'true'
+				}, function(data) {
+					//alert(JSON.stringify(data));
+					
+					var len = data.length;
+
+					$('#offer').find('option').remove().end()
+
+					$("#offer").append($("<option selected></option>").attr("value", 0).text("Select Offer"));
+
+					for (var i = 0; i < len; i++) {
+						$("#offer").append( $("<option></option>").attr("value", data[i].offerId).text(data[i].offerName));
+					}
+					$("#offer").trigger("chosen:updated");
+					
+				});
+				
+			}
+			
+			
+			$('#coupons').find('option').remove().end()
+			$("#coupons").trigger("chosen:updated");
+			document.getElementById("offerCoupon").value="";
+			
+			document.getElementById("disc").value=0;
+			appendTableList();
+			
+		}
+		
 		
 		function checkSession() {
 			$.getJSON('${checkSessionAjax}', {
@@ -1566,6 +1647,60 @@
 					location.reload();
 				}
 			});
+		}
+		
+		
+		
+		function getAgetList() {
+			var agentId=document.getElementById("agentId").value;
+			
+			if(agentId>0){
+				
+				$('#agentDiv').show();
+				
+				document.getElementById("loaderimg").style.display = "block";
+
+				var fd = new FormData();
+				fd.append('cityId', document.getElementById("cityId").value);
+				fd.append('shopId', document.getElementById("frId").value);
+				$
+						.ajax({
+							url : '${pageContext.request.contextPath}/getAgetListByShopId',
+							type : 'post',
+							dataType : 'json',
+							data : fd,
+							contentType : false,
+							processData : false,
+							success : function(response) {
+
+								var html = '<option value="0" selected>Select Agent</option>';
+
+								for (var i = 0; i < response.length; i++) {
+
+									if(response[i].agentId == agentId){
+										html += '<option value="' + response[i].agentId + '" selected>'
+										+ response[i].agentName +' - '+response[i].mobileNo
+										+ '</option>';
+									}else{
+										html += '<option value="' + response[i].agentId + '">'
+										+ response[i].agentName +' - '+response[i].mobileNo
+										+ '</option>';
+									}
+									
+								}
+
+								$('#agentSel').html(html);
+								$("#agentSel").trigger("change");
+								document.getElementById("loaderimg").style.display = "none";
+
+							},
+						});
+				
+			}else{
+				$('#agentDiv').hide();
+			}
+
+				
 		}
 		
 	</script>
