@@ -346,7 +346,7 @@
 
 					</div>
 				</div>
-				<div class="col-sm-12 mobile-search">
+				<div class="col-sm-12 mobile-search" style="display: none;">
 					<div class="mobile-address">
 						<a href="#" class="delivery-add" data-toggle="modal"
 							data-target="#address-box"> <span class="address">Brooklyn,

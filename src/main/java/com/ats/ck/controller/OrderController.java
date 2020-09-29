@@ -1,5 +1,6 @@
 package com.ats.ck.controller;
 
+import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ import com.ats.ck.model.Tags;
 import com.ats.ck.model.Wallet;
 import com.ats.ck.model.gatwaymodel.Body;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 @Controller
 @Scope("session")
@@ -96,12 +98,10 @@ public class OrderController {
 			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(br,
 			// GetAllDataByFr.class);
 
-			// System.err.println("url -
-			// "+"C:/Users/MAXADMIN/Desktop/Report/"+frId+".json");
-			// Gson
-			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(new
-			// FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"),
-			// GetAllDataByFr.class);
+			
+			 //Gson
+			 //GetAllDataByFr getAllDataByFr = new Gson().fromJson(new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"),
+			 //GetAllDataByFr.class);
 
 			// Jackson
 			// ObjectMapper mapper = new ObjectMapper();
@@ -109,7 +109,7 @@ public class OrderController {
 			// File("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/"+ frId + ".json"),
 			// GetAllDataByFr.class);
 
-			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+			//System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
@@ -118,6 +118,8 @@ public class OrderController {
 			map.add("compId", 1);
 			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
 					map, GetAllDataByFr.class);
+			
+			System.err.println("FROM DB --------------------- "+getAllDataByFr);
 
 			List<CategoryData> catList = getAllDataByFr.getCategoryData();
 			model.addAttribute("catList", catList);
@@ -510,6 +512,12 @@ public class OrderController {
 			} catch (Exception e) {
 			}
 
+			float km = 0;
+			try {
+				km = Float.parseFloat(request.getParameter("km"));
+			} catch (Exception e) {
+			}
+
 			float deliveryCharges = 0;
 			try {
 				deliveryCharges = Float.parseFloat(request.getParameter("deliveryCharges"));
@@ -635,6 +643,7 @@ public class OrderController {
 				order.setExVar1(gstnNo);
 				order.setExVar2(coupon);
 				order.setOfferId(offerId);
+				order.setDeliveryKm(km);
 
 //				if (addCustAgent > 0) {
 //					order.setIsAgent(1);
@@ -839,6 +848,11 @@ public class OrderController {
 				getOrderHeaderList.setInsertUserId(userObj.getUserId());
 				getOrderHeaderList.setExFloat1(applyWalletAmt);
 				getOrderHeaderList.setExVar1(gstnNo);
+				getOrderHeaderList.setDeliveryKm(km);
+
+				if (getOrderHeaderList.getIsAgent() > 0) {
+					getOrderHeaderList.setOrderDeliveredBy(agentId);
+				}
 
 				List<GetOrderDetailList> orderDetailList = getOrderHeaderList.getDetailList();
 
@@ -1507,6 +1521,56 @@ public class OrderController {
 		}
 		return "selectOptionForRepeateOrder";
 	}
+	
+	
+	@RequestMapping(value = "/selectOptionForRepeateOrderOfLiveOrder", method = RequestMethod.GET)
+	public String selectOptionForRepeateOrderOfLiveOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		try {
+
+			HttpSession session = request.getSession();
+
+			int addressId = Integer.parseInt(request.getParameter("addressId"));
+			int orderId = Integer.parseInt(request.getParameter("orderId"));
+			int frId = Integer.parseInt(request.getParameter("frId"));
+			int custId = Integer.parseInt(request.getParameter("custId"));
+
+			String currDate = request.getParameter("currDate");
+			String currTime = request.getParameter("currTime");
+			
+			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+			//map.add("custId", liveCustomer.getCustId());
+			map.add("custId", custId);
+			CustomerAddressDisplay[] info = Constants.getRestTemplate()
+					.postForObject(Constants.url + "getCustomerAddressList", map, CustomerAddressDisplay[].class);
+			List<CustomerAddressDisplay> addressList = new ArrayList<>(Arrays.asList(info));
+			model.addAttribute("addressList", addressList);
+			model.addAttribute("frId", frId);
+			model.addAttribute("addressId", addressId);
+
+			session.setAttribute("repeatOrderReferenceOrderId", orderId);
+
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm a");
+
+			model.addAttribute("currDate", sdf.format(Calendar.getInstance().getTime()));
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MINUTE, 40);
+			model.addAttribute("currTime", sdfTime.format(cal.getTime()));
+			
+			
+			map = new LinkedMultiValueMap<String, Object>();
+			map.add("custId", custId);
+			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
+					CustomerDisplay.class);
+			session.setAttribute("liveCustomer", customer);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "selectOptionForRepeateOrder";
+	}
+	
 
 	@RequestMapping(value = "/orderProcessgetList", method = RequestMethod.POST)
 	@ResponseBody

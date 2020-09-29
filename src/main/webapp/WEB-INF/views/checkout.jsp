@@ -724,6 +724,8 @@
 			var offerType=document.getElementById("tempOfferType").value;
 			var agentId=document.getElementById("agentSel").value;
 			
+			var km=sessionStorage.getItem("frKm");
+			
 			$("#error_billingName").hide();
 			$("#error_billingAddress").hide();
 			$("#error_delivery_charges").hide();
@@ -853,11 +855,13 @@
 				fd.append("textDeliveryInstr",textDeliveryInstr);
 				fd.append("deliveryCharges",deliveryCharges);
 				fd.append("applyWalletAmt",applyWalletAmt);
-				fd.append("gstnNo",gstnNo);
+				fd.append("gstnNo",$("#gstnNo").val().trim());
 				fd.append("discAmt",discAmt);
 				fd.append("offerId",offerId);
 				fd.append("coupon",coupon);
 				fd.append("agentId",agentId);
+				fd.append("km",km);
+				
 				
 				$
 						.ajax({

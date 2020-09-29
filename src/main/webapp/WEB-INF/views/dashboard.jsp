@@ -164,6 +164,10 @@
 							style="display: none;" class="order_btn">READ</a>
 
 
+						<button onclick="getLocation()" style="display: none;">Try
+							It</button>
+
+						<p id="demo" style="display: none;"></p>
 
 					</div>
 
@@ -520,8 +524,9 @@
 				<div class="col-lg-4">
 					<div class="main-box padding-20 marg_mob">
 						<div class="edit_prof">
-							<img
+							<img id="profileImage"
 								src="${pageContext.request.contextPath}/resources/assets/img/default-user.jpg"
+								data-zoom-image="${pageContext.request.contextPath}/resources/assets/img/pro.png"
 								alt="">
 						</div>
 						<div class="profile_title">
@@ -1514,11 +1519,13 @@
 						</li>
 						<li>
 							<div class="pop_txt_l">Delivery Type :</div>
-							<div class="pop_txt_r" id="delivery_type">: </div>
+							<div class="pop_txt_r" id="delivery_type">:</div>
 						</li>
 						<li style="width: 100%">
-							<div class="pop_txt_l" style="width: auto;">Delivery Instructions :&nbsp;&nbsp;</div>
-							<div class="pop_txt_r" id="delivery_inst" style="width: auto;">: </div>
+							<div class="pop_txt_l" style="width: auto;">Delivery
+								Instructions :&nbsp;&nbsp;</div>
+							<div class="pop_txt_r" id="delivery_inst" style="width: auto;">:
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -1584,7 +1591,8 @@
 						</li>
 						<li style="margin: 0px 0 3px 0;" id="viewChDiv1"></li>
 						<li style="margin: 0px 0 3px 0;" id="viewChDiv2">
-							<div class="pop_txt_l" style="width: 65%">Delivery & Additional Charges</div>
+							<div class="pop_txt_l" style="width: 65%">Delivery &
+								Additional Charges</div>
 							<div class="pop_txt_r" style="width: 35%">
 								: <span style="float: right;" id="view_deliverycharge_total">30.00</span>
 							</div>
@@ -1621,7 +1629,7 @@
 
 	<div class="modal fade kot-popup fetch_results" id="addAddress"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-lg" style="max-width: 90%">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close cleardiv"
@@ -1912,7 +1920,7 @@
 
 	<div class="modal fade kot-popup fetch_results" id="editAddressModal"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-lg" style="max-width: 90%">
 			<!--modal-lg-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close cleardiv"
@@ -2753,7 +2761,7 @@ solution 1:
 		}
 
 		function repeateOrder(orderId, frId, addressId) {
-
+			
 			//document.getElementById("loaderimg").style.display = "block";
 			var strhref = "${pageContext.request.contextPath}/selectOptionForRepeateOrder?orderId="
 					+ orderId + "&frId=" + frId + "&addressId=" + addressId;
@@ -2769,6 +2777,25 @@ solution 1:
 
 			//document.getElementById("loaderimg").style.display = "none";
 		}
+		
+		function repeateOrderForLiveOrders(orderId, frId, addressId,custId) {
+			
+			//document.getElementById("loaderimg").style.display = "block";
+			var strhref = "${pageContext.request.contextPath}/selectOptionForRepeateOrderOfLiveOrder?orderId="
+					+ orderId + "&frId=" + frId + "&addressId=" + addressId+ "&custId=" + custId;
+			$("#repeatmodalbody").load(strhref);
+			$("#repeatOrderOption").modal("show");
+			$('#repeatOrderOption').on('hidden.bs.modal', function() {
+				$("#repeatmodalbody").html("");
+				setTimeout(function() {
+					$('#finalFailedMsg').hide();
+					$('#finalSuccessMsg').hide();
+				}, 5000);
+			});
+
+			//document.getElementById("loaderimg").style.display = "none";
+		}
+		
 		function getpreviousorderlist() {
 
 			$('#pendingGrivienceText').val('');
@@ -3048,7 +3075,7 @@ solution 1:
 							$('#addAddressCity').val(response.cityId);
 							$("#addAddressCity").trigger("change");
 							$("#addressCation").val(response.addressCaption);
-							$("#addAddressLandmark").val(response.landmark);
+							$("#addAddressLandmark").val(response.landmark+" ");
 							$("#addAddressDeliveryAdd").val(response.address);
 							$("#addAddressLatitude").val(response.latitude);
 							$("#addAddressLongitude").val(response.longitude);
@@ -3586,7 +3613,7 @@ solution 1:
 								$("#agentDiv").hide();
 								var cityname = $("#cityData" + cityId).data(
 										"cityname");
-								$('#txtPlaces').val(cityname);
+								$('#txtPlaces').val(cityname+" ");
 								document.getElementById("txtPlaces").focus();
 							}
 						},
@@ -3676,7 +3703,7 @@ solution 1:
 								$('#agentAddressDiv').hide();
 								var cityname = $("#cityDataAddReg" + cityId)
 										.data("cityname");
-								$('#addAddressLandmark').val(cityname);
+								$('#addAddressLandmark').val(cityname+" ");
 								document.getElementById("addAddressLandmark")
 										.focus();
 							},
@@ -4140,7 +4167,7 @@ solution 1:
 
 					if (list[i].orderPlatform == 1) {
 						platform = 'Executive';
-					}else if (list[i].orderPlatform == 2) {
+					} else if (list[i].orderPlatform == 2) {
 						platform = 'Mobile App';
 					} else if (list[i].orderPlatform == 3) {
 						platform = 'Website';
@@ -4159,23 +4186,22 @@ solution 1:
 					$("#order_payment_Status").html(paymentSts);
 					$("#order_payment_method").html(paymentMethod);
 					$("#order_type").html(platform);
-					
-					var deliveryType="";
+
+					var deliveryType = "";
 					if (list[i].deliveryType == 1) {
 						deliveryType = 'Home Delivery';
-					}else if (list[i].deliveryType == 2){
+					} else if (list[i].deliveryType == 2) {
 						deliveryType = 'Take Away';
 					}
 					$("#delivery_type").html(deliveryType);
-					
+
 					$("#delivery_inst").html(list[i].deliveryInstText);
 					//deliveryInstText
-					
 
 					$("#order_view_detail tbody").empty();
 
-					var tot=0;
-					
+					var tot = 0;
+
 					for (var j = 0; j < list[i].detailList.length; j++) {
 						var tr_data = '<tr> <td class="user-name">'
 								+ list[i].detailList[j].itemName
@@ -4188,49 +4214,48 @@ solution 1:
 								+ list[i].detailList[j].qty
 								+ '</td>'
 								+ ' <td class="user-name" style="text-align: right;">'
-								+ (parseFloat(list[i].detailList[j].qty)*parseFloat(list[i].detailList[j].rate)).toFixed(2)
-								+ '</td> </tr>';
+								+ (parseFloat(list[i].detailList[j].qty) * parseFloat(list[i].detailList[j].rate))
+										.toFixed(2) + '</td> </tr>';
 						$('#order_view_detail').append(tr_data);
-						
-						tot=tot+(parseFloat(list[i].detailList[j].qty)*parseFloat(list[i].detailList[j].rate));
+
+						tot = tot
+								+ (parseFloat(list[i].detailList[j].qty) * parseFloat(list[i].detailList[j].rate));
 					}
-					
-					
+
 					$("#view_itemsub_total").html(tot.toFixed(2));
-					
+
 					$("#view_item_total").html((list[i].taxableAmt).toFixed(2));
 					$("#view_tax_total").html((list[i].taxAmt).toFixed(2));
-					
-					if(list[i].discAmt>0){
+
+					if (list[i].discAmt > 0) {
 						$("#viewDiscDiv1").show();
 						$("#viewDiscDiv2").show();
-					}else{
+					} else {
 						$("#viewDiscDiv1").hide();
 						$("#viewDiscDiv2").hide();
 					}
-					
+
 					$("#view_disc_total").html((list[i].discAmt).toFixed(2));
-					
-					if(list[i].deliveryCharges>0){
+
+					if (list[i].deliveryCharges > 0) {
 						$("#viewChDiv1").show();
 						$("#viewChDiv2").show();
-					}else{
+					} else {
 						$("#viewChDiv1").hide();
 						$("#viewChDiv2").hide();
 					}
-					
+
 					$("#view_deliverycharge_total").html(
 							(list[i].deliveryCharges).toFixed(2));
-					
-					if(list[i].exFloat1>0){
+
+					if (list[i].exFloat1 > 0) {
 						$("#viewWalletDiv1").show();
 						$("#viewWalletDiv2").show();
-					}else{
+					} else {
 						$("#viewWalletDiv1").hide();
 						$("#viewWalletDiv2").hide();
 					}
 
-					
 					$("#view_wallet_total").html((list[i].exFloat1).toFixed(2));
 
 					$("#view_fianl_total").html((list[i].totalAmt).toFixed(2));
@@ -4874,12 +4899,14 @@ solution 1:
 										+ 'onclick="insertgrievences('
 										+ response[i].orderId
 										+ ')" class="detail_btn_round session-chk" title="Grievences">'
-										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" onclick=repeateOrder('
+										+ '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>&nbsp;<a href="javascript:void(0)" onclick=repeateOrderForLiveOrders('
 										+ response[i].orderId
 										+ ','
 										+ response[i].frId
 										+ ','
 										+ response[i].addressId
+										+ ','
+										+ response[i].custId
 										+ ') class="detail_btn_round session-chk" title="Repeat Order">'
 										+ '<i class="fa fa-repeat" aria-hidden="true"></i></a>'
 										+ '&nbsp;<a href="javascript:void(0)" class="detail_btn_round session-chk" title="Call" onclick="clickToCall('
@@ -5888,7 +5915,7 @@ solution 1:
 			//alert(mobile);
 
 			var api_key = document.getElementById("callApiKey").value;
-			//alert(api_key);
+			alert(api_key);
 
 			var params = {
 				"customer_number" : mobile,
@@ -5911,8 +5938,11 @@ solution 1:
 					document.getElementById("loaderimg").style.display = "none";
 				}
 			};
-			xhttp.open("POST",
-					"https://api.servetel.in/v1/click_to_call_support", true);
+			xhttp
+					.open(
+							"POST",
+							"https://cors-anywhere.herokuapp.com/https://api.servetel.in/v1/click_to_call_support",
+							true);
 			xhttp.setRequestHeader("Content-type", "application/json");
 			xhttp.send(JSON.stringify(params));
 
@@ -5951,8 +5981,13 @@ solution 1:
 							fromDate = datearray[2] + '-' + datearray[1] + '-'
 									+ datearray[0];
 
-							tr.append($('<td style="text-align:center;"></td>').html(
-									fromDate + " " + res.results[i].time));
+							tr
+									.append($(
+											'<td style="text-align:center;"></td>')
+											.html(
+													fromDate
+															+ " "
+															+ res.results[i].time));
 
 							tr.append($('<td></td>').html(
 									res.results[i].department_name));
@@ -5962,7 +5997,8 @@ solution 1:
 
 							var audio = "<audio controls><source src='"+res.results[i].recording_url+"' /></audio>"
 
-							tr.append($('<td style="text-align:center;"></td>').html(audio));
+							tr.append($('<td style="text-align:center;"></td>')
+									.html(audio));
 
 							$('#call_rec_table tbody').append(tr);
 
@@ -5980,6 +6016,29 @@ solution 1:
 
 		}
 	</script>
+
+	<script>
+		var x = document.getElementById("demo");
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude
+					+ "<br>Longitude: " + position.coords.longitude;
+		}
+	</script>
+
+	<%-- <script
+		src="${pageContext.request.contextPath}/resources/assets/customjs/jquery.elevatezoom.js"
+		type="text/javascript"></script>
+	<script type="text/javascript">
+		$("#profileImage").elevateZoom({easing : true});
+	</script> --%>
 
 
 </body>

@@ -252,7 +252,7 @@
 						<div class="inner_scroll" id="itemListDiv">
 							<!--1-->
 
-						 <c:forEach items="${itemList}" var="itemList">
+							<c:forEach items="${itemList}" var="itemList">
 
 								<div class="order_row">
 									<div class="one_order">
@@ -382,9 +382,7 @@
 
 												</div>
 												<div class="rating-text">
-													<p class="text-light-white fs-12">
-														${itemList.rating}
-													</p>
+													<p class="text-light-white fs-12">${itemList.rating}</p>
 												</div>
 											</div>
 
@@ -730,6 +728,7 @@
 		}
 		
 		function appendCartList() {
+			
 			 
 			if(sessionStorage.getItem("cartValue") == null)
 			{
@@ -965,23 +964,34 @@
 								
 								
 								//alert(hiddencategoryvalue);
-								 //alert(catName);
-								 //alert(hiddenItemNamevalue);
-								 //alert(txt);
-								 
+								//alert(catName);
+								//alert(hiddenItemNamevalue);
+								//alert(txt);
 								
 								if (hiddencategoryvalue.toUpperCase().replace("&AMP;","&").indexOf(
-										catName.toUpperCase()) != -1) { 
+										catName.toUpperCase()) != -1) {
+									
+									//alert("IF - 1 "+hiddencategoryvalue.toUpperCase())
 									
 								if (hiddenItemNamevalue.toUpperCase().indexOf(
 										txt.toUpperCase()) != -1) {
+									
+									//alert("IF - 2 "+hiddenItemNamevalue.toUpperCase())
+									
+									//alert("LIST - "+list)
+									
 									if (list.length > 0) {
 										for (var i = 0; i < list.length; i++) {
 
+											//alert("SUBSTR - "+list[i].toUpperCase());
+											
 											if (combineString.toUpperCase()
 													.indexOf(
 															list[i]
 																	.toUpperCase()) != -1) {
+												
+												//alert("IF - 3 "+combineString.toUpperCase())
+												
 												if (price <= currentVal) {
 													$(this).show();
 													find = 1;
@@ -991,6 +1001,8 @@
 
 										}
 									} else {
+										
+										//alert("ELSE - 3 "+hiddenItemNamevalue.toUpperCase())
 										if (price <= currentVal) {
 											$(this).show();
 											find = 1;
@@ -1001,6 +1013,8 @@
 								}
 							});
 
+			//alert("Find - "+find)
+			
 			if (find == 0) {
 
 				document.getElementById("norecordfound").style.display = "block";
@@ -1066,6 +1080,7 @@
 			$("input[name='subcat']:checkbox").prop('checked',false); 
 			sortCategory(); 
 			myFunction1();
+			//alert(id);
 		}
 	</script>
 	<script type="text/javascript">
@@ -1078,7 +1093,7 @@
 			});
 			$("#currentVal").html(500);
 			getFrList();
-			appendCartList();
+			//appendCartList();
 			getItemList(); 
 		});
 		 
@@ -1104,14 +1119,26 @@
 							var cartValue = sessionStorage.getItem("cartValue");
 							var table = $.parseJSON(cartValue); 
 							
+							var newCart=[];
+							
+							for(var i=0; i<response.length ; i++){
+								for(var j=0; j<table.length ; j++){
+									if(response[i].itemId==table[j].itemId){
+										newCart.push(table[j]);
+									}
+								}
+							}
+							sessionStorage.setItem("cartValue", JSON.stringify(newCart)); 
+							appendCartList();
+
 							for(var i=0; i<response.length ; i++){
 								
-								for(var j=0; j<table.length ; j++){
+								for(var j=0; j<newCart.length ; j++){
 									
-									if(response[i].itemId==table[j].itemId){
-										$("#numberDiv"+table[j].itemId).show(); 
-										$("#order_now_btn"+table[j].itemId).hide(); 
-										$('#quantity'+table[j].itemId).val(table[i].qty);
+									if(response[i].itemId==newCart[j].itemId){
+										$("#numberDiv"+newCart[j].itemId).show(); 
+										$("#order_now_btn"+newCart[j].itemId).hide(); 
+										$('#quantity'+newCart[j].itemId).val(newCart[i].qty);
 										break;
 									}
 								}
