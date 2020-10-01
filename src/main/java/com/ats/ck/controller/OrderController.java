@@ -98,10 +98,10 @@ public class OrderController {
 			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(br,
 			// GetAllDataByFr.class);
 
-			
-			 //Gson
-			 //GetAllDataByFr getAllDataByFr = new Gson().fromJson(new FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"),
-			 //GetAllDataByFr.class);
+			// Gson
+			// GetAllDataByFr getAllDataByFr = new Gson().fromJson(new
+			// FileReader("C:/Users/MAXADMIN/Desktop/Report/" + frId + ".json"),
+			// GetAllDataByFr.class);
 
 			// Jackson
 			// ObjectMapper mapper = new ObjectMapper();
@@ -109,7 +109,7 @@ public class OrderController {
 			// File("/opt/apache-tomcat-8.5.49/webapps/uploads/ckjson/"+ frId + ".json"),
 			// GetAllDataByFr.class);
 
-			//System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
+			// System.err.println("FROM JSON FILE --------------------- "+getAllDataByFr);
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 			map.add("frId", frId);
@@ -118,8 +118,8 @@ public class OrderController {
 			map.add("compId", 1);
 			GetAllDataByFr getAllDataByFr = Constants.getRestTemplate().postForObject(Constants.url + "getAllDataByFr",
 					map, GetAllDataByFr.class);
-			
-			System.err.println("FROM DB --------------------- "+getAllDataByFr);
+
+			System.err.println("FROM DB --------------------- " + getAllDataByFr);
 
 			List<CategoryData> catList = getAllDataByFr.getCategoryData();
 			model.addAttribute("catList", catList);
@@ -1256,8 +1256,34 @@ public class OrderController {
 								+ "	<!-- End Wrapper https://www.mytatasky.com/delegate/EmailCampaignAction/CampaignAction?campaignID=liUFBUl1mbM=&vendor=oBEMvseSmG0= -->\n"
 								+ "</body>\n" + "</html>";
 
-						ErrorMessage sendMail = EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg,
-								liveCustomer.getEmailId());
+						EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, liveCustomer.getEmailId());
+
+						System.err.println("EMAIL SENT--------------------*");
+						try {
+							System.err.println("SMS START--------------------*");
+
+							NewSetting val = new NewSetting();
+
+							map = new LinkedMultiValueMap<String, Object>();
+							map.add("key", "msg_payment_link");
+							map.add("orderId", getOrderHeaderList.getOrderId());
+
+							val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey",
+									map, NewSetting.class);
+
+							System.err.println("SMS MSG--------------------*");
+
+							
+							msg = val.getSettingValue1();
+							msg = msg.replace("###", liveCustomer.getCustName());// cust name
+							msg = msg.replace("$$$", getOrderHeaderList.getOrderNo());// order no
+							msg = msg.replace("@@@", String.valueOf(totalAmt));// order amount
+							msg = msg.replace("^^^", res.getPaymentLink());// payment link
+
+							SMSUtility.sendSMS(liveCustomer.getPhoneNumber(), msg,"MDVDRY");
+
+						} catch (Exception e) {
+						}
 
 						session.setAttribute("successMsg",
 								"Order place successfully And Payment Link Send To Customer Mail.");
@@ -1521,10 +1547,10 @@ public class OrderController {
 		}
 		return "selectOptionForRepeateOrder";
 	}
-	
-	
+
 	@RequestMapping(value = "/selectOptionForRepeateOrderOfLiveOrder", method = RequestMethod.GET)
-	public String selectOptionForRepeateOrderOfLiveOrder(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String selectOptionForRepeateOrderOfLiveOrder(HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 
 		try {
 
@@ -1537,9 +1563,9 @@ public class OrderController {
 
 			String currDate = request.getParameter("currDate");
 			String currTime = request.getParameter("currTime");
-			
+
 			LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-			//map.add("custId", liveCustomer.getCustId());
+			// map.add("custId", liveCustomer.getCustId());
 			map.add("custId", custId);
 			CustomerAddressDisplay[] info = Constants.getRestTemplate()
 					.postForObject(Constants.url + "getCustomerAddressList", map, CustomerAddressDisplay[].class);
@@ -1557,8 +1583,7 @@ public class OrderController {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.MINUTE, 40);
 			model.addAttribute("currTime", sdfTime.format(cal.getTime()));
-			
-			
+
 			map = new LinkedMultiValueMap<String, Object>();
 			map.add("custId", custId);
 			CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById", map,
@@ -1570,7 +1595,6 @@ public class OrderController {
 		}
 		return "selectOptionForRepeateOrder";
 	}
-	
 
 	@RequestMapping(value = "/orderProcessgetList", method = RequestMethod.POST)
 	@ResponseBody
@@ -1891,23 +1915,22 @@ public class OrderController {
 
 				try {
 
-					try {
+					NewSetting val = new NewSetting();
 
-						NewSetting val = new NewSetting();
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("key", "msg_payment_link");
+					map.add("orderId", orderId);
 
-						map = new LinkedMultiValueMap<String, Object>();
-						map.add("key", "msg_payment_link");
-						map.add("orderId", orderId);
+					val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey", map,
+							NewSetting.class);
 
-						val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey", map,
-								NewSetting.class);
+					msg = val.getSettingValue1();
+					msg = msg.replace("###", customer.getCustName());// cust name
+					msg = msg.replace("$$$", getOrderHeaderList.getOrderNo());// order no
+					msg = msg.replace("@@@", String.valueOf(getOrderHeaderList.getTotalAmt()));// order amount
+					msg = msg.replace("^^^", linkResponse.getPaymentLink());// payment link
 
-						SMSUtility.sendSMS(val.getSettingValue2(), val.getSettingValue1());
-
-					} catch (Exception e) {
-					}
-
-					// linkResponse.getPaymentLink()
+					SMSUtility.sendSMS(customer.getPhoneNumber(), msg, "MDVDRY");
 
 				} catch (Exception e) {
 				}
@@ -2167,6 +2190,52 @@ public class OrderController {
 			model.addAttribute("status", status);
 			model.addAttribute("paid", paid);
 			model.addAttribute("orderId", orderId);
+			
+			if(paid==1) {
+				try {
+					
+					String msg="";
+					System.err.println("SMS START--------------------*");
+					
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("orderUUId", orderId);
+					GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
+							.postForObject(Constants.url + "getOrderHeaderByOrderUUId", map, GetOrderHeaderList.class);
+					
+					System.err.println("SMS ORDER--------------------*");
+					
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("custId", getOrderHeaderList.getCustId());
+					CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
+							map, CustomerDisplay.class);
+					
+					System.err.println("SMS CUSTOMER--------------------*");
+
+					NewSetting val = new NewSetting();
+
+					map = new LinkedMultiValueMap<String, Object>();
+					map.add("key", "msg_payment_success");
+					map.add("orderId", getOrderHeaderList.getOrderId());
+
+					val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey",
+							map, NewSetting.class);
+
+					System.err.println("SMS MSG--------------------*");
+					
+					msg = val.getSettingValue1();
+					msg = msg.replace("###", customer.getCustName());// cust name
+					msg = msg.replace("$$$", getOrderHeaderList.getOrderNo());// order no
+					msg = msg.replace("@@@", String.valueOf(getOrderHeaderList.getTotalAmt()));// order amount
+					//msg = msg.replace("^^^", res.getPaymentLink());// payment link
+
+					SMSUtility.sendSMS(customer.getPhoneNumber(), msg,"MDVDRY");
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

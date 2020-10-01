@@ -618,7 +618,7 @@
 		 
 		function addTocart(type,itemId) {
 			
-			
+			//alert("hi");
 		
 			var isError = false; 
 			$("#qty_error").hide();
@@ -661,8 +661,17 @@
 				
 				$('#discription').modal('hide'); 
 				
+				
+				if(sessionStorage.getItem("cartValue") == null)
+				{
+					var table =[];
+					sessionStorage.setItem("cartValue", JSON.stringify(table));
+				}
+				
+				
 				var cartValue = sessionStorage.getItem("cartValue");
 				var table = $.parseJSON(cartValue);
+				//alert(JSON.stringify(table));
 				var findItem=0;
 				var findItemPosition="";
 				

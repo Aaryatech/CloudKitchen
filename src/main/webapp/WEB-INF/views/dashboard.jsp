@@ -622,10 +622,9 @@
 										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-							<input type="button" value="New Order Booking"
-								onclick="placeOrderProcess()" disabled
-								class="next_btn right session-chk" id="newOrderbtn">
-
+								<input type="button" value="New Order Booking"
+									onclick="placeOrderProcess()" disabled
+									class="next_btn right session-chk" id="newOrderbtn">
 						</div>
 						<div id="previousOrderTabDiv">
 							<div class="tab_row_top">
@@ -2761,7 +2760,7 @@ solution 1:
 		}
 
 		function repeateOrder(orderId, frId, addressId) {
-			
+
 			//document.getElementById("loaderimg").style.display = "block";
 			var strhref = "${pageContext.request.contextPath}/selectOptionForRepeateOrder?orderId="
 					+ orderId + "&frId=" + frId + "&addressId=" + addressId;
@@ -2777,12 +2776,17 @@ solution 1:
 
 			//document.getElementById("loaderimg").style.display = "none";
 		}
-		
-		function repeateOrderForLiveOrders(orderId, frId, addressId,custId) {
-			
+
+		function repeateOrderForLiveOrders(orderId, frId, addressId, custId) {
+
 			//document.getElementById("loaderimg").style.display = "block";
 			var strhref = "${pageContext.request.contextPath}/selectOptionForRepeateOrderOfLiveOrder?orderId="
-					+ orderId + "&frId=" + frId + "&addressId=" + addressId+ "&custId=" + custId;
+					+ orderId
+					+ "&frId="
+					+ frId
+					+ "&addressId="
+					+ addressId
+					+ "&custId=" + custId;
 			$("#repeatmodalbody").load(strhref);
 			$("#repeatOrderOption").modal("show");
 			$('#repeatOrderOption').on('hidden.bs.modal', function() {
@@ -2795,7 +2799,7 @@ solution 1:
 
 			//document.getElementById("loaderimg").style.display = "none";
 		}
-		
+
 		function getpreviousorderlist() {
 
 			$('#pendingGrivienceText').val('');
@@ -3075,7 +3079,8 @@ solution 1:
 							$('#addAddressCity').val(response.cityId);
 							$("#addAddressCity").trigger("change");
 							$("#addressCation").val(response.addressCaption);
-							$("#addAddressLandmark").val(response.landmark+" ");
+							$("#addAddressLandmark").val(
+									response.landmark + " ");
 							$("#addAddressDeliveryAdd").val(response.address);
 							$("#addAddressLatitude").val(response.latitude);
 							$("#addAddressLongitude").val(response.longitude);
@@ -3613,7 +3618,7 @@ solution 1:
 								$("#agentDiv").hide();
 								var cityname = $("#cityData" + cityId).data(
 										"cityname");
-								$('#txtPlaces').val(cityname+" ");
+								$('#txtPlaces').val(cityname + " ");
 								document.getElementById("txtPlaces").focus();
 							}
 						},
@@ -3703,7 +3708,7 @@ solution 1:
 								$('#agentAddressDiv').hide();
 								var cityname = $("#cityDataAddReg" + cityId)
 										.data("cityname");
-								$('#addAddressLandmark').val(cityname+" ");
+								$('#addAddressLandmark').val(cityname + " ");
 								document.getElementById("addAddressLandmark")
 										.focus();
 							},
