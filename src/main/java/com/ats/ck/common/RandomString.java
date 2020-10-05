@@ -66,7 +66,7 @@ public class RandomString {
 	 * Create an alphanumeric strings from a secure generator.
 	 */
 	public RandomString(int length) {
-		this(length, new SecureRandom());
+		this(length, new SecureRandom()); 
 	}
 
 	/**

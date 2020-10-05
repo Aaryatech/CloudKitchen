@@ -622,9 +622,9 @@
 										onclick="showPreviousOrGrivienceTab(2)">Grievences</a></li>
 								</ul>
 							</div>
-								<input type="button" value="New Order Booking"
-									onclick="placeOrderProcess()" disabled
-									class="next_btn right session-chk" id="newOrderbtn">
+							<input type="button" value="New Order Booking"
+								onclick="placeOrderProcess()" disabled
+								class="next_btn right session-chk" id="newOrderbtn">
 						</div>
 						<div id="previousOrderTabDiv">
 							<div class="tab_row_top">
@@ -6044,7 +6044,9 @@ solution 1:
 	<script type="text/javascript">
 		$("#profileImage").elevateZoom({easing : true});
 	</script> --%>
-
+	
+	
+	
 
 </body>
 

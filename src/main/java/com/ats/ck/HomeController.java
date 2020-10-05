@@ -1176,6 +1176,26 @@ public class HomeController {
 		}
 		return info;
 	}
+	 
+	
+	@RequestMapping(value = "/lazy", method = RequestMethod.GET)
+	public ModelAndView lazy(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("lazy");
+
+		return model;
+
+	}
+
+	@RequestMapping(value = "/lazy1", method = RequestMethod.GET)
+	public ModelAndView lazy1(HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("lazy1");
+
+		return model;
+
+	}
+
 
 	/*
 	 * <script async defer src=
