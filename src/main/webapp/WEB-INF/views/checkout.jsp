@@ -711,7 +711,6 @@
 		
 		function placeOrder(status) {
 			
-		
 			
 			checkSession();
 			
@@ -839,8 +838,18 @@
 				var deliveryInstru = $("#deliveryInstru").val();
 				var textDeliveryInstr = $("#textDeliveryInstr").val();  
 				
+				
+				var nm=$("#deliveryInstru :selected").text(); 
+				if(textDeliveryInstr==''){
+					textDeliveryInstr=nm;
+				}else{
+					textDeliveryInstr=nm+" - "+textDeliveryInstr;
+				}
+				
+				
 				if(document.getElementById("takeaway").checked==true){
 					homeDelivery=2;
+					textDeliveryInstr="Take Away";
 				}
 				  
 				var fd = new FormData();
@@ -1356,19 +1365,26 @@
 				$('#parkBtn').show();
 				
 				var addCh=document.getElementById("addCh").value;
+				//alert(parseFloat(billTotal).toFixed(2)+"    "+data.minAmt+"      "+data.freeDelvLimit)
 				
-				if(billTotal > data.minAmt && billTotal <= data.freeDelvLimit){
+				if(parseFloat(billTotal).toFixed(2) >= data.minAmt && parseFloat(billTotal).toFixed(2) <= data.freeDelvLimit){
+					//alert("min");
 					
 					document.getElementById("deliveryCharges").value=data.amt1+parseFloat(addCh);
 					
 					document.getElementById("minOrderMsgDiv").style.display="none";
 					
-				}else if(billTotal > data.freeDelvLimit){
+				}else if(parseFloat(billTotal).toFixed(2) >= data.freeDelvLimit){
+					
+					//alert("more");
+					
 					document.getElementById("deliveryCharges").value=data.amt2+parseFloat(addCh);
 					
 					document.getElementById("minOrderMsgDiv").style.display="none";
 					
 				}else{
+					
+					//alert("else");
 					
 					document.getElementById("deliveryCharges").value=0+parseFloat(addCh);
 				

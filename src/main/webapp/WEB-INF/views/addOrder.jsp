@@ -14,8 +14,105 @@
 
 	<!-- Navigation -->
 	<section
-		class="final-order section-padding-top section-padding-bottom  bg-light-grey">
-		<div class="container-fluid">
+		class="final-order section-padding-top section-padding-bottom  bg-light-grey" style="padding-top: 0px;">
+		
+		<!-- NEW  -->
+		
+		<!-- Browse by category -->
+      <section class="browse-cat u-line category_bx new">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="section-header-left">
+                              <h3 class="text-light-black header-title new">Browse by Category</h3>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <div class="category-slider swiper-container">
+                              <div class="swiper-wrapper">
+                              
+                              <div class="swiper-slide">
+									<a href="javascript:void(0)" class="categories active_round"
+										id="category0" onclick="changeCategory(0)">
+										<div class="icon new text-custom-white bg-light-green">
+											<img
+												src="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg"
+												class="rounded-circle" alt="categories"
+												onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
+										</div> <span class="text-light-black cat-name new fw-500">All</span>
+									</a>
+								</div>
+								
+								<c:forEach items="${catList}" var="catList">
+
+									<div class="swiper-slide">
+										<a href="javascript:void(0)" class="categories"
+											id="category${catList.catId}"
+											onclick="changeCategory(${catList.catId})">
+											<div
+												class="icon new text-custom-white bg-light-green">
+												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
+													class="rounded-circle" alt="categories"
+													onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
+											</div> <span class="text-light-black cat-name new fw-500">${catList.catName}</span>
+										</a>
+									</div>
+								</c:forEach>
+                                 
+                                 
+                                  
+                              </div>
+                              <!-- Add Arrows -->
+                              <div class="swiper-button-next"></div>
+                              <div class="swiper-button-prev"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      <!-- Browse by category -->
+      
+      
+      <div class="container-fluid">
+            <div class="section-header-left" style="display: none;">
+                  <h3 class="text-light-black header-title new">Dinner Inspirations </h3>
+              </div>
+            
+          <!--restarurent offer-->
+          <div class="row">
+            
+            <c:forEach items="${offerList}" var="offerList">
+            <div class="col-lg-3" style="margin-top: 10px;">
+              <div class="bke1zw-1 feJJpQ">
+                <section class="sc-hzOKmB eTLmSe">
+                  <a href="#" class="sc-fjNYmT cPRXMx">
+                      
+                      <div class="offer_new">
+                          <div class="offer_new_pic"><img src="${catImageUrl}${offerList.imageList[0].imageName}" alt="offer image" onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';"></div>
+                          <div class="offer_new_txt">
+                            ${offerList.offerName}
+                              <span>Date : ${offerList.fromDate} to ${offerList.toDate}</span>
+                          </div>
+                      </div>
+                      
+                      
+                    </a>
+                  </section>
+                </div>
+            </div>
+            </c:forEach>
+         
+            
+          </div>
+        </div>
+      
+      
+		
+		<!-- ---------------------------------------------------- -->
+		
+		
+		
+		<%-- <div class="container-fluid">
 			<!--restarurent offer-->
 
 			<div class="row">
@@ -42,8 +139,7 @@
 														<div class="sc-jrOYZv gkgQzg">
 															<h6 class="sc-1gbvc19-0 sc-gIjDWZ jRoqeo">
 																Date : ${offerList.fromDate} to ${offerList.toDate}
-																<%-- <br>Time
-																: ${offerList.fromTime} to ${offerList.toTime} --%>
+																
 															</h6>
 															<!-- <i class="fa fa-caret-right" aria-hidden="true"></i> -->
 														</div>
@@ -62,16 +158,11 @@
 					</div>
 				</div>
 
-
-
 			</div>
-
-
-
-		</div>
+		</div> --%>
 
 		<!-- Browse by category -->
-		<section class="browse-cat u-line category_bx">
+		<%-- <section class="browse-cat u-line category_bx">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
@@ -83,26 +174,6 @@
 					<div class="col-12">
 						<div class="category-slider swiper-container">
 							<div class="swiper-wrapper">
-
-								<!-- <div class="swiper-slide swiper-slide-active">
-									<a href="#" class="categories active_round">
-										<div class="icon icon-parent text-custom-white bg-light-green">
-											<img src="/ck/resources/assets/img/chinese.jpg"
-												class="rounded-circle" alt="categories"
-												onerror="imgError(this,'/ck/resources/assets/img/chinese.jpg');">
-										</div> <span class="text-light-black cat-name fw-500">Lassi</span>
-									</a>
-								</div> -->
-
-								<!-- <div class="swiper-slide swiper-slide-active">
-									<a href="#" class="categories">
-										<div class="icon icon-parent text-custom-white bg-light-green">
-											<img src="/ck/resources/assets/img/chinese.jpg"
-												class="rounded-circle" alt="categories"
-												onerror="imgError(this,'/ck/resources/assets/img/chinese.jpg');">
-										</div> <span class="text-light-black cat-name fw-500">Lassi</span>
-									</a>
-								</div> -->
 
 
 								<div class="swiper-slide">
@@ -140,7 +211,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --%>
 		<!-- Browse by category -->
 
 		<section class="section-padding-top section-padding-bottom">

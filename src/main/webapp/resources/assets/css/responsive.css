@@ -199,7 +199,7 @@ Version: 1.0.0
 		display: none;
 	}
 	.header .main-search {
-		flex: none;
+		flex: none; width: 0;
 	}
 	.header .right-side .cart-btn.notification-btn,
 	.header .right-side .user-details {

@@ -878,11 +878,13 @@
 							<span>Delivery Type *</span> <input type="radio"
 								id="rdHomeDelivery" name="radioType" class="option-input radio"
 								value="1" checked onchange="deliveryTypeHideAddress(1)">Home
-							Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+							Delivery &nbsp; 
+							 
+							 <input
 								type="radio" class="option-input radio" id="rdTakeAway"
 								value="2" onchange="deliveryTypeHideAddress(2)" name="radioType">Take
 								Away
-							</label>
+							
 						</div>
 					</div>
 
@@ -1131,10 +1133,10 @@
 								<span>Delivery Type *</span> <input type="radio"
 									id="rdHomeDeliveryNewOrd" name="radioTypeNewOrd"
 									class="option-input radio" value="1" checked>Home
-								Delivery &nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+								Delivery &nbsp;  <input
 									type="radio" class="option-input radio" id="rdTakeAwayNewOrd"
 									value="2" name="radioTypeNewOrd">Take Away
-								</label>
+								
 							</div>
 						</div>
 
@@ -1264,7 +1266,7 @@
 
 	<div class="modal fade kot-popup" id="repeatOrderOption"
 		data-backdrop="static" data-keyboard="false">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="max-width: 90%;">
 			<!--modal-md-->
 			<div class="modal-content kot_content">
 				<button type="button" class="close kot_close" data-dismiss="modal">
@@ -1764,11 +1766,11 @@
 									id="rdHomeDeliveryNewAddr" name="radioTypeNewAddr"
 									class="option-input radio" value="1" checked
 									onchange="deliveryTypeHideNewAddress(1)">Home Delivery
-								&nbsp; </label><label class="chk_txt fw-500 fs-14"> <input
+								&nbsp;  <input
 									type="radio" class="option-input radio" id="rdTakeAwayNewAddr"
 									value="2" onchange="deliveryTypeHideNewAddress(2)"
 									name="radioTypeNewAddr">Take Away
-								</label>
+								
 							</div>
 						</div>
 

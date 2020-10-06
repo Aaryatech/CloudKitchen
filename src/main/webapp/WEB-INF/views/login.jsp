@@ -104,14 +104,16 @@
 			<div class="row no-gutters overflow-auto">
 				<div class="col-md-6">
 					<div class="main-banner">
-						<img
+						<%-- <img style="display: none;"
 							src="${pageContext.request.contextPath}/resources/assets/img/login_pic.jpg"
-							alt="" class="img-fluid full-width main-img" alt="banner">
+							alt="" class="img-fluid full-width main-img" alt="banner"> --%>
+						
 						<!-- https://via.placeholder.com/952x646-->
 
-						<img
+						<%-- <img style="display: none;"
 							src="${pageContext.request.contextPath}/resources/assets/img/burger.png"
 							alt="" class="footer-img" alt="footer-img">
+					 --%>	
 						<!--https://via.placeholder.com/340x220-->
 					</div>
 				</div>

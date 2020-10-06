@@ -1104,8 +1104,8 @@ public class OrderController {
 
 						map = new LinkedMultiValueMap<String, Object>();
 
-						map.add("appId", "27027a6652b91619aa1a8ad8172072");
-						map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+						map.add("appId", "7233535973c0dcc4f58af274653327");
+						map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");
 						/*
 						 * map.add("appId", "7233535973c0dcc4f58af274653327"); map.add("secretKey",
 						 * "44bb412ea48da2acb093573debfdd42306099612");
@@ -1121,7 +1121,7 @@ public class OrderController {
 						map.add("notifyUrl", Constants.softPath + "notifyUrl");
 
 						Body res = Constants.getRestTemplate()
-								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
+								.postForObject("https://api.cashfree.com/api/v1/order/create", map, Body.class);
 						/*
 						 * Body res = Constants.getRestTemplate()
 						 * .postForObject("https://api.cashfree.com/api/v1/order/create", map,
@@ -1765,12 +1765,12 @@ public class OrderController {
 
 			map = new LinkedMultiValueMap<String, Object>();
 
-			map.add("appId", "27027a6652b91619aa1a8ad8172072");
-			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("appId", "7233535973c0dcc4f58af274653327");
+			map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");
 			map.add("orderId", getOrderHeaderList.getUuidNo());
 
 			LinkResponse linkResponse = Constants.getRestTemplate()
-					.postForObject("https://test.cashfree.com/api/v1/order/info/link", map, LinkResponse.class);
+					.postForObject("https://api.cashfree.com/api/v1/order/info/link", map, LinkResponse.class);
 
 			if (linkResponse.getStatus().equals("OK")) {
 
@@ -2075,8 +2075,8 @@ public class OrderController {
 
 			MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
-			map.add("appId", "27027a6652b91619aa1a8ad8172072");
-			map.add("secretKey", "68bdc7d71b4ff20a294a8844c98fdb696510078d");
+			map.add("appId", "7233535973c0dcc4f58af274653327");
+			map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");
 			map.add("orderId", uuid);
 			map.add("orderAmount", "1");
 			map.add("orderCurrency", "INR");
@@ -2087,7 +2087,7 @@ public class OrderController {
 			map.add("returnUrl", "http://localhost:8086/ck/returnUrl");
 			map.add("notifyUrl", "http://localhost:8086/ck/notifyUrl");
 
-			Body res = Constants.getRestTemplate().postForObject("https://test.cashfree.com/api/v1/order/create", map,
+			Body res = Constants.getRestTemplate().postForObject("https://api.cashfree.com/api/v1/order/create", map,
 					Body.class);
 
 			/* System.out.println(res); */
