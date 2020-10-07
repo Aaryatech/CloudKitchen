@@ -2165,7 +2165,7 @@
 				</button>
 
 				<div class="pop_signup">
-					Calls Recordings<a href="#"></a>
+					Call Recordings<a href="#"></a>
 				</div>
 
 
@@ -5922,7 +5922,7 @@ solution 1:
 			//alert(mobile);
 
 			var api_key = document.getElementById("callApiKey").value;
-			alert(api_key);
+			//alert(api_key);
 
 			var params = {
 				"customer_number" : mobile,
@@ -5961,9 +5961,12 @@ solution 1:
 		function callRecordingModal() {
 
 			//$('#callRecModal').modal('show');
+			
+			var mob=document.getElementById("profileMobileNo").innerHTML;
+			//alert(mob);
 
 			var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEwOTQyLCJpc3MiOiJodHRwczpcL1wvY3VzdG9tZXIuc2VydmV0ZWwuaW5cL3Rva2VuXC9nZW5lcmF0ZSIsImlhdCI6MTYwMDA2MTAzOCwiZXhwIjoxOTAwMDYxMDM4LCJuYmYiOjE2MDAwNjEwMzgsImp0aSI6ImlFcTlYVjVGTGtNVHpUalIifQ.XwFAV0__xVQQL6kACPJv2wA8s2YrmxLjyqjgjKM8L8o";
-			var url = "https://api.servetel.in/v1/call/records?call_type=c&callerid=+919881168357";
+			var url = "https://api.servetel.in/v1/call/records?call_type=c&callerid=+91"+mob;
 			//var url = "https://cors-anywhere.herokuapp.com/"
 
 			var xhttp = new XMLHttpRequest();

@@ -270,7 +270,7 @@
 								<div class="user-footer">
 									<span class="text-light-black">Not
 										${sessionScope.userInfo.userName}?</span> <a
-										href="${pageContext.request.contextPath}/">Sign Out</a>
+										href="${pageContext.request.contextPath}/logout">Sign Out</a>
 								</div>
 							</div>
 						</div>

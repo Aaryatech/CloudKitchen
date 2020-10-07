@@ -76,6 +76,9 @@
 	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap"
 	rel="stylesheet">
 <!-- place -->
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 
 <body>
@@ -120,7 +123,7 @@
 				<div class="col-md-6">
 					<div class="section-2 user-page main-padding">
 						<div class="login-sec">
-							<div class="login-box">
+							<div class="login-box w3-animate-zoom" ">
 								<form action="${pageContext.request.contextPath}/loginProcess"
 									method="post">
 									<div class="form-group">

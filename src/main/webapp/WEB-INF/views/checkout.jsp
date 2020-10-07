@@ -429,7 +429,7 @@
 													<h3 class="item_nm related_item_name"
 														onclick="itemDetailDesc(${relatedItemList.itemId})">${relatedItemList.itemName}</h3>
 													<p class="itm_prc">
-														Rs.${relatedItemList.spRateAmt} <a href="#"
+														Rs.${relatedItemList.mrpDiscAmt} <a href="#"
 															onclick="addToTable(${relatedItemList.itemId})">Add
 															to Cart</a>
 													</p>
@@ -493,7 +493,7 @@
 													<h3 class="item_nm fav_item_name"
 														onclick="itemDetailDesc(${favItemList.itemId})">${favItemList.itemName}</h3>
 													<p class="itm_prc">
-														Rs. ${favItemList.spRateAmt} <a href="#"
+														Rs. ${favItemList.mrpDiscAmt} <a href="#"
 															onclick="addToTable(${favItemList.itemId})">Add to
 															Cart</a>
 													</p>
@@ -854,6 +854,8 @@
 				  
 				var fd = new FormData();
 				
+				//alert(JSON.stringify(table))
+				
 				fd.append("itemaData",JSON.stringify(table));
 				fd.append("status",status);
 				fd.append("billingName",$("#billingName").val());
@@ -1079,10 +1081,11 @@
 							}
 						} 
 						if(findItem==0){
-							var total = obj.spRateAmt*qty;
+							//var total = obj.spRateAmt*qty;
+							var total = obj.mrpDiscAmt*qty;
 							 table.push({
 								  itemId: obj.itemId,
-								  price: obj.spRateAmt,
+								  price: obj.mrpDiscAmt,
 								  itemName: obj.itemName,
 								  qty: qty,
 								  total: total,
@@ -1235,7 +1238,7 @@
 
 					$("#discriptionPrice").html(
 							'<span>Rs.' + obj.mrpAmt + '</span> Rs.'
-									+ obj.spRateAmt + '/-');
+									+ obj.mrpDiscAmt + '/-');
 
 					break;
 				}

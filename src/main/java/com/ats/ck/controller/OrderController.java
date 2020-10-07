@@ -670,6 +670,7 @@ public class OrderController {
 					orderDetail.setItemId(itemJsonImportData[i].getItemId());
 					orderDetail.setQty(itemJsonImportData[i].getQty());
 					orderDetail.setRate(itemJsonImportData[i].getPrice());
+					orderDetail.setMrp(itemJsonImportData[i].getPrice());
 					orderDetail.setCgstPer(itemJsonImportData[i].getCgstPer());
 					orderDetail.setIgstPer(itemJsonImportData[i].getIgstPer());
 					orderDetail.setSgstPer(itemJsonImportData[i].getSgstPer());
@@ -725,15 +726,14 @@ public class OrderController {
 					// finaTotalAmt = Float.parseFloat(df.format(finaTotalAmt +
 					// itemJsonImportData[i].getTotal()));
 
-					for (int j = 0; j < itemList.size(); j++) {
-
-						if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
-							orderDetail.setMrp(itemList.get(j).getMrpAmt());
-							break;
-						}
-
-					}
-					orderDetailList.add(orderDetail);
+					/*
+					 * for (int j = 0; j < itemList.size(); j++) {
+					 * 
+					 * if (itemJsonImportData[i].getItemId() == itemList.get(j).getItemId()) {
+					 * orderDetail.setMrp(itemList.get(j).getMrpAmt()); break; }
+					 * 
+					 * }
+					 */					orderDetailList.add(orderDetail);
 
 				}
 

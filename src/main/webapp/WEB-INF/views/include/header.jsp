@@ -19,6 +19,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="#">
 <meta name="description" content="#">
+<META http-equiv="CACHE-CONTROL" CONTENT="Public">
 <title>Cloud Kitchen</title>
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="#">

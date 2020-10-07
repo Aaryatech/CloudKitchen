@@ -1079,9 +1079,9 @@ public class HomeController {
 //	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 
-		ModelAndView model = new ModelAndView("login");
+		//ModelAndView model = new ModelAndView("login");
 
 		logger.info("/logout request mapping.");
 
@@ -1099,7 +1099,7 @@ public class HomeController {
 
 		session.invalidate();
 
-		return model;
+		return "redirect:/";
 
 	}
 

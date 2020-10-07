@@ -13,25 +13,24 @@
 
 
 	<!-- Navigation -->
-	<section
-		class="final-order section-padding-top section-padding-bottom  bg-light-grey" style="padding-top: 0px;">
-		
+	<section class="final-order  section-padding-bottom  bg-light-grey">
+
 		<!-- NEW  -->
-		
+
 		<!-- Browse by category -->
-      <section class="browse-cat u-line category_bx new">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-12">
+		<section class="browse-cat u-line category_bx new ipad_marg">
+			<div class="container">
+				<div class="row">
+					<!-- <div class="col-12">
                           <div class="section-header-left">
                               <h3 class="text-light-black header-title new">Browse by Category</h3>
                           </div>
-                      </div>
-                      <div class="col-12">
-                          <div class="category-slider swiper-container">
-                              <div class="swiper-wrapper">
-                              
-                              <div class="swiper-slide">
+                      </div> -->
+					<div class="col-12">
+						<div class="category-slider swiper-container">
+							<div class="swiper-wrapper">
+
+								<div class="swiper-slide">
 									<a href="javascript:void(0)" class="categories active_round"
 										id="category0" onclick="changeCategory(0)">
 										<div class="icon new text-custom-white bg-light-green">
@@ -42,15 +41,14 @@
 										</div> <span class="text-light-black cat-name new fw-500">All</span>
 									</a>
 								</div>
-								
+
 								<c:forEach items="${catList}" var="catList">
 
 									<div class="swiper-slide">
 										<a href="javascript:void(0)" class="categories"
 											id="category${catList.catId}"
 											onclick="changeCategory(${catList.catId})">
-											<div
-												class="icon new text-custom-white bg-light-green">
+											<div class="icon new text-custom-white bg-light-green">
 												<img src="${catImageUrl}/${catList.imageList[0].imageName}"
 													class="rounded-circle" alt="categories"
 													onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/chinese.jpg';">
@@ -58,60 +56,70 @@
 										</a>
 									</div>
 								</c:forEach>
-                                 
-                                 
-                                  
-                              </div>
-                              <!-- Add Arrows -->
-                              <div class="swiper-button-next"></div>
-                              <div class="swiper-button-prev"></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
-      <!-- Browse by category -->
-      
-      
-      <div class="container-fluid">
-            <div class="section-header-left" style="display: none;">
-                  <h3 class="text-light-black header-title new">Dinner Inspirations </h3>
-              </div>
-            
-          <!--restarurent offer-->
-          <div class="row">
-            
-            <c:forEach items="${offerList}" var="offerList">
-            <div class="col-lg-3" style="margin-top: 10px;">
-              <div class="bke1zw-1 feJJpQ">
-                <section class="sc-hzOKmB eTLmSe">
-                  <a href="#" class="sc-fjNYmT cPRXMx">
-                      
-                      <div class="offer_new">
-                          <div class="offer_new_pic"><img src="${catImageUrl}${offerList.imageList[0].imageName}" alt="offer image" onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';"></div>
-                          <div class="offer_new_txt">
-                            ${offerList.offerName}
-                              <span>Date : ${offerList.fromDate} to ${offerList.toDate}</span>
-                          </div>
-                      </div>
-                      
-                      
-                    </a>
-                  </section>
-                </div>
-            </div>
-            </c:forEach>
-         
-            
-          </div>
-        </div>
-      
-      
-		
+
+
+
+							</div>
+							<!-- Add Arrows -->
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Browse by category -->
+
+
+		<div class="container-fluid">
+			<div class="section-header-left" style="display: none;">
+				<h3 class="text-light-black header-title new">Dinner
+					Inspirations</h3>
+			</div>
+
+			<!--restarurent offer-->
+			<div class="row">
+
+				<c:forEach items="${offerList}" var="offerList">
+
+					<div class="col-lg-3" style="margin: 15px 0;">
+						<div class="bke1zw-1 feJJpQ">
+							<section class="sc-hzOKmB eTLmSe">
+								<a href="#" class="sc-fjNYmT cPRXMx">
+
+									<div class="offer_new">
+										<div class="offer_new_pic">
+											<img src="${catImageUrl}${offerList.imageList[0].imageName}"
+												alt="offer image"
+												onerror="if (this.src != '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg') this.src = '${pageContext.request.contextPath}/resources/assets/img/trending_1.jpg';">
+										</div>
+										<div class="offer_new_txt">
+											${offerList.offerName} <span>Date :
+												${offerList.fromDate} to ${offerList.toDate}</span>
+										</div>
+									</div>
+
+
+								</a>
+							</section>
+						</div>
+					</div>
+
+				</c:forEach>
+
+
+
+
+
+			</div>
+		</div>
+
+
+
 		<!-- ---------------------------------------------------- -->
-		
-		
-		
+
+
+
 		<%-- <div class="container-fluid">
 			<!--restarurent offer-->
 
@@ -214,7 +222,8 @@
 		</section> --%>
 		<!-- Browse by category -->
 
-		<section class="section-padding-top section-padding-bottom">
+		<section class="section-padding-bottom">
+			<!-- section-padding-top -->
 			<div class="container-fluid">
 				<div class="row">
 					<!--left filter start here-->
@@ -353,7 +362,7 @@
 											<div class="product-list-type hotel_nm">
 												<!-- <span class="text-light-white new">New</span> -->
 												<c:forEach items="${itemList.tasteList}" var="tasteList">
-													<span class="text-custom-white square-tag"><img
+													<span class="text-custom-white square-tag grievances_pic"><img
 														title="${tasteList.ingrediantName}"
 														src="${catImageUrl}/${tasteList.ingrediantImage}"
 														alt="tag"
@@ -364,6 +373,7 @@
 										</div>
 
 										<div class="one_order_m">
+
 
 											<div class="product-list-rating text-center">
 												<div class="ratings">
@@ -461,15 +471,24 @@
 
 												<span
 													class="rectangle-tag inline bg-gradient-green text-custom-white">${itemList.productStatus}</span>
+													<ul class="inline-r">
+													<li class="text-light-white">Preparation Time -
+														${itemList.preperationTime}</li>
+												</ul>
 											</div>
+
+
+
+
+
 											<!--distance-->
-											<div class="product-list-time text-center">
+											<%-- <div class="product-list-time text-center">
 
 												<ul class="inline-r">
 													<li class="text-light-white">Preparation Time -
 														${itemList.preperationTime}</li>
 												</ul>
-											</div>
+											</div> --%>
 										</div>
 
 										<div class="one_order_r">
@@ -480,11 +499,16 @@
 												<span class="rectangle-tag inline bg-dark text-custom-white">Combo</span>
 											</div> -->
 											<!--price-->
-											<div class="offer_price">
+											<%-- <div class="offer_price">
 												<span>Rs.${itemList.mrpAmt}</span>
 												Rs.${itemList.spRateAmt}/-
+											</div> --%>
+											<div class="offer_price">
+												<span>Rs.${itemList.mrpAmt}</span>
+												Rs.${itemList.mrpDiscAmt}/-
 											</div>
-											<div class="hiddenvalue" style="display: none;">${itemList.spRateAmt}</div>
+											<%-- <div class="hiddenvalue" style="display: none;">${itemList.spRateAmt}</div> --%>
+											<div class="hiddenvalue" style="display: none;">${itemList.mrpDiscAmt}</div>
 											<div class="hiddencategoryvalue" style="display: none;">${itemList.catName}</div>
 											<div class="hiddensubcategoryvalue" style="display: none;">${itemList.subCatName}</div>
 											<div class="hiddenItemNamevalue" style="display: none;">${itemList.itemName}</div>
@@ -771,10 +795,12 @@
 				
 				
 				if(findItem==0){
-					var total = obj.spRateAmt*qty;
+					/* var total = obj.spRateAmt*qty; */
+					var total = obj.mrpDiscAmt*qty;
 					 table.push({
 						  itemId: obj.itemId,
-						  price: obj.spRateAmt,
+						  //price: obj.spRateAmt,
+						  price: obj.mrpDiscAmt,
 						  itemName: obj.itemName,
 						  qty: qty,
 						  total: total,
@@ -952,7 +978,8 @@
 			if(findRelated==0){
 				$("#discriptionRelatedItem").append('-'); 
 			}
-			$("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.spRateAmt+'/-'); 
+			/* $("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.spRateAmt+'/-');  */
+			$("#discriptionPrice").html('<span>Rs.'+obj.mrpAmt+'</span> Rs.'+obj.mrpDiscAmt+'/-'); 
 			$("#descriptionPlaceOrder").html('<a href="javascript:void(0)" onclick="addTocart(0,'+obj.itemId+')">Place Order</a>'); 
 			$("#itemQty").val(1); 
 			document.getElementById("loaderimg").style.display = "none";
