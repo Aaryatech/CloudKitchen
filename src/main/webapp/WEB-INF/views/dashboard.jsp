@@ -2329,6 +2329,9 @@ solution 1:
 
 							sessionStorage.setItem("frList", JSON
 									.stringify(response.franchise));
+							
+							sessionStorage.setItem("frListForLoc", JSON
+									.stringify(response.franchise));
 
 							// will return the number 123
 							if (iscity == 1) {
@@ -3594,6 +3597,9 @@ solution 1:
 
 							sessionStorage.setItem("frList", JSON
 									.stringify(response.franchise));
+							
+							sessionStorage.setItem("frListForLoc", JSON
+									.stringify(response.franchise));
 
 							var html = '<option value="0" selected>Select Shop</option>';
 
@@ -3654,6 +3660,9 @@ solution 1:
 
 								sessionStorage.setItem("frList", JSON
 										.stringify(response.franchise));
+								
+								sessionStorage.setItem("frListForLoc", JSON
+										.stringify(response.franchise));
 
 								var html = '<option value="0" selected>Select Shop</option>';
 
@@ -3690,6 +3699,9 @@ solution 1:
 							success : function(response) {
 
 								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+								
+								sessionStorage.setItem("frListForLoc", JSON
 										.stringify(response.franchise));
 
 								var html = '<option value="0" selected>Select Shop</option>';
@@ -3746,6 +3758,9 @@ solution 1:
 
 								sessionStorage.setItem("frList", JSON
 										.stringify(response.franchise));
+								
+								sessionStorage.setItem("frListForLoc", JSON
+										.stringify(response.franchise));
 
 								var html = '<option value="0" selected>Select Shop</option>';
 
@@ -3782,6 +3797,9 @@ solution 1:
 							success : function(response) {
 
 								sessionStorage.setItem("frList", JSON
+										.stringify(response.franchise));
+								
+								sessionStorage.setItem("frListForLoc", JSON
 										.stringify(response.franchise));
 
 								var html = '<option value="0" selected>Select Shop</option>';
@@ -4474,8 +4492,11 @@ solution 1:
 
 			var waypts = [];
 
-			var frList = sessionStorage.getItem("frList");
+			//var frList = sessionStorage.getItem("frList");
+			var frList = sessionStorage.getItem("frListForLoc");
 			var list = $.parseJSON(frList);
+			
+			//alert("FR LIST - "+list)
 
 			for (var i = 0; i < list.length; i++) {
 				var data_add = {
@@ -4486,9 +4507,11 @@ solution 1:
 			}
 
 			//console.log(waypts);
+			//alert(latitude+"   -    "+longitude+"     TYPE - "+type+"    ORIGIN - "+JSON.stringify(origin1)+"    destn - "+waypts)
 
 			var geocoder = new google.maps.Geocoder;
 			var service = new google.maps.DistanceMatrixService;
+			
 			service
 					.getDistanceMatrix(
 							{
@@ -4667,8 +4690,8 @@ solution 1:
 											landmark,
 											'place_changed',
 											function() {
-
-												document
+												
+												 document
 														.getElementById("error_addAddressLandmark").style.display = "none";
 												var pls = landmark.getPlace();
 
@@ -4682,9 +4705,15 @@ solution 1:
 															.getElementById("addAddressLatitude").value = latitude;
 													document
 															.getElementById("addAddressLongitude").value = longitude;
-													calculateDistance(latitude,
-															longitude, 4);
+													
+													
+
+													var frList = sessionStorage.getItem("frList");
+													var list = $.parseJSON(frList);
+													console.log("FRLIST - "+frList);
+													calculateDistance(latitude, longitude, 4);
 												} catch (err) {
+													
 
 													document
 															.getElementById("addAddressLandmark").value = "";
@@ -4697,7 +4726,7 @@ solution 1:
 													document
 															.getElementById("error_addAddressLandmark").style.display = "block";
 
-												}
+												} 
 
 											});
 
