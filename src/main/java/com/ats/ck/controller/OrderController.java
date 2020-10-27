@@ -764,6 +764,13 @@ public class OrderController {
 
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCloudOrder", orderSaveData,
 						Info.class);
+				
+				//System.err.println("SAVE ORDER ---------------------- "+orderSaveData);
+				
+				//Gson gson=new Gson();
+				//System.err.println("JSON ===================================== "+gson.toJson(orderSaveData));
+				
+				//Info info=new Info();
 
 				orderResponse.setError(info.getError());
 

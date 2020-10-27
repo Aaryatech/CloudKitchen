@@ -8,6 +8,7 @@ public class SubCategoryData {
 	private int catId;
 	private String catName;
 	private String subCatName;
+	private int prodCount;
 
 	List<Images> imageList;
 
@@ -51,12 +52,18 @@ public class SubCategoryData {
 		this.imageList = imageList;
 	}
 
+	public int getProdCount() {
+		return prodCount;
+	}
+
+	public void setProdCount(int prodCount) {
+		this.prodCount = prodCount;
+	}
+
 	@Override
 	public String toString() {
 		return "SubCategoryData [subCatId=" + subCatId + ", catId=" + catId + ", catName=" + catName + ", subCatName="
-				+ subCatName + ", imageList=" + imageList + "]";
+				+ subCatName + ", prodCount=" + prodCount + ", imageList=" + imageList + "]";
 	}
-	
-	
 
 }
