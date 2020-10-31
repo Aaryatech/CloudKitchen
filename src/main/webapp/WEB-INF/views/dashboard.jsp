@@ -4512,19 +4512,27 @@ solution 1:
 			var geocoder = new google.maps.Geocoder;
 			var service = new google.maps.DistanceMatrixService;
 			
+			
+			/* origins : [ origin1 ],
+			destinations : waypts,
+			travelMode : 'DRIVING',
+			unitSystem : google.maps.UnitSystem.METRIC,
+			avoidHighways : false,
+			avoidTolls : false */
+			
 			service
 					.getDistanceMatrix(
 							{
 								origins : [ origin1 ],
 								destinations : waypts,
-								travelMode : 'DRIVING',
+								travelMode : google.maps.TravelMode.DRIVING,
 								unitSystem : google.maps.UnitSystem.METRIC,
 								avoidHighways : false,
 								avoidTolls : false
 							},
 							function(response, status) {
 
-								// alert(JSON.stringify(response))
+								 alert(JSON.stringify(response))
 
 								if (status !== 'OK') {
 									alert('Error was: ' + status);
