@@ -4532,7 +4532,7 @@ solution 1:
 							},
 							function(response, status) {
 
-								 alert(JSON.stringify(response))
+								 //alert(JSON.stringify(response))
 
 								if (status !== 'OK') {
 									alert('Error was: ' + status);

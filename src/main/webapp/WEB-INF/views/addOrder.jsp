@@ -1034,7 +1034,9 @@
 			if(catName=="All"){
 				catName='';
 			}
-			 
+			
+			//alert("CAT NAME - "+catName)
+			
 			var currentVal = parseFloat(document.getElementById('currentVal').innerHTML);
 			 //alert(catName);
 			document.getElementById("loaderimg").style.display = "block";
@@ -1043,7 +1045,7 @@
 			var find = 0; 
 			
 			$("input:checkbox[name=subcat]:checked").each(function() {
-
+				//alert("SUB CAT NAME - "+$(this).val())
 				list.push($(this).val());
 			});
 
@@ -1068,7 +1070,7 @@
 								var hiddenItemTagvalue = document.getElementsByClassName("hiddenItemTagvalue")[index].innerHTML ;
 								
 								var combineString = hiddenItemNamevalue+' '+hiddensubcategoryvalue+' '+ hiddenItemTagvalue;
-								
+								//alert(combineString);
 								
 								//alert(hiddencategoryvalue);
 								//alert(catName);
@@ -1198,7 +1200,7 @@
 				accoridonExpAll : false
 			//Expands all the accordion menu on click
 			});
-			$("#currentVal").html(500);
+			//$("#currentVal").html(500);
 			getFrList();
 			//appendCartList();
 			getItemList(); 
@@ -1228,13 +1230,36 @@
 							
 							var newCart=[];
 							
-							for(var i=0; i<response.length ; i++){
-								for(var j=0; j<table.length ; j++){
-									if(response[i].itemId==table[j].itemId){
-										newCart.push(table[j]);
+							if(table!=null){
+								for(var i=0; i<response.length ; i++){
+									for(var j=0; j<table.length ; j++){
+										if(response[i].itemId==table[j].itemId){
+											newCart.push(table[j]);
+										}
 									}
 								}
 							}
+							
+							var max=  Math.max.apply(Math, response.map(function(o) { 
+			                    return o.spDiscAmt;  
+			                })); 
+							//alert(max)
+							sessionStorage.setItem("maxAmt", max);
+							
+							$("#range").slider({
+								range : "min",
+								max : max,
+								value : max,
+								slide : function(e, ui) {
+
+									$("#currentVal").html(ui.value);
+									myFunction1();
+								}
+							});
+							$("#currentVal").html(max);
+							
+							
+							
 							sessionStorage.setItem("cartValue", JSON.stringify(newCart)); 
 							appendCartList();
 
@@ -1354,10 +1379,14 @@
 
 	<script>
 		(function() {
+			
+			//var amt = sessionStorage.getItem("maxAmt");
+			//alert(amt)
+			
 			$("#range").slider({
 				range : "min",
-				max : 500,
-				value : 500,
+				max : 2000,
+				value : 2000,
 				slide : function(e, ui) {
 
 					$("#currentVal").html(ui.value);
