@@ -119,7 +119,11 @@
 								</div>
 
 								<input type="hidden" value="0" id="tempDiscPer"
-									name="tempDiscPer" /> <input type="hidden" value="0"
+									name="tempDiscPer" />
+									<input type="hidden" value="0" id="tempDiscMinAmt"
+									name="tempDiscMinAmt" />
+									
+									 <input type="hidden" value="0"
 									id="tempOfferLimit" name="tempOfferLimit" /> <input
 									type="hidden" value="0" id="tempOfferType" name="tempOfferType" />
 
@@ -266,7 +270,12 @@
 											<!-- Additional Charges -->
 											<input name="addCh" id="addCh" type="hidden"
 												class="table_inpt numbersOnly" value="${addCh}"
-												style="text-align: right;" /> <input name="disc" id="disc"
+												style="text-align: right;" /> 
+												<input name="disc" id="disc"
+												type="hidden" class="table_inpt numbersOnly" value="0"
+												style="text-align: right;" />
+												
+												<input name="discMin" id="discMin"
 												type="hidden" class="table_inpt numbersOnly" value="0"
 												style="text-align: right;" />
 
@@ -972,6 +981,13 @@
 			//alert(finaltotal);
 			discPer=document.getElementById("disc").value;
 			discAmt=(parseFloat(discPer)*parseFloat(finaltotal.toFixed(2)))/100;
+			
+			var discMinAmt=document.getElementById("discMin").value;
+			
+			if(discMinAmt < discAmt){
+				discAmt=discMinAmt;
+			}
+			
 			$("#discAmt").html(discAmt);
 			
 			
@@ -980,13 +996,15 @@
 			$("#item_total").html(finaltotal.toFixed(2));
 			$("#item_sub_total").html(subtotal.toFixed(2));
 			$("#item_tax_total").html(taxtotal.toFixed(2));
-			$("#discAmt").html(discAmt.toFixed(2));
+			$("#discAmt").html(parseFloat(discAmt).toFixed(2));
 			var deliveryCharges = parseFloat($("#deliveryCharges").val());
 			
 			var billTotal=finaltotal-discAmt+deliveryCharges;
+			
 			if(document.getElementById("takeaway").checked==true){
 				billTotal=finaltotal-discAmt;
 			}
+			alert(billTotal)
 			
 			
 			$("#bill_total").html(billTotal.toFixed(2));
@@ -1419,6 +1437,7 @@
 				var discPer=0;
 				var offerType=0;
 				var offerLimit=0;
+				var discMinAmt=0;
 				
 				var len = data.length;
 				for (var i = 0; i < len; i++) {
@@ -1426,15 +1445,18 @@
 						discPer=data[i].offerDetailList[0].discPer;
 						offerType=data[i].exInt1;
 						offerLimit=data[i].offerDetailList[0].offerLimit;
+						discMinAmt=data[i].offerDetailList[0].exFloat1;
 						break;
 					}
 				}
 				
 				document.getElementById("tempDiscPer").value=discPer;
+				document.getElementById("tempDiscMinAmt").value=discMinAmt;
 				document.getElementById("tempOfferLimit").value=offerLimit;
 				document.getElementById("tempOfferType").value=offerType;
 				
 				document.getElementById("disc").value=0;
+				document.getElementById("discMin").value=0;
 				appendTableList();
 				document.getElementById("offerCoupon").value="";
 				document.getElementById('offerCoupon').focus();
@@ -1514,6 +1536,7 @@
 					alert("Please select coupon/promo code");
 					document.getElementById("offerCoupon").focus();
 					document.getElementById("disc").value=0;
+					document.getElementById("discMin").value=0;
 					appendTableList();
 				}else{
 					
@@ -1536,6 +1559,9 @@
 						}else{
 							var discPer=document.getElementById("tempDiscPer").value;
 							document.getElementById("disc").value=discPer;
+							
+							var discMinAmt=document.getElementById("tempDiscMinAmt").value;
+							document.getElementById("discMin").value=discMinAmt;
 							
 							appendTableList();
 							$("#error_offercoupon").hide();
@@ -1656,6 +1682,7 @@
 			document.getElementById("offerCoupon").value="";
 			
 			document.getElementById("disc").value=0;
+			document.getElementById("discMin").value=0;
 			appendTableList();
 			
 		}
