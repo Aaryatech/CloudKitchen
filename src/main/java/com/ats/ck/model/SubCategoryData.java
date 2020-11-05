@@ -11,6 +11,7 @@ public class SubCategoryData {
 	private int prodCount;
 
 	List<Images> imageList;
+	List<ItemDisplay> itemList;
 
 	public int getSubCatId() {
 		return subCatId;
@@ -60,10 +61,18 @@ public class SubCategoryData {
 		this.prodCount = prodCount;
 	}
 
+	public List<ItemDisplay> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(List<ItemDisplay> itemList) {
+		this.itemList = itemList;
+	}
+
 	@Override
 	public String toString() {
 		return "SubCategoryData [subCatId=" + subCatId + ", catId=" + catId + ", catName=" + catName + ", subCatName="
-				+ subCatName + ", prodCount=" + prodCount + ", imageList=" + imageList + "]";
+				+ subCatName + ", prodCount=" + prodCount + ", imageList=" + imageList + ", itemList=" + itemList + "]";
 	}
 
 }

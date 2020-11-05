@@ -1004,7 +1004,7 @@
 			if(document.getElementById("takeaway").checked==true){
 				billTotal=finaltotal-discAmt;
 			}
-			alert(billTotal)
+			//alert(billTotal)
 			
 			
 			$("#bill_total").html(billTotal.toFixed(2));
