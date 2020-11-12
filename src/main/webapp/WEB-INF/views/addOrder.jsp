@@ -581,7 +581,7 @@
 
 
 				<div class="disc_pop">
-					<div class="disc_pop_l">
+					<div class="disc_pop_l" id="itemImageDiv">
 						<img src="https://via.placeholder.com/200" alt="">
 					</div>
 					<div class="disc_pop_r">
@@ -938,6 +938,25 @@
 			}
 			$("#discriptionCatName").html(obj.catName);
 			$("#discriptionItemShow").html(obj.itemDesc);
+			
+			var imgPath='${catImageUrl}';
+			console.log("list --> "+obj.imageList);
+			var img="${pageContext.request.contextPath}/resources/assets/img/dashboard_logo.png";
+			var path="${pageContext.request.contextPath}/resources/assets/img/chinese.jpg";
+			
+			if(obj.imageList!=''){
+				img=obj.imageList[0].imageName;
+				path=imgPath+""+img;
+			}
+			//var path=imgPath+""+img;
+			
+			console.log("IMAGE ----- "+path); 
+			
+			 	$("#itemImageDiv").html('<img style="width:200px;height:200px;" src="'+path+'" '+
+					'alt="">'); 
+			
+			
+			
 			
 			var testIngradiant=''; 
 			for(var i=0 ; i<obj.tasteList.length;i++){
