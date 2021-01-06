@@ -17,7 +17,7 @@
 	</listener>
 
 	<!-- Processes application requests -->
-	<servlet>
+	<servlet> 
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -34,7 +34,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<filter>
+	 <filter>
 		<filter-name>noBrowserCacheFilter</filter-name>
 		<filter-class>com.ats.ck.NoBrowserCacheFilter</filter-class>
 	</filter>
