@@ -1112,13 +1112,8 @@ public class OrderController {
 
 						map = new LinkedMultiValueMap<String, Object>();
 
-						/*
-						 * map.add("appId", "7233535973c0dcc4f58af274653327"); map.add("secretKey",
-						 * "44bb412ea48da2acb093573debfdd42306099612");
-						 */
-
-						map.add("appId", "2800447959f7f92f77608613b40082");
-						map.add("secretKey", "7baef9681dc8696e0b4ceeb150e4fb05962fdbe3");
+						map.add("appId", Constants.cashFreeAppId);
+						map.add("secretKey", Constants.cashSecretKey);
 
 						map.add("orderId", uuid);
 						map.add("orderAmount", totalAmt);
@@ -1130,14 +1125,8 @@ public class OrderController {
 						map.add("returnUrl", Constants.softPath + "returnUrl");
 						map.add("notifyUrl", Constants.softPath + "notifyUrl");
 
-						/*
-						 * Body res = Constants.getRestTemplate()
-						 * .postForObject("https://api.cashfree.com/api/v1/order/create", map,
-						 * Body.class);
-						 */
-
-						Body res = Constants.getRestTemplate()
-								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
+						Body res = Constants.getRestTemplate().postForObject(
+								Constants.cashFreeOrderCreateLink + "api/v1/order/create", map, Body.class);
 
 						String subject = "Order Payment Link";
 						String msg = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n"
@@ -1775,12 +1764,12 @@ public class OrderController {
 
 			map = new LinkedMultiValueMap<String, Object>();
 
-			map.add("appId", "7233535973c0dcc4f58af274653327");
-			map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");
+			map.add("appId", Constants.cashFreeAppId);
+			map.add("secretKey", Constants.cashSecretKey);
 			map.add("orderId", getOrderHeaderList.getUuidNo());
 
-			LinkResponse linkResponse = Constants.getRestTemplate()
-					.postForObject("https://api.cashfree.com/api/v1/order/info/link", map, LinkResponse.class);
+			LinkResponse linkResponse = Constants.getRestTemplate().postForObject(
+					Constants.cashFreeOrderCreateLink + "api/v1/order/info/link", map, LinkResponse.class);
 
 			if (linkResponse.getStatus().equals("OK")) {
 
