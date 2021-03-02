@@ -733,7 +733,7 @@ public class OrderController {
 					 * orderDetail.setMrp(itemList.get(j).getMrpAmt()); break; }
 					 * 
 					 * }
-					 */					orderDetailList.add(orderDetail);
+					 */ orderDetailList.add(orderDetail);
 
 				}
 
@@ -764,13 +764,14 @@ public class OrderController {
 
 				Info info = Constants.getRestTemplate().postForObject(Constants.url + "saveCloudOrder", orderSaveData,
 						Info.class);
-				
-				//System.err.println("SAVE ORDER ---------------------- "+orderSaveData);
-				
-				//Gson gson=new Gson();
-				//System.err.println("JSON ===================================== "+gson.toJson(orderSaveData));
-				
-				//Info info=new Info();
+
+				// System.err.println("SAVE ORDER ---------------------- "+orderSaveData);
+
+				// Gson gson=new Gson();
+				// System.err.println("JSON =====================================
+				// "+gson.toJson(orderSaveData));
+
+				// Info info=new Info();
 
 				orderResponse.setError(info.getError());
 
@@ -1111,12 +1112,14 @@ public class OrderController {
 
 						map = new LinkedMultiValueMap<String, Object>();
 
-						map.add("appId", "7233535973c0dcc4f58af274653327");
-						map.add("secretKey", "44bb412ea48da2acb093573debfdd42306099612");
 						/*
 						 * map.add("appId", "7233535973c0dcc4f58af274653327"); map.add("secretKey",
 						 * "44bb412ea48da2acb093573debfdd42306099612");
 						 */
+
+						map.add("appId", "2800447959f7f92f77608613b40082");
+						map.add("secretKey", "7baef9681dc8696e0b4ceeb150e4fb05962fdbe3");
+
 						map.add("orderId", uuid);
 						map.add("orderAmount", totalAmt);
 						map.add("orderCurrency", "INR");
@@ -1127,13 +1130,14 @@ public class OrderController {
 						map.add("returnUrl", Constants.softPath + "returnUrl");
 						map.add("notifyUrl", Constants.softPath + "notifyUrl");
 
-						Body res = Constants.getRestTemplate()
-								.postForObject("https://api.cashfree.com/api/v1/order/create", map, Body.class);
 						/*
 						 * Body res = Constants.getRestTemplate()
 						 * .postForObject("https://api.cashfree.com/api/v1/order/create", map,
 						 * Body.class);
 						 */
+
+						Body res = Constants.getRestTemplate()
+								.postForObject("https://test.cashfree.com/api/v1/order/create", map, Body.class);
 
 						String subject = "Order Payment Link";
 						String msg = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n"
@@ -1280,14 +1284,13 @@ public class OrderController {
 
 							System.err.println("SMS MSG--------------------*");
 
-							
 							msg = val.getSettingValue1();
 							msg = msg.replace("###", liveCustomer.getCustName());// cust name
 							msg = msg.replace("$$$", getOrderHeaderList.getOrderNo());// order no
 							msg = msg.replace("@@@", String.valueOf(totalAmt));// order amount
 							msg = msg.replace("^^^", res.getPaymentLink());// payment link
 
-							SMSUtility.sendSMS(liveCustomer.getPhoneNumber(), msg,"MDVDRY");
+							SMSUtility.sendSMS(liveCustomer.getPhoneNumber(), msg, "MDVDRY");
 
 						} catch (Exception e) {
 						}
@@ -1306,7 +1309,7 @@ public class OrderController {
 				List<String> tokenList = new ArrayList<>(Arrays.asList(list));
 
 				PushNotification.sendNotification(tokenList, "New Order", "You Have New Order.",
-						"http://pos.madhvi.in/pos/showCkOrders", "https://107.180.88.121:8443/CloudKitchen");
+						"https://pos.madhvi.in/pos/showCkOrders", "https://107.180.88.121:8443/CloudKitchen");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2197,25 +2200,25 @@ public class OrderController {
 			model.addAttribute("status", status);
 			model.addAttribute("paid", paid);
 			model.addAttribute("orderId", orderId);
-			
-			if(paid==1) {
+
+			if (paid == 1) {
 				try {
-					
-					String msg="";
+
+					String msg = "";
 					System.err.println("SMS START--------------------*");
-					
+
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("orderUUId", orderId);
 					GetOrderHeaderList getOrderHeaderList = Constants.getRestTemplate()
 							.postForObject(Constants.url + "getOrderHeaderByOrderUUId", map, GetOrderHeaderList.class);
-					
+
 					System.err.println("SMS ORDER--------------------*");
-					
+
 					map = new LinkedMultiValueMap<String, Object>();
 					map.add("custId", getOrderHeaderList.getCustId());
-					CustomerDisplay customer = Constants.getRestTemplate().postForObject(Constants.url + "getCustomerById",
-							map, CustomerDisplay.class);
-					
+					CustomerDisplay customer = Constants.getRestTemplate()
+							.postForObject(Constants.url + "getCustomerById", map, CustomerDisplay.class);
+
 					System.err.println("SMS CUSTOMER--------------------*");
 
 					NewSetting val = new NewSetting();
@@ -2224,25 +2227,23 @@ public class OrderController {
 					map.add("key", "msg_payment_success");
 					map.add("orderId", getOrderHeaderList.getOrderId());
 
-					val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey",
-							map, NewSetting.class);
+					val = Constants.getRestTemplate().postForObject(Constants.url + "getNewSettingsValueByKey", map,
+							NewSetting.class);
 
 					System.err.println("SMS MSG--------------------*");
-					
+
 					msg = val.getSettingValue1();
 					msg = msg.replace("###", customer.getCustName());// cust name
 					msg = msg.replace("$$$", getOrderHeaderList.getOrderNo());// order no
 					msg = msg.replace("@@@", String.valueOf(getOrderHeaderList.getTotalAmt()));// order amount
-					//msg = msg.replace("^^^", res.getPaymentLink());// payment link
+					// msg = msg.replace("^^^", res.getPaymentLink());// payment link
 
-					SMSUtility.sendSMS(customer.getPhoneNumber(), msg,"MDVDRY");
+					SMSUtility.sendSMS(customer.getPhoneNumber(), msg, "MDVDRY");
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();

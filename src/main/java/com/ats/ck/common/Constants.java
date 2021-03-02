@@ -6,14 +6,14 @@ import org.springframework.web.client.RestTemplate;
 public class Constants {
 
 	//CASHFREE REDIRECT URL - 
-	//public static final String softPath = "http://localhost:8080/ck/";
-	public static final String softPath = "https://pos.madhvi.in/CloudKitchen/";
+	public static final String softPath = "http://localhost:8080/ck/";
+	//public static final String softPath = "https://pos.madhvi.in/CloudKitchen/";
 	
 	//--------------------------------------------------------------
 	
 	//API URL
-	//public static final String url = "http://localhost:8095/";
-	public static final String url = "http://107.180.91.43:8080/ckwebapi/";
+	public static final String url = "http://localhost:8095/";
+	//public static final String url = "http://107.180.91.43:8080/ckwebapi/";
 	
 	//-----------------------------------------------------------------
 
