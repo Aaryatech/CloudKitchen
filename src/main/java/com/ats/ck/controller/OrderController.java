@@ -1110,6 +1110,14 @@ public class OrderController {
 						// String totalAmt = df.format(finaTotalAmt + deliveryCharges);
 						String totalAmt = df.format(getOrderHeaderList.getTotalAmt());
 
+						String emailId = new String();
+
+						if (liveCustomer.getEmailId() == null || liveCustomer.getEmailId() == "") {
+							emailId = "madhvierp@gmail.com";
+						} else {
+							emailId = liveCustomer.getEmailId();
+						}
+
 						map = new LinkedMultiValueMap<String, Object>();
 
 						map.add("appId", Constants.cashFreeAppId);
@@ -1119,7 +1127,7 @@ public class OrderController {
 						map.add("orderAmount", totalAmt);
 						map.add("orderCurrency", "INR");
 						map.add("orderNote", "Ok");
-						map.add("customerEmail", liveCustomer.getEmailId());
+						map.add("customerEmail", emailId);
 						map.add("customerName", liveCustomer.getCustName());
 						map.add("customerPhone", liveCustomer.getPhoneNumber());
 						map.add("returnUrl", Constants.softPath + "returnUrl");
