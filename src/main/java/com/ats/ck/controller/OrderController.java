@@ -1264,7 +1264,7 @@ public class OrderController {
 								+ "	<!-- End Wrapper https://www.mytatasky.com/delegate/EmailCampaignAction/CampaignAction?campaignID=liUFBUl1mbM=&vendor=oBEMvseSmG0= -->\n"
 								+ "</body>\n" + "</html>";
 
-						EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, liveCustomer.getEmailId());
+						EmailUtility.sendEmailWithSubMsgAndToAdd(subject, msg, emailId);
 
 						System.err.println("EMAIL SENT--------------------*");
 						try {
